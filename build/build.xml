@@ -49,6 +49,8 @@
             <arg line="-o ${DOCUMENTATION_DIR}/html"/>
             <arg line="-t yuidoc/template"/>
             <arg line="-v ${VERSION}"/>
+            <arg line="-m 'Terrific JavaScript Framework'"/>
+            <arg line="-u 'http://www.terrificjs.org'"/>
             <arg line="-Y 2"/>
         </exec>
         <echo message="YUI documentation built."/>

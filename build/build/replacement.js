@@ -9,7 +9,7 @@ var script = readFile(file);
 
 script = script.replace("@YEAR", date.getFullYear());
 script = script.replace("@VERSION", version);
-script = script.replace("@DATE", date.toGMTString());
+script = script.replace("@DATE", date.toUTCString());
 
 // remove log statements
 script = script.replace(/\$\.log\..+\(.+\);/ig,"");

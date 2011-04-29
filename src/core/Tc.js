@@ -1,5 +1,5 @@
 /**
- * Terrific JavaScript Library v@VERSION
+ * Terrific JavaScript Framework v@VERSION
  * http://terrificjs.org
  *
  * Copyright @YEAR, Remo Brunschwiler
