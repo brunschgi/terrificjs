@@ -73,7 +73,7 @@
  * Dual licensed under the MIT or GPL Version 2 licenses.
  * http://terrificjs.org/license
  *
- * Date: Fri, 29 Apr 2011 18:18:33 GMT
+ * Date: Fri, 29 Apr 2011 18:23:57 GMT
  *
  * @module Tc
  * 
