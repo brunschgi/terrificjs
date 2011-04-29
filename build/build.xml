@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project default="all" basedir=".">
+
+    <!-- release variables -->
+    <property name="VERSION" value="1.0.0" description="Version"/>
+
+    <!-- paths -->
+    <property name="TERRIFIC_DIR" value="../public" description="Terrific Source Folder"/>
+    <property name="BUILD_DIR" value="build" description="Files for parsing etc."/>
+    <property name="JSMIN_JAR" value="js.jar" description="Rhino JS Engine"/>
+    <property name="YUICOMPRESSOR_JAR" value="yuicompressor-2.4.2.jar" description="YUI Compressor"/>
+
+    <property name="RELEASE_DIR" value="../release/${VERSION}" description="Folder for release files"/>
+    <property name="DOCUMENTATION_DIR" value="../release/${VERSION}/docs" description="Folder for the API documentation"/>
+
+    <!-- file names -->
+    <property name="JS" value="terrific-${VERSION}.js"/>
+    <property name="JSMIN" value="terrific-${VERSION}.min.js"/>
+
+    <!-- main js (full version) -->
+    <target name="fulljs" description="Main build, concatenates source files and replaces @VERSION">
+        <echo message="Building ${Tc_JS}"/>
+        <mkdir dir="${RELEASE_DIR}"/>
+        <concat destfile="${RELEASE_DIR}/${JS}.tmp" encoding="UTF-8">
+            <fileset dir="${TERRIFIC_DIR}/src/core" includes="Tc.js"/>
+            <fileset dir="${TERRIFIC_DIR}/src/core" includes="Tc.Config.js"/>
+            <fileset dir="${TERRIFIC_DIR}/src/core" includes="Tc.Application.js"/>
+            <fileset dir="${TERRIFIC_DIR}/src/core" includes="Tc.Module.js"/>
+            <fileset dir="${TERRIFIC_DIR}/src/core" includes="Tc.Layout.js"/>
+            <fileset dir="${TERRIFIC_DIR}/src/core" includes="Tc.Connector.js"/>
+            <fileset dir="${TERRIFIC_DIR}/src/core" includes="Tc.Sandbox.js"/>
+            <fileset dir="${TERRIFIC_DIR}/src/core" includes="Tc.Utils.String.js"/>
+            <fileset dir="${TERRIFIC_DIR}/src/core" includes="Tc.Utils.js"/>
+        </concat>
+        <java jar="${JSMIN_JAR}" fork="true">
+            <arg value="${BUILD_DIR}/version.js"/>
+            <arg value="${RELEASE_DIR}/${JS}.tmp"/>
+            <arg value="${VERSION}"/>
+        </java>
+        <echo message="${JS}.tmp built."/>
+        <concat destfile="${RELEASE_DIR}/${JS}" encoding="UTF-8">
+            <fileset dir="${RELEASE_DIR}/${JS}.tmp" includes="Tc.js"/>
+            <fileset dir="${TERRIFIC_DIR}/src/core" includes="oo.js"/>
+        </concat>
+        <delete file="${JS}.tmp"/>
+        <echo message="${JS} built."/>
+    </target>
+
+    <!-- yui doc  -->
+    <target name="yuidoc" description="Generates the javascript YUI documentation for the sources">
+        <echo message="Building YUI documentation"/>
+        <mkdir dir="${DOCUMENTATION_DIR}"/>
+        <mkdir dir="${DOCUMENTATION_DIR}/output"/>
+        <mkdir dir="${DOCUMENTATION_DIR}/html"/>
+        <exec executable="yuidoc/bin/yuidoc.py">
+            <arg line="${RELEASE_DIR}"/>
+            <arg line="-p ${DOCUMENTATION_DIR}/output"/>
+            <arg line="-o ${DOCUMENTATION_DIR}/html"/>
+            <arg line="-t yuidoc/template"/>
+            <arg line="-v ${VERSION}"/>
+            <arg line="-Y 2"/>
+        </exec>
+        <echo message="YUI documentation built."/>
+    </target>
+
+    <!-- release -->
+    <target name="clean">
+        <delete dir="${RELEASE_DIR}"/>
+    </target>
+
+    <target name="all" depends="clean,fulljs,yuidoc">
+        <delete dir="${RELEASE_DIR}"/>
+        <echo message="Build complete."/>
+    </target>
+
+</project>
