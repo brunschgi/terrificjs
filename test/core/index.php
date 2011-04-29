@@ -3,7 +3,7 @@
     <head>
 		<link rel="stylesheet" type="text/css" href="css/qunit.css" media="screen" />
         <script type="text/javascript" src="../../src/jquery/jquery-1.5.2.min.js"></script>
-        <script type="text/javascript" src="../../src/core/base.js.php?debug=false&cache=false&layout=terrificfull&mode=production&application=/"></script>
+        <script type="text/javascript" src="../../release/1.0.0/js/terrific-1.0.0.min.js"></script>
         <script type="text/javascript" src="js/qunit.js"></script>
 		<script type="text/javascript" src="js/jquery.tmpl.js"></script>
         <script type="text/javascript" src="tests/application.js"></script>

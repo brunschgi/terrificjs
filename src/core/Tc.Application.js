@@ -143,7 +143,7 @@
         /**
          * Unregisters the modules by the given module instances.
          *
-         * @method registerModules
+         * @method unregisterModule
          * @param {Array} modules a list containting the module instances to unregister.
          * @return {void}
          */
@@ -322,3 +322,4 @@
         }
     });
 })(Tc.$);
+

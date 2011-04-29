@@ -1,19 +1,21 @@
 /**
- * Copyright 2000-2010 Namics AG. All rights reserved.
- * http://www.namics.com
- * Code licence http://www.namics.com/licence.txt
+ * Terrific JavaScript Library v@VERSION
+ * http://terrificjs.org
  *
- * Version @VERSION
- * Date @DATE
+ * Copyright @YEAR, Remo Brunschwiler
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://terrificjs.org/license
+ *
+ * Date: @DATE
  *
  * @module Tc
+ * 
  */
-/* 
- * The Tc namespace.
- */
+
 var Tc = Tc || {};
 
 /*
  * The jQuery object.
  */
 Tc.$ = jQuery.noConflict(false);
+
