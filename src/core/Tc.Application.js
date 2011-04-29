@@ -81,7 +81,7 @@
 
             $ctx = $ctx || this.$ctx;
 
-            $('.mod:not([data-lazyinit=true]):not(.mod[data-lazyinit=true] .mod)', $ctx).each(function() {
+            $('.mod', $ctx).each(function() {
                 var $this = $(this);
 
                 /*
