@@ -73,7 +73,7 @@
  * Dual licensed under the MIT or GPL Version 2 licenses.
  * http://terrificjs.org/license
  *
- * Date: Sun, 01 May 2011 05:56:34 GMT
+ * Date: Thu, 05 May 2011 12:14:34 GMT
  *
  * @module Tc
  * 
@@ -367,14 +367,12 @@ Tc.Config = {
                 var modId = modules.length;
                 $node.data('id', modId);
 
-                
                 modules[modId] = new Tc.Module[modName]($node, this.sandbox, modId);
 
                 for (var i = 0, len = skins.length; i < len; i++) {
                     var skinName = skins[i];
 
                     if (Tc.Module[modName][skinName]) {
-                        
                         modules[modId] = modules[modId].getDecoratedModule(modName, skinName);
                     }
                 }
@@ -385,10 +383,8 @@ Tc.Config = {
 
                 return modules[modId];
             }
-            else {
-                
-                return null;
-            }
+
+            return null;
         },
 
         /**
@@ -422,8 +418,6 @@ Tc.Config = {
                 }
 
                 if (connectors[connectorId]) {
-                    
-
                     // the connector observes the component -> attach it as observer
                     component.attachConnector(connectors[connectorId]);
 
@@ -502,9 +496,6 @@ Tc.Config = {
                 application = this.application;
 			
 			if($ctx) {
-                // reset lazyinit flags
-                $('.mod[data-lazyinit=true]', $ctx).removeAttr('data-lazyinit');
-
 				// register modules
 				modules = application.registerModules($ctx);
 			
@@ -597,19 +588,15 @@ Tc.Config = {
             type = type || 'plugin';
 
             if (that.dependencies[dependency] && that.dependencies[dependency].state === 'requested') { // requested (but loading not finished)
-                
-                
                 // the module should be notified, if the dependency has loaded
                 that.dependencies[dependency].callbacks.push(function() {
                     callback(phase);
                 });
             }
             else if (that.dependencies[dependency] && that.dependencies[dependency].state === 'loaded') { // loading finished
-                
                 callback(phase);
             }
             else {
-                
                 that.dependencies[dependency] = {
                     state: 'requested',
                     callbacks: []
@@ -627,17 +614,16 @@ Tc.Config = {
                         path = '';
                         break;
                     case 'default':
-                        
+                        path = '';
                         break;
                 }
                 
                 // load the appropriate dependency
                 $.ajax({
-                    url: '' + path + dependency,
+                    url: path + dependency,
                     dataType: 'script',
                     cache: true,
                     success: function() {
-                        
                         that.dependencies[dependency].state = 'loaded';
                         callback(phase);
                         
@@ -646,9 +632,6 @@ Tc.Config = {
                         for (var i = 0; i < callbacks.length; i++) {
                             callbacks[i]();
                         }
-                    },
-                    error: function() {
-                        
                     }
                 });
             }
@@ -731,7 +714,7 @@ Tc.Config = {
             this.dependencyCounter = {
                 beforeBinding: 0,
                 onBinding: 1, // not 0, because of the beforeBinding callback (which is also a dependency)
-                afterBinding: 0
+                afterBinding: 1 // not 0, because a completed onBinding phase is required (which is also a dependency)
             };
 
             /**
@@ -751,19 +734,12 @@ Tc.Config = {
          * @return {void}
          */
         start: function() {
-            var that = this;
-
             // call the hook method dependecies from the concrete implementation
             if (this.dependencies) {
-                this.dependencyCounter.beforeBinding++;
                 this.dependencies();
-                this.dependencyCounter.beforeBinding--;
             }
 
-            // start the before binding phase if there are no dependency for this phase
-            this.checkDependencies('beforeBinding', function() {
-                that.initBeforeBinding();
-            });
+            this.initBeforeBinding();
         },
 
         /**
@@ -789,17 +765,20 @@ Tc.Config = {
         initBeforeBinding: function() {
             var that = this;
 
-            // call the hook method beforeBinding from the concrete implementation
-            // because there might be some ajax calls, the bindEvents method must be called from
-            // the beforeBinding function after it has been run
-            if (this.beforeBinding) {
-                this.beforeBinding(function() {
+             // start the before binding phase if there are no dependency for this phase
+            this.checkDependencies('beforeBinding', function() {
+                // call the hook method beforeBinding from the concrete implementation
+                // because there might be some ajax calls, the bindEvents method must be called from
+                // the beforeBinding function after it has been run
+                if (that.beforeBinding) {
+                    that.beforeBinding(function() {
+                        that.beforeBindingCallback();
+                    });
+                }
+                else {
                     that.beforeBindingCallback();
-                });
-            }
-            else {
-                this.beforeBindingCallback();
-            }
+                }
+            });
         },
 
         /**
@@ -809,15 +788,9 @@ Tc.Config = {
          * @return {void}
          */
         beforeBindingCallback: function() {
-            var that = this;
-
             // decrement the dependency counter for the on binding phase
             this.dependencyCounter.onBinding--;
-
-            // start the on binding phase if there are no dependencies for this phase
-            this.checkDependencies('onBinding',function() {
-                that.initOnBinding();
-            });
+            this.initOnBinding();
         },
 
         /**
@@ -829,13 +802,15 @@ Tc.Config = {
         initOnBinding: function() {
             var that = this;
 
-            // call the hook method bindEvents from the concrete implementation
-            if (this.onBinding) {
-                this.onBinding();
-            }
+            // start the on binding phase if there are no dependencies for this phase
+            this.checkDependencies('onBinding',function() {
+                // call the hook method bindEvents from the concrete implementation
+                if (that.onBinding) {
+                    that.onBinding();
+                }
 
-            // start the after binding phase if there are no dependencies for this phase
-            this.checkDependencies('afterBinding', function() {
+                // decrement the dependency counter for the after binding phase
+                that.dependencyCounter.afterBinding--;
                 that.initAfterBinding();
             });
         },
@@ -849,13 +824,16 @@ Tc.Config = {
         initAfterBinding: function() {
             var that = this;
 
-            // inform the sandbox that the module is ready for the after binding phase
-            this.sandbox.readyForAfterBinding(function() {
+            // start the after binding phase if there are no dependencies for this phase
+            this.checkDependencies('afterBinding', function() {
+                // inform the sandbox that the module is ready for the after binding phase
+                that.sandbox.readyForAfterBinding(function() {
 
-                // call the hook method afterBinding from the concrete implementation
-                if (that.afterBinding) {
-                    that.afterBinding();
-                }
+                    // call the hook method afterBinding from the concrete implementation
+                    if (that.afterBinding) {
+                        that.afterBinding();
+                    }
+                });
             });
         },
 
@@ -886,7 +864,6 @@ Tc.Config = {
          * @return {void}
          */
         require: function(dependency, type, phase, executeCallback) {
-            
             type = type || 'plugin';
             phase = phase || 'onBinding';
             executeCallback = executeCallback === false ? false : true;
@@ -901,9 +878,7 @@ Tc.Config = {
 
                     // decrement the dependency counter for the appropriate phase
                     this.dependencyCounter[phase]--;
-                    this.checkDependencies(phase, function() {
-                        that['init' + Tc.Utils.String.capitalize(phase)]();
-                    });
+                    that['init' + Tc.Utils.String.capitalize(phase)]();
                 }
             }, this.sandbox.getModuleById(this.modId));
 
@@ -981,10 +956,8 @@ Tc.Config = {
 
                 return new decorator(this);
             }
-            else {
-                
-                return null;
-            }
+
+            return null;
         }
     });
 })(Tc.$);

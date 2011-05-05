@@ -1,12 +1,15 @@
 /**
  * Terrific JavaScript Framework v@VERSION
- * http://terrificjs.org
+ * http://terrifically.org
  *
  * Copyright @YEAR, Remo Brunschwiler
- * Dual licensed under the MIT or GPL Version 2 licenses.
- * http://terrificjs.org/license
+ * MIT Licensed.
  *
  * Date: @DATE
+ *
+ * Includes Simple JavaScript Inheritance
+ * By John Resig http://ejohn.org/
+ * MIT Licensed.
  *
  * @module Tc
  * 

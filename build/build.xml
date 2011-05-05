@@ -6,6 +6,7 @@
 
     <!-- paths -->
     <property name="TERRIFIC_DIR" value="../src/core/" description="Terrific Source Folder"/>
+    <property name="TMP_DIR" value="tmp" description="Folder for temporary files"/>
     <property name="BUILD_DIR" value="build" description="Files for parsing etc."/>
     <property name="JS_JAR" value="js.jar" description="Rhino JS Engine"/>
     <property name="RELEASE_DIR" value="../release/${VERSION}" description="Folder for release files"/>
@@ -18,8 +19,10 @@
     <!-- terrific js (full version) -->
     <target name="fulljs" description="Main build, concatenates source files and replaces @VERSION">
         <echo message="Building ${JS}"/>
-        <mkdir dir="${RELEASE_DIR}"/>
-        <concat fixlastline="yes" destfile="${RELEASE_DIR}/js/${JS}" encoding="UTF-8">
+        <mkdir dir="${TMP_DIR}"/>
+        <mkdir dir="${TMP_DIR}/js"/>
+        <concat fixlastline="yes" destfile="${TMP_DIR}/js/${JS}" encoding="UTF-8">
+            <fileset dir="${TERRIFIC_DIR}" includes="oo.js"/>
             <fileset dir="${TERRIFIC_DIR}" includes="Tc.js"/>
             <fileset dir="${TERRIFIC_DIR}" includes="Tc.Config.js"/>
             <fileset dir="${TERRIFIC_DIR}" includes="Tc.Application.js"/>
@@ -31,7 +34,7 @@
         </concat>
         <java jar="${JS_JAR}" fork="true">
             <arg value="${BUILD_DIR}/replacement.js"/>
-            <arg value="${RELEASE_DIR}/js/${JS}"/>
+            <arg value="${TMP_DIR}/js/${JS}"/>
             <arg value="${VERSION}"/>
         </java>
         <echo message="${JS} built."/>
@@ -40,17 +43,17 @@
     <!-- yui doc  -->
     <target name="yuidoc" description="Generates the javascript YUI documentation from the sources">
         <echo message="Building YUI documentation"/>
+        <mkdir dir="${RELEASE_DIR}"/>
         <mkdir dir="${DOCUMENTATION_DIR}"/>
-        <mkdir dir="${DOCUMENTATION_DIR}/output"/>
-        <mkdir dir="${DOCUMENTATION_DIR}/html"/>
+        <mkdir dir="${TMP_DIR}/output"/>
         <exec executable="yuidoc/bin/yuidoc.py">
-            <arg line="${RELEASE_DIR}/js"/>
-            <arg line="-p ${DOCUMENTATION_DIR}/output"/>
-            <arg line="-o ${DOCUMENTATION_DIR}/html"/>
+            <arg line="${TMP_DIR}/js"/>
+            <arg line="-p ${TMP_DIR}/output"/>
+            <arg line="-o ${DOCUMENTATION_DIR}"/>
             <arg line="-t yuidoc/template"/>
             <arg line="-v ${VERSION}"/>
             <arg line="-m 'Terrific JavaScript Framework'"/>
-            <arg line="-u 'http://www.terrificjs.org'"/>
+            <arg line="-u 'http://www.terrifically.org'"/>
             <arg line="-Y 2"/>
         </exec>
         <echo message="YUI documentation built."/>
@@ -58,40 +61,22 @@
 
     <!-- release -->
     <target name="clean">
+        <delete dir="${TMP_DIR}"/>
         <delete dir="${RELEASE_DIR}"/>
     </target>
 
     <!-- terrific js (minified version) -->
     <target name="minjs" description="Minifies the main build by using UglifyJS">
+        <move file="${TMP_DIR}/js/${JS}" tofile="${RELEASE_DIR}/${JS}"/>
+        <delete dir="${TMP_DIR}"/>
         <exec executable="uglifyjs">
-            <arg line="-o ${RELEASE_DIR}/js/${JS_MIN}"/>
-            <arg line="${RELEASE_DIR}/js/${JS}"/>
+            <arg line="-o ${RELEASE_DIR}/${JS_MIN}"/>
+            <arg line="${RELEASE_DIR}/${JS}"/>
         </exec>
         <echo message="${JS_MIN} built."/>
     </target>
 
-    <!-- OO stuff -->
-    <target name="oo" description="Minifies and adds the oo script from John Resig to both versions ">
-        <exec executable="uglifyjs">
-            <arg line="-o ${RELEASE_DIR}/js/oo.min.js"/>
-            <arg line="${TERRIFIC_DIR}/oo.js"/>
-        </exec>
-        <echo message="OO minified."/>
-        <concat fixlastline="yes" destfile="${RELEASE_DIR}/js/${JS}.tmp" encoding="UTF-8">
-            <fileset dir="${TERRIFIC_DIR}" includes="oo.js"/>
-            <fileset dir="${RELEASE_DIR}/js" includes="${JS}"/>
-        </concat>
-        <concat fixlastline="yes" destfile="${RELEASE_DIR}/js/${JS_MIN}.tmp" encoding="UTF-8">
-            <fileset dir="${RELEASE_DIR}/js" includes="oo.min.js"/>
-            <fileset dir="${RELEASE_DIR}/js" includes="${JS_MIN}"/>
-        </concat>
-        <delete file="${RELEASE_DIR}/js/oo.min.js"/>
-        <move file="${RELEASE_DIR}/js/${JS}.tmp" tofile="${RELEASE_DIR}/js/${JS}"/>
-        <move file="${RELEASE_DIR}/js/${JS_MIN}.tmp" tofile="${RELEASE_DIR}/js/${JS_MIN}"/>
-        <echo message="OO added."/>
-    </target>
-
-    <target name="all" depends="clean,fulljs,yuidoc,minjs,oo">
+    <target name="all" depends="clean,fulljs,yuidoc,minjs">
         <echo message="Build complete."/>
     </target>
 

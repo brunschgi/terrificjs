@@ -4,11 +4,11 @@
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 	<title>API: Tc   terrific-1.0.0.js  (TerrificJS)</title>
 
-	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css?stamp=1304229396.6" />
-	<link rel="stylesheet" type="text/css" href="assets/api.css?stamp=1304229396.6" />
+	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css?stamp=1304597685.73" />
+	<link rel="stylesheet" type="text/css" href="assets/api.css?stamp=1304597685.73" />
 
-    <script type="text/javascript" src="assets/api-js?stamp=1304229396.6"></script>
-    <script type="text/javascript" src="assets/ac-js?stamp=1304229396.6"></script>
+    <script type="text/javascript" src="assets/api-js?stamp=1304597685.73"></script>
+    <script type="text/javascript" src="assets/ac-js?stamp=1304597685.73"></script>
 </head>
 
 <body id="yahoo-com">
@@ -55,7 +55,7 @@
 <span class="cm"> * Dual licensed under the MIT or GPL Version 2 licenses.</span>
 <span class="cm"> * http://terrificjs.org/license</span>
 <span class="cm"> *</span>
-<span class="cm"> * Date: Sun, 01 May 2011 05:56:34 GMT</span>
+<span class="cm"> * Date: Thu, 05 May 2011 12:14:34 GMT</span>
 <span class="cm"> *</span>
 <span class="cm"> * @module Tc</span>
 <span class="cm"> * </span>
@@ -349,14 +349,12 @@
                 <span class="kd">var</span> <span class="nx">modId</span> <span class="o">=</span> <span class="nx">modules</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
                 <span class="nx">$node</span><span class="p">.</span><span class="nx">data</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="nx">modId</span><span class="p">);</span>
 
-                
                 <span class="nx">modules</span><span class="p">[</span><span class="nx">modId</span><span class="p">]</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Tc</span><span class="p">.</span><span class="nx">Module</span><span class="p">[</span><span class="nx">modName</span><span class="p">](</span><span class="nx">$node</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">sandbox</span><span class="p">,</span> <span class="nx">modId</span><span class="p">);</span>
 
                 <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">len</span> <span class="o">=</span> <span class="nx">skins</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">len</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
                     <span class="kd">var</span> <span class="nx">skinName</span> <span class="o">=</span> <span class="nx">skins</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
 
                     <span class="k">if</span> <span class="p">(</span><span class="nx">Tc</span><span class="p">.</span><span class="nx">Module</span><span class="p">[</span><span class="nx">modName</span><span class="p">][</span><span class="nx">skinName</span><span class="p">])</span> <span class="p">{</span>
-                        
                         <span class="nx">modules</span><span class="p">[</span><span class="nx">modId</span><span class="p">]</span> <span class="o">=</span> <span class="nx">modules</span><span class="p">[</span><span class="nx">modId</span><span class="p">].</span><span class="nx">getDecoratedModule</span><span class="p">(</span><span class="nx">modName</span><span class="p">,</span> <span class="nx">skinName</span><span class="p">);</span>
                     <span class="p">}</span>
                 <span class="p">}</span>
@@ -367,10 +365,8 @@
 
                 <span class="k">return</span> <span class="nx">modules</span><span class="p">[</span><span class="nx">modId</span><span class="p">];</span>
             <span class="p">}</span>
-            <span class="k">else</span> <span class="p">{</span>
-                
-                <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
-            <span class="p">}</span>
+
+            <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
         <span class="p">},</span>
 
         <span class="cm">/**</span>
@@ -404,8 +400,6 @@
                 <span class="p">}</span>
 
                 <span class="k">if</span> <span class="p">(</span><span class="nx">connectors</span><span class="p">[</span><span class="nx">connectorId</span><span class="p">])</span> <span class="p">{</span>
-                    
-
                     <span class="c1">// the connector observes the component -&gt; attach it as observer</span>
                     <span class="nx">component</span><span class="p">.</span><span class="nx">attachConnector</span><span class="p">(</span><span class="nx">connectors</span><span class="p">[</span><span class="nx">connectorId</span><span class="p">]);</span>
 
@@ -484,9 +478,6 @@
                 <span class="nx">application</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">application</span><span class="p">;</span>
 			
 			<span class="k">if</span><span class="p">(</span><span class="nx">$ctx</span><span class="p">)</span> <span class="p">{</span>
-                <span class="c1">// reset lazyinit flags</span>
-                <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.mod[data-lazyinit=true]&#39;</span><span class="p">,</span> <span class="nx">$ctx</span><span class="p">).</span><span class="nx">removeAttr</span><span class="p">(</span><span class="s1">&#39;data-lazyinit&#39;</span><span class="p">);</span>
-
 				<span class="c1">// register modules</span>
 				<span class="nx">modules</span> <span class="o">=</span> <span class="nx">application</span><span class="p">.</span><span class="nx">registerModules</span><span class="p">(</span><span class="nx">$ctx</span><span class="p">);</span>
 			
@@ -579,19 +570,15 @@
             <span class="nx">type</span> <span class="o">=</span> <span class="nx">type</span> <span class="o">||</span> <span class="s1">&#39;plugin&#39;</span><span class="p">;</span>
 
             <span class="k">if</span> <span class="p">(</span><span class="nx">that</span><span class="p">.</span><span class="nx">dependencies</span><span class="p">[</span><span class="nx">dependency</span><span class="p">]</span> <span class="o">&amp;&amp;</span> <span class="nx">that</span><span class="p">.</span><span class="nx">dependencies</span><span class="p">[</span><span class="nx">dependency</span><span class="p">].</span><span class="nx">state</span> <span class="o">===</span> <span class="s1">&#39;requested&#39;</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// requested (but loading not finished)</span>
-                
-                
                 <span class="c1">// the module should be notified, if the dependency has loaded</span>
                 <span class="nx">that</span><span class="p">.</span><span class="nx">dependencies</span><span class="p">[</span><span class="nx">dependency</span><span class="p">].</span><span class="nx">callbacks</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
                     <span class="nx">callback</span><span class="p">(</span><span class="nx">phase</span><span class="p">);</span>
                 <span class="p">});</span>
             <span class="p">}</span>
             <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">that</span><span class="p">.</span><span class="nx">dependencies</span><span class="p">[</span><span class="nx">dependency</span><span class="p">]</span> <span class="o">&amp;&amp;</span> <span class="nx">that</span><span class="p">.</span><span class="nx">dependencies</span><span class="p">[</span><span class="nx">dependency</span><span class="p">].</span><span class="nx">state</span> <span class="o">===</span> <span class="s1">&#39;loaded&#39;</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// loading finished</span>
-                
                 <span class="nx">callback</span><span class="p">(</span><span class="nx">phase</span><span class="p">);</span>
             <span class="p">}</span>
             <span class="k">else</span> <span class="p">{</span>
-                
                 <span class="nx">that</span><span class="p">.</span><span class="nx">dependencies</span><span class="p">[</span><span class="nx">dependency</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
                     <span class="nx">state</span><span class="o">:</span> <span class="s1">&#39;requested&#39;</span><span class="p">,</span>
                     <span class="nx">callbacks</span><span class="o">:</span> <span class="p">[]</span>
@@ -609,17 +596,16 @@
                         <span class="nx">path</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
                         <span class="k">break</span><span class="p">;</span>
                     <span class="k">case</span> <span class="s1">&#39;default&#39;</span><span class="o">:</span>
-                        
+                        <span class="nx">path</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
                         <span class="k">break</span><span class="p">;</span>
                 <span class="p">}</span>
                 
                 <span class="c1">// load the appropriate dependency</span>
                 <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
-                    <span class="nx">url</span><span class="o">:</span> <span class="s1">&#39;&#39;</span> <span class="o">+</span> <span class="nx">path</span> <span class="o">+</span> <span class="nx">dependency</span><span class="p">,</span>
+                    <span class="nx">url</span><span class="o">:</span> <span class="nx">path</span> <span class="o">+</span> <span class="nx">dependency</span><span class="p">,</span>
                     <span class="nx">dataType</span><span class="o">:</span> <span class="s1">&#39;script&#39;</span><span class="p">,</span>
                     <span class="nx">cache</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
                     <span class="nx">success</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-                        
                         <span class="nx">that</span><span class="p">.</span><span class="nx">dependencies</span><span class="p">[</span><span class="nx">dependency</span><span class="p">].</span><span class="nx">state</span> <span class="o">=</span> <span class="s1">&#39;loaded&#39;</span><span class="p">;</span>
                         <span class="nx">callback</span><span class="p">(</span><span class="nx">phase</span><span class="p">);</span>
                         
@@ -628,9 +614,6 @@
                         <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">callbacks</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
                             <span class="nx">callbacks</span><span class="p">[</span><span class="nx">i</span><span class="p">]();</span>
                         <span class="p">}</span>
-                    <span class="p">},</span>
-                    <span class="nx">error</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-                        
                     <span class="p">}</span>
                 <span class="p">});</span>
             <span class="p">}</span>
@@ -713,7 +696,7 @@
             <span class="k">this</span><span class="p">.</span><span class="nx">dependencyCounter</span> <span class="o">=</span> <span class="p">{</span>
                 <span class="nx">beforeBinding</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
                 <span class="nx">onBinding</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="c1">// not 0, because of the beforeBinding callback (which is also a dependency)</span>
-                <span class="nx">afterBinding</span><span class="o">:</span> <span class="mi">0</span>
+                <span class="nx">afterBinding</span><span class="o">:</span> <span class="mi">1</span> <span class="c1">// not 0, because a completed onBinding phase is required (which is also a dependency)</span>
             <span class="p">};</span>
 
             <span class="cm">/**</span>
@@ -733,19 +716,12 @@
 <span class="cm">         * @return {void}</span>
 <span class="cm">         */</span>
         <span class="nx">start</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-            <span class="kd">var</span> <span class="nx">that</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
-
             <span class="c1">// call the hook method dependecies from the concrete implementation</span>
             <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">dependencies</span><span class="p">)</span> <span class="p">{</span>
-                <span class="k">this</span><span class="p">.</span><span class="nx">dependencyCounter</span><span class="p">.</span><span class="nx">beforeBinding</span><span class="o">++</span><span class="p">;</span>
                 <span class="k">this</span><span class="p">.</span><span class="nx">dependencies</span><span class="p">();</span>
-                <span class="k">this</span><span class="p">.</span><span class="nx">dependencyCounter</span><span class="p">.</span><span class="nx">beforeBinding</span><span class="o">--</span><span class="p">;</span>
             <span class="p">}</span>
 
-            <span class="c1">// start the before binding phase if there are no dependency for this phase</span>
-            <span class="k">this</span><span class="p">.</span><span class="nx">checkDependencies</span><span class="p">(</span><span class="s1">&#39;beforeBinding&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-                <span class="nx">that</span><span class="p">.</span><span class="nx">initBeforeBinding</span><span class="p">();</span>
-            <span class="p">});</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">initBeforeBinding</span><span class="p">();</span>
         <span class="p">},</span>
 
         <span class="cm">/**</span>
@@ -771,17 +747,20 @@
         <span class="nx">initBeforeBinding</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
             <span class="kd">var</span> <span class="nx">that</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
 
-            <span class="c1">// call the hook method beforeBinding from the concrete implementation</span>
-            <span class="c1">// because there might be some ajax calls, the bindEvents method must be called from</span>
-            <span class="c1">// the beforeBinding function after it has been run</span>
-            <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">beforeBinding</span><span class="p">)</span> <span class="p">{</span>
-                <span class="k">this</span><span class="p">.</span><span class="nx">beforeBinding</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+             <span class="c1">// start the before binding phase if there are no dependency for this phase</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">checkDependencies</span><span class="p">(</span><span class="s1">&#39;beforeBinding&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                <span class="c1">// call the hook method beforeBinding from the concrete implementation</span>
+                <span class="c1">// because there might be some ajax calls, the bindEvents method must be called from</span>
+                <span class="c1">// the beforeBinding function after it has been run</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nx">that</span><span class="p">.</span><span class="nx">beforeBinding</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nx">that</span><span class="p">.</span><span class="nx">beforeBinding</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                        <span class="nx">that</span><span class="p">.</span><span class="nx">beforeBindingCallback</span><span class="p">();</span>
+                    <span class="p">});</span>
+                <span class="p">}</span>
+                <span class="k">else</span> <span class="p">{</span>
                     <span class="nx">that</span><span class="p">.</span><span class="nx">beforeBindingCallback</span><span class="p">();</span>
-                <span class="p">});</span>
-            <span class="p">}</span>
-            <span class="k">else</span> <span class="p">{</span>
-                <span class="k">this</span><span class="p">.</span><span class="nx">beforeBindingCallback</span><span class="p">();</span>
-            <span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">});</span>
         <span class="p">},</span>
 
         <span class="cm">/**</span>
@@ -791,15 +770,9 @@
 <span class="cm">         * @return {void}</span>
 <span class="cm">         */</span>
         <span class="nx">beforeBindingCallback</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-            <span class="kd">var</span> <span class="nx">that</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
-
             <span class="c1">// decrement the dependency counter for the on binding phase</span>
             <span class="k">this</span><span class="p">.</span><span class="nx">dependencyCounter</span><span class="p">.</span><span class="nx">onBinding</span><span class="o">--</span><span class="p">;</span>
-
-            <span class="c1">// start the on binding phase if there are no dependencies for this phase</span>
-            <span class="k">this</span><span class="p">.</span><span class="nx">checkDependencies</span><span class="p">(</span><span class="s1">&#39;onBinding&#39;</span><span class="p">,</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-                <span class="nx">that</span><span class="p">.</span><span class="nx">initOnBinding</span><span class="p">();</span>
-            <span class="p">});</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">initOnBinding</span><span class="p">();</span>
         <span class="p">},</span>
 
         <span class="cm">/**</span>
@@ -811,13 +784,15 @@
         <span class="nx">initOnBinding</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
             <span class="kd">var</span> <span class="nx">that</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
 
-            <span class="c1">// call the hook method bindEvents from the concrete implementation</span>
-            <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">onBinding</span><span class="p">)</span> <span class="p">{</span>
-                <span class="k">this</span><span class="p">.</span><span class="nx">onBinding</span><span class="p">();</span>
-            <span class="p">}</span>
+            <span class="c1">// start the on binding phase if there are no dependencies for this phase</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">checkDependencies</span><span class="p">(</span><span class="s1">&#39;onBinding&#39;</span><span class="p">,</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                <span class="c1">// call the hook method bindEvents from the concrete implementation</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nx">that</span><span class="p">.</span><span class="nx">onBinding</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nx">that</span><span class="p">.</span><span class="nx">onBinding</span><span class="p">();</span>
+                <span class="p">}</span>
 
-            <span class="c1">// start the after binding phase if there are no dependencies for this phase</span>
-            <span class="k">this</span><span class="p">.</span><span class="nx">checkDependencies</span><span class="p">(</span><span class="s1">&#39;afterBinding&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                <span class="c1">// decrement the dependency counter for the after binding phase</span>
+                <span class="nx">that</span><span class="p">.</span><span class="nx">dependencyCounter</span><span class="p">.</span><span class="nx">afterBinding</span><span class="o">--</span><span class="p">;</span>
                 <span class="nx">that</span><span class="p">.</span><span class="nx">initAfterBinding</span><span class="p">();</span>
             <span class="p">});</span>
         <span class="p">},</span>
@@ -831,13 +806,16 @@
         <span class="nx">initAfterBinding</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
             <span class="kd">var</span> <span class="nx">that</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
 
-            <span class="c1">// inform the sandbox that the module is ready for the after binding phase</span>
-            <span class="k">this</span><span class="p">.</span><span class="nx">sandbox</span><span class="p">.</span><span class="nx">readyForAfterBinding</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="c1">// start the after binding phase if there are no dependencies for this phase</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">checkDependencies</span><span class="p">(</span><span class="s1">&#39;afterBinding&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                <span class="c1">// inform the sandbox that the module is ready for the after binding phase</span>
+                <span class="nx">that</span><span class="p">.</span><span class="nx">sandbox</span><span class="p">.</span><span class="nx">readyForAfterBinding</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
 
-                <span class="c1">// call the hook method afterBinding from the concrete implementation</span>
-                <span class="k">if</span> <span class="p">(</span><span class="nx">that</span><span class="p">.</span><span class="nx">afterBinding</span><span class="p">)</span> <span class="p">{</span>
-                    <span class="nx">that</span><span class="p">.</span><span class="nx">afterBinding</span><span class="p">();</span>
-                <span class="p">}</span>
+                    <span class="c1">// call the hook method afterBinding from the concrete implementation</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="nx">that</span><span class="p">.</span><span class="nx">afterBinding</span><span class="p">)</span> <span class="p">{</span>
+                        <span class="nx">that</span><span class="p">.</span><span class="nx">afterBinding</span><span class="p">();</span>
+                    <span class="p">}</span>
+                <span class="p">});</span>
             <span class="p">});</span>
         <span class="p">},</span>
 
@@ -868,7 +846,6 @@
 <span class="cm">         * @return {void}</span>
 <span class="cm">         */</span>
         <span class="nx">require</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">dependency</span><span class="p">,</span> <span class="nx">type</span><span class="p">,</span> <span class="nx">phase</span><span class="p">,</span> <span class="nx">executeCallback</span><span class="p">)</span> <span class="p">{</span>
-            
             <span class="nx">type</span> <span class="o">=</span> <span class="nx">type</span> <span class="o">||</span> <span class="s1">&#39;plugin&#39;</span><span class="p">;</span>
             <span class="nx">phase</span> <span class="o">=</span> <span class="nx">phase</span> <span class="o">||</span> <span class="s1">&#39;onBinding&#39;</span><span class="p">;</span>
             <span class="nx">executeCallback</span> <span class="o">=</span> <span class="nx">executeCallback</span> <span class="o">===</span> <span class="kc">false</span> <span class="o">?</span> <span class="kc">false</span> <span class="o">:</span> <span class="kc">true</span><span class="p">;</span>
@@ -883,9 +860,7 @@
 
                     <span class="c1">// decrement the dependency counter for the appropriate phase</span>
                     <span class="k">this</span><span class="p">.</span><span class="nx">dependencyCounter</span><span class="p">[</span><span class="nx">phase</span><span class="p">]</span><span class="o">--</span><span class="p">;</span>
-                    <span class="k">this</span><span class="p">.</span><span class="nx">checkDependencies</span><span class="p">(</span><span class="nx">phase</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-                        <span class="nx">that</span><span class="p">[</span><span class="s1">&#39;init&#39;</span> <span class="o">+</span> <span class="nx">Tc</span><span class="p">.</span><span class="nx">Utils</span><span class="p">.</span><span class="nb">String</span><span class="p">.</span><span class="nx">capitalize</span><span class="p">(</span><span class="nx">phase</span><span class="p">)]();</span>
-                    <span class="p">});</span>
+                    <span class="nx">that</span><span class="p">[</span><span class="s1">&#39;init&#39;</span> <span class="o">+</span> <span class="nx">Tc</span><span class="p">.</span><span class="nx">Utils</span><span class="p">.</span><span class="nb">String</span><span class="p">.</span><span class="nx">capitalize</span><span class="p">(</span><span class="nx">phase</span><span class="p">)]();</span>
                 <span class="p">}</span>
             <span class="p">},</span> <span class="k">this</span><span class="p">.</span><span class="nx">sandbox</span><span class="p">.</span><span class="nx">getModuleById</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">modId</span><span class="p">));</span>
 
@@ -963,10 +938,8 @@
 
                 <span class="k">return</span> <span class="k">new</span> <span class="nx">decorator</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
             <span class="p">}</span>
-            <span class="k">else</span> <span class="p">{</span>
-                
-                <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
-            <span class="p">}</span>
+
+            <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
         <span class="p">}</span>
     <span class="p">});</span>
 <span class="p">})(</span><span class="nx">Tc</span><span class="p">.</span><span class="nx">$</span><span class="p">);</span>
