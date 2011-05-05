@@ -7,14 +7,15 @@
  *
  * Date: @DATE
  *
- * Includes Simple JavaScript Inheritance
+ * @module Tc
+ *
+ * 
+ * Includes:
+ * Simple JavaScript Inheritance
  * By John Resig http://ejohn.org/
  * MIT Licensed.
- *
- * @module Tc
  * 
  */
-
 var Tc = Tc || {};
 
 /*

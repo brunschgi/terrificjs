@@ -1,23 +1,159 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns:yui="http://yuilibrary.com/rdf/1.0/yui.rdf#">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<title>API: Tc
+Includes:
+Simple JavaScript Inheritance
+By John Resig http://ejohn.org/
+MIT Licensed.   terrific-1.0.0.js  (TerrificJS)</title>
+
+	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css?stamp=1304599042.77" />
+	<link rel="stylesheet" type="text/css" href="assets/api.css?stamp=1304599042.77" />
+
+    <script type="text/javascript" src="assets/api-js?stamp=1304599042.77"></script>
+    <script type="text/javascript" src="assets/ac-js?stamp=1304599042.77"></script>
+</head>
+
+<body id="yahoo-com">
+
+<div id="doc3" class="yui-t2">
+	<div id="hd">
+        <h1><a href="http://www.terrifically.org" title="Terrific JavaScript Framework">Terrific JavaScript Framework</a></h1>
+        <h3>Tc
+Includes:
+Simple JavaScript Inheritance
+By John Resig http://ejohn.org/
+MIT Licensed.&nbsp; <span class="subtitle">1.0.0</span></h3>
+        <a href="./index.html" title="Terrific JavaScript Framework">Terrific JavaScript Framework</a> 
+            &gt; <a href="./module_tcincludessimplejavascriptinheritancebyjohnresighttpejohnorgmitlicensed.html" title="Tc
+Includes:
+Simple JavaScript Inheritance
+By John Resig http://ejohn.org/
+MIT Licensed.">Tc
+Includes:
+Simple JavaScript Inheritance
+By John Resig http://ejohn.org/
+MIT Licensed.</a>
+                
+                 &gt; terrific-1.0.0.js (source view) 
+        <form onsubmit="return false">
+            <div id="propertysearch">
+                Search: <input autocomplete="off" id="searchinput" />
+                <div id="searchresults">
+                    &nbsp;
+                </div>
+            </div>
+        </form>
+	</div>
+
+	<div id="bd">
+		<div id="yui-main">
+			<div class="yui-b">
+            <form action="#" name="yui-classopts-form" method="get" id="yui-classopts-form">
+                <fieldset>
+                    <legend>Filters</legend>
+                <span class="classopts"><input type="checkbox" name="show_private" id="show_private" /> <label for="show_private">Show Private</label></span>
+                <span class="classopts"><input type="checkbox" name="show_protected" id="show_protected" /> <label for="show_protected">Show Protected</label></span>
+                <span class="classopts"><input type="checkbox" name="show_deprecated" id="show_deprecated" /> <label for="show_deprecated">Show Deprecated</label></span>
+                </fieldset>
+            </form>
+
+                    <div id="srcout">
+                        <style>
+                            #doc3 .classopts { display:none; }
+                        </style>
 <div class="highlight"><pre><span class="cm">/**</span>
 <span class="cm"> * Terrific JavaScript Framework v1.0.0</span>
-<span class="cm"> * http://terrificjs.org</span>
+<span class="cm"> * http://terrifically.org</span>
 <span class="cm"> *</span>
 <span class="cm"> * Copyright 2011, Remo Brunschwiler</span>
-<span class="cm"> * Dual licensed under the MIT or GPL Version 2 licenses.</span>
-<span class="cm"> * http://terrificjs.org/license</span>
+<span class="cm"> * MIT Licensed.</span>
 <span class="cm"> *</span>
-<span class="cm"> * Date: Thu, 05 May 2011 12:14:34 GMT</span>
+<span class="cm"> * Date: Thu, 05 May 2011 12:37:20 GMT</span>
 <span class="cm"> *</span>
 <span class="cm"> * @module Tc</span>
+<span class="cm"> *</span>
+<span class="cm"> * </span>
+<span class="cm"> * Includes:</span>
+<span class="cm"> * Simple JavaScript Inheritance</span>
+<span class="cm"> * By John Resig http://ejohn.org/</span>
+<span class="cm"> * MIT Licensed.</span>
 <span class="cm"> * </span>
 <span class="cm"> */</span>
-
 <span class="kd">var</span> <span class="nx">Tc</span> <span class="o">=</span> <span class="nx">Tc</span> <span class="o">||</span> <span class="p">{};</span>
 
 <span class="cm">/*</span>
 <span class="cm"> * The jQuery object.</span>
 <span class="cm"> */</span>
 <span class="nx">Tc</span><span class="p">.</span><span class="nx">$</span> <span class="o">=</span> <span class="nx">jQuery</span><span class="p">.</span><span class="nx">noConflict</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * Simple JavaScript Inheritance</span>
+<span class="cm"> * By John Resig http://ejohn.org/</span>
+<span class="cm"> * MIT Licensed.</span>
+<span class="cm"> *</span>
+<span class="cm"> */</span>
+<span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+    <span class="kd">var</span> <span class="nx">initializing</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span> <span class="nx">fnTest</span> <span class="o">=</span> <span class="sr">/xyz/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="nx">xyz</span><span class="p">;</span> <span class="p">})</span> <span class="o">?</span> <span class="sr">/\b_super\b/</span> <span class="o">:</span> <span class="sr">/.*/</span><span class="p">;</span>
+    
+    <span class="c1">// The base Class implementation (does nothing)</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">Class</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="p">};</span>
+    
+    <span class="c1">// Create a new Class that inherits from this class</span>
+    <span class="nx">Class</span><span class="p">.</span><span class="nx">extend</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">prop</span><span class="p">){</span>
+        <span class="kd">var</span> <span class="nx">_super</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">prototype</span><span class="p">;</span>
+        
+        <span class="c1">// Instantiate a base class (but only create the instance,</span>
+        <span class="c1">// don&#39;t run the init constructor)</span>
+        <span class="nx">initializing</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+        <span class="kd">var</span> <span class="nx">prototype</span> <span class="o">=</span> <span class="k">new</span> <span class="k">this</span><span class="p">();</span>
+        <span class="nx">initializing</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+        
+        <span class="c1">// Copy the properties over onto the new prototype</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">name</span> <span class="k">in</span> <span class="nx">prop</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c1">// Check if we&#39;re overwriting an existing function</span>
+            <span class="nx">prototype</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span> <span class="o">=</span> <span class="k">typeof</span> <span class="nx">prop</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;function&quot;</span> <span class="o">&amp;&amp;</span>
+            <span class="k">typeof</span> <span class="nx">_super</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;function&quot;</span> <span class="o">&amp;&amp;</span>
+            <span class="nx">fnTest</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">prop</span><span class="p">[</span><span class="nx">name</span><span class="p">])</span> <span class="o">?</span> <span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">fn</span><span class="p">){</span>
+                <span class="k">return</span> <span class="kd">function</span><span class="p">(){</span>
+                    <span class="kd">var</span> <span class="nx">tmp</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">_super</span><span class="p">;</span>
+                    
+                    <span class="c1">// Add a new ._super() method that is the same method</span>
+                    <span class="c1">// but on the super-class</span>
+                    <span class="k">this</span><span class="p">.</span><span class="nx">_super</span> <span class="o">=</span> <span class="nx">_super</span><span class="p">[</span><span class="nx">name</span><span class="p">];</span>
+                    
+                    <span class="c1">// The method only need to be bound temporarily, so we</span>
+                    <span class="c1">// remove it when we&#39;re done executing</span>
+                    <span class="kd">var</span> <span class="nx">ret</span> <span class="o">=</span> <span class="nx">fn</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">arguments</span><span class="p">);</span>
+                    <span class="k">this</span><span class="p">.</span><span class="nx">_super</span> <span class="o">=</span> <span class="nx">tmp</span><span class="p">;</span>
+                    
+                    <span class="k">return</span> <span class="nx">ret</span><span class="p">;</span>
+                <span class="p">};</span>
+            <span class="p">})(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">prop</span><span class="p">[</span><span class="nx">name</span><span class="p">])</span> <span class="o">:</span> <span class="nx">prop</span><span class="p">[</span><span class="nx">name</span><span class="p">];</span>
+        <span class="p">}</span>
+        
+        <span class="c1">// The dummy class constructor</span>
+        <span class="kd">function</span> <span class="nx">Class</span><span class="p">(){</span>
+            <span class="c1">// All construction is actually done in the init method</span>
+            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">initializing</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">init</span><span class="p">)</span> <span class="p">{</span>
+				<span class="k">this</span><span class="p">.</span><span class="nx">init</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">arguments</span><span class="p">);</span>
+			<span class="p">}</span>
+        <span class="p">}</span>
+        
+        <span class="c1">// Populate our constructed prototype object</span>
+        <span class="nx">Class</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="nx">prototype</span><span class="p">;</span>
+        
+        <span class="c1">// Enforce the constructor to be what we expect</span>
+        <span class="nx">Class</span><span class="p">.</span><span class="nx">constructor</span> <span class="o">=</span> <span class="nx">Class</span><span class="p">;</span>
+        
+        <span class="c1">// And make this class extendable</span>
+        <span class="nx">Class</span><span class="p">.</span><span class="nx">extend</span> <span class="o">=</span> <span class="nx">arguments</span><span class="p">.</span><span class="nx">callee</span><span class="p">;</span>
+        
+        <span class="k">return</span> <span class="nx">Class</span><span class="p">;</span>
+    <span class="p">};</span>
+<span class="p">})();</span>
 
 <span class="cm">/**</span>
 <span class="cm"> * Contains the application base config.</span>
@@ -1013,3 +1149,64 @@
     <span class="p">};</span>   
 <span class="p">})(</span><span class="nx">Tc</span><span class="p">.</span><span class="nx">$</span><span class="p">);</span>
 </pre></div>
+                    </div>
+			</div>
+		</div>
+		<div class="yui-b">
+            <div class="nav">
+
+                    <div id="moduleList" class="module">
+                        <h4>Modules</h4>
+                        <ul class="content">
+                                <li class="selected"><a href="module_Tc
+Includes:
+Simple JavaScript Inheritance
+By John Resig http://ejohn.org/
+MIT Licensed..html" title="Tc
+Includes:
+Simple JavaScript Inheritance
+By John Resig http://ejohn.org/
+MIT Licensed.">Tc
+Includes:
+Simple JavaScript Inheritance
+By John Resig http://ejohn.org/
+MIT Licensed.</a></li>
+                        </ul>
+                    </div>
+
+                    <div id="classList" class="module">
+                        <h4>Classes</h4>
+                        <ul class="content">
+                                <li class=""><a href="Tc.Application.html" title="Tc.Application">Tc.Application</a></li>
+                                <li class=""><a href="Tc.Config.html" title="Tc.Config">Tc.Config</a></li>
+                                <li class=""><a href="Tc.Connector.html" title="Tc.Connector">Tc.Connector</a></li>
+                                <li class=""><a href="Tc.Module.html" title="Tc.Module">Tc.Module</a></li>
+                                <li class=""><a href="Tc.Sandbox.html" title="Tc.Sandbox">Tc.Sandbox</a></li>
+                                <li class=""><a href="Tc.Utils.String.html" title="Tc.Utils.String">Tc.Utils.String</a></li>
+                        </ul>
+                    </div>
+
+                    <div id="fileList" class="module">
+                        <h4>Files</h4>
+                        <ul class="content">        
+                                <li class="selected"><a href="terrific-1.0.0.js.html" title="terrific-1.0.0.js">terrific-1.0.0.js</a></li>
+                        </ul>
+                    </div>
+
+
+
+
+
+            </div>
+		</div>
+	</div>
+	<div id="ft">
+        <hr />
+        Copyright &copy; 2011 TerrificJS, Remo Brunschwiler. All rights reserved.
+	</div>
+</div>
+<script type="text/javascript">
+    ALL_YUI_PROPS = [{"url": "Tc.Application.html#property_$ctx", "access": "", "host": "Tc.Application", "type": "property", "name": "$ctx"}, {"url": "Tc.Module.html#property_$ctx", "access": "", "host": "Tc.Module", "type": "property", "name": "$ctx"}, {"url": "Tc.Sandbox.html#method_addModules", "access": "", "host": "Tc.Sandbox", "type": "method", "name": "addModules"}, {"url": "Tc.Sandbox.html#property_afterBindingCallbacks", "access": "", "host": "Tc.Sandbox", "type": "property", "name": "afterBindingCallbacks"}, {"url": "Tc.Sandbox.html#property_application", "access": "", "host": "Tc.Sandbox", "type": "property", "name": "application"}, {"url": "Tc.Module.html#method_attachConnector", "access": "", "host": "Tc.Module", "type": "method", "name": "attachConnector"}, {"url": "Tc.Module.html#method_beforeBindingCallback", "access": "", "host": "Tc.Module", "type": "method", "name": "beforeBindingCallback"}, {"url": "Tc.Utils.String.html#method_capitalize", "access": "", "host": "Tc.Utils.String", "type": "method", "name": "capitalize"}, {"url": "Tc.Module.html#method_checkDependencies", "access": "", "host": "Tc.Module", "type": "method", "name": "checkDependencies"}, {"url": "Tc.Application.html#property_config", "access": "", "host": "Tc.Application", "type": "property", "name": "config"}, {"url": "Tc.Sandbox.html#property_config", "access": "", "host": "Tc.Sandbox", "type": "property", "name": "config"}, {"url": "Tc.Application.html#property_connectors", "access": "", "host": "Tc.Application", "type": "property", "name": "connectors"}, {"url": "Tc.Module.html#property_connectors", "access": "", "host": "Tc.Module", "type": "property", "name": "connectors"}, {"url": "Tc.Sandbox.html#property_dependencies", "access": "", "host": "Tc.Sandbox", "type": "property", "name": "dependencies"}, {"url": "Tc.Module.html#property_dependencyCounter", "access": "", "host": "Tc.Module", "type": "property", "name": "dependencyCounter"}, {"url": "Tc.Config.html#property_dependencyPath", "access": "", "host": "Tc.Config", "type": "property", "name": "dependencyPath"}, {"url": "Tc.Module.html#method_fire", "access": "", "host": "Tc.Module", "type": "method", "name": "fire"}, {"url": "Tc.Sandbox.html#method_getConfig", "access": "", "host": "Tc.Sandbox", "type": "method", "name": "getConfig"}, {"url": "Tc.Sandbox.html#method_getConfigParam", "access": "", "host": "Tc.Sandbox", "type": "method", "name": "getConfigParam"}, {"url": "Tc.Module.html#method_getDecoratedModule", "access": "", "host": "Tc.Module", "type": "method", "name": "getDecoratedModule"}, {"url": "Tc.Sandbox.html#method_getModuleById", "access": "", "host": "Tc.Sandbox", "type": "method", "name": "getModuleById"}, {"url": "Tc.Application.html#method_init", "access": "", "host": "Tc.Application", "type": "method", "name": "init"}, {"url": "Tc.Sandbox.html#method_init", "access": "", "host": "Tc.Sandbox", "type": "method", "name": "init"}, {"url": "Tc.Module.html#method_init", "access": "", "host": "Tc.Module", "type": "method", "name": "init"}, {"url": "Tc.Connector.html#method_init", "access": "", "host": "Tc.Connector", "type": "method", "name": "init"}, {"url": "Tc.Module.html#method_initAfterBinding", "access": "", "host": "Tc.Module", "type": "method", "name": "initAfterBinding"}, {"url": "Tc.Module.html#method_initBeforeBinding", "access": "", "host": "Tc.Module", "type": "method", "name": "initBeforeBinding"}, {"url": "Tc.Module.html#method_initOnBinding", "access": "", "host": "Tc.Module", "type": "method", "name": "initOnBinding"}, {"url": "Tc.Sandbox.html#method_loadDependency", "access": "", "host": "Tc.Sandbox", "type": "method", "name": "loadDependency"}, {"url": "Tc.Module.html#property_modId", "access": "", "host": "Tc.Module", "type": "property", "name": "modId"}, {"url": "Tc.Application.html#property_modules", "access": "", "host": "Tc.Application", "type": "property", "name": "modules"}, {"url": "Tc.Connector.html#method_notify", "access": "", "host": "Tc.Connector", "type": "method", "name": "notify"}, {"url": "Tc.Sandbox.html#method_readyForAfterBinding", "access": "", "host": "Tc.Sandbox", "type": "method", "name": "readyForAfterBinding"}, {"url": "Tc.Connector.html#method_registerComponent", "access": "", "host": "Tc.Connector", "type": "method", "name": "registerComponent"}, {"url": "Tc.Application.html#method_registerConnection", "access": "", "host": "Tc.Application", "type": "method", "name": "registerConnection"}, {"url": "Tc.Application.html#method_registerModule", "access": "", "host": "Tc.Application", "type": "method", "name": "registerModule"}, {"url": "Tc.Application.html#method_registerModules", "access": "", "host": "Tc.Application", "type": "method", "name": "registerModules"}, {"url": "Tc.Sandbox.html#method_removeModules", "access": "", "host": "Tc.Sandbox", "type": "method", "name": "removeModules"}, {"url": "Tc.Module.html#method_require", "access": "", "host": "Tc.Module", "type": "method", "name": "require"}, {"url": "Tc.Application.html#property_sandbox", "access": "", "host": "Tc.Application", "type": "property", "name": "sandbox"}, {"url": "Tc.Module.html#property_sandbox", "access": "", "host": "Tc.Module", "type": "property", "name": "sandbox"}, {"url": "Tc.Application.html#method_start", "access": "", "host": "Tc.Application", "type": "method", "name": "start"}, {"url": "Tc.Module.html#method_start", "access": "", "host": "Tc.Module", "type": "method", "name": "start"}, {"url": "Tc.Application.html#method_stop", "access": "", "host": "Tc.Application", "type": "method", "name": "stop"}, {"url": "Tc.Module.html#method_stop", "access": "", "host": "Tc.Module", "type": "method", "name": "stop"}, {"url": "Tc.Connector.html#method_unregisterComponent", "access": "", "host": "Tc.Connector", "type": "method", "name": "unregisterComponent"}, {"url": "Tc.Application.html#method_unregisterModule", "access": "", "host": "Tc.Application", "type": "method", "name": "unregisterModule"}, {"url": "Tc.Application.html#property_wildcardComponents", "access": "", "host": "Tc.Application", "type": "property", "name": "wildcardComponents"}];
+</script>
+</body>
+</html>

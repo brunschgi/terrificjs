@@ -22,8 +22,8 @@
         <mkdir dir="${TMP_DIR}"/>
         <mkdir dir="${TMP_DIR}/js"/>
         <concat fixlastline="yes" destfile="${TMP_DIR}/js/${JS}" encoding="UTF-8">
-            <fileset dir="${TERRIFIC_DIR}" includes="oo.js"/>
             <fileset dir="${TERRIFIC_DIR}" includes="Tc.js"/>
+            <fileset dir="${TERRIFIC_DIR}" includes="oo.js"/>
             <fileset dir="${TERRIFIC_DIR}" includes="Tc.Config.js"/>
             <fileset dir="${TERRIFIC_DIR}" includes="Tc.Application.js"/>
             <fileset dir="${TERRIFIC_DIR}" includes="Tc.Sandbox.js"/>
