@@ -5,15 +5,15 @@
  * Copyright 2011, Remo Brunschwiler
  * MIT Licensed.
  *
- * Date: Thu, 05 May 2011 12:37:20 GMT
+ * Date: Thu, 05 May 2011 12:57:02 GMT
  *
- * @module Tc
  *
- * 
  * Includes:
  * Simple JavaScript Inheritance
  * By John Resig http://ejohn.org/
  * MIT Licensed.
+ *
+ * @module Tc
  * 
  */
 var Tc = Tc || {};
