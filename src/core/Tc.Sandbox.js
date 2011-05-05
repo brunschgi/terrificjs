@@ -65,9 +65,6 @@
                 application = this.application;
 			
 			if($ctx) {
-                // reset lazyinit flags
-                $('.mod[data-lazyinit=true]', $ctx).removeAttr('data-lazyinit');
-
 				// register modules
 				modules = application.registerModules($ctx);
 			
@@ -160,19 +157,15 @@
             type = type || 'plugin';
 
             if (that.dependencies[dependency] && that.dependencies[dependency].state === 'requested') { // requested (but loading not finished)
-                $.log.info('dependency ' + dependency + ' already requested');
-                
                 // the module should be notified, if the dependency has loaded
                 that.dependencies[dependency].callbacks.push(function() {
                     callback(phase);
                 });
             }
             else if (that.dependencies[dependency] && that.dependencies[dependency].state === 'loaded') { // loading finished
-                $.log.info('dependency ' + dependency + ' already loaded');
                 callback(phase);
             }
             else {
-                $.log.time('load dependency ' + dependency);
                 that.dependencies[dependency] = {
                     state: 'requested',
                     callbacks: []
@@ -190,17 +183,16 @@
                         path = '';
                         break;
                     case 'default':
-                        $.log.error('the type ' + type + ' is not known');
+                        path = '';
                         break;
                 }
                 
                 // load the appropriate dependency
                 $.ajax({
-                    url: '' + path + dependency,
+                    url: path + dependency,
                     dataType: 'script',
                     cache: true,
                     success: function() {
-                        $.log.time('load dependency ' + dependency);
                         that.dependencies[dependency].state = 'loaded';
                         callback(phase);
                         
@@ -209,9 +201,6 @@
                         for (var i = 0; i < callbacks.length; i++) {
                             callbacks[i]();
                         }
-                    },
-                    error: function() {
-                        $.log.error('an error occured during loading the dependency ' + path + dependency);
                     }
                 });
             }

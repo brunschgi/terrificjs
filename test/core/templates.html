@@ -1,14 +1,15 @@
 <script id="module" type="text/html">
-    <div class="mod
-		mod${module}
-		{{each skins}}
-        	skin${module}${$value}
-    	{{/each}}
-	" data-connectors="
-        {{each connectors}}
-        	${$value},
-    	{{/each}}
-    ">
+    <div
+        class="mod mod${module}
+            {{each skins}}
+                skin${module}${$value}
+            {{/each}}"
+
+        data-connectors="
+            {{each connectors}}
+                ${$value},
+            {{/each}}"
+    >
         <div class="inner">
             <div class="bd">
                 Empty Module

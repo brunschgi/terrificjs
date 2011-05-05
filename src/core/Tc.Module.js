@@ -52,7 +52,7 @@
             this.dependencyCounter = {
                 beforeBinding: 0,
                 onBinding: 1, // not 0, because of the beforeBinding callback (which is also a dependency)
-                afterBinding: 0
+                afterBinding: 1 // not 0, because a completed onBinding phase is required (which is also a dependency)
             };
 
             /**
@@ -72,19 +72,12 @@
          * @return {void}
          */
         start: function() {
-            var that = this;
-
             // call the hook method dependecies from the concrete implementation
             if (this.dependencies) {
-                this.dependencyCounter.beforeBinding++;
                 this.dependencies();
-                this.dependencyCounter.beforeBinding--;
             }
 
-            // start the before binding phase if there are no dependency for this phase
-            this.checkDependencies('beforeBinding', function() {
-                that.initBeforeBinding();
-            });
+            this.initBeforeBinding();
         },
 
         /**
@@ -110,17 +103,20 @@
         initBeforeBinding: function() {
             var that = this;
 
-            // call the hook method beforeBinding from the concrete implementation
-            // because there might be some ajax calls, the bindEvents method must be called from
-            // the beforeBinding function after it has been run
-            if (this.beforeBinding) {
-                this.beforeBinding(function() {
+             // start the before binding phase if there are no dependency for this phase
+            this.checkDependencies('beforeBinding', function() {
+                // call the hook method beforeBinding from the concrete implementation
+                // because there might be some ajax calls, the bindEvents method must be called from
+                // the beforeBinding function after it has been run
+                if (that.beforeBinding) {
+                    that.beforeBinding(function() {
+                        that.beforeBindingCallback();
+                    });
+                }
+                else {
                     that.beforeBindingCallback();
-                });
-            }
-            else {
-                this.beforeBindingCallback();
-            }
+                }
+            });
         },
 
         /**
@@ -130,15 +126,9 @@
          * @return {void}
          */
         beforeBindingCallback: function() {
-            var that = this;
-
             // decrement the dependency counter for the on binding phase
             this.dependencyCounter.onBinding--;
-
-            // start the on binding phase if there are no dependencies for this phase
-            this.checkDependencies('onBinding',function() {
-                that.initOnBinding();
-            });
+            this.initOnBinding();
         },
 
         /**
@@ -150,13 +140,15 @@
         initOnBinding: function() {
             var that = this;
 
-            // call the hook method bindEvents from the concrete implementation
-            if (this.onBinding) {
-                this.onBinding();
-            }
+            // start the on binding phase if there are no dependencies for this phase
+            this.checkDependencies('onBinding',function() {
+                // call the hook method bindEvents from the concrete implementation
+                if (that.onBinding) {
+                    that.onBinding();
+                }
 
-            // start the after binding phase if there are no dependencies for this phase
-            this.checkDependencies('afterBinding', function() {
+                // decrement the dependency counter for the after binding phase
+                that.dependencyCounter.afterBinding--;
                 that.initAfterBinding();
             });
         },
@@ -170,13 +162,16 @@
         initAfterBinding: function() {
             var that = this;
 
-            // inform the sandbox that the module is ready for the after binding phase
-            this.sandbox.readyForAfterBinding(function() {
+            // start the after binding phase if there are no dependencies for this phase
+            this.checkDependencies('afterBinding', function() {
+                // inform the sandbox that the module is ready for the after binding phase
+                that.sandbox.readyForAfterBinding(function() {
 
-                // call the hook method afterBinding from the concrete implementation
-                if (that.afterBinding) {
-                    that.afterBinding();
-                }
+                    // call the hook method afterBinding from the concrete implementation
+                    if (that.afterBinding) {
+                        that.afterBinding();
+                    }
+                });
             });
         },
 
@@ -207,7 +202,6 @@
          * @return {void}
          */
         require: function(dependency, type, phase, executeCallback) {
-            
             type = type || 'plugin';
             phase = phase || 'onBinding';
             executeCallback = executeCallback === false ? false : true;
@@ -222,9 +216,7 @@
 
                     // decrement the dependency counter for the appropriate phase
                     this.dependencyCounter[phase]--;
-                    this.checkDependencies(phase, function() {
-                        that['init' + Tc.Utils.String.capitalize(phase)]();
-                    });
+                    that['init' + Tc.Utils.String.capitalize(phase)]();
                 }
             }, this.sandbox.getModuleById(this.modId));
 
@@ -302,10 +294,8 @@
 
                 return new decorator(this);
             }
-            else {
-                $.log.info('the skin ' + skin + ' does not exists for this module');
-                return null;
-            }
+
+            return null;
         }
     });
 })(Tc.$);

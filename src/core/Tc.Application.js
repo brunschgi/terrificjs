@@ -255,14 +255,12 @@
                 var modId = modules.length;
                 $node.data('id', modId);
 
-                $.log.debug('instantiate Tc.Module.' + modName);
                 modules[modId] = new Tc.Module[modName]($node, this.sandbox, modId);
 
                 for (var i = 0, len = skins.length; i < len; i++) {
                     var skinName = skins[i];
 
                     if (Tc.Module[modName][skinName]) {
-                        $.log.debug('decorate it with the skin Tc.Module.' + modName + '.' + skinName);
                         modules[modId] = modules[modId].getDecoratedModule(modName, skinName);
                     }
                 }
@@ -273,10 +271,8 @@
 
                 return modules[modId];
             }
-            else {
-                $.log.info('the module Tc.Module.' + modName + ' does not exist');
-                return null;
-            }
+
+            return null;
         },
 
         /**
@@ -310,8 +306,6 @@
                 }
 
                 if (connectors[connectorId]) {
-                    $.log.debug('attach the connector: ' + connectorId);
-
                     // the connector observes the component -> attach it as observer
                     component.attachConnector(connectors[connectorId]);
 

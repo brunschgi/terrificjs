@@ -10,7 +10,7 @@
             var application = new Tc.Application();
 
             // check the implicitly set context
-            same(application.$ctx, $('body'), 'context node');
+            deepEqual(application.$ctx, $('body'), 'context node');
         });
 
         test('application context (if explicitly set)', function() {
@@ -21,7 +21,7 @@
             var application = new Tc.Application($ctx);
 
             // check the explicitly set context
-            same(application.$ctx, $ctx, 'context node');
+            deepEqual(application.$ctx, $ctx, 'context node');
         });
 
         test('register module', function() {
@@ -44,13 +44,13 @@
 
             // check that the module has been registered properly
             equals(application.modules.length, 1, 'module registered');
-            same(application.connectors, {}, 'no connectors in application');
+            deepEqual(application.connectors, {}, 'no connectors in application');
 
             // check the module properties
             ok(module instanceof Tc.Module, 'instance of Tc.Module');
             ok(module.hasOwnProperty('$ctx'), 'no skins applied');
             equals(module.connectors.length, 0, 'no connectors');
-            same(module.$ctx, $node, 'context node');
+            deepEqual(module.$ctx, $node, 'context node');
         });
 
         test('register module (with a skin)', function() {
@@ -73,13 +73,13 @@
 
             // check that the module has been registered properly
             equals(application.modules.length, 1, 'module registered');
-            same(application.connectors, {}, 'no connectors in application');
+            deepEqual(application.connectors, {}, 'no connectors in application');
 
             // check the module properties
             ok(module instanceof Tc.Module, 'instance of Tc.Module');
             ok(!module.hasOwnProperty('$ctx'), 'skins applied');
             equals(module.connectors.length, 0, 'no connectors');
-            same(module.$ctx, $node, 'context node');
+            deepEqual(module.$ctx, $node, 'context node');
         });
 
         test('register module (with a connector)', function() {
@@ -108,7 +108,7 @@
             ok(module instanceof Tc.Module, 'instance of Tc.Module');
             ok(module.hasOwnProperty('$ctx'), 'no skins applied');
             equals(module.connectors.length, 1, 'connectors applied');
-            same(module.$ctx, $node, 'context node');
+            deepEqual(module.$ctx, $node, 'context node');
         });
 
         test('register module (with multiple skins and connectors)', function() {
@@ -122,6 +122,7 @@
                     connectors: ['1', '2']
                 }
             ];
+
             $('#module').tmpl(modules).appendTo($('#qunit-fixture'));
 
             // register modules	
@@ -138,7 +139,7 @@
             ok(module instanceof Tc.Module, 'instance of Tc.Module');
             ok(!module.hasOwnProperty('$ctx'), 'skins applied');
             equals(module.connectors.length, 2, 'connectors applied');
-            same(module.$ctx, $node, 'context node');
+            deepEqual(module.$ctx, $node, 'context node');
         });
 
         test('register modules (one module, without js)', function() {
@@ -297,7 +298,7 @@
 
             // check that the module, skin and connector have been removed
             ok(!application.modules[0], 'module 1 removed');
-            same(application.modules[1].$ctx, $node2, 'module 2 still exists');
+            deepEqual(application.modules[1].$ctx, $node2, 'module 2 still exists');
             ok(application.connectors[1], 'connector still exists');
             equals(application.connectors[1].components.length, 2, 'connector component removed');
         });
