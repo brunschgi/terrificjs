@@ -5,7 +5,7 @@
  * Copyright 2011, Remo Brunschwiler
  * MIT Licensed.
  *
- * Date: Fri, 13 May 2011 06:29:59 GMT
+ * Date: Fri, 13 May 2011 07:06:59 GMT
  *
  *
  * Includes:
@@ -489,7 +489,7 @@ Tc.Config = {
 
 
             /**
-             * Contains the first script tag on the page.
+             * Contains the first script node on the page.
              *
              * @property firstScript
              * @type Node
@@ -632,7 +632,9 @@ Tc.Config = {
                 }
 
                 // load the appropriate dependency
-                var script = document.createElement('script');
+                var script = document.createElement('script'),
+                    firstScript = this.firstScript;
+                
                 script.src = path + dependency;
 
                 script.onreadystatechange = script.onload = function () {
@@ -652,7 +654,7 @@ Tc.Config = {
                     }
                 };
 
-                this.firstScript.parentNode.insertBefore(script, this.firstScript);
+                firstScript.parentNode.insertBefore(script, firstScript);
             }
         },
 

@@ -4,11 +4,11 @@
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 	<title>API: Tc   terrific-1.0.0.js  (TerrificJS)</title>
 
-	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css?stamp=1305268207.14" />
-	<link rel="stylesheet" type="text/css" href="assets/api.css?stamp=1305268207.14" />
+	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css?stamp=1305270425.45" />
+	<link rel="stylesheet" type="text/css" href="assets/api.css?stamp=1305270425.45" />
 
-    <script type="text/javascript" src="assets/api-js?stamp=1305268207.14"></script>
-    <script type="text/javascript" src="assets/ac-js?stamp=1305268207.14"></script>
+    <script type="text/javascript" src="assets/api-js?stamp=1305270425.45"></script>
+    <script type="text/javascript" src="assets/ac-js?stamp=1305270425.45"></script>
 </head>
 
 <body id="yahoo-com">
@@ -54,7 +54,7 @@
 <span class="cm"> * Copyright 2011, Remo Brunschwiler</span>
 <span class="cm"> * MIT Licensed.</span>
 <span class="cm"> *</span>
-<span class="cm"> * Date: Fri, 13 May 2011 06:29:59 GMT</span>
+<span class="cm"> * Date: Fri, 13 May 2011 07:06:59 GMT</span>
 <span class="cm"> *</span>
 <span class="cm"> *</span>
 <span class="cm"> * Includes:</span>
@@ -538,7 +538,7 @@
 
 
             <span class="cm">/**</span>
-<span class="cm">             * Contains the first script tag on the page.</span>
+<span class="cm">             * Contains the first script node on the page.</span>
 <span class="cm">             *</span>
 <span class="cm">             * @property firstScript</span>
 <span class="cm">             * @type Node</span>
@@ -681,7 +681,9 @@
                 <span class="p">}</span>
 
                 <span class="c1">// load the appropriate dependency</span>
-                <span class="kd">var</span> <span class="nx">script</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;script&#39;</span><span class="p">);</span>
+                <span class="kd">var</span> <span class="nx">script</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;script&#39;</span><span class="p">),</span>
+                    <span class="nx">firstScript</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">firstScript</span><span class="p">;</span>
+                
                 <span class="nx">script</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="nx">path</span> <span class="o">+</span> <span class="nx">dependency</span><span class="p">;</span>
 
                 <span class="nx">script</span><span class="p">.</span><span class="nx">onreadystatechange</span> <span class="o">=</span> <span class="nx">script</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
@@ -701,7 +703,7 @@
                     <span class="p">}</span>
                 <span class="p">};</span>
 
-                <span class="k">this</span><span class="p">.</span><span class="nx">firstScript</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">.</span><span class="nx">insertBefore</span><span class="p">(</span><span class="nx">script</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">firstScript</span><span class="p">);</span>
+                <span class="nx">firstScript</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">.</span><span class="nx">insertBefore</span><span class="p">(</span><span class="nx">script</span><span class="p">,</span> <span class="nx">firstScript</span><span class="p">);</span>
             <span class="p">}</span>
         <span class="p">},</span>
 

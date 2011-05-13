@@ -2,13 +2,13 @@
 <html xmlns:yui="http://yuilibrary.com/rdf/1.0/yui.rdf#">
 <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-	<title>API: Tc  Tc.Sandbox   (TerrificJS)</title>
+	<title>API: Tc  Tc.Application   (TerrificJS)</title>
 
-	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css?stamp=1305268207.14" />
-	<link rel="stylesheet" type="text/css" href="assets/api.css?stamp=1305268207.14" />
+	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css?stamp=1305270425.45" />
+	<link rel="stylesheet" type="text/css" href="assets/api.css?stamp=1305270425.45" />
 
-    <script type="text/javascript" src="assets/api-js?stamp=1305268207.14"></script>
-    <script type="text/javascript" src="assets/ac-js?stamp=1305268207.14"></script>
+    <script type="text/javascript" src="assets/api-js?stamp=1305270425.45"></script>
+    <script type="text/javascript" src="assets/ac-js?stamp=1305270425.45"></script>
 </head>
 
 <body id="yahoo-com">
@@ -19,7 +19,7 @@
         <h3>Tc&nbsp; <span class="subtitle">1.0.0</span></h3>
         <a href="./index.html" title="Terrific JavaScript Framework">Terrific JavaScript Framework</a> 
             &gt; <a href="./module_tc.html" title="Tc">Tc</a>
-                 &gt; Tc.Sandbox 
+                 &gt; Tc.Application 
                 
         <form onsubmit="return false">
             <div id="propertysearch">
@@ -48,7 +48,7 @@
 
                         
                         
-                            Class <b property="yui:name">Tc.Sandbox</b>
+                            Class <b property="yui:name">Tc.Application</b>
                         <span class="extends">
                         </span>
 
@@ -59,15 +59,14 @@
   
 
                     <div class="summary description" property="yui:description">
-                        The sandbox is used as a central point to get resources from / grant permissions etc.
-It is shared between all modules.
+                        Responsible for application wide issues (ie. the creation of modules).
                     </div>
 
                         <div class="section constructor details" rel="yui:constructor" resource="#constructor">
                         <h3 id="constructor">Constructor</h3>
                         <div class="content">
                             <div class="detail">
-                                <strong property="yui:name">Tc.Sandbox</strong>
+                                <strong property="yui:name">Tc.Application</strong>
                                 <code>
                                     (
                                     )
@@ -84,28 +83,13 @@ It is shared between all modules.
                         <div class="section field details">
                             <h3 id="properties">Properties</h3>
                             <div class="content">
-                                    <div class="" rel="yui:property" resource="#property_afterBindingCallbacks">
-                                    <h4><a name="property_afterBindingCallbacks" property="yui:name">afterBindingCallbacks</a>
-                                        - <code><span property="yui:type">Array</span></code>
+                                    <div class="" rel="yui:property" resource="#property_$ctx">
+                                    <h4><a name="property_$ctx" property="yui:name">$ctx</a>
+                                        - <code><span property="yui:type">jQuery</span></code>
                                     </h4>
                                     <div class="detail">
                                         <div class="description" property="yui:description">
-                                            Contains the afterBinding module callbacks.
-                                        </div>
-                                    </div>
-     
-                                        
-
-
-                                    <hr />
-                                    </div>
-                                    <div class="" rel="yui:property" resource="#property_application">
-                                    <h4><a name="property_application" property="yui:name">application</a>
-                                        - <code><span property="yui:type">Application</span></code>
-                                    </h4>
-                                    <div class="detail">
-                                        <div class="description" property="yui:description">
-                                            The application
+                                            The jquery context.
                                         </div>
                                     </div>
      
@@ -129,13 +113,13 @@ It is shared between all modules.
 
                                     <hr />
                                     </div>
-                                    <div class="" rel="yui:property" resource="#property_dependencies">
-                                    <h4><a name="property_dependencies" property="yui:name">dependencies</a>
-                                        - <code><span property="yui:type">Array</span></code>
+                                    <div class="" rel="yui:property" resource="#property_connectors">
+                                    <h4><a name="property_connectors" property="yui:name">connectors</a>
+                                        - <code><span property="yui:type">Object</span></code>
                                     </h4>
                                     <div class="detail">
                                         <div class="description" property="yui:description">
-                                            Contains the requested javascript dependencies.
+                                            Contains references to all connectors on the page.
                                         </div>
                                     </div>
      
@@ -144,13 +128,44 @@ It is shared between all modules.
 
                                     <hr />
                                     </div>
-                                    <div class="" rel="yui:property" resource="#property_firstScript">
-                                    <h4><a name="property_firstScript" property="yui:name">firstScript</a>
-                                        - <code><span property="yui:type">Node</span></code>
+                                    <div class="" rel="yui:property" resource="#property_modules">
+                                    <h4><a name="property_modules" property="yui:name">modules</a>
+                                        - <code><span property="yui:type">Array</span></code>
                                     </h4>
                                     <div class="detail">
                                         <div class="description" property="yui:description">
-                                            Contains the first script tag on the page.
+                                            Contains references to all modules on the page.
+-> could be useful ie. when there are interactions between flash <-> js.
+                                        </div>
+                                    </div>
+     
+                                        
+
+
+                                    <hr />
+                                    </div>
+                                    <div class="" rel="yui:property" resource="#property_sandbox">
+                                    <h4><a name="property_sandbox" property="yui:name">sandbox</a>
+                                        - <code><span property="yui:type">Sandbox</span></code>
+                                    </h4>
+                                    <div class="detail">
+                                        <div class="description" property="yui:description">
+                                            The sandbox to get the resources from (shared between all modules).
+                                        </div>
+                                    </div>
+     
+                                        
+
+
+                                    <hr />
+                                    </div>
+                                    <div class="" rel="yui:property" resource="#property_wildcardComponents">
+                                    <h4><a name="property_wildcardComponents" property="yui:name">wildcardComponents</a>
+                                        - <code><span property="yui:type">Array</span></code>
+                                    </h4>
+                                    <div class="detail">
+                                        <div class="description" property="yui:description">
+                                            Contains references to all wilcard components on the page.
                                         </div>
                                     </div>
      
@@ -168,16 +183,219 @@ It is shared between all modules.
                         <div class="section method details">
                             <h3 id="methods">Methods</h3>
                             <div class="content">
-                                    <div class="" rel="yui:method" resource="#method_addModules">
+                                    <div class="" rel="yui:method" resource="#method_init">
                                     <h4>
-                                        <a name="method_addModules">addModules</a></h4>
+                                        <a name="method_init">init</a></h4>
+                                    <div class="detail" >
+                                        <code>
+                                        
+                                        
+                                        
+                                        void
+                                            <strong property="yui:name">init</strong>
+                                           (
+                                                
+                                                        
+                                                         $ctx
+                                                    
+                                                
+                                                        , 
+                                                         config
+                                                    
+                                                
+                                            )
+                                        </code>
+                                        
+                                        <div class="description" property="yui:description">
+                                            Initializes the Application.
+                                        </div>
+
+                                        <div class="description">
+
+                                                <dl rel="yui:parameters">
+                                                    <dt>Parameters:</dt>
+                                                        <dd rel="yui:parameter">
+                                                        <code><span property="yui:name">$ctx</span>
+                                                        &lt;<span property="yui:type">jQuery</span>&gt;
+                                                        </code>
+                                                        <span property="yui:description"> the jquery context</span>
+                                                        </dd>
+                                                        <dd rel="yui:parameter">
+                                                        <code><span property="yui:name">config</span>
+                                                        &lt;<span property="yui:type">Object</span>&gt;
+                                                        </code>
+                                                        <span property="yui:description"> the configuration</span>
+                                                        </dd>
+                                                </dl>
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code property="yui:return">
+                                                        void
+                                                    </code></dt>
+                                                    <dd property="yui:returnInfo"></dd>
+                                                </dl>
+
+
+             
+
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    </div>
+                                    <div class="" rel="yui:method" resource="#method_registerConnection">
+                                    <h4>
+                                        <a name="method_registerConnection">registerConnection</a></h4>
+                                    <div class="detail" >
+                                        <code>
+                                        
+                                        
+                                        
+                                        void
+                                            <strong property="yui:name">registerConnection</strong>
+                                           (
+                                                
+                                                        
+                                                         connector
+                                                    
+                                                
+                                                        , 
+                                                         component
+                                                    
+                                                
+                                            )
+                                        </code>
+                                        
+                                        <div class="description" property="yui:description">
+                                            Registers a connection between a module and a connector.
+                                        </div>
+
+                                        <div class="description">
+
+                                                <dl rel="yui:parameters">
+                                                    <dt>Parameters:</dt>
+                                                        <dd rel="yui:parameter">
+                                                        <code><span property="yui:name">connector</span>
+                                                        &lt;<span property="yui:type">String</span>&gt;
+                                                        </code>
+                                                        <span property="yui:description"> the full connector name (ie. MasterSlave1Slave).</span>
+                                                        </dd>
+                                                        <dd rel="yui:parameter">
+                                                        <code><span property="yui:name">component</span>
+                                                        &lt;<span property="yui:type">Module</span>&gt;
+                                                        </code>
+                                                        <span property="yui:description"> the module instance.</span>
+                                                        </dd>
+                                                </dl>
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code property="yui:return">
+                                                        void
+                                                    </code></dt>
+                                                    <dd property="yui:returnInfo"></dd>
+                                                </dl>
+
+
+             
+
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    </div>
+                                    <div class="" rel="yui:method" resource="#method_registerModule">
+                                    <h4>
+                                        <a name="method_registerModule">registerModule</a></h4>
+                                    <div class="detail" >
+                                        <code>
+                                        
+                                        
+                                        
+                                        Module
+                                            <strong property="yui:name">registerModule</strong>
+                                           (
+                                                
+                                                        
+                                                         $node
+                                                    
+                                                
+                                                        , 
+                                                         modName
+                                                    
+                                                
+                                                        , 
+                                                         skins
+                                                    
+                                                
+                                                        , 
+                                                         connectors
+                                                    
+                                                
+                                            )
+                                        </code>
+                                        
+                                        <div class="description" property="yui:description">
+                                            Registers a module.
+                                        </div>
+
+                                        <div class="description">
+
+                                                <dl rel="yui:parameters">
+                                                    <dt>Parameters:</dt>
+                                                        <dd rel="yui:parameter">
+                                                        <code><span property="yui:name">$node</span>
+                                                        &lt;<span property="yui:type">jQuery</span>&gt;
+                                                        </code>
+                                                        <span property="yui:description"> the module node.</span>
+                                                        </dd>
+                                                        <dd rel="yui:parameter">
+                                                        <code><span property="yui:name">modName</span>
+                                                        &lt;<span property="yui:type">String</span>&gt;
+                                                        </code>
+                                                        <span property="yui:description"> the module name. it must match the class name of the module (case sensitive).</span>
+                                                        </dd>
+                                                        <dd rel="yui:parameter">
+                                                        <code><span property="yui:name">skins</span>
+                                                        &lt;<span property="yui:type">Array</span>&gt;
+                                                        </code>
+                                                        <span property="yui:description"> a list of skin names. each entry must match a class name of a skin (case sensitive)).</span>
+                                                        </dd>
+                                                        <dd rel="yui:parameter">
+                                                        <code><span property="yui:name">connectors</span>
+                                                        &lt;<span property="yui:type">Array</span>&gt;
+                                                        </code>
+                                                        <span property="yui:description"> a list of connectors identifiers. schema: <connectorName><connectorId><connectorRole> (ie. MasterSlave1Master).</span>
+                                                        </dd>
+                                                </dl>
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code property="yui:return">
+                                                        Module
+                                                    </code></dt>
+                                                    <dd property="yui:returnInfo">the reference to the registered module.</dd>
+                                                </dl>
+
+
+             
+
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    </div>
+                                    <div class="" rel="yui:method" resource="#method_registerModules">
+                                    <h4>
+                                        <a name="method_registerModules">registerModules</a></h4>
                                     <div class="detail" >
                                         <code>
                                         
                                         
                                         
                                         Array
-                                            <strong property="yui:name">addModules</strong>
+                                            <strong property="yui:name">registerModules</strong>
                                            (
                                                 
                                                         
@@ -188,7 +406,7 @@ It is shared between all modules.
                                         </code>
                                         
                                         <div class="description" property="yui:description">
-                                            Adds (register and start) all modules in the given context scope.
+                                            Registers all modules in the context scope automatically (as long as the modules uses the oocss naming conventions).
                                         </div>
 
                                         <div class="description">
@@ -219,348 +437,16 @@ It is shared between all modules.
                                     </div>
                                     <hr />
                                     </div>
-                                    <div class="" rel="yui:method" resource="#method_getConfig">
+                                    <div class="" rel="yui:method" resource="#method_start">
                                     <h4>
-                                        <a name="method_getConfig">getConfig</a></h4>
-                                    <div class="detail" >
-                                        <code>
-                                        
-                                        
-                                        
-                                        Object
-                                            <strong property="yui:name">getConfig</strong>
-                                           (
-                                            )
-                                        </code>
-                                        
-                                        <div class="description" property="yui:description">
-                                            Gets the application config.
-                                        </div>
-
-                                        <div class="description">
-
-
-                                                <dl>
-                                                    <dt>Returns:
-                                                    <code property="yui:return">
-                                                        Object
-                                                    </code></dt>
-                                                    <dd property="yui:returnInfo">the configuration object</dd>
-                                                </dl>
-
-
-             
-
-                                        </div>
-
-                                    </div>
-                                    <hr />
-                                    </div>
-                                    <div class="" rel="yui:method" resource="#method_getConfigParam">
-                                    <h4>
-                                        <a name="method_getConfigParam">getConfigParam</a></h4>
-                                    <div class="detail" >
-                                        <code>
-                                        
-                                        
-                                        
-                                        mixed
-                                            <strong property="yui:name">getConfigParam</strong>
-                                           (
-                                                
-                                                        
-                                                         name
-                                                    
-                                                
-                                            )
-                                        </code>
-                                        
-                                        <div class="description" property="yui:description">
-                                            Gets an application config param.
-                                        </div>
-
-                                        <div class="description">
-
-                                                <dl rel="yui:parameters">
-                                                    <dt>Parameters:</dt>
-                                                        <dd rel="yui:parameter">
-                                                        <code><span property="yui:name">name</span>
-                                                        &lt;<span property="yui:type">String</span>&gt;
-                                                        </code>
-                                                        <span property="yui:description"> the param name</span>
-                                                        </dd>
-                                                </dl>
-
-                                                <dl>
-                                                    <dt>Returns:
-                                                    <code property="yui:return">
-                                                        mixed
-                                                    </code></dt>
-                                                    <dd property="yui:returnInfo">the appropriate configuration param</dd>
-                                                </dl>
-
-
-             
-
-                                        </div>
-
-                                    </div>
-                                    <hr />
-                                    </div>
-                                    <div class="" rel="yui:method" resource="#method_getModuleById">
-                                    <h4>
-                                        <a name="method_getModuleById">getModuleById</a></h4>
-                                    <div class="detail" >
-                                        <code>
-                                        
-                                        
-                                        
-                                        Module
-                                            <strong property="yui:name">getModuleById</strong>
-                                           (
-                                                
-                                                        
-                                                         id
-                                                    
-                                                
-                                            )
-                                        </code>
-                                        
-                                        <div class="description" property="yui:description">
-                                            Gets the appropriate module for the given id.
-                                        </div>
-
-                                        <div class="description">
-
-                                                <dl rel="yui:parameters">
-                                                    <dt>Parameters:</dt>
-                                                        <dd rel="yui:parameter">
-                                                        <code><span property="yui:name">id</span>
-                                                        &lt;<span property="yui:type">int</span>&gt;
-                                                        </code>
-                                                        <span property="yui:description"> the module id</span>
-                                                        </dd>
-                                                </dl>
-
-                                                <dl>
-                                                    <dt>Returns:
-                                                    <code property="yui:return">
-                                                        Module
-                                                    </code></dt>
-                                                    <dd property="yui:returnInfo">the appropriate module</dd>
-                                                </dl>
-
-
-             
-
-                                        </div>
-
-                                    </div>
-                                    <hr />
-                                    </div>
-                                    <div class="" rel="yui:method" resource="#method_init">
-                                    <h4>
-                                        <a name="method_init">init</a></h4>
+                                        <a name="method_start">start</a></h4>
                                     <div class="detail" >
                                         <code>
                                         
                                         
                                         
                                         void
-                                            <strong property="yui:name">init</strong>
-                                           (
-                                                
-                                                        
-                                                         application
-                                                    
-                                                
-                                                        , 
-                                                         config
-                                                    
-                                                
-                                            )
-                                        </code>
-                                        
-                                        <div class="description" property="yui:description">
-                                            Initializes the Sandbox.
-                                        </div>
-
-                                        <div class="description">
-
-                                                <dl rel="yui:parameters">
-                                                    <dt>Parameters:</dt>
-                                                        <dd rel="yui:parameter">
-                                                        <code><span property="yui:name">application</span>
-                                                        &lt;<span property="yui:type">Applicaton</span>&gt;
-                                                        </code>
-                                                        <span property="yui:description"> the application reference</span>
-                                                        </dd>
-                                                        <dd rel="yui:parameter">
-                                                        <code><span property="yui:name">config</span>
-                                                        &lt;<span property="yui:type">Object</span>&gt;
-                                                        </code>
-                                                        <span property="yui:description"> the configuration</span>
-                                                        </dd>
-                                                </dl>
-
-                                                <dl>
-                                                    <dt>Returns:
-                                                    <code property="yui:return">
-                                                        void
-                                                    </code></dt>
-                                                    <dd property="yui:returnInfo"></dd>
-                                                </dl>
-
-
-             
-
-                                        </div>
-
-                                    </div>
-                                    <hr />
-                                    </div>
-                                    <div class="" rel="yui:method" resource="#method_loadDependency">
-                                    <h4>
-                                        <a name="method_loadDependency">loadDependency</a></h4>
-                                    <div class="detail" >
-                                        <code>
-                                        
-                                        
-                                        
-                                        void
-                                            <strong property="yui:name">loadDependency</strong>
-                                           (
-                                                
-                                                        
-                                                         dependency
-                                                    
-                                                
-                                                        , 
-                                                         type
-                                                    
-                                                
-                                                        , 
-                                                         callback
-                                                    
-                                                
-                                                        , 
-                                                         phase
-                                                    
-                                                
-                                            )
-                                        </code>
-                                        
-                                        <div class="description" property="yui:description">
-                                            Loads a requested dependency (if not already loaded).
-                                        </div>
-
-                                        <div class="description">
-
-                                                <dl rel="yui:parameters">
-                                                    <dt>Parameters:</dt>
-                                                        <dd rel="yui:parameter">
-                                                        <code><span property="yui:name">dependency</span>
-                                                        &lt;<span property="yui:type">String</span>&gt;
-                                                        </code>
-                                                        <span property="yui:description"> the dependency (i.e. swfobject.js)</span>
-                                                        </dd>
-                                                        <dd rel="yui:parameter">
-                                                        <code><span property="yui:name">type</span>
-                                                        &lt;<span property="yui:type">String</span>&gt;
-                                                        </code>
-                                                        <span property="yui:description"> the dependency type (plugin | library | util | url)</span>
-                                                        </dd>
-                                                        <dd rel="yui:parameter">
-                                                        <code><span property="yui:name">callback</span>
-                                                        &lt;<span property="yui:type">Function</span>&gt;
-                                                        </code>
-                                                        <span property="yui:description"> the callback to execute after the dependency has successfully loaded</span>
-                                                        </dd>
-                                                        <dd rel="yui:parameter">
-                                                        <code><span property="yui:name">phase</span>
-                                                        &lt;<span property="yui:type">String</span>&gt;
-                                                        </code>
-                                                        <span property="yui:description"> the module phase where the dependency is needed (ie. beforeBinding, onBinding)</span>
-                                                        </dd>
-                                                </dl>
-
-                                                <dl>
-                                                    <dt>Returns:
-                                                    <code property="yui:return">
-                                                        void
-                                                    </code></dt>
-                                                    <dd property="yui:returnInfo"></dd>
-                                                </dl>
-
-
-             
-
-                                        </div>
-
-                                    </div>
-                                    <hr />
-                                    </div>
-                                    <div class="" rel="yui:method" resource="#method_readyForAfterBinding">
-                                    <h4>
-                                        <a name="method_readyForAfterBinding">readyForAfterBinding</a></h4>
-                                    <div class="detail" >
-                                        <code>
-                                        
-                                        
-                                        
-                                        void
-                                            <strong property="yui:name">readyForAfterBinding</strong>
-                                           (
-                                                
-                                                        
-                                                         callback
-                                                    
-                                                
-                                            )
-                                        </code>
-                                        
-                                        <div class="description" property="yui:description">
-                                            Collects the module status messages (ready for after binding) and handles the callbacks.
-                                        </div>
-
-                                        <div class="description">
-
-                                                <dl rel="yui:parameters">
-                                                    <dt>Parameters:</dt>
-                                                        <dd rel="yui:parameter">
-                                                        <code><span property="yui:name">callback</span>
-                                                        &lt;<span property="yui:type">Function</span>&gt;
-                                                        </code>
-                                                        <span property="yui:description"> the afterBinding module callback</span>
-                                                        </dd>
-                                                </dl>
-
-                                                <dl>
-                                                    <dt>Returns:
-                                                    <code property="yui:return">
-                                                        void
-                                                    </code></dt>
-                                                    <dd property="yui:returnInfo"></dd>
-                                                </dl>
-
-
-             
-
-                                        </div>
-
-                                    </div>
-                                    <hr />
-                                    </div>
-                                    <div class="" rel="yui:method" resource="#method_removeModules">
-                                    <h4>
-                                        <a name="method_removeModules">removeModules</a></h4>
-                                    <div class="detail" >
-                                        <code>
-                                        
-                                        
-                                        
-                                        void
-                                            <strong property="yui:name">removeModules</strong>
+                                            <strong property="yui:name">start</strong>
                                            (
                                                 
                                                         
@@ -571,7 +457,7 @@ It is shared between all modules.
                                         </code>
                                         
                                         <div class="description" property="yui:description">
-                                            Removes (stop and unregister) the modules by the given module instances.
+                                            Starts (intializes) the registered modules.
                                         </div>
 
                                         <div class="description">
@@ -582,7 +468,109 @@ It is shared between all modules.
                                                         <code><span property="yui:name">modules</span>
                                                         &lt;<span property="yui:type">Array</span>&gt;
                                                         </code>
-                                                        <span property="yui:description"> a list containting the module instances to remove.</span>
+                                                        <span property="yui:description"> a list of the modules to start.</span>
+                                                        </dd>
+                                                </dl>
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code property="yui:return">
+                                                        void
+                                                    </code></dt>
+                                                    <dd property="yui:returnInfo"></dd>
+                                                </dl>
+
+
+             
+
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    </div>
+                                    <div class="" rel="yui:method" resource="#method_stop">
+                                    <h4>
+                                        <a name="method_stop">stop</a></h4>
+                                    <div class="detail" >
+                                        <code>
+                                        
+                                        
+                                        
+                                        void
+                                            <strong property="yui:name">stop</strong>
+                                           (
+                                                
+                                                        
+                                                         modules
+                                                    
+                                                
+                                            )
+                                        </code>
+                                        
+                                        <div class="description" property="yui:description">
+                                            Stops the registered modules.
+                                        </div>
+
+                                        <div class="description">
+
+                                                <dl rel="yui:parameters">
+                                                    <dt>Parameters:</dt>
+                                                        <dd rel="yui:parameter">
+                                                        <code><span property="yui:name">modules</span>
+                                                        &lt;<span property="yui:type">Array</span>&gt;
+                                                        </code>
+                                                        <span property="yui:description"> a list containting the module instances to stop.</span>
+                                                        </dd>
+                                                </dl>
+
+                                                <dl>
+                                                    <dt>Returns:
+                                                    <code property="yui:return">
+                                                        void
+                                                    </code></dt>
+                                                    <dd property="yui:returnInfo"></dd>
+                                                </dl>
+
+
+             
+
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    </div>
+                                    <div class="" rel="yui:method" resource="#method_unregisterModule">
+                                    <h4>
+                                        <a name="method_unregisterModule">unregisterModule</a></h4>
+                                    <div class="detail" >
+                                        <code>
+                                        
+                                        
+                                        
+                                        void
+                                            <strong property="yui:name">unregisterModule</strong>
+                                           (
+                                                
+                                                        
+                                                         modules
+                                                    
+                                                
+                                            )
+                                        </code>
+                                        
+                                        <div class="description" property="yui:description">
+                                            Unregisters the modules by the given module instances.
+                                        </div>
+
+                                        <div class="description">
+
+                                                <dl rel="yui:parameters">
+                                                    <dt>Parameters:</dt>
+                                                        <dd rel="yui:parameter">
+                                                        <code><span property="yui:name">modules</span>
+                                                        &lt;<span property="yui:type">Array</span>&gt;
+                                                        </code>
+                                                        <span property="yui:description"> a list containting the module instances to unregister.</span>
                                                         </dd>
                                                 </dl>
 
@@ -631,11 +619,11 @@ It is shared between all modules.
                     <div id="classList" class="module">
                         <h4>Classes</h4>
                         <ul class="content">
-                                <li class=""><a href="Tc.Application.html" title="Tc.Application">Tc.Application</a></li>
+                                <li class="selected"><a href="Tc.Application.html" title="Tc.Application">Tc.Application</a></li>
                                 <li class=""><a href="Tc.Config.html" title="Tc.Config">Tc.Config</a></li>
                                 <li class=""><a href="Tc.Connector.html" title="Tc.Connector">Tc.Connector</a></li>
                                 <li class=""><a href="Tc.Module.html" title="Tc.Module">Tc.Module</a></li>
-                                <li class="selected"><a href="Tc.Sandbox.html" title="Tc.Sandbox">Tc.Sandbox</a></li>
+                                <li class=""><a href="Tc.Sandbox.html" title="Tc.Sandbox">Tc.Sandbox</a></li>
                                 <li class=""><a href="Tc.Utils.String.html" title="Tc.Utils.String">Tc.Utils.String</a></li>
                         </ul>
                     </div>
@@ -650,25 +638,25 @@ It is shared between all modules.
                     <div id="propertyList" class="module">
                         <h4>Properties</h4>
                         <ul class="content">        
-                                <li class=""><a href="#property_afterBindingCallbacks" title="afterBindingCallbacks">afterBindingCallbacks</a></li>
-                                <li class=""><a href="#property_application" title="application">application</a></li>
+                                <li class=""><a href="#property_$ctx" title="$ctx">$ctx</a></li>
                                 <li class=""><a href="#property_config" title="config">config</a></li>
-                                <li class=""><a href="#property_dependencies" title="dependencies">dependencies</a></li>
-                                <li class=""><a href="#property_firstScript" title="firstScript">firstScript</a></li>
+                                <li class=""><a href="#property_connectors" title="connectors">connectors</a></li>
+                                <li class=""><a href="#property_modules" title="modules">modules</a></li>
+                                <li class=""><a href="#property_sandbox" title="sandbox">sandbox</a></li>
+                                <li class=""><a href="#property_wildcardComponents" title="wildcardComponents">wildcardComponents</a></li>
                         </ul>
                     </div>
 
                     <div id="methodsList" class="module">
                         <h4>Methods</h4>
                         <ul class="content">        
-                                <li class=""><a href="#method_addModules" title="addModules">addModules</a></li>
-                                <li class=""><a href="#method_getConfig" title="getConfig">getConfig</a></li>
-                                <li class=""><a href="#method_getConfigParam" title="getConfigParam">getConfigParam</a></li>
-                                <li class=""><a href="#method_getModuleById" title="getModuleById">getModuleById</a></li>
                                 <li class=""><a href="#method_init" title="init">init</a></li>
-                                <li class=""><a href="#method_loadDependency" title="loadDependency">loadDependency</a></li>
-                                <li class=""><a href="#method_readyForAfterBinding" title="readyForAfterBinding">readyForAfterBinding</a></li>
-                                <li class=""><a href="#method_removeModules" title="removeModules">removeModules</a></li>
+                                <li class=""><a href="#method_registerConnection" title="registerConnection">registerConnection</a></li>
+                                <li class=""><a href="#method_registerModule" title="registerModule">registerModule</a></li>
+                                <li class=""><a href="#method_registerModules" title="registerModules">registerModules</a></li>
+                                <li class=""><a href="#method_start" title="start">start</a></li>
+                                <li class=""><a href="#method_stop" title="stop">stop</a></li>
+                                <li class=""><a href="#method_unregisterModule" title="unregisterModule">unregisterModule</a></li>
                         </ul>
                     </div>
 
@@ -683,7 +671,7 @@ It is shared between all modules.
 	</div>
 </div>
 <script type="text/javascript">
-    ALL_YUI_PROPS = [{"url": "Tc.Application.html#property_$ctx", "access": "", "host": "Tc.Application", "type": "property", "name": "$ctx"}, {"url": "Tc.Sandbox.html#method_addModules", "access": "", "host": "Tc.Sandbox", "type": "method", "name": "addModules"}, {"url": "Tc.Sandbox.html#property_afterBindingCallbacks", "access": "", "host": "Tc.Sandbox", "type": "property", "name": "afterBindingCallbacks"}, {"url": "Tc.Sandbox.html#property_application", "access": "", "host": "Tc.Sandbox", "type": "property", "name": "application"}, {"url": "Tc.Application.html#property_config", "access": "", "host": "Tc.Application", "type": "property", "name": "config"}, {"url": "Tc.Sandbox.html#property_config", "access": "", "host": "Tc.Sandbox", "type": "property", "name": "config"}, {"url": "Tc.Application.html#property_connectors", "access": "", "host": "Tc.Application", "type": "property", "name": "connectors"}, {"url": "Tc.Sandbox.html#property_dependencies", "access": "", "host": "Tc.Sandbox", "type": "property", "name": "dependencies"}, {"url": "Tc.Config.html#property_dependencyPath", "access": "", "host": "Tc.Config", "type": "property", "name": "dependencyPath"}, {"url": "Tc.Sandbox.html#property_firstScript", "access": "", "host": "Tc.Sandbox", "type": "property", "name": "firstScript"}, {"url": "Tc.Sandbox.html#method_getConfig", "access": "", "host": "Tc.Sandbox", "type": "method", "name": "getConfig"}, {"url": "Tc.Sandbox.html#method_getConfigParam", "access": "", "host": "Tc.Sandbox", "type": "method", "name": "getConfigParam"}, {"url": "Tc.Sandbox.html#method_getModuleById", "access": "", "host": "Tc.Sandbox", "type": "method", "name": "getModuleById"}, {"url": "Tc.Application.html#method_init", "access": "", "host": "Tc.Application", "type": "method", "name": "init"}, {"url": "Tc.Sandbox.html#method_init", "access": "", "host": "Tc.Sandbox", "type": "method", "name": "init"}, {"url": "Tc.Sandbox.html#method_loadDependency", "access": "", "host": "Tc.Sandbox", "type": "method", "name": "loadDependency"}, {"url": "Tc.Application.html#property_modules", "access": "", "host": "Tc.Application", "type": "property", "name": "modules"}, {"url": "Tc.Sandbox.html#method_readyForAfterBinding", "access": "", "host": "Tc.Sandbox", "type": "method", "name": "readyForAfterBinding"}, {"url": "Tc.Application.html#method_registerConnection", "access": "", "host": "Tc.Application", "type": "method", "name": "registerConnection"}, {"url": "Tc.Application.html#method_registerModule", "access": "", "host": "Tc.Application", "type": "method", "name": "registerModule"}, {"url": "Tc.Application.html#method_registerModules", "access": "", "host": "Tc.Application", "type": "method", "name": "registerModules"}, {"url": "Tc.Sandbox.html#method_removeModules", "access": "", "host": "Tc.Sandbox", "type": "method", "name": "removeModules"}, {"url": "Tc.Application.html#property_sandbox", "access": "", "host": "Tc.Application", "type": "property", "name": "sandbox"}, {"url": "Tc.Application.html#method_start", "access": "", "host": "Tc.Application", "type": "method", "name": "start"}, {"url": "Tc.Application.html#method_stop", "access": "", "host": "Tc.Application", "type": "method", "name": "stop"}, {"url": "Tc.Application.html#method_unregisterModule", "access": "", "host": "Tc.Application", "type": "method", "name": "unregisterModule"}, {"url": "Tc.Application.html#property_wildcardComponents", "access": "", "host": "Tc.Application", "type": "property", "name": "wildcardComponents"}];
+    ALL_YUI_PROPS = [{"url": "Tc.Application.html#property_$ctx", "access": "", "host": "Tc.Application", "type": "property", "name": "$ctx"}, {"url": "Tc.Application.html#property_config", "access": "", "host": "Tc.Application", "type": "property", "name": "config"}, {"url": "Tc.Application.html#property_connectors", "access": "", "host": "Tc.Application", "type": "property", "name": "connectors"}, {"url": "Tc.Config.html#property_dependencyPath", "access": "", "host": "Tc.Config", "type": "property", "name": "dependencyPath"}, {"url": "Tc.Application.html#method_init", "access": "", "host": "Tc.Application", "type": "method", "name": "init"}, {"url": "Tc.Application.html#property_modules", "access": "", "host": "Tc.Application", "type": "property", "name": "modules"}, {"url": "Tc.Application.html#method_registerConnection", "access": "", "host": "Tc.Application", "type": "method", "name": "registerConnection"}, {"url": "Tc.Application.html#method_registerModule", "access": "", "host": "Tc.Application", "type": "method", "name": "registerModule"}, {"url": "Tc.Application.html#method_registerModules", "access": "", "host": "Tc.Application", "type": "method", "name": "registerModules"}, {"url": "Tc.Application.html#property_sandbox", "access": "", "host": "Tc.Application", "type": "property", "name": "sandbox"}, {"url": "Tc.Application.html#method_start", "access": "", "host": "Tc.Application", "type": "method", "name": "start"}, {"url": "Tc.Application.html#method_stop", "access": "", "host": "Tc.Application", "type": "method", "name": "stop"}, {"url": "Tc.Application.html#method_unregisterModule", "access": "", "host": "Tc.Application", "type": "method", "name": "unregisterModule"}, {"url": "Tc.Application.html#property_wildcardComponents", "access": "", "host": "Tc.Application", "type": "property", "name": "wildcardComponents"}];
 </script>
 </body>
 </html>
