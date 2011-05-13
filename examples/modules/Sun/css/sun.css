@@ -1,0 +1,15 @@
+/* @group Module: Default */
+@media all {
+
+}
+
+@media print {
+
+}
+
+@media screen {
+    .modDefault {
+        margin: 0;
+    }
+}
+/* @end */

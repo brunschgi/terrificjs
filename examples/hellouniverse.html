@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Hello World</title>
+    <!-- jquery and terrificjs -->
+    <script type="text/javascript" src="../src/jquery/jquery-1.5.2.min.js"></script>
+    <script type="text/javascript" src="../release/1.0.0/terrific-1.0.0.min.js"></script>
+
+    <!-- your sources -->
+    <script type="text/javascript" src="modules/Planet/js/Tc.Module.Planet.js"></script>
+
+    <!-- your css sources -->
+    <link type="text/css" href="modules/Planet/css/planet.css" rel="stylesheet" />
+    <link type="text/css" href="modules/Planet/css/skin/earth.css" rel="stylesheet" />
+    <link type="text/css" href="modules/Planet/css/skin/mars.css" rel="stylesheet" />
+    <link type="text/css" href="modules/Planet/css/skin/jupiter.css" rel="stylesheet" />
+</head>
+<body>
+<div class="page">
+    <div class="mod modPlanet">
+        <p>Hi, I'm a lonely planet. And I like to greet:</p>
+        <ul class="greet">
+
+        </ul>
+    </div>
+    <div class="mod modPlanet skinPlanetEarth">
+        <p>Hi, I'm a the planet earth. And I like to greet:</p>
+        <ul class="greet">
+
+        </ul>
+    </div>
+    <div class="mod modPlanet skinPlanetMars">
+        <p>Hi, I'm a the planet mars. And I like to greet:</p>
+        <ul class="greet">
+
+        </ul>
+    </div>
+    <div class="mod modPlanet skinPlanetJupiter">
+        <p>Hi, I'm a the planet jupiter. And I like to greet:</p>
+        <ul class="greet">
+
+        </ul>
+    </div>
+</div>
+<script type="text/javascript">
+    /* Terrific Bootstrap */
+    (function($) {
+        $(document).ready(function() {
+            var $page = $('.page');
+            var application = new Tc.Application($page);
+            application.registerModules();
+            application.start();
+        });
+    })(Tc.$);
+</script>
+</body>
+</html>
+
