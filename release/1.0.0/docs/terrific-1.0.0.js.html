@@ -4,11 +4,11 @@
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 	<title>API: Tc   terrific-1.0.0.js  (TerrificJS)</title>
 
-	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css?stamp=1304600225.93" />
-	<link rel="stylesheet" type="text/css" href="assets/api.css?stamp=1304600225.93" />
+	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css?stamp=1305268207.14" />
+	<link rel="stylesheet" type="text/css" href="assets/api.css?stamp=1305268207.14" />
 
-    <script type="text/javascript" src="assets/api-js?stamp=1304600225.93"></script>
-    <script type="text/javascript" src="assets/ac-js?stamp=1304600225.93"></script>
+    <script type="text/javascript" src="assets/api-js?stamp=1305268207.14"></script>
+    <script type="text/javascript" src="assets/ac-js?stamp=1305268207.14"></script>
 </head>
 
 <body id="yahoo-com">
@@ -54,7 +54,7 @@
 <span class="cm"> * Copyright 2011, Remo Brunschwiler</span>
 <span class="cm"> * MIT Licensed.</span>
 <span class="cm"> *</span>
-<span class="cm"> * Date: Thu, 05 May 2011 12:57:02 GMT</span>
+<span class="cm"> * Date: Fri, 13 May 2011 06:29:59 GMT</span>
 <span class="cm"> *</span>
 <span class="cm"> *</span>
 <span class="cm"> * Includes:</span>
@@ -492,91 +492,100 @@
 <span class="cm">     * @class Sandbox</span>
 <span class="cm">     */</span>
     <span class="nx">Tc</span><span class="p">.</span><span class="nx">Sandbox</span> <span class="o">=</span> <span class="nx">Class</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
-		
-		<span class="cm">/**</span>
-<span class="cm">		 * Initializes the Sandbox.</span>
-<span class="cm">		 * </span>
-<span class="cm">		 * @method init</span>
-<span class="cm">		 * @return {void}</span>
-<span class="cm">		 * @constructor</span>
-<span class="cm">	     * @param {Applicaton} application the application reference</span>
-<span class="cm">	     * @param {Object} config the configuration</span>
-<span class="cm">		 */</span>
-		<span class="nx">init</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">application</span><span class="p">,</span> <span class="nx">config</span><span class="p">)</span> <span class="p">{</span>
-	    
-	        <span class="cm">/** </span>
-<span class="cm">	         * The application</span>
-<span class="cm">	         *</span>
-<span class="cm">	         * @property application</span>
-<span class="cm">	         * @type Application</span>
-<span class="cm">	         */</span>
-	        <span class="k">this</span><span class="p">.</span><span class="nx">application</span> <span class="o">=</span> <span class="nx">application</span><span class="p">;</span>
-	        
-	        <span class="cm">/** </span>
-<span class="cm">	         * The configuration.</span>
-<span class="cm">	         *</span>
-<span class="cm">	         * @property config</span>
-<span class="cm">	         * @type Object</span>
-<span class="cm">	         */</span>
-	        <span class="k">this</span><span class="p">.</span><span class="nx">config</span> <span class="o">=</span> <span class="nx">config</span><span class="p">;</span>
-	        
-	        <span class="cm">/**</span>
-<span class="cm">	         * Contains the requested javascript dependencies.</span>
-<span class="cm">	         *</span>
-<span class="cm">	         * @property dependencies</span>
-<span class="cm">	         * @type Array</span>
-<span class="cm">	         */</span>
-	        <span class="k">this</span><span class="p">.</span><span class="nx">dependencies</span> <span class="o">=</span> <span class="p">[];</span>
-	        
-	        <span class="cm">/**</span>
-<span class="cm">	         * Contains the afterBinding module callbacks.</span>
-<span class="cm">	         *</span>
-<span class="cm">	         * @property afterBindingCallbacks</span>
-<span class="cm">	         * @type Array</span>
-<span class="cm">	         */</span>
-	        <span class="k">this</span><span class="p">.</span><span class="nx">afterBindingCallbacks</span> <span class="o">=</span> <span class="p">[];</span>
-	    <span class="p">},</span>
-    
-		<span class="cm">/**</span>
-<span class="cm">		 * Adds (register and start) all modules in the given context scope.</span>
-<span class="cm">		 * </span>
-<span class="cm">		 * @method addModules</span>
-<span class="cm">		 * @param {jQuery} $ctx the jquery context.</span>
-<span class="cm">		 * @return {Array} a list containing the references of the registered modules.</span>
-<span class="cm">		 */</span>
-		<span class="nx">addModules</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">$ctx</span><span class="p">)</span> <span class="p">{</span>
-			<span class="kd">var</span> <span class="nx">modules</span> <span class="o">=</span> <span class="p">[],</span>
-                <span class="nx">application</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">application</span><span class="p">;</span>
-			
-			<span class="k">if</span><span class="p">(</span><span class="nx">$ctx</span><span class="p">)</span> <span class="p">{</span>
-				<span class="c1">// register modules</span>
-				<span class="nx">modules</span> <span class="o">=</span> <span class="nx">application</span><span class="p">.</span><span class="nx">registerModules</span><span class="p">(</span><span class="nx">$ctx</span><span class="p">);</span>
-			
-				<span class="c1">// start modules</span>
-				<span class="nx">application</span><span class="p">.</span><span class="nx">start</span><span class="p">(</span><span class="nx">modules</span><span class="p">);</span>
-			<span class="p">}</span> 
-			
-			<span class="k">return</span> <span class="nx">modules</span><span class="p">;</span>
-		<span class="p">},</span>
-		
-		<span class="cm">/**</span>
-<span class="cm">		 * Removes (stop and unregister) the modules by the given module instances.</span>
-<span class="cm">		 * </span>
-<span class="cm">		 * @method removeModules</span>
-<span class="cm">		 * @param {Array} modules a list containting the module instances to remove.</span>
-<span class="cm">		 * @return {void}</span>
-<span class="cm">		 */</span>
-		<span class="nx">removeModules</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">modules</span><span class="p">)</span> <span class="p">{</span>
+
+        <span class="cm">/**</span>
+<span class="cm">         * Initializes the Sandbox.</span>
+<span class="cm">         *</span>
+<span class="cm">         * @method init</span>
+<span class="cm">         * @return {void}</span>
+<span class="cm">         * @constructor</span>
+<span class="cm">         * @param {Applicaton} application the application reference</span>
+<span class="cm">         * @param {Object} config the configuration</span>
+<span class="cm">         */</span>
+        <span class="nx">init</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">application</span><span class="p">,</span> <span class="nx">config</span><span class="p">)</span> <span class="p">{</span>
+
+            <span class="cm">/**</span>
+<span class="cm">             * The application</span>
+<span class="cm">             *</span>
+<span class="cm">             * @property application</span>
+<span class="cm">             * @type Application</span>
+<span class="cm">             */</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">application</span> <span class="o">=</span> <span class="nx">application</span><span class="p">;</span>
+
+            <span class="cm">/**</span>
+<span class="cm">             * The configuration.</span>
+<span class="cm">             *</span>
+<span class="cm">             * @property config</span>
+<span class="cm">             * @type Object</span>
+<span class="cm">             */</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">config</span> <span class="o">=</span> <span class="nx">config</span><span class="p">;</span>
+
+            <span class="cm">/**</span>
+<span class="cm">             * Contains the requested javascript dependencies.</span>
+<span class="cm">             *</span>
+<span class="cm">             * @property dependencies</span>
+<span class="cm">             * @type Array</span>
+<span class="cm">             */</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">dependencies</span> <span class="o">=</span> <span class="p">[];</span>
+
+            <span class="cm">/**</span>
+<span class="cm">             * Contains the afterBinding module callbacks.</span>
+<span class="cm">             *</span>
+<span class="cm">             * @property afterBindingCallbacks</span>
+<span class="cm">             * @type Array</span>
+<span class="cm">             */</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">afterBindingCallbacks</span> <span class="o">=</span> <span class="p">[];</span>
+
+
+            <span class="cm">/**</span>
+<span class="cm">             * Contains the first script tag on the page.</span>
+<span class="cm">             *</span>
+<span class="cm">             * @property firstScript</span>
+<span class="cm">             * @type Node</span>
+<span class="cm">             */</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">firstScript</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;script&#39;</span><span class="p">).</span><span class="nx">get</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+        <span class="p">},</span>
+
+        <span class="cm">/**</span>
+<span class="cm">         * Adds (register and start) all modules in the given context scope.</span>
+<span class="cm">         *</span>
+<span class="cm">         * @method addModules</span>
+<span class="cm">         * @param {jQuery} $ctx the jquery context.</span>
+<span class="cm">         * @return {Array} a list containing the references of the registered modules.</span>
+<span class="cm">         */</span>
+        <span class="nx">addModules</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">$ctx</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">modules</span> <span class="o">=</span> <span class="p">[],</span>
+                    <span class="nx">application</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">application</span><span class="p">;</span>
+
+            <span class="k">if</span> <span class="p">(</span><span class="nx">$ctx</span><span class="p">)</span> <span class="p">{</span>
+                <span class="c1">// register modules</span>
+                <span class="nx">modules</span> <span class="o">=</span> <span class="nx">application</span><span class="p">.</span><span class="nx">registerModules</span><span class="p">(</span><span class="nx">$ctx</span><span class="p">);</span>
+
+                <span class="c1">// start modules</span>
+                <span class="nx">application</span><span class="p">.</span><span class="nx">start</span><span class="p">(</span><span class="nx">modules</span><span class="p">);</span>
+            <span class="p">}</span>
+
+            <span class="k">return</span> <span class="nx">modules</span><span class="p">;</span>
+        <span class="p">},</span>
+
+        <span class="cm">/**</span>
+<span class="cm">         * Removes (stop and unregister) the modules by the given module instances.</span>
+<span class="cm">         *</span>
+<span class="cm">         * @method removeModules</span>
+<span class="cm">         * @param {Array} modules a list containting the module instances to remove.</span>
+<span class="cm">         * @return {void}</span>
+<span class="cm">         */</span>
+        <span class="nx">removeModules</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">modules</span><span class="p">)</span> <span class="p">{</span>
             <span class="kd">var</span> <span class="nx">application</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">application</span><span class="p">;</span>
-            
-			<span class="k">if</span> <span class="p">(</span><span class="nx">modules</span><span class="p">)</span> <span class="p">{</span>
-				<span class="c1">// stop modules </span>
-				<span class="nx">application</span><span class="p">.</span><span class="nx">stop</span><span class="p">(</span><span class="nx">modules</span><span class="p">);</span>
-				
-				<span class="c1">// unregister modules</span>
-				<span class="nx">application</span><span class="p">.</span><span class="nx">unregisterModules</span><span class="p">(</span><span class="nx">modules</span><span class="p">);</span>
-			<span class="p">}</span>
-		<span class="p">},</span>
+
+            <span class="k">if</span> <span class="p">(</span><span class="nx">modules</span><span class="p">)</span> <span class="p">{</span>
+                <span class="c1">// stop modules</span>
+                <span class="nx">application</span><span class="p">.</span><span class="nx">stop</span><span class="p">(</span><span class="nx">modules</span><span class="p">);</span>
+
+                <span class="c1">// unregister modules</span>
+                <span class="nx">application</span><span class="p">.</span><span class="nx">unregisterModules</span><span class="p">(</span><span class="nx">modules</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
 
         <span class="cm">/**</span>
 <span class="cm">         * Gets the appropriate module for the given id.</span>
@@ -587,7 +596,7 @@
 <span class="cm">         */</span>
         <span class="nx">getModuleById</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">id</span><span class="p">)</span> <span class="p">{</span>
             <span class="kd">var</span> <span class="nx">application</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">application</span><span class="p">;</span>
-            
+
             <span class="k">if</span> <span class="p">(</span><span class="nx">application</span><span class="p">.</span><span class="nx">modules</span><span class="p">[</span><span class="nx">id</span><span class="p">]</span> <span class="o">!==</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">{</span>
                 <span class="k">return</span> <span class="nx">application</span><span class="p">.</span><span class="nx">modules</span><span class="p">[</span><span class="nx">id</span><span class="p">];</span>
             <span class="p">}</span>
@@ -623,7 +632,7 @@
                 <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">&#39;the config param &#39;</span> <span class="o">+</span> <span class="nx">name</span> <span class="o">+</span> <span class="s1">&#39; does not exist&#39;</span><span class="p">);</span>
             <span class="p">}</span>
         <span class="p">},</span>
-		
+
         <span class="cm">/**</span>
 <span class="cm">         * Loads a requested dependency (if not already loaded).</span>
 <span class="cm">         *</span>
@@ -636,7 +645,7 @@
 <span class="cm">         */</span>
         <span class="nx">loadDependency</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">dependency</span><span class="p">,</span> <span class="nx">type</span><span class="p">,</span> <span class="nx">callback</span><span class="p">,</span> <span class="nx">phase</span><span class="p">)</span> <span class="p">{</span>
             <span class="kd">var</span> <span class="nx">that</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
-            
+
             <span class="nx">phase</span> <span class="o">=</span> <span class="nx">phase</span> <span class="o">||</span> <span class="s1">&#39;none&#39;</span><span class="p">;</span> <span class="c1">// none indicates that it is not a dependency for a specific phase</span>
             <span class="nx">type</span> <span class="o">=</span> <span class="nx">type</span> <span class="o">||</span> <span class="s1">&#39;plugin&#39;</span><span class="p">;</span>
 
@@ -654,9 +663,9 @@
                     <span class="nx">state</span><span class="o">:</span> <span class="s1">&#39;requested&#39;</span><span class="p">,</span>
                     <span class="nx">callbacks</span><span class="o">:</span> <span class="p">[]</span>
                 <span class="p">};</span>
-                
+
                 <span class="kd">var</span> <span class="nx">path</span><span class="p">;</span>
-                
+
                 <span class="k">switch</span> <span class="p">(</span><span class="nx">type</span><span class="p">)</span> <span class="p">{</span>
                     <span class="k">case</span> <span class="s1">&#39;library&#39;</span><span class="o">:</span>
                     <span class="k">case</span> <span class="s1">&#39;plugin&#39;</span><span class="o">:</span>
@@ -670,26 +679,32 @@
                         <span class="nx">path</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
                         <span class="k">break</span><span class="p">;</span>
                 <span class="p">}</span>
-                
+
                 <span class="c1">// load the appropriate dependency</span>
-                <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
-                    <span class="nx">url</span><span class="o">:</span> <span class="nx">path</span> <span class="o">+</span> <span class="nx">dependency</span><span class="p">,</span>
-                    <span class="nx">dataType</span><span class="o">:</span> <span class="s1">&#39;script&#39;</span><span class="p">,</span>
-                    <span class="nx">cache</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-                    <span class="nx">success</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                <span class="kd">var</span> <span class="nx">script</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;script&#39;</span><span class="p">);</span>
+                <span class="nx">script</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="nx">path</span> <span class="o">+</span> <span class="nx">dependency</span><span class="p">;</span>
+
+                <span class="nx">script</span><span class="p">.</span><span class="nx">onreadystatechange</span> <span class="o">=</span> <span class="nx">script</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+                    <span class="kd">var</span> <span class="nx">readyState</span> <span class="o">=</span> <span class="nx">script</span><span class="p">.</span><span class="nx">readyState</span><span class="p">;</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">readyState</span> <span class="o">||</span> <span class="nx">readyState</span> <span class="o">==</span> <span class="s1">&#39;loaded&#39;</span> <span class="o">||</span> <span class="nx">readyState</span> <span class="o">==</span> <span class="s1">&#39;complete&#39;</span><span class="p">)</span> <span class="p">{</span>
                         <span class="nx">that</span><span class="p">.</span><span class="nx">dependencies</span><span class="p">[</span><span class="nx">dependency</span><span class="p">].</span><span class="nx">state</span> <span class="o">=</span> <span class="s1">&#39;loaded&#39;</span><span class="p">;</span>
                         <span class="nx">callback</span><span class="p">(</span><span class="nx">phase</span><span class="p">);</span>
-                        
+
                         <span class="c1">// notify the other modules with this dependency</span>
                         <span class="kd">var</span> <span class="nx">callbacks</span> <span class="o">=</span> <span class="nx">that</span><span class="p">.</span><span class="nx">dependencies</span><span class="p">[</span><span class="nx">dependency</span><span class="p">].</span><span class="nx">callbacks</span><span class="p">;</span>
-                        <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">callbacks</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+                        <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">len</span> <span class="o">=</span> <span class="nx">callbacks</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">len</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
                             <span class="nx">callbacks</span><span class="p">[</span><span class="nx">i</span><span class="p">]();</span>
                         <span class="p">}</span>
+
+                        <span class="c1">// Handle memory leak in IE</span>
+                        <span class="nx">script</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="nx">script</span><span class="p">.</span><span class="nx">onreadystatechange</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
                     <span class="p">}</span>
-                <span class="p">});</span>
+                <span class="p">};</span>
+
+                <span class="k">this</span><span class="p">.</span><span class="nx">firstScript</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">.</span><span class="nx">insertBefore</span><span class="p">(</span><span class="nx">script</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">firstScript</span><span class="p">);</span>
             <span class="p">}</span>
         <span class="p">},</span>
-        
+
         <span class="cm">/**</span>
 <span class="cm">         * Collects the module status messages (ready for after binding) and handles the callbacks.</span>
 <span class="cm">         *</span>
@@ -699,10 +714,10 @@
 <span class="cm">         */</span>
         <span class="nx">readyForAfterBinding</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
             <span class="kd">var</span> <span class="nx">afterBindingCallbacks</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">afterBindingCallbacks</span><span class="p">;</span>
-            
+
             <span class="c1">// add the callback to the stack</span>
             <span class="nx">afterBindingCallbacks</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">callback</span><span class="p">);</span>
-            
+
             <span class="c1">// check whether all modules are ready for the after binding phase</span>
             <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">application</span><span class="p">.</span><span class="nx">modules</span><span class="p">.</span><span class="nx">length</span> <span class="o">==</span> <span class="nx">afterBindingCallbacks</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span> <span class="p">{</span>
                 <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">afterBindingCallbacks</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
@@ -1178,7 +1193,7 @@
 	</div>
 </div>
 <script type="text/javascript">
-    ALL_YUI_PROPS = [{"url": "Tc.Application.html#property_$ctx", "access": "", "host": "Tc.Application", "type": "property", "name": "$ctx"}, {"url": "Tc.Module.html#property_$ctx", "access": "", "host": "Tc.Module", "type": "property", "name": "$ctx"}, {"url": "Tc.Sandbox.html#method_addModules", "access": "", "host": "Tc.Sandbox", "type": "method", "name": "addModules"}, {"url": "Tc.Sandbox.html#property_afterBindingCallbacks", "access": "", "host": "Tc.Sandbox", "type": "property", "name": "afterBindingCallbacks"}, {"url": "Tc.Sandbox.html#property_application", "access": "", "host": "Tc.Sandbox", "type": "property", "name": "application"}, {"url": "Tc.Module.html#method_attachConnector", "access": "", "host": "Tc.Module", "type": "method", "name": "attachConnector"}, {"url": "Tc.Module.html#method_beforeBindingCallback", "access": "", "host": "Tc.Module", "type": "method", "name": "beforeBindingCallback"}, {"url": "Tc.Utils.String.html#method_capitalize", "access": "", "host": "Tc.Utils.String", "type": "method", "name": "capitalize"}, {"url": "Tc.Module.html#method_checkDependencies", "access": "", "host": "Tc.Module", "type": "method", "name": "checkDependencies"}, {"url": "Tc.Application.html#property_config", "access": "", "host": "Tc.Application", "type": "property", "name": "config"}, {"url": "Tc.Sandbox.html#property_config", "access": "", "host": "Tc.Sandbox", "type": "property", "name": "config"}, {"url": "Tc.Application.html#property_connectors", "access": "", "host": "Tc.Application", "type": "property", "name": "connectors"}, {"url": "Tc.Module.html#property_connectors", "access": "", "host": "Tc.Module", "type": "property", "name": "connectors"}, {"url": "Tc.Sandbox.html#property_dependencies", "access": "", "host": "Tc.Sandbox", "type": "property", "name": "dependencies"}, {"url": "Tc.Module.html#property_dependencyCounter", "access": "", "host": "Tc.Module", "type": "property", "name": "dependencyCounter"}, {"url": "Tc.Config.html#property_dependencyPath", "access": "", "host": "Tc.Config", "type": "property", "name": "dependencyPath"}, {"url": "Tc.Module.html#method_fire", "access": "", "host": "Tc.Module", "type": "method", "name": "fire"}, {"url": "Tc.Sandbox.html#method_getConfig", "access": "", "host": "Tc.Sandbox", "type": "method", "name": "getConfig"}, {"url": "Tc.Sandbox.html#method_getConfigParam", "access": "", "host": "Tc.Sandbox", "type": "method", "name": "getConfigParam"}, {"url": "Tc.Module.html#method_getDecoratedModule", "access": "", "host": "Tc.Module", "type": "method", "name": "getDecoratedModule"}, {"url": "Tc.Sandbox.html#method_getModuleById", "access": "", "host": "Tc.Sandbox", "type": "method", "name": "getModuleById"}, {"url": "Tc.Application.html#method_init", "access": "", "host": "Tc.Application", "type": "method", "name": "init"}, {"url": "Tc.Sandbox.html#method_init", "access": "", "host": "Tc.Sandbox", "type": "method", "name": "init"}, {"url": "Tc.Module.html#method_init", "access": "", "host": "Tc.Module", "type": "method", "name": "init"}, {"url": "Tc.Connector.html#method_init", "access": "", "host": "Tc.Connector", "type": "method", "name": "init"}, {"url": "Tc.Module.html#method_initAfterBinding", "access": "", "host": "Tc.Module", "type": "method", "name": "initAfterBinding"}, {"url": "Tc.Module.html#method_initBeforeBinding", "access": "", "host": "Tc.Module", "type": "method", "name": "initBeforeBinding"}, {"url": "Tc.Module.html#method_initOnBinding", "access": "", "host": "Tc.Module", "type": "method", "name": "initOnBinding"}, {"url": "Tc.Sandbox.html#method_loadDependency", "access": "", "host": "Tc.Sandbox", "type": "method", "name": "loadDependency"}, {"url": "Tc.Module.html#property_modId", "access": "", "host": "Tc.Module", "type": "property", "name": "modId"}, {"url": "Tc.Application.html#property_modules", "access": "", "host": "Tc.Application", "type": "property", "name": "modules"}, {"url": "Tc.Connector.html#method_notify", "access": "", "host": "Tc.Connector", "type": "method", "name": "notify"}, {"url": "Tc.Sandbox.html#method_readyForAfterBinding", "access": "", "host": "Tc.Sandbox", "type": "method", "name": "readyForAfterBinding"}, {"url": "Tc.Connector.html#method_registerComponent", "access": "", "host": "Tc.Connector", "type": "method", "name": "registerComponent"}, {"url": "Tc.Application.html#method_registerConnection", "access": "", "host": "Tc.Application", "type": "method", "name": "registerConnection"}, {"url": "Tc.Application.html#method_registerModule", "access": "", "host": "Tc.Application", "type": "method", "name": "registerModule"}, {"url": "Tc.Application.html#method_registerModules", "access": "", "host": "Tc.Application", "type": "method", "name": "registerModules"}, {"url": "Tc.Sandbox.html#method_removeModules", "access": "", "host": "Tc.Sandbox", "type": "method", "name": "removeModules"}, {"url": "Tc.Module.html#method_require", "access": "", "host": "Tc.Module", "type": "method", "name": "require"}, {"url": "Tc.Application.html#property_sandbox", "access": "", "host": "Tc.Application", "type": "property", "name": "sandbox"}, {"url": "Tc.Module.html#property_sandbox", "access": "", "host": "Tc.Module", "type": "property", "name": "sandbox"}, {"url": "Tc.Application.html#method_start", "access": "", "host": "Tc.Application", "type": "method", "name": "start"}, {"url": "Tc.Module.html#method_start", "access": "", "host": "Tc.Module", "type": "method", "name": "start"}, {"url": "Tc.Application.html#method_stop", "access": "", "host": "Tc.Application", "type": "method", "name": "stop"}, {"url": "Tc.Module.html#method_stop", "access": "", "host": "Tc.Module", "type": "method", "name": "stop"}, {"url": "Tc.Connector.html#method_unregisterComponent", "access": "", "host": "Tc.Connector", "type": "method", "name": "unregisterComponent"}, {"url": "Tc.Application.html#method_unregisterModule", "access": "", "host": "Tc.Application", "type": "method", "name": "unregisterModule"}, {"url": "Tc.Application.html#property_wildcardComponents", "access": "", "host": "Tc.Application", "type": "property", "name": "wildcardComponents"}];
+    ALL_YUI_PROPS = [{"url": "Tc.Application.html#property_$ctx", "access": "", "host": "Tc.Application", "type": "property", "name": "$ctx"}, {"url": "Tc.Module.html#property_$ctx", "access": "", "host": "Tc.Module", "type": "property", "name": "$ctx"}, {"url": "Tc.Sandbox.html#method_addModules", "access": "", "host": "Tc.Sandbox", "type": "method", "name": "addModules"}, {"url": "Tc.Sandbox.html#property_afterBindingCallbacks", "access": "", "host": "Tc.Sandbox", "type": "property", "name": "afterBindingCallbacks"}, {"url": "Tc.Sandbox.html#property_application", "access": "", "host": "Tc.Sandbox", "type": "property", "name": "application"}, {"url": "Tc.Module.html#method_attachConnector", "access": "", "host": "Tc.Module", "type": "method", "name": "attachConnector"}, {"url": "Tc.Module.html#method_beforeBindingCallback", "access": "", "host": "Tc.Module", "type": "method", "name": "beforeBindingCallback"}, {"url": "Tc.Utils.String.html#method_capitalize", "access": "", "host": "Tc.Utils.String", "type": "method", "name": "capitalize"}, {"url": "Tc.Module.html#method_checkDependencies", "access": "", "host": "Tc.Module", "type": "method", "name": "checkDependencies"}, {"url": "Tc.Application.html#property_config", "access": "", "host": "Tc.Application", "type": "property", "name": "config"}, {"url": "Tc.Sandbox.html#property_config", "access": "", "host": "Tc.Sandbox", "type": "property", "name": "config"}, {"url": "Tc.Application.html#property_connectors", "access": "", "host": "Tc.Application", "type": "property", "name": "connectors"}, {"url": "Tc.Module.html#property_connectors", "access": "", "host": "Tc.Module", "type": "property", "name": "connectors"}, {"url": "Tc.Sandbox.html#property_dependencies", "access": "", "host": "Tc.Sandbox", "type": "property", "name": "dependencies"}, {"url": "Tc.Module.html#property_dependencyCounter", "access": "", "host": "Tc.Module", "type": "property", "name": "dependencyCounter"}, {"url": "Tc.Config.html#property_dependencyPath", "access": "", "host": "Tc.Config", "type": "property", "name": "dependencyPath"}, {"url": "Tc.Module.html#method_fire", "access": "", "host": "Tc.Module", "type": "method", "name": "fire"}, {"url": "Tc.Sandbox.html#property_firstScript", "access": "", "host": "Tc.Sandbox", "type": "property", "name": "firstScript"}, {"url": "Tc.Sandbox.html#method_getConfig", "access": "", "host": "Tc.Sandbox", "type": "method", "name": "getConfig"}, {"url": "Tc.Sandbox.html#method_getConfigParam", "access": "", "host": "Tc.Sandbox", "type": "method", "name": "getConfigParam"}, {"url": "Tc.Module.html#method_getDecoratedModule", "access": "", "host": "Tc.Module", "type": "method", "name": "getDecoratedModule"}, {"url": "Tc.Sandbox.html#method_getModuleById", "access": "", "host": "Tc.Sandbox", "type": "method", "name": "getModuleById"}, {"url": "Tc.Application.html#method_init", "access": "", "host": "Tc.Application", "type": "method", "name": "init"}, {"url": "Tc.Sandbox.html#method_init", "access": "", "host": "Tc.Sandbox", "type": "method", "name": "init"}, {"url": "Tc.Module.html#method_init", "access": "", "host": "Tc.Module", "type": "method", "name": "init"}, {"url": "Tc.Connector.html#method_init", "access": "", "host": "Tc.Connector", "type": "method", "name": "init"}, {"url": "Tc.Module.html#method_initAfterBinding", "access": "", "host": "Tc.Module", "type": "method", "name": "initAfterBinding"}, {"url": "Tc.Module.html#method_initBeforeBinding", "access": "", "host": "Tc.Module", "type": "method", "name": "initBeforeBinding"}, {"url": "Tc.Module.html#method_initOnBinding", "access": "", "host": "Tc.Module", "type": "method", "name": "initOnBinding"}, {"url": "Tc.Sandbox.html#method_loadDependency", "access": "", "host": "Tc.Sandbox", "type": "method", "name": "loadDependency"}, {"url": "Tc.Module.html#property_modId", "access": "", "host": "Tc.Module", "type": "property", "name": "modId"}, {"url": "Tc.Application.html#property_modules", "access": "", "host": "Tc.Application", "type": "property", "name": "modules"}, {"url": "Tc.Connector.html#method_notify", "access": "", "host": "Tc.Connector", "type": "method", "name": "notify"}, {"url": "Tc.Sandbox.html#method_readyForAfterBinding", "access": "", "host": "Tc.Sandbox", "type": "method", "name": "readyForAfterBinding"}, {"url": "Tc.Connector.html#method_registerComponent", "access": "", "host": "Tc.Connector", "type": "method", "name": "registerComponent"}, {"url": "Tc.Application.html#method_registerConnection", "access": "", "host": "Tc.Application", "type": "method", "name": "registerConnection"}, {"url": "Tc.Application.html#method_registerModule", "access": "", "host": "Tc.Application", "type": "method", "name": "registerModule"}, {"url": "Tc.Application.html#method_registerModules", "access": "", "host": "Tc.Application", "type": "method", "name": "registerModules"}, {"url": "Tc.Sandbox.html#method_removeModules", "access": "", "host": "Tc.Sandbox", "type": "method", "name": "removeModules"}, {"url": "Tc.Module.html#method_require", "access": "", "host": "Tc.Module", "type": "method", "name": "require"}, {"url": "Tc.Application.html#property_sandbox", "access": "", "host": "Tc.Application", "type": "property", "name": "sandbox"}, {"url": "Tc.Module.html#property_sandbox", "access": "", "host": "Tc.Module", "type": "property", "name": "sandbox"}, {"url": "Tc.Application.html#method_start", "access": "", "host": "Tc.Application", "type": "method", "name": "start"}, {"url": "Tc.Module.html#method_start", "access": "", "host": "Tc.Module", "type": "method", "name": "start"}, {"url": "Tc.Application.html#method_stop", "access": "", "host": "Tc.Application", "type": "method", "name": "stop"}, {"url": "Tc.Module.html#method_stop", "access": "", "host": "Tc.Module", "type": "method", "name": "stop"}, {"url": "Tc.Connector.html#method_unregisterComponent", "access": "", "host": "Tc.Connector", "type": "method", "name": "unregisterComponent"}, {"url": "Tc.Application.html#method_unregisterModule", "access": "", "host": "Tc.Application", "type": "method", "name": "unregisterModule"}, {"url": "Tc.Application.html#property_wildcardComponents", "access": "", "host": "Tc.Application", "type": "property", "name": "wildcardComponents"}];
 </script>
 </body>
 </html>

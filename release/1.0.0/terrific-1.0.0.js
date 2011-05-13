@@ -5,7 +5,7 @@
  * Copyright 2011, Remo Brunschwiler
  * MIT Licensed.
  *
- * Date: Thu, 05 May 2011 12:57:02 GMT
+ * Date: Fri, 13 May 2011 06:29:59 GMT
  *
  *
  * Includes:
@@ -443,91 +443,100 @@ Tc.Config = {
      * @class Sandbox
      */
     Tc.Sandbox = Class.extend({
-		
-		/**
-		 * Initializes the Sandbox.
-		 * 
-		 * @method init
-		 * @return {void}
-		 * @constructor
-	     * @param {Applicaton} application the application reference
-	     * @param {Object} config the configuration
-		 */
-		init : function(application, config) {
-	    
-	        /** 
-	         * The application
-	         *
-	         * @property application
-	         * @type Application
-	         */
-	        this.application = application;
-	        
-	        /** 
-	         * The configuration.
-	         *
-	         * @property config
-	         * @type Object
-	         */
-	        this.config = config;
-	        
-	        /**
-	         * Contains the requested javascript dependencies.
-	         *
-	         * @property dependencies
-	         * @type Array
-	         */
-	        this.dependencies = [];
-	        
-	        /**
-	         * Contains the afterBinding module callbacks.
-	         *
-	         * @property afterBindingCallbacks
-	         * @type Array
-	         */
-	        this.afterBindingCallbacks = [];
-	    },
-    
-		/**
-		 * Adds (register and start) all modules in the given context scope.
-		 * 
-		 * @method addModules
-		 * @param {jQuery} $ctx the jquery context.
-		 * @return {Array} a list containing the references of the registered modules.
-		 */
-		addModules: function($ctx) {
-			var modules = [],
-                application = this.application;
-			
-			if($ctx) {
-				// register modules
-				modules = application.registerModules($ctx);
-			
-				// start modules
-				application.start(modules);
-			} 
-			
-			return modules;
-		},
-		
-		/**
-		 * Removes (stop and unregister) the modules by the given module instances.
-		 * 
-		 * @method removeModules
-		 * @param {Array} modules a list containting the module instances to remove.
-		 * @return {void}
-		 */
-		removeModules: function(modules) {
+
+        /**
+         * Initializes the Sandbox.
+         *
+         * @method init
+         * @return {void}
+         * @constructor
+         * @param {Applicaton} application the application reference
+         * @param {Object} config the configuration
+         */
+        init : function(application, config) {
+
+            /**
+             * The application
+             *
+             * @property application
+             * @type Application
+             */
+            this.application = application;
+
+            /**
+             * The configuration.
+             *
+             * @property config
+             * @type Object
+             */
+            this.config = config;
+
+            /**
+             * Contains the requested javascript dependencies.
+             *
+             * @property dependencies
+             * @type Array
+             */
+            this.dependencies = [];
+
+            /**
+             * Contains the afterBinding module callbacks.
+             *
+             * @property afterBindingCallbacks
+             * @type Array
+             */
+            this.afterBindingCallbacks = [];
+
+
+            /**
+             * Contains the first script tag on the page.
+             *
+             * @property firstScript
+             * @type Node
+             */
+            this.firstScript = $('script').get(0);
+        },
+
+        /**
+         * Adds (register and start) all modules in the given context scope.
+         *
+         * @method addModules
+         * @param {jQuery} $ctx the jquery context.
+         * @return {Array} a list containing the references of the registered modules.
+         */
+        addModules: function($ctx) {
+            var modules = [],
+                    application = this.application;
+
+            if ($ctx) {
+                // register modules
+                modules = application.registerModules($ctx);
+
+                // start modules
+                application.start(modules);
+            }
+
+            return modules;
+        },
+
+        /**
+         * Removes (stop and unregister) the modules by the given module instances.
+         *
+         * @method removeModules
+         * @param {Array} modules a list containting the module instances to remove.
+         * @return {void}
+         */
+        removeModules: function(modules) {
             var application = this.application;
-            
-			if (modules) {
-				// stop modules 
-				application.stop(modules);
-				
-				// unregister modules
-				application.unregisterModules(modules);
-			}
-		},
+
+            if (modules) {
+                // stop modules
+                application.stop(modules);
+
+                // unregister modules
+                application.unregisterModules(modules);
+            }
+        },
 
         /**
          * Gets the appropriate module for the given id.
@@ -538,7 +547,7 @@ Tc.Config = {
          */
         getModuleById: function(id) {
             var application = this.application;
-            
+
             if (application.modules[id] !== undefined) {
                 return application.modules[id];
             }
@@ -574,7 +583,7 @@ Tc.Config = {
                 throw new Error('the config param ' + name + ' does not exist');
             }
         },
-		
+
         /**
          * Loads a requested dependency (if not already loaded).
          *
@@ -587,7 +596,7 @@ Tc.Config = {
          */
         loadDependency: function(dependency, type, callback, phase) {
             var that = this;
-            
+
             phase = phase || 'none'; // none indicates that it is not a dependency for a specific phase
             type = type || 'plugin';
 
@@ -605,9 +614,9 @@ Tc.Config = {
                     state: 'requested',
                     callbacks: []
                 };
-                
+
                 var path;
-                
+
                 switch (type) {
                     case 'library':
                     case 'plugin':
@@ -621,26 +630,32 @@ Tc.Config = {
                         path = '';
                         break;
                 }
-                
+
                 // load the appropriate dependency
-                $.ajax({
-                    url: path + dependency,
-                    dataType: 'script',
-                    cache: true,
-                    success: function() {
+                var script = document.createElement('script');
+                script.src = path + dependency;
+
+                script.onreadystatechange = script.onload = function () {
+                    var readyState = script.readyState;
+                    if (!readyState || readyState == 'loaded' || readyState == 'complete') {
                         that.dependencies[dependency].state = 'loaded';
                         callback(phase);
-                        
+
                         // notify the other modules with this dependency
                         var callbacks = that.dependencies[dependency].callbacks;
-                        for (var i = 0; i < callbacks.length; i++) {
+                        for (var i = 0, len = callbacks.length; i < len; i++) {
                             callbacks[i]();
                         }
+
+                        // Handle memory leak in IE
+                        script.onload = script.onreadystatechange = null;
                     }
-                });
+                };
+
+                this.firstScript.parentNode.insertBefore(script, this.firstScript);
             }
         },
-        
+
         /**
          * Collects the module status messages (ready for after binding) and handles the callbacks.
          *
@@ -650,10 +665,10 @@ Tc.Config = {
          */
         readyForAfterBinding: function(callback) {
             var afterBindingCallbacks = this.afterBindingCallbacks;
-            
+
             // add the callback to the stack
             afterBindingCallbacks.push(callback);
-            
+
             // check whether all modules are ready for the after binding phase
             if (this.application.modules.length == afterBindingCallbacks.length) {
                 for (var i = 0; i < afterBindingCallbacks.length; i++) {

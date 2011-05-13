@@ -54,7 +54,7 @@
 
 
             /**
-             * Contains the first script tag on the page.
+             * Contains the first script node on the page.
              *
              * @property firstScript
              * @type Node
@@ -197,7 +197,9 @@
                 }
 
                 // load the appropriate dependency
-                var script = document.createElement('script');
+                var script = document.createElement('script'),
+                    firstScript = this.firstScript;
+                
                 script.src = path + dependency;
 
                 script.onreadystatechange = script.onload = function () {
@@ -217,7 +219,7 @@
                     }
                 };
 
-                this.firstScript.parentNode.insertBefore(script, this.firstScript);
+                firstScript.parentNode.insertBefore(script, firstScript);
             }
         },
 

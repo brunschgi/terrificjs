@@ -9,8 +9,8 @@
     <property name="TMP_DIR" value="tmp" description="Folder for temporary files"/>
     <property name="BUILD_DIR" value="build" description="Files for parsing etc."/>
     <property name="JS_JAR" value="js.jar" description="Rhino JS Engine"/>
-    <property name="RELEASE_DIR" value="../release/${VERSION}" description="Folder for release files"/>
-    <property name="DOCUMENTATION_DIR" value="../release/${VERSION}/docs" description="Folder for the API documentation"/>
+    <property name="RELEASE_DIR" value="../release" description="Folder for release files"/>
+    <property name="DOCUMENTATION_DIR" value="../release/docs" description="Folder for the API documentation"/>
 
     <!-- file names -->
     <property name="JS" value="terrific-${VERSION}.js"/>
