@@ -6,10 +6,10 @@
     <link rel="stylesheet" type="text/css" href="css/qunit.css" media="screen" />
     <script type="text/javascript" src="../../src/jquery/jquery-1.6.min.js"></script>
     <!-- terrific js release -->
-    <script type="text/javascript" src="../../release/terrific-1.0.0.min.js"></script>
+    <!-- <script type="text/javascript" src="../../release/terrific-1.0.0.min.js"></script> -->
 
     <!-- terrific js sources -->
-    <!-- <script type="text/javascript" src="../../src/core/oo.js"></script>
+    <script type="text/javascript" src="../../src/core/oo.js"></script>
     <script type="text/javascript" src="../../src/core/Tc.js"></script>
     <script type="text/javascript" src="../../src/core/Tc.Config.js"></script>
     <script type="text/javascript" src="../../src/core/Tc.Application.js"></script>
@@ -17,7 +17,7 @@
     <script type="text/javascript" src="../../src/core/Tc.Module.js"></script>
     <script type="text/javascript" src="../../src/core/Tc.Connector.js"></script>
     <script type="text/javascript" src="../../src/core/Tc.Utils.js"></script>
-    <script type="text/javascript" src="../../src/core/Tc.Utils.String.js"></script> -->
+    <script type="text/javascript" src="../../src/core/Tc.Utils.String.js"></script>
 
     <!-- testing -->
     <script type="text/javascript" src="js/qunit.js"></script>
