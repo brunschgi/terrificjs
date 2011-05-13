@@ -1,9 +1,0 @@
-/* @group Module: Default | Skin: Mars */
-.skinPlanetMars {
-    color: #000;
-    background-color: white;
-    background-image: -moz-linear-gradient(0pt 50%, rgba(200, 0, 0, 0.5) 50%, transparent 50%), -moz-linear-gradient(rgba(200, 0, 0, 0.5) 50%, transparent 50%);
-    background-size: 50px 50px;
-}
-
-/* @end */
