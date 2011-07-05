@@ -1,6 +1,6 @@
 (function($) {
     /**
-     * Responsible for application wide issues (ie. the creation of modules).
+     * Responsible for application-wide issues (e.g. the creation of modules).
      *
      * @author Remo Brunschwiler
      * @namespace Tc
@@ -36,7 +36,7 @@
 
             /**
              * Contains references to all modules on the page.
-             * -> could be useful ie. when there are interactions between flash <-> js.
+             * -> Could be useful for example when there are interactions between Flash <-> JS.
              *
              * @property modules
              * @type Array
@@ -69,7 +69,7 @@
         },
 
         /**
-         * Registers all modules in the context scope automatically (as long as the modules uses the oocss naming conventions).
+         * Registers all modules within the scope of context automatically (as long as the modules use the OOCSS naming conventions).
          *
          * @method registerModules
          * @param {jQuery} $ctx the jquery context.
@@ -85,22 +85,22 @@
                 var $this = $(this);
 
                 /*
-                 * a module can have 3 types of classes:
-                 * 1. .mod -> indicates that it is a base module (default -> no javascript need to be involved)
-                 * 2. .mod<moduleName> (ie. .modBasic) -> indicates that it is a module from the type basic (derived from the base module)
-                 * 3. .skin<moduleName><skinName> (ie. .skinBasicSubmarine) -> indicates that the module basic has the submarine skin. it will be decorated by the skin js (if existing).
+                 * A module can have 3 types of classes:
+                 * 1. .mod -> Indicates that it is a base module (default -> no javascript need to be involved)
+                 * 2. .mod<moduleName> (e.g. .modBasic) -> Indicates that it is a module from the type basic (derived from the base module)
+                 * 3. .skin<moduleName><skinName> (e.g. .skinBasicSubmarine) -> Indicates that the module basic has the submarine skin. It will be decorated by the skin js (if existing).
                  *
-                 * type 1 must occur exactly once
-                 * type 2 can occur at most once
-                 * type 3 can occur arbitrarily
+                 * Type 1 must occur exactly once
+                 * Type 2 can occur at most once
+                 * Type 3 can occur arbitrarily
                  *
-                 * additionaly a module can have 1 type of data attributes:
+                 * Additionally, a module can have one type of data attributes:
                  * 1. data-connectors -> a comma separated value containing the connector ids -> schema of a connector id: <connectorName><connectorId><connectorRole>
-                 *    (ie. MasterSlave1Master -> name = MasterSlave, id = 1, role = Master)
-                 * 	-> indicates that the module should notify the MasterSlave connector (mediator) over all state changes
-                 * 	-> the connector id is used to chain the appropriate modules together and to improve the reusability of the connector
+                 *    (e.g. MasterSlave1Master -> name = MasterSlave, id = 1, role = Master)
+                 * 	-> Indicates that the module should notify the MasterSlave connector (mediator) over all state changes
+                 * 	-> The connector id is used to chain the appropriate modules together and to improve the reusability of the connector
                  *
-                 * type 1 can contain multiple connector ids (ie. 1,2,MasterSlave1Master)
+                 * Type 1 can contain multiple connector ids (ie. 1,2,MasterSlave1Master)
                  */
 
                 var classes = $this.attr('class').split(' ');
@@ -200,10 +200,10 @@
             }
 
             /*
-             * special treatment for the wildcard connection (conn*) -> it will be notified about
+             * Special treatment for the wildcard connection (conn*) -> it will be notified about
              * all state changes from all connections and is able to propagate its changes to all modules.
-             * this must be done on init to make sure that all connectors on the page has been instantiated.
-             * only do this for the given modules.
+             * This must be done on init to make sure that all connectors on the page has been instantiated.
+             * Only do this for the given modules.
              */
             for (var i = 0, len = wildcardComponents.length; i < len; i++) {
                 var component = wildcardComponents[i];
