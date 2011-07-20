@@ -57,7 +57,8 @@
         },
 
         /**
-         * Notifies all registered components about the state change (to be overriden in the specific connectors).
+         * Notifies all registered components about a state change 
+	 * This can be be overriden in the specific connectors.
          *
          * @method notify
          * @param {Module} component The module that sends the state change
@@ -67,10 +68,10 @@
          * @return {boolean} indicates Whether the default action should be excuted or not
          */
         notify: function(component, state, data, callback) {
-            /* 
-             * Gives the components the ability to prevent the default- and afteraction from the events
-             * (by returning false in the on<Event>-Handler)
-             */
+            // Gives the components the ability to prevent the default- and 
+	    // afteraction from the events (by returning false in the
+	    // on<Event>-Handler)
+            
             var proceed = true,
                 components = this.components;
 

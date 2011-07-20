@@ -36,7 +36,8 @@
 
             /**
              * Contains references to all modules on the page.
-             * -> Could be useful for example when there are interactions between Flash <-> JS.
+             * Could be useful for example when there are interactions between
+	     * Flash <-> JS.
              *
              * @property modules
              * @type Array
@@ -60,7 +61,8 @@
             this.wildcardComponents = [];
 
             /**
-             * The sandbox to get the resources from (shared between all modules).
+             * The sandbox to get the resources from 
+	     * This sandbox is shared between all modules.
              *
              * @property sandbox
              * @type Sandbox
@@ -69,7 +71,9 @@
         },
 
         /**
-         * Registers all modules within the scope of context automatically (as long as the modules use the OOCSS naming conventions).
+         * Register modules withing scope
+	 * Automatically registers all modules within the scope, 
+	 * as long as the modules use the OOCSS naming conventions.
          *
          * @method registerModules
          * @param {jQuery} $ctx The jquery context.
@@ -200,16 +204,18 @@
             }
 
             /*
-             * Special treatment for the wildcard connection (conn*) -> it will be notified about
-             * all state changes from all connections and is able to propagate its changes to all modules.
-             * This must be done on init to make sure that all connectors on the page has been instantiated.
-             * Only do this for the given modules.
+             * Special treatment for the wildcard connection (conn*) -> it will
+	     * be notified about all state changes from all connections and is
+	     * able to propagate its changes to all modules. Tis must be done on
+	     * init to make sure that all connectors on the page has been
+	     * instantiated. Only do this for the given modules.
              */
             for (var i = 0, len = wildcardComponents.length; i < len; i++) {
                 var component = wildcardComponents[i];
                 if ($.inArray(component, modules) > -1) {
                     for (var connectorId in connectors) {
-                        // The connector observes the component and attaches it as an observer
+                        // The connector observes the component and attaches it
+			// as an observer
                         component.attachConnector(connectors[connectorId]);
                         connectors[connectorId].registerComponent(component, '*');
                     }
@@ -227,7 +233,7 @@
         stop: function(modules) {
             modules = modules || this.modules;
 
-            // stop the modules
+            // Stop the modules
             for (var i = 0, len = modules.length; i < len; i++) {
                 modules[i].stop();
             }
@@ -296,7 +302,8 @@
                 var connectors = this.connectors;
 
                 if (!connectors[connectorId]) {
-                    // Instantiate the appropriate connector if it does not exist yet
+                    // Instantiate the appropriate connector if it does not
+		    // exist yet
                     if (connectorType === '') {
                         connectors[connectorId] = new Tc.Connector(connectorId);
                     }
@@ -306,10 +313,12 @@
                 }
 
                 if (connectors[connectorId]) {
-                    // The connector observes the component and attaches it as an observer
+                    // The connector observes the component and attaches it as
+		    // an observer
                     component.attachConnector(connectors[connectorId]);
 
-                    // The component wants to be informed over state changes. Register it as connector member
+                    // The component wants to be informed over state changes. 
+		    // Register it as connector member
                     connectors[connectorId].registerComponent(component, connectorRole);
                 }
             }

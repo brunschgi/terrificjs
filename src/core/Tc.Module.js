@@ -66,7 +66,8 @@
 
         /**
          * Template method to start (init) the module.
-         * This method provides some hook functions which could be overridden from the concrete implementation
+         * This method provides some hook functions which could be overridden
+	 * from the concrete implementation.
          *
          * @method start
          * @return {void}
@@ -103,11 +104,13 @@
         initBeforeBinding: function() {
             var that = this;
 
-             // Start the before binding phase if there are no dependency for this phase
+             // Start the before binding phase if there are no dependency for
+	     // this phase
             this.checkDependencies('beforeBinding', function() {
-                // Call the hook method beforeBinding from the concrete implementation
-                // because there might be some ajax calls, the bindEvents method must be called from
-                // the beforeBinding function after it has been run
+                // Call the hook method beforeBinding from the concrete
+		// implementation because there might be some ajax calls, the
+		// bindEvents method must be called from the beforeBinding
+		// function after it has been run
                 if (that.beforeBinding) {
                     that.beforeBinding(function() {
                         that.beforeBindingCallback();
@@ -140,9 +143,11 @@
         initOnBinding: function() {
             var that = this;
 
-            // Start the on binding phase if there are no dependencies for this phase
+            // Start the on binding phase if there are no dependencies for this
+	    // phase
             this.checkDependencies('onBinding',function() {
-                // Call the hook method bindEvents from the concrete implementation
+                // Call the hook method bindEvents from the concrete
+		// implementation
                 if (that.onBinding) {
                     that.onBinding();
                 }
@@ -162,12 +167,15 @@
         initAfterBinding: function() {
             var that = this;
 
-            // Start the afterBinding phase if there are no dependencies for this phase
+            // Start the afterBinding phase if there are no dependencies for
+	    // this phase
             this.checkDependencies('afterBinding', function() {
-                // Inform the sandbox that the module is ready for the afterBinding phase
+                // Inform the sandbox that the module is ready for the
+		// afterBinding phase
                 that.sandbox.readyForAfterBinding(function() {
 
-                    // Call the hook method afterBinding from the concrete implementation
+                    // Call the hook method afterBinding from the concrete
+		    // implementation
                     if (that.afterBinding) {
                         that.afterBinding();
                     }
@@ -287,7 +295,8 @@
 
                 /*
                  * Sets the prototype object to the module.
-                 * So the "non-decorated" functions will be called on the module (without implementing the whole module interface).
+                 * So the "non-decorated" functions will be called on the module
+		 * (without implementing the whole module interface).
                  */
                 decorator.prototype = this;
                 decorator.prototype.constructor = Tc.Module[module][skin];
