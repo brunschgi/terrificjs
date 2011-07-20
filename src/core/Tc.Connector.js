@@ -14,7 +14,7 @@
          * @method init
          * @return {void}
          * @constructor
-         * @param {String} connectorId the unique connector id
+         * @param {String} connectorId The unique connector ID
          * @param {Object} connectorId
          */
         init : function(connectorId) {
@@ -27,7 +27,7 @@
          *
          * @method registerComponent
          * @param {Module} component the module to register
-         * @param {String} role the role of the module (ie. master, slave etc.)
+         * @param {String} role The role of the module (ie. master, slave etc.)
          * @return {void}
          */
         registerComponent: function(component, role) {
@@ -43,7 +43,7 @@
          * Unregisters a component.
          *
          * @method unregisterComponent
-         * @param {Module} component the module to unregister
+         * @param {Module} component The module to unregister
          * @return {void}
          */
         unregisterComponent: function(component) {
@@ -60,11 +60,11 @@
          * Notifies all registered components about the state change (to be overriden in the specific connectors).
          *
          * @method notify
-         * @param {Module} component the module that sends the state change
-         * @param {String} state the state
-         * @param {Object} data contains the state relevant data (if any)
-         * @param {Function} callback the callback function (could be executed after an asynchronous action)
-         * @return {boolean} indicates whether the default action should be excuted or not
+         * @param {Module} component The module that sends the state change
+         * @param {String} state The component's state
+         * @param {Object} data Contains the state relevant data (if any)
+         * @param {Function} callback The callback function (could be executed after an asynchronous action)
+         * @return {boolean} indicates Whether the default action should be excuted or not
          */
         notify: function(component, state, data, callback) {
             /* 

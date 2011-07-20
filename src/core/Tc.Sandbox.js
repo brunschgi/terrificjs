@@ -15,8 +15,8 @@
          * @method init
          * @return {void}
          * @constructor
-         * @param {Applicaton} application the application reference
-         * @param {Object} config the configuration
+         * @param {Applicaton} application The application reference
+         * @param {Object} config The configuration
          */
         init : function(application, config) {
 
@@ -66,18 +66,18 @@
          * Adds (register and start) all modules in the given context scope.
          *
          * @method addModules
-         * @param {jQuery} $ctx the jquery context.
-         * @return {Array} a list containing the references of the registered modules.
+         * @param {jQuery} $ctx The jquery context.
+         * @return {Array} A list containing the references of the registered modules.
          */
         addModules: function($ctx) {
             var modules = [],
                     application = this.application;
 
             if ($ctx) {
-                // register modules
+                // Register modules
                 modules = application.registerModules($ctx);
 
-                // start modules
+                // Start modules
                 application.start(modules);
             }
 
@@ -88,27 +88,27 @@
          * Removes (stop and unregister) the modules by the given module instances.
          *
          * @method removeModules
-         * @param {Array} modules a list containting the module instances to remove.
+         * @param {Array} modules A list containting the module instances to remove.
          * @return {void}
          */
         removeModules: function(modules) {
             var application = this.application;
 
             if (modules) {
-                // stop modules
+                // Stop modules
                 application.stop(modules);
 
-                // unregister modules
+                // Unregister modules
                 application.unregisterModules(modules);
             }
         },
 
         /**
-         * Gets the appropriate module for the given id.
+         * Gets the appropriate module for the given ID.
          *
          * @method getModuleById
-         * @param {int} id the module id
-         * @return {Module} the appropriate module
+         * @param {int} id The module ID
+         * @return {Module} The appropriate module
          */
         getModuleById: function(id) {
             var application = this.application;
@@ -125,7 +125,7 @@
          * Gets the application config.
          *
          * @method getConfig
-         * @return {Object} the configuration object
+         * @return {Object} The configuration object
          */
         getConfig: function() {
             return this.config;
@@ -135,8 +135,8 @@
          * Gets an application config param.
          *
          * @method getConfigParam
-         * @param {String} name the param name
-         * @return {mixed} the appropriate configuration param
+         * @param {String} name The param name
+         * @return {mixed} The appropriate configuration param
          */
         getConfigParam: function(name) {
             var config = this.config;
@@ -153,25 +153,25 @@
          * Loads a requested dependency (if not already loaded).
          *
          * @method loadDependency
-         * @param {String} dependency the dependency (i.e. swfobject.js)
-         * @param {String} type the dependency type (plugin | library | util | url)
-         * @param {Function} callback the callback to execute after the dependency has successfully loaded
-         * @param {String} phase the module phase where the dependency is needed (ie. beforeBinding, onBinding)
+         * @param {String} dependency The dependency (i.e. swfobject.js)
+         * @param {String} type The dependency type (plugin | library | util | url)
+         * @param {Function} callback The callback to execute after the dependency has successfully loaded
+         * @param {String} phase The module phase where the dependency is needed (ie. beforeBinding, onBinding)
          * @return {void}
          */
         loadDependency: function(dependency, type, callback, phase) {
             var that = this;
 
-            phase = phase || 'none'; // none indicates that it is not a dependency for a specific phase
+            phase = phase || 'none'; // None indicates that it is not a dependency for a specific phase
             type = type || 'plugin';
 
-            if (that.dependencies[dependency] && that.dependencies[dependency].state === 'requested') { // requested (but loading not finished)
-                // the module should be notified, if the dependency has loaded
+            if (that.dependencies[dependency] && that.dependencies[dependency].state === 'requested') { 
+		// Requested (but loading ist not finished) the module should be notified, if the dependency has loaded
                 that.dependencies[dependency].callbacks.push(function() {
                     callback(phase);
                 });
             }
-            else if (that.dependencies[dependency] && that.dependencies[dependency].state === 'loaded') { // loading finished
+            else if (that.dependencies[dependency] && that.dependencies[dependency].state === 'loaded') { // Loading finished
                 callback(phase);
             }
             else {
@@ -196,7 +196,7 @@
                         break;
                 }
 
-                // load the appropriate dependency
+                // Load the appropriate dependency
                 var script = document.createElement('script'),
                     firstScript = this.firstScript;
                 
@@ -208,7 +208,7 @@
                         that.dependencies[dependency].state = 'loaded';
                         callback(phase);
 
-                        // notify the other modules with this dependency
+                        // Notify the other modules with this dependency
                         var callbacks = that.dependencies[dependency].callbacks;
                         for (var i = 0, len = callbacks.length; i < len; i++) {
                             callbacks[i]();
@@ -224,19 +224,19 @@
         },
 
         /**
-         * Collects the module status messages (ready for after binding) and handles the callbacks.
+         * Collects the module status messages (ready for afterBinding) and handles the callbacks.
          *
          * @method readyForAfterBinding
-         * @param {Function} callback the afterBinding module callback
+         * @param {Function} callback The afterBinding module callback
          * @return {void}
          */
         readyForAfterBinding: function(callback) {
             var afterBindingCallbacks = this.afterBindingCallbacks;
 
-            // add the callback to the stack
+            // Add the callback to the stack
             afterBindingCallbacks.push(callback);
 
-            // check whether all modules are ready for the after binding phase
+            // Check whether all modules are ready for the afterBinding phase
             if (this.application.modules.length == afterBindingCallbacks.length) {
                 for (var i = 0; i < afterBindingCallbacks.length; i++) {
                     afterBindingCallbacks[i]();

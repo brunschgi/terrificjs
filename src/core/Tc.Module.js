@@ -14,9 +14,9 @@
          * @method init
          * @return {void}
          * @constructor
-         * @param {jQuery} $ctx the jquery context
-         * @param {Sandbox} sandbox the sandbox to get the resources from
-         * @param {String} modId the unique module id
+         * @param {jQuery} $ctx The jquery context
+         * @param {Sandbox} sandbox The sandbox to get the resources from
+         * @param {String} modId the Unique module ID
          */
         init: function($ctx, sandbox, modId) {
             /**
@@ -28,7 +28,7 @@
             this.$ctx = $ctx;
 
             /**
-             * Contains the unique module id.
+             * Contains the unique module ID.
              *
              * @property modId
              * @type String
@@ -51,8 +51,8 @@
              */
             this.dependencyCounter = {
                 beforeBinding: 0,
-                onBinding: 1, // not 0, because of the beforeBinding callback (which is also a dependency)
-                afterBinding: 1 // not 0, because a completed onBinding phase is required (which is also a dependency)
+                onBinding: 1, // Not 0, because of the beforeBinding callback (which is also a dependency)
+                afterBinding: 1 // Not 0, because a completed onBinding phase is required (which is also a dependency)
             };
 
             /**
@@ -72,7 +72,7 @@
          * @return {void}
          */
         start: function() {
-            // call the hook method dependecies from the concrete implementation
+            // Call the hook method dependecies from the concrete implementation
             if (this.dependencies) {
                 this.dependencies();
             }
@@ -89,7 +89,7 @@
         stop: function() {
             var $ctx = this.$ctx;
             
-            // remove all bound events and associated jquery data
+            // Remove all bound events and associated jQuery data
             $('*', $ctx).unbind().removeData();
             $ctx.unbind().removeData();
         },
@@ -103,9 +103,9 @@
         initBeforeBinding: function() {
             var that = this;
 
-             // start the before binding phase if there are no dependency for this phase
+             // Start the before binding phase if there are no dependency for this phase
             this.checkDependencies('beforeBinding', function() {
-                // call the hook method beforeBinding from the concrete implementation
+                // Call the hook method beforeBinding from the concrete implementation
                 // because there might be some ajax calls, the bindEvents method must be called from
                 // the beforeBinding function after it has been run
                 if (that.beforeBinding) {
@@ -126,7 +126,7 @@
          * @return {void}
          */
         beforeBindingCallback: function() {
-            // decrement the dependency counter for the on binding phase
+            // Decrement the dependency counter for the on binding phase
             this.dependencyCounter.onBinding--;
             this.initOnBinding();
         },
@@ -140,21 +140,21 @@
         initOnBinding: function() {
             var that = this;
 
-            // start the on binding phase if there are no dependencies for this phase
+            // Start the on binding phase if there are no dependencies for this phase
             this.checkDependencies('onBinding',function() {
-                // call the hook method bindEvents from the concrete implementation
+                // Call the hook method bindEvents from the concrete implementation
                 if (that.onBinding) {
                     that.onBinding();
                 }
 
-                // decrement the dependency counter for the after binding phase
+                // Decrement the dependency counter for the afterBinding phase
                 that.dependencyCounter.afterBinding--;
                 that.initAfterBinding();
             });
         },
 
         /**
-         * Initializes the after binding phase.
+         * Initializes the afterBinding phase.
          *
          * @method initAfterBinding
          * @return {void}
@@ -162,12 +162,12 @@
         initAfterBinding: function() {
             var that = this;
 
-            // start the after binding phase if there are no dependencies for this phase
+            // Start the afterBinding phase if there are no dependencies for this phase
             this.checkDependencies('afterBinding', function() {
-                // inform the sandbox that the module is ready for the after binding phase
+                // Inform the sandbox that the module is ready for the afterBinding phase
                 that.sandbox.readyForAfterBinding(function() {
 
-                    // call the hook method afterBinding from the concrete implementation
+                    // Call the hook method afterBinding from the concrete implementation
                     if (that.afterBinding) {
                         that.afterBinding();
                     }
@@ -180,13 +180,13 @@
          * Initializes the appropriate phase if all dependencies are loaded.
          *
          * @method checkDependencies
-         * @param {String} phase the phase to check / initialize
-         * @param {Function} callback the callback to execute if all dependencies were loaded
+         * @param {String} phase The phase to check / initialize
+         * @param {Function} callback The callback to execute if all dependencies were loaded
          * @return {void}
          */
         checkDependencies: function(phase, callback) {
             if (this.dependencyCounter[phase] === 0) {
-                // execute the callback
+                // Execute the callback
                 callback();
             }
         },
@@ -196,9 +196,9 @@
          *
          * @method require
          * @param {String} dependency the dependency (i.e. swfobject.js)
-         * @param {String} type the dependency type (library | plugin | util | url)
-         * @param {String} phase the module phase where the dependency is needed (ie. beforeBinding, onBinding)
-         * @param {boolean} executeCallback indicates whether the phase callback should be executed or not (useful for dependencies that provide their own callback mechanism)
+         * @param {String} type The dependency type (library | plugin | util | url)
+         * @param {String} phase The module phase where the dependency is needed (ie. beforeBinding, onBinding)
+         * @param {boolean} executeCallback Indicates whether the phase callback should be executed or not (useful for dependencies that provide their own callback mechanism)
          * @return {void}
          */
         require: function(dependency, type, phase, executeCallback) {
@@ -206,15 +206,15 @@
             phase = phase || 'onBinding';
             executeCallback = executeCallback === false ? false : true;
 
-            // increment the dependency counter
+            // Increment the dependency counter
             this.dependencyCounter[phase]++;
 
-            // proxy the callback to the outermost decorator
+            // Proxy the callback to the outermost decorator
             var callback = $.proxy(function() {
                 if (executeCallback) {
                     var that = this;
 
-                    // decrement the dependency counter for the appropriate phase
+                    // Decrement the dependency counter for the appropriate phase
                     this.dependencyCounter[phase]--;
                     that['init' + Tc.Utils.String.capitalize(phase)]();
                 }
@@ -227,9 +227,9 @@
          * Notifies all attached connectors about changes.
          *
          * @method fire
-         * @param {String} state the new state
-         * @param {Object} data the data to provide to your connected modules
-         * @param {Function} defaultAction the default action to perform
+         * @param {String} state The new state
+         * @param {Object} data The data to provide to your connected modules
+         * @param {Function} defaultAction The default action to perform
          * @return {void}
          */
         fire: function(state, data, defaultAction) {
@@ -242,7 +242,7 @@
             $.each(connectors, function() {
                 var connector = this;
 
-                // callback combining the defaultAction and the afterAction
+                // Callback combining the defaultAction and the afterAction
                 var callback = function() {
                     if (typeof defaultAction == 'function') {
                         defaultAction();
@@ -266,7 +266,7 @@
          * Attaches a connector (observer).
          *
          * @method attachConnector
-         * @param {Connector} connector the connector to attach
+         * @param {Connector} connector The connector to attach
          * @return {void}
          */
         attachConnector: function(connector) {
@@ -277,9 +277,9 @@
          * Decorates itself with the given skin.
          *
          * @method getDecoratedModule
-         * @param {String} module the name of the module
-         * @param {String} skin the name of the skin
-         * @return {Module} the decorated module
+         * @param {String} module The name of the module
+         * @param {String} skin The name of the skin
+         * @return {Module} The decorated module
          */
         getDecoratedModule: function(module, skin) {
             if (Tc.Module[module][skin]) {

@@ -9,7 +9,7 @@
     Tc.Application = Class.extend({
 
         /**
-         * Initializes the Application.
+         * Initializes the application.
          *
          * @method init
          * @return {void}
@@ -52,7 +52,7 @@
             this.connectors = {};
 
             /**
-             * Contains references to all wilcard components on the page.
+             * Contains references to all wildcard components on the page.
              *
              * @property wildcardComponents
              * @type Array
@@ -72,8 +72,8 @@
          * Registers all modules within the scope of context automatically (as long as the modules use the OOCSS naming conventions).
          *
          * @method registerModules
-         * @param {jQuery} $ctx the jquery context.
-         * @return {Array} a list containing the references of the registered modules.
+         * @param {jQuery} $ctx The jquery context.
+         * @return {Array} A list containing the references of the registered modules.
          */
         registerModules : function($ctx) {
             var that = this,
@@ -141,10 +141,10 @@
         },
 
         /**
-         * Unregisters the modules by the given module instances.
+         * Unregisters the modules given by the module instances.
          *
          * @method unregisterModule
-         * @param {Array} modules a list containting the module instances to unregister.
+         * @param {Array} modules A list containting the module instances to unregister
          * @return {void}
          */
         unregisterModules : function(modules) {
@@ -154,27 +154,27 @@
             modules = modules || this.modules;
 
             if (modules === this.modules) {
-                // empy everything if the arrays are equal
+                // Empty everything if the arrays are equal
                 this.wildcardComponents = [];
                 this.connectors = [];
                 this.modules = [];
             }
             else {
-                // unregister the given modules
+                // Unregister the given modules
                 for (var i = 0, len = modules.length; i < len; i++) {
                     var module = modules[i];
                     var index;
 
-                    // delete the references in the connectors
+                    // Delete the references in the connectors
                     for (var connId in connectors) {
                         connectors[connId].unregisterComponent(module);
                     }
 
-                    // delete the references in the wildcard components
+                    // Delete the references in the wildcard components
                     index = $.inArray(module, wildcardComponents);
                     delete wildcardComponents[index];
 
-                    // delete the module instance itself
+                    // Delete the module instance itself
                     index = $.inArray(module, this.modules);
                     delete this.modules[index];
                 }
@@ -185,7 +185,7 @@
          * Starts (intializes) the registered modules.
          *
          * @method start
-         * @param {Array} modules a list of the modules to start.
+         * @param {Array} modules A list of the modules to start
          * @return {void}
          */
         start: function(modules) {
@@ -209,7 +209,7 @@
                 var component = wildcardComponents[i];
                 if ($.inArray(component, modules) > -1) {
                     for (var connectorId in connectors) {
-                        // the connector observes the component -> attach it as observer
+                        // The connector observes the component and attaches it as an observer
                         component.attachConnector(connectors[connectorId]);
                         connectors[connectorId].registerComponent(component, '*');
                     }
@@ -221,7 +221,7 @@
          * Stops the registered modules.
          *
          * @method stop
-         * @param {Array} modules a list containting the module instances to stop.
+         * @param {Array} modules A list containting the module instances to stop.
          * @return {void}
          */
         stop: function(modules) {
@@ -237,11 +237,11 @@
          * Registers a module.
          *
          * @method registerModule
-         * @param {jQuery} $node the module node.
-         * @param {String} modName the module name. it must match the class name of the module (case sensitive).
-         * @param {Array} skins a list of skin names. each entry must match a class name of a skin (case sensitive)).
-         * @param {Array} connectors a list of connectors identifiers. schema: <connectorName><connectorId><connectorRole> (ie. MasterSlave1Master).
-         * @return {Module} the reference to the registered module.
+         * @param {jQuery} $node The module node.
+         * @param {String} modName The module name. It must match the class name of the module (case sensitive).
+         * @param {Array} skins A list of skin names. Each entry must match a class name of a skin (case sensitive).
+         * @param {Array} connectors A list of connectors identifiers. Schema: <connectorName><connectorId><connectorRole> (ie. MasterSlave1Master).
+         * @return {Module} The reference to the registered module.
          */
         registerModule : function($node, modName, skins, connectors) {
             var modules = this.modules;
@@ -251,7 +251,7 @@
             connectors = connectors || [];
 
             if (modName && Tc.Module[modName]) {
-                // generate a unique id for every module
+                // Generate a unique ID for every module
                 var modId = modules.length;
                 $node.data('id', modId);
 
@@ -279,8 +279,8 @@
          * Registers a connection between a module and a connector.
          *
          * @method registerConnection
-         * @param {String} connector the full connector name (ie. MasterSlave1Slave).
-         * @param {Module} component the module instance.
+         * @param {String} connector The full connector name (e.g. MasterSlave1Slave).
+         * @param {Module} component The module instance.
          * @return {void}
          */
         registerConnection : function(connector, component) {
@@ -289,14 +289,14 @@
                     connectorRole = connector.replace(/^[a-zA-Z]*[0-9]*/, '');
 
             if (connectorId === '*' && connectorRole === '*') {
-                // add the component to the wildcard component stack
+                // Add the component to the wildcard component stack
                 this.wildcardComponents.push(component);
             }
             else {
                 var connectors = this.connectors;
 
                 if (!connectors[connectorId]) {
-                    // instantiate the appropriate connector if it does not exist yet
+                    // Instantiate the appropriate connector if it does not exist yet
                     if (connectorType === '') {
                         connectors[connectorId] = new Tc.Connector(connectorId);
                     }
@@ -306,10 +306,10 @@
                 }
 
                 if (connectors[connectorId]) {
-                    // the connector observes the component -> attach it as observer
+                    // The connector observes the component and attaches it as an observer
                     component.attachConnector(connectors[connectorId]);
 
-                    // the component wants to be informed over state changes -> register it as connector member
+                    // The component wants to be informed over state changes. Register it as connector member
                     connectors[connectorId].registerComponent(component, connectorRole);
                 }
             }
