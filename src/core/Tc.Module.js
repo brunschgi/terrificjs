@@ -75,14 +75,14 @@
 
         /**
          * Template method to start (i.e. init) the module.
-         * This method provides some hook functions which could be overridden
-         * from the concrete implementation.
+         * This method provides hook functions which can be overridden
+         * by the individual instance.
          *
          * @method start
          * @return {void}
          */
         start: function() {
-            // Call the hook method dependecies from the specific implementation
+            // Call the hook method dependencies from the individual instance
             if (this.dependencies) {
                 this.dependencies();
             }
@@ -119,8 +119,8 @@
              */
             this.checkDependencies('beforeBinding', function() {
                 /**
-                 * Call the hook method beforeBinding from the concrete
-                 * implementation because there might be some ajax calls, the
+                 * Call the hook method beforeBinding from the individual
+                 * instance because there might be some ajax calls, the
                  * bindEvents method must be called from the beforeBinding
                  * function after it has been run.
                  */
@@ -161,7 +161,7 @@
              * phase.
              */
             this.checkDependencies('onBinding',function() {
-                // Call the hook method bindEvents from the concrete implementation
+                // Call the hook method bindEvents from the individual instance
                 if (that.onBinding) {
                     that.onBinding();
                 }
@@ -193,8 +193,8 @@
                 that.sandbox.readyForAfterBinding(function() {
 
                     /**
-                     * Call the hook method afterBinding from the concrete
-                     * implementation
+                     * Call the hook method afterBinding from the individual
+                     * instance
                      */
                     if (that.afterBinding) {
                         that.afterBinding();

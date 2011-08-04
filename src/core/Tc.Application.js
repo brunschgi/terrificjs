@@ -37,9 +37,9 @@
             this.$ctx = $ctx || $('body');
 
             /**
-             * Contains references to all modules on the page.
-             * Could be useful for example when there are interactions between
-             * Flash <-> JS.
+             * Contains references to all modules on the page. This can, for
+             * xample, be useful when there are interactions between Flash
+             * objects and Javascript.
              *
              * @property modules
              * @type Array
@@ -93,49 +93,41 @@
                 var $this = $(this);
 
                 /**
-                 * @property classes
-                 *      A module can have three types of classes:
-                 * @attribute .mod 
-                 *      Indicates that it is a base module (default 
-                 *      -> no javascript need to be involved). Must occur
-                 *      excactly once.
-                 *
-                 * @attribute .mod<moduleName> (e.g. .modBasic) 
-                 *      Indicates that it is a module of type basic, which is
-                 *      derived from the base module. It can occur at most
-                 *      once.
-                 * @attribute .skin<moduleName><skinName> (e.g. .skinBasicSubmarine) 
-                 *      Indicates that the module basic has the submarine skin.
-                 *      It will be decorated by the skin js (if existing). It
-                 *      can occur arbitrarily.
-                 *
-                 * @attribute data-connectors
-                 *      Additionally, a module can have one type of data attributes:
-                 *      A comma-separated value containing the connector ids,
-                 *      the schema of a connector id is: 
-                 *      <connectorName><connectorId><connectorRole>
-                 *      e.g. MasterSlave1Master:
-                 *          name = MasterSlave, id = 1, role = Master
-                 *      The above indicates that the module should notify the
-                 *      MasterSlave connector (the mediator) over all state
-                 *      changes. The connector id is used to chain the
-                 *      appropriate modules together and to improve the
-                 *      reusability of the connector.
-                 *
-                 * It can contain multiple connector ids (e.g.
-                 * 1,2,MasterSlave1Master)
-                 * TODO: Is this still correct? The above statement referenced
-                 * type 1 for data-connectors
-                 *
+                 * Indicates that it is a base module, this is the default and
+                 * no JavaScript needs to be involved. It must occur excactly
+                 * once.
+                 * @config .mod 
                  */
 
                 /**
-                 * @attribute classes  
-                 *      .mod Indicates that it is a base module (default 
-                 *      -> no javascript need to be involved). Must occur
-                 *      excactly once.
+                 * Indicates that it is a module of type basic, which is
+                 * derived from the base module. It can occur at most
+                 * once. Example: .modBasic
+                 * @config .mod{moduleName}
                  */
 
+                /**
+                 * Indicates that the module basic has the submarine skin. It
+                 * will be decorated by the skin JS (if it exists). It can occur
+                 * arbitrarily. Example: .skinBasicSubmarine
+                 * @config .skin{moduleName}{skinName} 
+                 */
+
+                /** 
+                 * A module can have a comma-separated list of data connectors.
+                 * The list contains the IDs of the connectors in the following
+                 * schema: {connectorName}{connectorId}{connectorRole}
+                 * 
+                 * The example MasterSlave1Master decodes to: name = 
+                 * MasterSlave, id = 1, role = Master. This indicates that the
+                 * module should notify the MasterSlave connector (the mediator)
+                 * on all state changes. The connector id is used to chain the
+                 * appropriate modules together and to improve the
+                 * reusability of the connector. It can contain multiple
+                 * connector ids (e.g. 1,2,MasterSlave1Master). 
+                 *
+                 * @config data-connectors
+                 */
 
                 var classes = $this.attr('class').split(' ');
 
@@ -151,7 +143,7 @@
                             modName = part.substr(3);
                         }
                         else if (part.indexOf('skin') === 0) {
-                            // remove the mod name part from the skin name
+                            // Remove the mod name part from the skin name
                             skins.push(part.substr(4).replace(modName, ''));
                         }
                     }
