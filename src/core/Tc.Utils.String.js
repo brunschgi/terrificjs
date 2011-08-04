@@ -12,8 +12,10 @@
          * Capitalizes the first letter of the given string.
          *
          * @method capitalize
-         * @param {String} str The original string
-         * @return {String} The capitalized string
+         * @param {String} str 
+         *      The original string
+         * @return {String} 
+         *      The capitalized string
          */
         capitalize: function(str) {
             // Capitalize the first letter

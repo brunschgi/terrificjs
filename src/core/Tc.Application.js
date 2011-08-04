@@ -1,6 +1,6 @@
 (function($) {
     /**
-     * Responsible for application-wide issues (e.g. the creation of modules).
+     * Responsible for application-wide issues such as the creation of modules.
      *
      * @author Remo Brunschwiler
      * @namespace Tc
@@ -14,8 +14,10 @@
          * @method init
          * @return {void}
          * @constructor
-         * @param {jQuery} $ctx the jquery context
-         * @param {Object} config the configuration
+         * @param {jQuery} $ctx 
+         *      The jquery context
+         * @param {Object} config 
+         *      The configuration
          */
         init: function($ctx, config) {
             /**
@@ -27,7 +29,7 @@
             this.config = $.extend(Tc.Config, config);
 
             /**
-             * The jquery context.
+             * The jQuery context.
              *
              * @property $ctx
              * @type jQuery
@@ -37,7 +39,7 @@
             /**
              * Contains references to all modules on the page.
              * Could be useful for example when there are interactions between
-         * Flash <-> JS.
+             * Flash <-> JS.
              *
              * @property modules
              * @type Array
@@ -62,7 +64,7 @@
 
             /**
              * The sandbox to get the resources from 
-         * This sandbox is shared between all modules.
+             * This sandbox is shared between all modules.
              *
              * @property sandbox
              * @type Sandbox
@@ -76,8 +78,10 @@
          * as long as the modules use the OOCSS naming conventions.
          *
          * @method registerModules
-         * @param {jQuery} $ctx The jquery context.
-         * @return {Array} A list containing the references of the registered modules.
+         * @param {jQuery} $ctx 
+         *      The jQuery context.
+         * @return {Array} 
+         *      A list containing the references of the registered modules.
          */
         registerModules : function($ctx) {
             var that = this,
@@ -88,23 +92,40 @@
             $('.mod', $ctx).each(function() {
                 var $this = $(this);
 
-                /*
-                 * A module can have 3 types of classes:
-                 * 1. .mod -> Indicates that it is a base module (default -> no javascript need to be involved)
-                 * 2. .mod<moduleName> (e.g. .modBasic) -> Indicates that it is a module from the type basic (derived from the base module)
-                 * 3. .skin<moduleName><skinName> (e.g. .skinBasicSubmarine) -> Indicates that the module basic has the submarine skin. It will be decorated by the skin js (if existing).
+                /**
+                 * A module can have three types of classes:
+                 * .mod 
+                 *      Indicates that it is a base module (default 
+                 *      -> no javascript need to be involved). Must occur
+                 *      excactly once.
                  *
-                 * Type 1 must occur exactly once
-                 * Type 2 can occur at most once
-                 * Type 3 can occur arbitrarily
+                 * .mod<moduleName> (e.g. .modBasic) 
+                 *      Indicates that it is a module of type basic, which is
+                 *      derived from the base module. It can occur at most
+                 *      once.
+                 * .skin<moduleName><skinName> (e.g. .skinBasicSubmarine) 
+                 *      Indicates that the module basic has the submarine skin.
+                 *      It will be decorated by the skin js (if existing). It
+                 *      can occur arbitrarily.
                  *
                  * Additionally, a module can have one type of data attributes:
-                 * 1. data-connectors -> a comma separated value containing the connector ids -> schema of a connector id: <connectorName><connectorId><connectorRole>
-                 *    (e.g. MasterSlave1Master -> name = MasterSlave, id = 1, role = Master)
-                 *  -> Indicates that the module should notify the MasterSlave connector (mediator) over all state changes
-                 *  -> The connector id is used to chain the appropriate modules together and to improve the reusability of the connector
+                 * data-connectors
+                 *      A comma-separated value containing the connector ids,
+                 *      the schema of a connector id is: 
+                 *      <connectorName><connectorId><connectorRole>
+                 *      e.g. MasterSlave1Master:
+                 *          name = MasterSlave, id = 1, role = Master
+                 *      The above indicates that the module should notify the
+                 *      MasterSlave connector (the mediator) over all state
+                 *      changes. The connector id is used to chain the
+                 *      appropriate modules together and to improve the
+                 *      reusability of the connector.
                  *
-                 * Type 1 can contain multiple connector ids (ie. 1,2,MasterSlave1Master)
+                 * It can contain multiple connector ids (e.g.
+                 * 1,2,MasterSlave1Master)
+                 * TODO: Is this still correct? The above statement referenced
+                 * type 1 for data-connectors
+                 *
                  */
 
                 var classes = $this.attr('class').split(' ');
@@ -148,7 +169,8 @@
          * Unregisters the modules given by the module instances.
          *
          * @method unregisterModule
-         * @param {Array} modules A list containting the module instances to unregister
+         * @param {Array} modules 
+         *      A list containting the module instances to unregister
          * @return {void}
          */
         unregisterModules : function(modules) {
@@ -189,7 +211,8 @@
          * Starts (intializes) the registered modules.
          *
          * @method start
-         * @param {Array} modules A list of the modules to start
+         * @param {Array} modules 
+         *      A list of the modules to start
          * @return {void}
          */
         start: function(modules) {
@@ -198,17 +221,17 @@
 
             modules = modules || this.modules;
 
-            // start the modules
+            // Start the modules
             for (var i = 0, len = modules.length; i < len; i++) {
                 modules[i].start();
             }
 
             /*
              * Special treatment for the wildcard connection (conn*) -> it will
-         * be notified about all state changes from all connections and is
-         * able to propagate its changes to all modules. Tis must be done on
-         * init to make sure that all connectors on the page has been
-         * instantiated. Only do this for the given modules.
+             * be notified about all state changes from all connections and is
+             * able to propagate its changes to all modules. Tis must be done on
+             * init to make sure that all connectors on the page has been
+             * instantiated. Only do this for the given modules.
              */
             for (var i = 0, len = wildcardComponents.length; i < len; i++) {
                 var component = wildcardComponents[i];
@@ -227,7 +250,8 @@
          * Stops the registered modules.
          *
          * @method stop
-         * @param {Array} modules A list containting the module instances to stop.
+         * @param {Array} modules 
+         *      A list containting the module instances to stop.
          * @return {void}
          */
         stop: function(modules) {
@@ -243,11 +267,19 @@
          * Registers a module.
          *
          * @method registerModule
-         * @param {jQuery} $node The module node.
-         * @param {String} modName The module name. It must match the class name of the module (case sensitive).
-         * @param {Array} skins A list of skin names. Each entry must match a class name of a skin (case sensitive).
-         * @param {Array} connectors A list of connectors identifiers. Schema: <connectorName><connectorId><connectorRole> (ie. MasterSlave1Master).
-         * @return {Module} The reference to the registered module.
+         * @param {jQuery} $node 
+         *      The module node.
+         * @param {String} modName 
+         *      The module name. It must match the class name of the module
+         *      (case sensitive).
+         * @param {Array} skins 
+         *      A list of skin names. Each entry must match a class name of a
+         *      skin (case sensitive).
+         * @param {Array} connectors 
+         *      A list of connectors identifiers (e.g. MasterSlave1Master).
+         *      Schema: <connectorName><connectorId><connectorRole>
+         * @return {Module} 
+         *      The reference to the registered module.
          */
         registerModule : function($node, modName, skins, connectors) {
             var modules = this.modules;
@@ -285,8 +317,10 @@
          * Registers a connection between a module and a connector.
          *
          * @method registerConnection
-         * @param {String} connector The full connector name (e.g. MasterSlave1Slave).
-         * @param {Module} component The module instance.
+         * @param {String} connector 
+         *      The full connector name (e.g. MasterSlave1Slave).
+         * @param {Module} component 
+         *      The module instance.
          * @return {void}
          */
         registerConnection : function(connector, component) {
@@ -313,12 +347,16 @@
                 }
 
                 if (connectors[connectorId]) {
-                    // The connector observes the component and attaches it as
-            // an observer
+                    /**
+                     * The connector observes the component and attaches it as
+                     * an observer.
+                     */
                     component.attachConnector(connectors[connectorId]);
 
-                    // The component wants to be informed over state changes. 
-            // Register it as connector member
+                    /**
+                     * The component wants to be informed over state changes. 
+                     * It registers it as connector member.
+                     */
                     connectors[connectorId].registerComponent(component, connectorRole);
                 }
             }
