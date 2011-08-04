@@ -5,7 +5,7 @@
  * Copyright 2011, Remo Brunschwiler
  * MIT Licensed.
  *
- * Date: Thu, 04 Aug 2011 14:44:14 GMT
+ * Date: Thu, 04 Aug 2011 14:56:13 GMT
  *
  *
  * Includes:
@@ -395,7 +395,7 @@ Tc.Config = {
          *      skin (case sensitive).
          * @param {Array} connectors 
          *      A list of connectors identifiers (e.g. MasterSlave1Master).
-         *      Schema: <connectorName><connectorId><connectorRole>
+         *      Schema: {connectorName}{connectorId}{connectorRole}
          * @return {Module} 
          *      The reference to the registered module.
          */
@@ -1194,7 +1194,7 @@ Tc.Config = {
             /**
              * Gives the components the ability to prevent the default- and
              * afteraction from the events by returning false in the
-             * on<Event>-Handler.
+             * on {Event}-Handler.
              */
             
             var proceed = true,
