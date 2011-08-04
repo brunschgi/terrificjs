@@ -5,7 +5,7 @@
  * Copyright 2011, Remo Brunschwiler
  * MIT Licensed.
  *
- * Date: Thu, 04 Aug 2011 13:15:18 GMT
+ * Date: Thu, 04 Aug 2011 13:46:59 GMT
  *
  *
  * Includes:
@@ -210,23 +210,24 @@ Tc.Config = {
                 var $this = $(this);
 
                 /**
-                 * A module can have three types of classes:
-                 * - .mod 
+                 * @property classes
+                 *      A module can have three types of classes:
+                 * @attribute .mod 
                  *      Indicates that it is a base module (default 
                  *      -> no javascript need to be involved). Must occur
                  *      excactly once.
                  *
-                 * - .mod<moduleName> (e.g. .modBasic) 
+                 * @attribute .mod<moduleName> (e.g. .modBasic) 
                  *      Indicates that it is a module of type basic, which is
                  *      derived from the base module. It can occur at most
                  *      once.
-                 * - .skin<moduleName><skinName> (e.g. .skinBasicSubmarine) 
+                 * @attribute .skin<moduleName><skinName> (e.g. .skinBasicSubmarine) 
                  *      Indicates that the module basic has the submarine skin.
                  *      It will be decorated by the skin js (if existing). It
                  *      can occur arbitrarily.
                  *
-                 * Additionally, a module can have one type of data attributes:
-                 * - data-connectors
+                 * @attribute data-connectors
+                 *      Additionally, a module can have one type of data attributes:
                  *      A comma-separated value containing the connector ids,
                  *      the schema of a connector id is: 
                  *      <connectorName><connectorId><connectorRole>
@@ -244,6 +245,14 @@ Tc.Config = {
                  * type 1 for data-connectors
                  *
                  */
+
+                /**
+                 * @attribute classes  
+                 *      .mod Indicates that it is a base module (default 
+                 *      -> no javascript need to be involved). Must occur
+                 *      excactly once.
+                 */
+
 
                 var classes = $this.attr('class').split(' ');
 

@@ -4,11 +4,11 @@
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 	<title>API: Tc  Tc.Application   (TerrificJS)</title>
 
-	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css?stamp=1312463719.19" />
-	<link rel="stylesheet" type="text/css" href="assets/api.css?stamp=1312463719.19" />
+	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css?stamp=1312465620.74" />
+	<link rel="stylesheet" type="text/css" href="assets/api.css?stamp=1312465620.74" />
 
-    <script type="text/javascript" src="assets/api-js?stamp=1312463719.19"></script>
-    <script type="text/javascript" src="assets/ac-js?stamp=1312463719.19"></script>
+    <script type="text/javascript" src="assets/api-js?stamp=1312465620.74"></script>
+    <script type="text/javascript" src="assets/ac-js?stamp=1312465620.74"></script>
 </head>
 
 <body id="yahoo-com">
@@ -98,41 +98,16 @@
 
                                     <hr />
                                     </div>
-                                    <div class="" rel="yui:property" resource="#property_classes">
-                                    <h4><a name="property_classes" property="yui:name">classes</a>
+                                    <div class="" rel="yui:property" resource="#property_classes
+A module can have three types of classes:">
+                                    <h4><a name="property_classes
+A module can have three types of classes:" property="yui:name">classes
+A module can have three types of classes:</a>
                                         - <code><span property="yui:type">object</span></code>
                                     </h4>
                                     <div class="detail">
                                         <div class="description" property="yui:description">
-                                            A module can have three types of classes:
-- .mod 
-Indicates that it is a base module (default 
--> no javascript need to be involved). Must occur
-excactly once.
-- .mod<moduleName> (e.g. .modBasic) 
-Indicates that it is a module of type basic, which is
-derived from the base module. It can occur at most
-once.
-- .skin<moduleName><skinName> (e.g. .skinBasicSubmarine) 
-Indicates that the module basic has the submarine skin.
-It will be decorated by the skin js (if existing). It
-can occur arbitrarily.
-Additionally, a module can have one type of data attributes:
-- data-connectors
-A comma-separated value containing the connector ids,
-the schema of a connector id is: 
-<connectorName><connectorId><connectorRole>
-e.g. MasterSlave1Master:
-name = MasterSlave, id = 1, role = Master
-The above indicates that the module should notify the
-MasterSlave connector (the mediator) over all state
-changes. The connector id is used to chain the
-appropriate modules together and to improve the
-reusability of the connector.
-It can contain multiple connector ids (e.g.
-1,2,MasterSlave1Master)
-TODO: Is this still correct? The above statement referenced
-type 1 for data-connectors
+                                            
                                         </div>
                                     </div>
      
@@ -658,11 +633,163 @@ A list containting the module instances to unregister</span>
                     </div>
 
                     <div rel="yui:events" resource="#events">
+                        <div class="section method details">
+                            <h3 id="events">Events</h3>
+                            <div class="content">
+                                    <div class="" rel="yui:event" resource="#event_beforeClasses  
+.mod Indicates that it is a base module (default 
+-> no javascript need to be involved). Must occur
+excactly once.Change">
+                                    <h4>
+                                        <a name="event_beforeClasses  
+.mod Indicates that it is a base module (default 
+-> no javascript need to be involved). Must occur
+excactly once.Change">beforeClasses  
+.mod Indicates that it is a base module (default 
+-> no javascript need to be involved). Must occur
+excactly once.Change</a></h4>
+                                    <div class="detail">
+                                        <code>
+                                        
+                                        
+                                        
+                                            <strong property="yui:name">beforeClasses  
+.mod Indicates that it is a base module (default 
+-> no javascript need to be involved). Must occur
+excactly once.Change</strong>
+
+                                            (
+                                                
+                                                        
+                                                         event
+                                                    
+                                                
+                                            )
+
+                                        </code>
+                                        
+                                        <div class="description" property="yui:description">
+                                            Fires before the value for the configuration attribute 'classes  
+.mod Indicates that it is a base module (default 
+-> no javascript need to be involved). Must occur
+excactly once.' changes. Return false to cancel the attribute change.
+                                        </div>
+
+                                        <div class="description">
+
+
+                                                <dl rel="yui:parameters">
+                                                    <dt>Parameters:</dt>
+                                                        <dd rel="yui:parameter">
+                                                            <code><span property="yui:name">event</span>
+                                                                &lt;<span property="yui:type">{oldValue: any, newValue: any}</span>&gt;
+                                                            </code>
+                                                            <span property="yui:description">An object containing the previous attribute value and the new value.</span>
+                                                        </dd>
+                                                        
+                                                </dl>
+
+
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    </div>
+                                    <div class="" rel="yui:event" resource="#event_classes  
+.mod Indicates that it is a base module (default 
+-> no javascript need to be involved). Must occur
+excactly once.Change">
+                                    <h4>
+                                        <a name="event_classes  
+.mod Indicates that it is a base module (default 
+-> no javascript need to be involved). Must occur
+excactly once.Change">classes  
+.mod Indicates that it is a base module (default 
+-> no javascript need to be involved). Must occur
+excactly once.Change</a></h4>
+                                    <div class="detail">
+                                        <code>
+                                        
+                                        
+                                        
+                                            <strong property="yui:name">classes  
+.mod Indicates that it is a base module (default 
+-> no javascript need to be involved). Must occur
+excactly once.Change</strong>
+
+                                            (
+                                                
+                                                        
+                                                         event
+                                                    
+                                                
+                                            )
+
+                                        </code>
+                                        
+                                        <div class="description" property="yui:description">
+                                            Fires when the value for the configuration attribute 'classes  
+.mod Indicates that it is a base module (default 
+-> no javascript need to be involved). Must occur
+excactly once.' changes.
+                                        </div>
+
+                                        <div class="description">
+
+
+                                                <dl rel="yui:parameters">
+                                                    <dt>Parameters:</dt>
+                                                        <dd rel="yui:parameter">
+                                                            <code><span property="yui:name">event</span>
+                                                                &lt;<span property="yui:type">{oldValue: any, newValue: any}</span>&gt;
+                                                            </code>
+                                                            <span property="yui:description">An object containing the previous attribute value and the new value.</span>
+                                                        </dd>
+                                                        
+                                                </dl>
+
+
+                                        </div>
+
+                                    </div>
+                                    <hr />
+                                    </div>
+                            </div>
+                        </div>
 
 
                     </div>
 
                     <div rel="yui:attributes" resource="#configattributes">
+                        <div class="section field details">
+                            <h3 id="configattributes">Configuration Attributes</h3>
+                            <div class="content">
+                                    <div class="" rel="yui:attribute" resource="#config_classes  
+.mod Indicates that it is a base module (default 
+-> no javascript need to be involved). Must occur
+excactly once.">
+                                    <h4><a name="config_classes  
+.mod Indicates that it is a base module (default 
+-> no javascript need to be involved). Must occur
+excactly once.">classes  
+.mod Indicates that it is a base module (default 
+-> no javascript need to be involved). Must occur
+excactly once.</a>
+                                        <code>- <span property="yui:type">object</span></code>
+                                    </h4>
+                                    <div class="detail">
+                                        <div class="description" property="yui:description">
+                                            
+                                        </div>
+                                    </div>
+ 
+     
+
+                                    <hr />
+                                    </div>        
+
+                            </div>
+                        </div>
 
                     </div>
 
@@ -701,7 +828,10 @@ A list containting the module instances to unregister</span>
                         <h4>Properties</h4>
                         <ul class="content">        
                                 <li class=""><a href="#property_$ctx" title="$ctx">$ctx</a></li>
-                                <li class=""><a href="#property_classes" title="classes">classes</a></li>
+                                <li class=""><a href="#property_classes
+A module can have three types of classes:" title="classes
+A module can have three types of classes:">classes
+A module can have three types of classes:</a></li>
                                 <li class=""><a href="#property_config" title="config">config</a></li>
                                 <li class=""><a href="#property_connectors" title="connectors">connectors</a></li>
                                 <li class=""><a href="#property_modules" title="modules">modules</a></li>
@@ -723,7 +853,47 @@ A list containting the module instances to unregister</span>
                         </ul>
                     </div>
 
+                    <div id="eventsList" class="module">
+                        <h4>Events</h4>
+                        <ul class="content">        
+                                <li class=""><a href="#event_beforeClasses  
+.mod Indicates that it is a base module (default 
+-> no javascript need to be involved). Must occur
+excactly once.Change" title="beforeClasses  
+.mod Indicates that it is a base module (default 
+-> no javascript need to be involved). Must occur
+excactly once.Change">beforeClasses  
+.mod Indicates that it is a base module (default 
+-> no javascript need to be involved). Must occur
+excactly once.Change</a></li>
+                                <li class=""><a href="#event_classes  
+.mod Indicates that it is a base module (default 
+-> no javascript need to be involved). Must occur
+excactly once.Change" title="classes  
+.mod Indicates that it is a base module (default 
+-> no javascript need to be involved). Must occur
+excactly once.Change">classes  
+.mod Indicates that it is a base module (default 
+-> no javascript need to be involved). Must occur
+excactly once.Change</a></li>
+                        </ul>
+                    </div>
 
+                    <div id="configList" class="module">
+                        <h4>Configuration Attributes</h4>
+                        <ul class="content">        
+                                <li class=""><a href="#config_classes  
+.mod Indicates that it is a base module (default 
+-> no javascript need to be involved). Must occur
+excactly once." title="classes  
+.mod Indicates that it is a base module (default 
+-> no javascript need to be involved). Must occur
+excactly once.">classes  
+.mod Indicates that it is a base module (default 
+-> no javascript need to be involved). Must occur
+excactly once.</a></li>
+                        </ul>
+                    </div>
 
             </div>
 		</div>
@@ -734,7 +904,7 @@ A list containting the module instances to unregister</span>
 	</div>
 </div>
 <script type="text/javascript">
-    ALL_YUI_PROPS = [{"url": "Tc.Application.html#property_$ctx", "access": "", "host": "Tc.Application", "type": "property", "name": "$ctx"}, {"url": "Tc.Application.html#property_classes", "access": "", "host": "Tc.Application", "type": "property", "name": "classes"}, {"url": "Tc.Application.html#property_config", "access": "", "host": "Tc.Application", "type": "property", "name": "config"}, {"url": "Tc.Application.html#property_connectors", "access": "", "host": "Tc.Application", "type": "property", "name": "connectors"}, {"url": "Tc.Config.html#property_dependencyPath", "access": "", "host": "Tc.Config", "type": "property", "name": "dependencyPath"}, {"url": "Tc.Application.html#method_init", "access": "", "host": "Tc.Application", "type": "method", "name": "init"}, {"url": "Tc.Application.html#property_modules", "access": "", "host": "Tc.Application", "type": "property", "name": "modules"}, {"url": "Tc.Application.html#method_registerConnection", "access": "", "host": "Tc.Application", "type": "method", "name": "registerConnection"}, {"url": "Tc.Application.html#method_registerModule", "access": "", "host": "Tc.Application", "type": "method", "name": "registerModule"}, {"url": "Tc.Application.html#method_registerModules", "access": "", "host": "Tc.Application", "type": "method", "name": "registerModules"}, {"url": "Tc.Application.html#property_sandbox", "access": "", "host": "Tc.Application", "type": "property", "name": "sandbox"}, {"url": "Tc.Application.html#method_start", "access": "", "host": "Tc.Application", "type": "method", "name": "start"}, {"url": "Tc.Application.html#method_stop", "access": "", "host": "Tc.Application", "type": "method", "name": "stop"}, {"url": "Tc.Application.html#method_unregisterModule", "access": "", "host": "Tc.Application", "type": "method", "name": "unregisterModule"}, {"url": "Tc.Application.html#property_wildcardComponents", "access": "", "host": "Tc.Application", "type": "property", "name": "wildcardComponents"}];
+    ALL_YUI_PROPS = [{"url": "Tc.Application.html#property_$ctx", "access": "", "host": "Tc.Application", "type": "property", "name": "$ctx"}, {"url": "Tc.Application.html#event_beforeClasses  \n.mod Indicates that it is a base module (default \n-> no javascript need to be involved). Must occur\nexcactly once.Change", "access": "", "host": "Tc.Application", "type": "event", "name": "beforeClasses  \n.mod Indicates that it is a base module (default \n-> no javascript need to be involved). Must occur\nexcactly once.Change"}, {"url": "Tc.Application.html#property_classes\nA module can have three types of classes:", "access": "", "host": "Tc.Application", "type": "property", "name": "classes\nA module can have three types of classes:"}, {"url": "Tc.Application.html#config_classes  \n.mod Indicates that it is a base module (default \n-> no javascript need to be involved). Must occur\nexcactly once.", "access": "", "host": "Tc.Application", "type": "config", "name": "classes  \n.mod Indicates that it is a base module (default \n-> no javascript need to be involved). Must occur\nexcactly once."}, {"url": "Tc.Application.html#event_classes  \n.mod Indicates that it is a base module (default \n-> no javascript need to be involved). Must occur\nexcactly once.Change", "access": "", "host": "Tc.Application", "type": "event", "name": "classes  \n.mod Indicates that it is a base module (default \n-> no javascript need to be involved). Must occur\nexcactly once.Change"}, {"url": "Tc.Application.html#property_config", "access": "", "host": "Tc.Application", "type": "property", "name": "config"}, {"url": "Tc.Application.html#property_connectors", "access": "", "host": "Tc.Application", "type": "property", "name": "connectors"}, {"url": "Tc.Config.html#property_dependencyPath", "access": "", "host": "Tc.Config", "type": "property", "name": "dependencyPath"}, {"url": "Tc.Application.html#method_init", "access": "", "host": "Tc.Application", "type": "method", "name": "init"}, {"url": "Tc.Application.html#property_modules", "access": "", "host": "Tc.Application", "type": "property", "name": "modules"}, {"url": "Tc.Application.html#method_registerConnection", "access": "", "host": "Tc.Application", "type": "method", "name": "registerConnection"}, {"url": "Tc.Application.html#method_registerModule", "access": "", "host": "Tc.Application", "type": "method", "name": "registerModule"}, {"url": "Tc.Application.html#method_registerModules", "access": "", "host": "Tc.Application", "type": "method", "name": "registerModules"}, {"url": "Tc.Application.html#property_sandbox", "access": "", "host": "Tc.Application", "type": "property", "name": "sandbox"}, {"url": "Tc.Application.html#method_start", "access": "", "host": "Tc.Application", "type": "method", "name": "start"}, {"url": "Tc.Application.html#method_stop", "access": "", "host": "Tc.Application", "type": "method", "name": "stop"}, {"url": "Tc.Application.html#method_unregisterModule", "access": "", "host": "Tc.Application", "type": "method", "name": "unregisterModule"}, {"url": "Tc.Application.html#property_wildcardComponents", "access": "", "host": "Tc.Application", "type": "property", "name": "wildcardComponents"}];
 </script>
 </body>
 </html>
