@@ -82,7 +82,7 @@
             /**
              * Gives the components the ability to prevent the default- and
              * afteraction from the events by returning false in the
-             * on<Event>-Handler.
+             * on {Event}-Handler.
              */
             
             var proceed = true,

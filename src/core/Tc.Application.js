@@ -278,7 +278,7 @@
          *      skin (case sensitive).
          * @param {Array} connectors 
          *      A list of connectors identifiers (e.g. MasterSlave1Master).
-         *      Schema: <connectorName><connectorId><connectorRole>
+         *      Schema: {connectorName}{connectorId}{connectorRole}
          * @return {Module} 
          *      The reference to the registered module.
          */

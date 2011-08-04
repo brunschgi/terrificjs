@@ -4,11 +4,11 @@
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 	<title>API: Tc   terrific-1.0.0.js  (TerrificJS)</title>
 
-	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css?stamp=1312465620.74" />
-	<link rel="stylesheet" type="text/css" href="assets/api.css?stamp=1312465620.74" />
+	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css?stamp=1312469055.64" />
+	<link rel="stylesheet" type="text/css" href="assets/api.css?stamp=1312469055.64" />
 
-    <script type="text/javascript" src="assets/api-js?stamp=1312465620.74"></script>
-    <script type="text/javascript" src="assets/ac-js?stamp=1312465620.74"></script>
+    <script type="text/javascript" src="assets/api-js?stamp=1312469055.64"></script>
+    <script type="text/javascript" src="assets/ac-js?stamp=1312469055.64"></script>
 </head>
 
 <body id="yahoo-com">
@@ -54,7 +54,7 @@
 <span class="cm"> * Copyright 2011, Remo Brunschwiler</span>
 <span class="cm"> * MIT Licensed.</span>
 <span class="cm"> *</span>
-<span class="cm"> * Date: Thu, 04 Aug 2011 13:46:59 GMT</span>
+<span class="cm"> * Date: Thu, 04 Aug 2011 14:44:14 GMT</span>
 <span class="cm"> *</span>
 <span class="cm"> *</span>
 <span class="cm"> * Includes:</span>
@@ -203,9 +203,9 @@
             <span class="k">this</span><span class="p">.</span><span class="nx">$ctx</span> <span class="o">=</span> <span class="nx">$ctx</span> <span class="o">||</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;body&#39;</span><span class="p">);</span>
 
             <span class="cm">/**</span>
-<span class="cm">             * Contains references to all modules on the page.</span>
-<span class="cm">             * Could be useful for example when there are interactions between</span>
-<span class="cm">             * Flash &lt;-&gt; JS.</span>
+<span class="cm">             * Contains references to all modules on the page. This can, for</span>
+<span class="cm">             * xample, be useful when there are interactions between Flash</span>
+<span class="cm">             * objects and Javascript.</span>
 <span class="cm">             *</span>
 <span class="cm">             * @property modules</span>
 <span class="cm">             * @type Array</span>
@@ -259,49 +259,41 @@
                 <span class="kd">var</span> <span class="nx">$this</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
 
                 <span class="cm">/**</span>
-<span class="cm">                 * @property classes</span>
-<span class="cm">                 *      A module can have three types of classes:</span>
-<span class="cm">                 * @attribute .mod </span>
-<span class="cm">                 *      Indicates that it is a base module (default </span>
-<span class="cm">                 *      -&gt; no javascript need to be involved). Must occur</span>
-<span class="cm">                 *      excactly once.</span>
-<span class="cm">                 *</span>
-<span class="cm">                 * @attribute .mod&lt;moduleName&gt; (e.g. .modBasic) </span>
-<span class="cm">                 *      Indicates that it is a module of type basic, which is</span>
-<span class="cm">                 *      derived from the base module. It can occur at most</span>
-<span class="cm">                 *      once.</span>
-<span class="cm">                 * @attribute .skin&lt;moduleName&gt;&lt;skinName&gt; (e.g. .skinBasicSubmarine) </span>
-<span class="cm">                 *      Indicates that the module basic has the submarine skin.</span>
-<span class="cm">                 *      It will be decorated by the skin js (if existing). It</span>
-<span class="cm">                 *      can occur arbitrarily.</span>
-<span class="cm">                 *</span>
-<span class="cm">                 * @attribute data-connectors</span>
-<span class="cm">                 *      Additionally, a module can have one type of data attributes:</span>
-<span class="cm">                 *      A comma-separated value containing the connector ids,</span>
-<span class="cm">                 *      the schema of a connector id is: </span>
-<span class="cm">                 *      &lt;connectorName&gt;&lt;connectorId&gt;&lt;connectorRole&gt;</span>
-<span class="cm">                 *      e.g. MasterSlave1Master:</span>
-<span class="cm">                 *          name = MasterSlave, id = 1, role = Master</span>
-<span class="cm">                 *      The above indicates that the module should notify the</span>
-<span class="cm">                 *      MasterSlave connector (the mediator) over all state</span>
-<span class="cm">                 *      changes. The connector id is used to chain the</span>
-<span class="cm">                 *      appropriate modules together and to improve the</span>
-<span class="cm">                 *      reusability of the connector.</span>
-<span class="cm">                 *</span>
-<span class="cm">                 * It can contain multiple connector ids (e.g.</span>
-<span class="cm">                 * 1,2,MasterSlave1Master)</span>
-<span class="cm">                 * TODO: Is this still correct? The above statement referenced</span>
-<span class="cm">                 * type 1 for data-connectors</span>
-<span class="cm">                 *</span>
+<span class="cm">                 * Indicates that it is a base module, this is the default and</span>
+<span class="cm">                 * no JavaScript needs to be involved. It must occur excactly</span>
+<span class="cm">                 * once.</span>
+<span class="cm">                 * @config .mod </span>
 <span class="cm">                 */</span>
 
                 <span class="cm">/**</span>
-<span class="cm">                 * @attribute classes  </span>
-<span class="cm">                 *      .mod Indicates that it is a base module (default </span>
-<span class="cm">                 *      -&gt; no javascript need to be involved). Must occur</span>
-<span class="cm">                 *      excactly once.</span>
+<span class="cm">                 * Indicates that it is a module of type basic, which is</span>
+<span class="cm">                 * derived from the base module. It can occur at most</span>
+<span class="cm">                 * once. Example: .modBasic</span>
+<span class="cm">                 * @config .mod{moduleName}</span>
 <span class="cm">                 */</span>
 
+                <span class="cm">/**</span>
+<span class="cm">                 * Indicates that the module basic has the submarine skin. It</span>
+<span class="cm">                 * will be decorated by the skin JS (if it exists). It can occur</span>
+<span class="cm">                 * arbitrarily. Example: .skinBasicSubmarine</span>
+<span class="cm">                 * @config .skin{moduleName}{skinName} </span>
+<span class="cm">                 */</span>
+
+                <span class="cm">/** </span>
+<span class="cm">                 * A module can have a comma-separated list of data connectors.</span>
+<span class="cm">                 * The list contains the IDs of the connectors in the following</span>
+<span class="cm">                 * schema: {connectorName}{connectorId}{connectorRole}</span>
+<span class="cm">                 * </span>
+<span class="cm">                 * The example MasterSlave1Master decodes to: name = </span>
+<span class="cm">                 * MasterSlave, id = 1, role = Master. This indicates that the</span>
+<span class="cm">                 * module should notify the MasterSlave connector (the mediator)</span>
+<span class="cm">                 * on all state changes. The connector id is used to chain the</span>
+<span class="cm">                 * appropriate modules together and to improve the</span>
+<span class="cm">                 * reusability of the connector. It can contain multiple</span>
+<span class="cm">                 * connector ids (e.g. 1,2,MasterSlave1Master). </span>
+<span class="cm">                 *</span>
+<span class="cm">                 * @config data-connectors</span>
+<span class="cm">                 */</span>
 
                 <span class="kd">var</span> <span class="nx">classes</span> <span class="o">=</span> <span class="nx">$this</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;class&#39;</span><span class="p">).</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">);</span>
 
@@ -317,7 +309,7 @@
                             <span class="nx">modName</span> <span class="o">=</span> <span class="nx">part</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
                         <span class="p">}</span>
                         <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">part</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;skin&#39;</span><span class="p">)</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-                            <span class="c1">// remove the mod name part from the skin name</span>
+                            <span class="c1">// Remove the mod name part from the skin name</span>
                             <span class="nx">skins</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">part</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="mi">4</span><span class="p">).</span><span class="nx">replace</span><span class="p">(</span><span class="nx">modName</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">));</span>
                         <span class="p">}</span>
                     <span class="p">}</span>
@@ -894,14 +886,14 @@
 
         <span class="cm">/**</span>
 <span class="cm">         * Template method to start (i.e. init) the module.</span>
-<span class="cm">         * This method provides some hook functions which could be overridden</span>
-<span class="cm">         * from the concrete implementation.</span>
+<span class="cm">         * This method provides hook functions which can be overridden</span>
+<span class="cm">         * by the individual instance.</span>
 <span class="cm">         *</span>
 <span class="cm">         * @method start</span>
 <span class="cm">         * @return {void}</span>
 <span class="cm">         */</span>
         <span class="nx">start</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-            <span class="c1">// Call the hook method dependecies from the specific implementation</span>
+            <span class="c1">// Call the hook method dependencies from the individual instance</span>
             <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">dependencies</span><span class="p">)</span> <span class="p">{</span>
                 <span class="k">this</span><span class="p">.</span><span class="nx">dependencies</span><span class="p">();</span>
             <span class="p">}</span>
@@ -938,8 +930,8 @@
 <span class="cm">             */</span>
             <span class="k">this</span><span class="p">.</span><span class="nx">checkDependencies</span><span class="p">(</span><span class="s1">&#39;beforeBinding&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
                 <span class="cm">/**</span>
-<span class="cm">                 * Call the hook method beforeBinding from the concrete</span>
-<span class="cm">                 * implementation because there might be some ajax calls, the</span>
+<span class="cm">                 * Call the hook method beforeBinding from the individual</span>
+<span class="cm">                 * instance because there might be some ajax calls, the</span>
 <span class="cm">                 * bindEvents method must be called from the beforeBinding</span>
 <span class="cm">                 * function after it has been run.</span>
 <span class="cm">                 */</span>
@@ -980,7 +972,7 @@
 <span class="cm">             * phase.</span>
 <span class="cm">             */</span>
             <span class="k">this</span><span class="p">.</span><span class="nx">checkDependencies</span><span class="p">(</span><span class="s1">&#39;onBinding&#39;</span><span class="p">,</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-                <span class="c1">// Call the hook method bindEvents from the concrete implementation</span>
+                <span class="c1">// Call the hook method bindEvents from the individual instance</span>
                 <span class="k">if</span> <span class="p">(</span><span class="nx">that</span><span class="p">.</span><span class="nx">onBinding</span><span class="p">)</span> <span class="p">{</span>
                     <span class="nx">that</span><span class="p">.</span><span class="nx">onBinding</span><span class="p">();</span>
                 <span class="p">}</span>
@@ -1012,8 +1004,8 @@
                 <span class="nx">that</span><span class="p">.</span><span class="nx">sandbox</span><span class="p">.</span><span class="nx">readyForAfterBinding</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
 
                     <span class="cm">/**</span>
-<span class="cm">                     * Call the hook method afterBinding from the concrete</span>
-<span class="cm">                     * implementation</span>
+<span class="cm">                     * Call the hook method afterBinding from the individual</span>
+<span class="cm">                     * instance</span>
 <span class="cm">                     */</span>
                     <span class="k">if</span> <span class="p">(</span><span class="nx">that</span><span class="p">.</span><span class="nx">afterBinding</span><span class="p">)</span> <span class="p">{</span>
                         <span class="nx">that</span><span class="p">.</span><span class="nx">afterBinding</span><span class="p">();</span>
@@ -1346,7 +1338,7 @@
 	</div>
 </div>
 <script type="text/javascript">
-    ALL_YUI_PROPS = [{"url": "Tc.Application.html#property_$ctx", "access": "", "host": "Tc.Application", "type": "property", "name": "$ctx"}, {"url": "Tc.Module.html#property_$ctx", "access": "", "host": "Tc.Module", "type": "property", "name": "$ctx"}, {"url": "Tc.Sandbox.html#method_addModules", "access": "", "host": "Tc.Sandbox", "type": "method", "name": "addModules"}, {"url": "Tc.Sandbox.html#property_afterBindingCallbacks", "access": "", "host": "Tc.Sandbox", "type": "property", "name": "afterBindingCallbacks"}, {"url": "Tc.Sandbox.html#property_application", "access": "", "host": "Tc.Sandbox", "type": "property", "name": "application"}, {"url": "Tc.Module.html#method_attachConnector", "access": "", "host": "Tc.Module", "type": "method", "name": "attachConnector"}, {"url": "Tc.Module.html#method_beforeBindingCallback", "access": "", "host": "Tc.Module", "type": "method", "name": "beforeBindingCallback"}, {"url": "Tc.Application.html#event_beforeClasses  \n.mod Indicates that it is a base module (default \n-> no javascript need to be involved). Must occur\nexcactly once.Change", "access": "", "host": "Tc.Application", "type": "event", "name": "beforeClasses  \n.mod Indicates that it is a base module (default \n-> no javascript need to be involved). Must occur\nexcactly once.Change"}, {"url": "Tc.Utils.String.html#method_capitalize", "access": "", "host": "Tc.Utils.String", "type": "method", "name": "capitalize"}, {"url": "Tc.Module.html#method_checkDependencies", "access": "", "host": "Tc.Module", "type": "method", "name": "checkDependencies"}, {"url": "Tc.Application.html#property_classes\nA module can have three types of classes:", "access": "", "host": "Tc.Application", "type": "property", "name": "classes\nA module can have three types of classes:"}, {"url": "Tc.Application.html#config_classes  \n.mod Indicates that it is a base module (default \n-> no javascript need to be involved). Must occur\nexcactly once.", "access": "", "host": "Tc.Application", "type": "config", "name": "classes  \n.mod Indicates that it is a base module (default \n-> no javascript need to be involved). Must occur\nexcactly once."}, {"url": "Tc.Application.html#event_classes  \n.mod Indicates that it is a base module (default \n-> no javascript need to be involved). Must occur\nexcactly once.Change", "access": "", "host": "Tc.Application", "type": "event", "name": "classes  \n.mod Indicates that it is a base module (default \n-> no javascript need to be involved). Must occur\nexcactly once.Change"}, {"url": "Tc.Application.html#property_config", "access": "", "host": "Tc.Application", "type": "property", "name": "config"}, {"url": "Tc.Sandbox.html#property_config", "access": "", "host": "Tc.Sandbox", "type": "property", "name": "config"}, {"url": "Tc.Application.html#property_connectors", "access": "", "host": "Tc.Application", "type": "property", "name": "connectors"}, {"url": "Tc.Module.html#property_connectors", "access": "", "host": "Tc.Module", "type": "property", "name": "connectors"}, {"url": "Tc.Sandbox.html#property_dependencies", "access": "", "host": "Tc.Sandbox", "type": "property", "name": "dependencies"}, {"url": "Tc.Module.html#property_dependencyCounter", "access": "", "host": "Tc.Module", "type": "property", "name": "dependencyCounter"}, {"url": "Tc.Config.html#property_dependencyPath", "access": "", "host": "Tc.Config", "type": "property", "name": "dependencyPath"}, {"url": "Tc.Module.html#method_fire", "access": "", "host": "Tc.Module", "type": "method", "name": "fire"}, {"url": "Tc.Sandbox.html#property_firstScript", "access": "", "host": "Tc.Sandbox", "type": "property", "name": "firstScript"}, {"url": "Tc.Sandbox.html#method_getConfig", "access": "", "host": "Tc.Sandbox", "type": "method", "name": "getConfig"}, {"url": "Tc.Sandbox.html#method_getConfigParam", "access": "", "host": "Tc.Sandbox", "type": "method", "name": "getConfigParam"}, {"url": "Tc.Module.html#method_getDecoratedModule", "access": "", "host": "Tc.Module", "type": "method", "name": "getDecoratedModule"}, {"url": "Tc.Sandbox.html#method_getModuleById", "access": "", "host": "Tc.Sandbox", "type": "method", "name": "getModuleById"}, {"url": "Tc.Application.html#method_init", "access": "", "host": "Tc.Application", "type": "method", "name": "init"}, {"url": "Tc.Sandbox.html#method_init", "access": "", "host": "Tc.Sandbox", "type": "method", "name": "init"}, {"url": "Tc.Module.html#method_init", "access": "", "host": "Tc.Module", "type": "method", "name": "init"}, {"url": "Tc.Connector.html#method_init", "access": "", "host": "Tc.Connector", "type": "method", "name": "init"}, {"url": "Tc.Module.html#method_initAfterBinding", "access": "", "host": "Tc.Module", "type": "method", "name": "initAfterBinding"}, {"url": "Tc.Module.html#method_initBeforeBinding", "access": "", "host": "Tc.Module", "type": "method", "name": "initBeforeBinding"}, {"url": "Tc.Module.html#method_initOnBinding", "access": "", "host": "Tc.Module", "type": "method", "name": "initOnBinding"}, {"url": "Tc.Sandbox.html#method_loadDependency", "access": "", "host": "Tc.Sandbox", "type": "method", "name": "loadDependency"}, {"url": "Tc.Module.html#property_modId", "access": "", "host": "Tc.Module", "type": "property", "name": "modId"}, {"url": "Tc.Application.html#property_modules", "access": "", "host": "Tc.Application", "type": "property", "name": "modules"}, {"url": "Tc.Connector.html#method_notify", "access": "", "host": "Tc.Connector", "type": "method", "name": "notify"}, {"url": "Tc.Module.html#property_onBinding", "access": "", "host": "Tc.Module", "type": "property", "name": "onBinding"}, {"url": "Tc.Connector.html#property_proceed", "access": "", "host": "Tc.Connector", "type": "property", "name": "proceed"}, {"url": "Tc.Sandbox.html#method_readyForAfterBinding", "access": "", "host": "Tc.Sandbox", "type": "method", "name": "readyForAfterBinding"}, {"url": "Tc.Connector.html#method_registerComponent", "access": "", "host": "Tc.Connector", "type": "method", "name": "registerComponent"}, {"url": "Tc.Application.html#method_registerConnection", "access": "", "host": "Tc.Application", "type": "method", "name": "registerConnection"}, {"url": "Tc.Application.html#method_registerModule", "access": "", "host": "Tc.Application", "type": "method", "name": "registerModule"}, {"url": "Tc.Application.html#method_registerModules", "access": "", "host": "Tc.Application", "type": "method", "name": "registerModules"}, {"url": "Tc.Sandbox.html#method_removeModules", "access": "", "host": "Tc.Sandbox", "type": "method", "name": "removeModules"}, {"url": "Tc.Module.html#method_require", "access": "", "host": "Tc.Module", "type": "method", "name": "require"}, {"url": "Tc.Application.html#property_sandbox", "access": "", "host": "Tc.Application", "type": "property", "name": "sandbox"}, {"url": "Tc.Module.html#property_sandbox", "access": "", "host": "Tc.Module", "type": "property", "name": "sandbox"}, {"url": "Tc.Application.html#method_start", "access": "", "host": "Tc.Application", "type": "method", "name": "start"}, {"url": "Tc.Module.html#method_start", "access": "", "host": "Tc.Module", "type": "method", "name": "start"}, {"url": "Tc.Application.html#method_stop", "access": "", "host": "Tc.Application", "type": "method", "name": "stop"}, {"url": "Tc.Module.html#method_stop", "access": "", "host": "Tc.Module", "type": "method", "name": "stop"}, {"url": "Tc.Connector.html#method_unregisterComponent", "access": "", "host": "Tc.Connector", "type": "method", "name": "unregisterComponent"}, {"url": "Tc.Application.html#method_unregisterModule", "access": "", "host": "Tc.Application", "type": "method", "name": "unregisterModule"}, {"url": "Tc.Application.html#property_wildcardComponents", "access": "", "host": "Tc.Application", "type": "property", "name": "wildcardComponents"}];
+    ALL_YUI_PROPS = [{"url": "Tc.Application.html#property_$ctx", "access": "", "host": "Tc.Application", "type": "property", "name": "$ctx"}, {"url": "Tc.Module.html#property_$ctx", "access": "", "host": "Tc.Module", "type": "property", "name": "$ctx"}, {"url": "Tc.Sandbox.html#method_addModules", "access": "", "host": "Tc.Sandbox", "type": "method", "name": "addModules"}, {"url": "Tc.Sandbox.html#property_afterBindingCallbacks", "access": "", "host": "Tc.Sandbox", "type": "property", "name": "afterBindingCallbacks"}, {"url": "Tc.Sandbox.html#property_application", "access": "", "host": "Tc.Sandbox", "type": "property", "name": "application"}, {"url": "Tc.Module.html#method_attachConnector", "access": "", "host": "Tc.Module", "type": "method", "name": "attachConnector"}, {"url": "Tc.Module.html#method_beforeBindingCallback", "access": "", "host": "Tc.Module", "type": "method", "name": "beforeBindingCallback"}, {"url": "Tc.Utils.String.html#method_capitalize", "access": "", "host": "Tc.Utils.String", "type": "method", "name": "capitalize"}, {"url": "Tc.Module.html#method_checkDependencies", "access": "", "host": "Tc.Module", "type": "method", "name": "checkDependencies"}, {"url": "Tc.Application.html#property_config", "access": "", "host": "Tc.Application", "type": "property", "name": "config"}, {"url": "Tc.Sandbox.html#property_config", "access": "", "host": "Tc.Sandbox", "type": "property", "name": "config"}, {"url": "Tc.Application.html#property_connectors", "access": "", "host": "Tc.Application", "type": "property", "name": "connectors"}, {"url": "Tc.Module.html#property_connectors", "access": "", "host": "Tc.Module", "type": "property", "name": "connectors"}, {"url": "Tc.Application.html#config_data-connectors", "access": "", "host": "Tc.Application", "type": "config", "name": "data-connectors"}, {"url": "Tc.Sandbox.html#property_dependencies", "access": "", "host": "Tc.Sandbox", "type": "property", "name": "dependencies"}, {"url": "Tc.Module.html#property_dependencyCounter", "access": "", "host": "Tc.Module", "type": "property", "name": "dependencyCounter"}, {"url": "Tc.Config.html#property_dependencyPath", "access": "", "host": "Tc.Config", "type": "property", "name": "dependencyPath"}, {"url": "Tc.Module.html#method_fire", "access": "", "host": "Tc.Module", "type": "method", "name": "fire"}, {"url": "Tc.Sandbox.html#property_firstScript", "access": "", "host": "Tc.Sandbox", "type": "property", "name": "firstScript"}, {"url": "Tc.Sandbox.html#method_getConfig", "access": "", "host": "Tc.Sandbox", "type": "method", "name": "getConfig"}, {"url": "Tc.Sandbox.html#method_getConfigParam", "access": "", "host": "Tc.Sandbox", "type": "method", "name": "getConfigParam"}, {"url": "Tc.Module.html#method_getDecoratedModule", "access": "", "host": "Tc.Module", "type": "method", "name": "getDecoratedModule"}, {"url": "Tc.Sandbox.html#method_getModuleById", "access": "", "host": "Tc.Sandbox", "type": "method", "name": "getModuleById"}, {"url": "Tc.Application.html#method_init", "access": "", "host": "Tc.Application", "type": "method", "name": "init"}, {"url": "Tc.Sandbox.html#method_init", "access": "", "host": "Tc.Sandbox", "type": "method", "name": "init"}, {"url": "Tc.Module.html#method_init", "access": "", "host": "Tc.Module", "type": "method", "name": "init"}, {"url": "Tc.Connector.html#method_init", "access": "", "host": "Tc.Connector", "type": "method", "name": "init"}, {"url": "Tc.Module.html#method_initAfterBinding", "access": "", "host": "Tc.Module", "type": "method", "name": "initAfterBinding"}, {"url": "Tc.Module.html#method_initBeforeBinding", "access": "", "host": "Tc.Module", "type": "method", "name": "initBeforeBinding"}, {"url": "Tc.Module.html#method_initOnBinding", "access": "", "host": "Tc.Module", "type": "method", "name": "initOnBinding"}, {"url": "Tc.Sandbox.html#method_loadDependency", "access": "", "host": "Tc.Sandbox", "type": "method", "name": "loadDependency"}, {"url": "Tc.Application.html#config_.mod", "access": "", "host": "Tc.Application", "type": "config", "name": ".mod"}, {"url": "Tc.Module.html#property_modId", "access": "", "host": "Tc.Module", "type": "property", "name": "modId"}, {"url": "Tc.Application.html#property_modules", "access": "", "host": "Tc.Application", "type": "property", "name": "modules"}, {"url": "Tc.Application.html#config_.mod{moduleName}", "access": "", "host": "Tc.Application", "type": "config", "name": ".mod{moduleName}"}, {"url": "Tc.Connector.html#method_notify", "access": "", "host": "Tc.Connector", "type": "method", "name": "notify"}, {"url": "Tc.Module.html#property_onBinding", "access": "", "host": "Tc.Module", "type": "property", "name": "onBinding"}, {"url": "Tc.Connector.html#property_proceed", "access": "", "host": "Tc.Connector", "type": "property", "name": "proceed"}, {"url": "Tc.Sandbox.html#method_readyForAfterBinding", "access": "", "host": "Tc.Sandbox", "type": "method", "name": "readyForAfterBinding"}, {"url": "Tc.Connector.html#method_registerComponent", "access": "", "host": "Tc.Connector", "type": "method", "name": "registerComponent"}, {"url": "Tc.Application.html#method_registerConnection", "access": "", "host": "Tc.Application", "type": "method", "name": "registerConnection"}, {"url": "Tc.Application.html#method_registerModule", "access": "", "host": "Tc.Application", "type": "method", "name": "registerModule"}, {"url": "Tc.Application.html#method_registerModules", "access": "", "host": "Tc.Application", "type": "method", "name": "registerModules"}, {"url": "Tc.Sandbox.html#method_removeModules", "access": "", "host": "Tc.Sandbox", "type": "method", "name": "removeModules"}, {"url": "Tc.Module.html#method_require", "access": "", "host": "Tc.Module", "type": "method", "name": "require"}, {"url": "Tc.Application.html#property_sandbox", "access": "", "host": "Tc.Application", "type": "property", "name": "sandbox"}, {"url": "Tc.Module.html#property_sandbox", "access": "", "host": "Tc.Module", "type": "property", "name": "sandbox"}, {"url": "Tc.Application.html#config_.skin{moduleName}{skinName}", "access": "", "host": "Tc.Application", "type": "config", "name": ".skin{moduleName}{skinName}"}, {"url": "Tc.Application.html#method_start", "access": "", "host": "Tc.Application", "type": "method", "name": "start"}, {"url": "Tc.Module.html#method_start", "access": "", "host": "Tc.Module", "type": "method", "name": "start"}, {"url": "Tc.Application.html#method_stop", "access": "", "host": "Tc.Application", "type": "method", "name": "stop"}, {"url": "Tc.Module.html#method_stop", "access": "", "host": "Tc.Module", "type": "method", "name": "stop"}, {"url": "Tc.Connector.html#method_unregisterComponent", "access": "", "host": "Tc.Connector", "type": "method", "name": "unregisterComponent"}, {"url": "Tc.Application.html#method_unregisterModule", "access": "", "host": "Tc.Application", "type": "method", "name": "unregisterModule"}, {"url": "Tc.Application.html#property_wildcardComponents", "access": "", "host": "Tc.Application", "type": "property", "name": "wildcardComponents"}];
 </script>
 </body>
 </html>
