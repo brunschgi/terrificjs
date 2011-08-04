@@ -87,7 +87,7 @@
 
         /**
          * Removes a module by module instances.
-	 * This stops and unregisters a module through a module instance.
+     * This stops and unregisters a module through a module instance.
          *
          * @method removeModules
          * @param {Array} modules A list containting the module instances to remove.
@@ -166,11 +166,11 @@
             // None indicates that it is not a dependency for a specific phase
 
             phase = phase || 'none';             
-	    type = type || 'plugin';
+        type = type || 'plugin';
 
             if (that.dependencies[dependency] && that.dependencies[dependency].state === 'requested') { 
-		// Requested (but loading ist not finished) the module should be
-		// notified, if the dependency has loaded
+        // Requested (but loading ist not finished) the module should be
+        // notified, if the dependency has loaded
                 that.dependencies[dependency].callbacks.push(function() {
                     callback(phase);
                 });
@@ -230,7 +230,7 @@
         /**
          * Collects the module status messages and handles the callbacks.
          * This means that it is ready for afterBinding.
-	 *
+     *
          * @method readyForAfterBinding
          * @param {Function} callback The afterBinding module callback
          * @return {void}

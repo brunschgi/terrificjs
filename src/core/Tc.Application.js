@@ -37,7 +37,7 @@
             /**
              * Contains references to all modules on the page.
              * Could be useful for example when there are interactions between
-	     * Flash <-> JS.
+         * Flash <-> JS.
              *
              * @property modules
              * @type Array
@@ -62,7 +62,7 @@
 
             /**
              * The sandbox to get the resources from 
-	     * This sandbox is shared between all modules.
+         * This sandbox is shared between all modules.
              *
              * @property sandbox
              * @type Sandbox
@@ -72,8 +72,8 @@
 
         /**
          * Register modules withing scope
-	 * Automatically registers all modules within the scope, 
-	 * as long as the modules use the OOCSS naming conventions.
+         * Automatically registers all modules within the scope, 
+         * as long as the modules use the OOCSS naming conventions.
          *
          * @method registerModules
          * @param {jQuery} $ctx The jquery context.
@@ -101,8 +101,8 @@
                  * Additionally, a module can have one type of data attributes:
                  * 1. data-connectors -> a comma separated value containing the connector ids -> schema of a connector id: <connectorName><connectorId><connectorRole>
                  *    (e.g. MasterSlave1Master -> name = MasterSlave, id = 1, role = Master)
-                 * 	-> Indicates that the module should notify the MasterSlave connector (mediator) over all state changes
-                 * 	-> The connector id is used to chain the appropriate modules together and to improve the reusability of the connector
+                 *  -> Indicates that the module should notify the MasterSlave connector (mediator) over all state changes
+                 *  -> The connector id is used to chain the appropriate modules together and to improve the reusability of the connector
                  *
                  * Type 1 can contain multiple connector ids (ie. 1,2,MasterSlave1Master)
                  */
@@ -205,17 +205,17 @@
 
             /*
              * Special treatment for the wildcard connection (conn*) -> it will
-	     * be notified about all state changes from all connections and is
-	     * able to propagate its changes to all modules. Tis must be done on
-	     * init to make sure that all connectors on the page has been
-	     * instantiated. Only do this for the given modules.
+         * be notified about all state changes from all connections and is
+         * able to propagate its changes to all modules. Tis must be done on
+         * init to make sure that all connectors on the page has been
+         * instantiated. Only do this for the given modules.
              */
             for (var i = 0, len = wildcardComponents.length; i < len; i++) {
                 var component = wildcardComponents[i];
                 if ($.inArray(component, modules) > -1) {
                     for (var connectorId in connectors) {
                         // The connector observes the component and attaches it
-			// as an observer
+            // as an observer
                         component.attachConnector(connectors[connectorId]);
                         connectors[connectorId].registerComponent(component, '*');
                     }
@@ -303,7 +303,7 @@
 
                 if (!connectors[connectorId]) {
                     // Instantiate the appropriate connector if it does not
-		    // exist yet
+            // exist yet
                     if (connectorType === '') {
                         connectors[connectorId] = new Tc.Connector(connectorId);
                     }
@@ -314,11 +314,11 @@
 
                 if (connectors[connectorId]) {
                     // The connector observes the component and attaches it as
-		    // an observer
+            // an observer
                     component.attachConnector(connectors[connectorId]);
 
                     // The component wants to be informed over state changes. 
-		    // Register it as connector member
+            // Register it as connector member
                     connectors[connectorId].registerComponent(component, connectorRole);
                 }
             }
