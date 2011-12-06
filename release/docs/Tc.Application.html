@@ -4,11 +4,11 @@
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 	<title>API: Tc  Tc.Application   (TerrificJS)</title>
 
-	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css?stamp=1305270425.45" />
-	<link rel="stylesheet" type="text/css" href="assets/api.css?stamp=1305270425.45" />
+	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css?stamp=1312469774.91" />
+	<link rel="stylesheet" type="text/css" href="assets/api.css?stamp=1312469774.91" />
 
-    <script type="text/javascript" src="assets/api-js?stamp=1305270425.45"></script>
-    <script type="text/javascript" src="assets/ac-js?stamp=1305270425.45"></script>
+    <script type="text/javascript" src="assets/api-js?stamp=1312469774.91"></script>
+    <script type="text/javascript" src="assets/ac-js?stamp=1312469774.91"></script>
 </head>
 
 <body id="yahoo-com">
@@ -59,7 +59,7 @@
   
 
                     <div class="summary description" property="yui:description">
-                        Responsible for application wide issues (ie. the creation of modules).
+                        Responsible for application-wide issues such as the creation of modules.
                     </div>
 
                         <div class="section constructor details" rel="yui:constructor" resource="#constructor">
@@ -89,7 +89,7 @@
                                     </h4>
                                     <div class="detail">
                                         <div class="description" property="yui:description">
-                                            The jquery context.
+                                            The jQuery context.
                                         </div>
                                     </div>
      
@@ -134,8 +134,9 @@
                                     </h4>
                                     <div class="detail">
                                         <div class="description" property="yui:description">
-                                            Contains references to all modules on the page.
--> could be useful ie. when there are interactions between flash <-> js.
+                                            Contains references to all modules on the page. This can, for
+xample, be useful when there are interactions between Flash
+objects and Javascript.
                                         </div>
                                     </div>
      
@@ -150,7 +151,8 @@
                                     </h4>
                                     <div class="detail">
                                         <div class="description" property="yui:description">
-                                            The sandbox to get the resources from (shared between all modules).
+                                            The sandbox to get the resources from 
+This sandbox is shared between all modules.
                                         </div>
                                     </div>
      
@@ -165,7 +167,7 @@
                                     </h4>
                                     <div class="detail">
                                         <div class="description" property="yui:description">
-                                            Contains references to all wilcard components on the page.
+                                            Contains references to all wildcard components on the page.
                                         </div>
                                     </div>
      
@@ -207,7 +209,7 @@
                                         </code>
                                         
                                         <div class="description" property="yui:description">
-                                            Initializes the Application.
+                                            Initializes the application.
                                         </div>
 
                                         <div class="description">
@@ -218,13 +220,15 @@
                                                         <code><span property="yui:name">$ctx</span>
                                                         &lt;<span property="yui:type">jQuery</span>&gt;
                                                         </code>
-                                                        <span property="yui:description"> the jquery context</span>
+                                                        <span property="yui:description"> 
+The jquery context</span>
                                                         </dd>
                                                         <dd rel="yui:parameter">
                                                         <code><span property="yui:name">config</span>
                                                         &lt;<span property="yui:type">Object</span>&gt;
                                                         </code>
-                                                        <span property="yui:description"> the configuration</span>
+                                                        <span property="yui:description"> 
+The configuration</span>
                                                         </dd>
                                                 </dl>
 
@@ -279,13 +283,15 @@
                                                         <code><span property="yui:name">connector</span>
                                                         &lt;<span property="yui:type">String</span>&gt;
                                                         </code>
-                                                        <span property="yui:description"> the full connector name (ie. MasterSlave1Slave).</span>
+                                                        <span property="yui:description"> 
+The full connector name (e.g. MasterSlave1Slave).</span>
                                                         </dd>
                                                         <dd rel="yui:parameter">
                                                         <code><span property="yui:name">component</span>
                                                         &lt;<span property="yui:type">Module</span>&gt;
                                                         </code>
-                                                        <span property="yui:description"> the module instance.</span>
+                                                        <span property="yui:description"> 
+The module instance.</span>
                                                         </dd>
                                                 </dl>
 
@@ -329,10 +335,6 @@
                                                          skins
                                                     
                                                 
-                                                        , 
-                                                         connectors
-                                                    
-                                                
                                             )
                                         </code>
                                         
@@ -348,25 +350,24 @@
                                                         <code><span property="yui:name">$node</span>
                                                         &lt;<span property="yui:type">jQuery</span>&gt;
                                                         </code>
-                                                        <span property="yui:description"> the module node.</span>
+                                                        <span property="yui:description"> 
+The module node.</span>
                                                         </dd>
                                                         <dd rel="yui:parameter">
                                                         <code><span property="yui:name">modName</span>
                                                         &lt;<span property="yui:type">String</span>&gt;
                                                         </code>
-                                                        <span property="yui:description"> the module name. it must match the class name of the module (case sensitive).</span>
+                                                        <span property="yui:description"> 
+The module name. It must match the class name of the module
+(case sensitive).</span>
                                                         </dd>
                                                         <dd rel="yui:parameter">
                                                         <code><span property="yui:name">skins</span>
                                                         &lt;<span property="yui:type">Array</span>&gt;
                                                         </code>
-                                                        <span property="yui:description"> a list of skin names. each entry must match a class name of a skin (case sensitive)).</span>
-                                                        </dd>
-                                                        <dd rel="yui:parameter">
-                                                        <code><span property="yui:name">connectors</span>
-                                                        &lt;<span property="yui:type">Array</span>&gt;
-                                                        </code>
-                                                        <span property="yui:description"> a list of connectors identifiers. schema: <connectorName><connectorId><connectorRole> (ie. MasterSlave1Master).</span>
+                                                        <span property="yui:description"> 
+A list of skin names. Each entry must match a class name of a
+skin (case sensitive).</span>
                                                         </dd>
                                                 </dl>
 
@@ -375,7 +376,7 @@
                                                     <code property="yui:return">
                                                         Module
                                                     </code></dt>
-                                                    <dd property="yui:returnInfo">the reference to the registered module.</dd>
+                                                    <dd property="yui:returnInfo">The reference to the registered module.</dd>
                                                 </dl>
 
 
@@ -406,7 +407,9 @@
                                         </code>
                                         
                                         <div class="description" property="yui:description">
-                                            Registers all modules in the context scope automatically (as long as the modules uses the oocss naming conventions).
+                                            Register modules withing scope
+Automatically registers all modules within the scope, 
+as long as the modules use the OOCSS naming conventions.
                                         </div>
 
                                         <div class="description">
@@ -417,7 +420,8 @@
                                                         <code><span property="yui:name">$ctx</span>
                                                         &lt;<span property="yui:type">jQuery</span>&gt;
                                                         </code>
-                                                        <span property="yui:description"> the jquery context.</span>
+                                                        <span property="yui:description"> 
+The jQuery context.</span>
                                                         </dd>
                                                 </dl>
 
@@ -426,7 +430,7 @@
                                                     <code property="yui:return">
                                                         Array
                                                     </code></dt>
-                                                    <dd property="yui:returnInfo">a list containing the references of the registered modules.</dd>
+                                                    <dd property="yui:returnInfo">A list containing the references of the registered modules.</dd>
                                                 </dl>
 
 
@@ -468,7 +472,8 @@
                                                         <code><span property="yui:name">modules</span>
                                                         &lt;<span property="yui:type">Array</span>&gt;
                                                         </code>
-                                                        <span property="yui:description"> a list of the modules to start.</span>
+                                                        <span property="yui:description"> 
+A list of the modules to start</span>
                                                         </dd>
                                                 </dl>
 
@@ -519,7 +524,8 @@
                                                         <code><span property="yui:name">modules</span>
                                                         &lt;<span property="yui:type">Array</span>&gt;
                                                         </code>
-                                                        <span property="yui:description"> a list containting the module instances to stop.</span>
+                                                        <span property="yui:description"> 
+A list containting the module instances to stop.</span>
                                                         </dd>
                                                 </dl>
 
@@ -559,7 +565,7 @@
                                         </code>
                                         
                                         <div class="description" property="yui:description">
-                                            Unregisters the modules by the given module instances.
+                                            Unregisters the modules given by the module instances.
                                         </div>
 
                                         <div class="description">
@@ -570,7 +576,8 @@
                                                         <code><span property="yui:name">modules</span>
                                                         &lt;<span property="yui:type">Array</span>&gt;
                                                         </code>
-                                                        <span property="yui:description"> a list containting the module instances to unregister.</span>
+                                                        <span property="yui:description"> 
+A list containting the module instances to unregister</span>
                                                         </dd>
                                                 </dl>
 
@@ -601,6 +608,83 @@
                     </div>
 
                     <div rel="yui:attributes" resource="#configattributes">
+                        <div class="section field details">
+                            <h3 id="configattributes">Configuration Attributes</h3>
+                            <div class="content">
+                                    <div class="" rel="yui:attribute" resource="#config_.mod">
+                                    <h4><a name="config_.mod">.mod</a>
+                                        <code>- <span property="yui:type">object</span></code>
+                                    </h4>
+                                    <div class="detail">
+                                        <div class="description" property="yui:description">
+                                            Indicates that it is a base module, this is the default and
+no JavaScript needs to be involved. It must occur excactly
+once.
+                                        </div>
+                                    </div>
+ 
+     
+
+                                    <hr />
+                                    </div>        
+                                    <div class="" rel="yui:attribute" resource="#config_.mod{moduleName}">
+                                    <h4><a name="config_.mod{moduleName}">.mod{moduleName}</a>
+                                        <code>- <span property="yui:type">object</span></code>
+                                    </h4>
+                                    <div class="detail">
+                                        <div class="description" property="yui:description">
+                                            Indicates that it is a module of type basic, which is
+derived from the base module. It can occur at most
+once. Example: .modBasic
+                                        </div>
+                                    </div>
+ 
+     
+
+                                    <hr />
+                                    </div>        
+                                    <div class="" rel="yui:attribute" resource="#config_.skin{moduleName}{skinName}">
+                                    <h4><a name="config_.skin{moduleName}{skinName}">.skin{moduleName}{skinName}</a>
+                                        <code>- <span property="yui:type">object</span></code>
+                                    </h4>
+                                    <div class="detail">
+                                        <div class="description" property="yui:description">
+                                            Indicates that the module basic has the submarine skin. It
+will be decorated by the skin JS (if it exists). It can occur
+arbitrarily. Example: .skinBasicSubmarine
+                                        </div>
+                                    </div>
+ 
+     
+
+                                    <hr />
+                                    </div>        
+                                    <div class="" rel="yui:attribute" resource="#config_data-connectors">
+                                    <h4><a name="config_data-connectors">data-connectors</a>
+                                        <code>- <span property="yui:type">object</span></code>
+                                    </h4>
+                                    <div class="detail">
+                                        <div class="description" property="yui:description">
+                                            A module can have a comma-separated list of data connectors.
+The list contains the IDs of the connectors in the following
+schema: {connectorName}{connectorId}{connectorRole}
+The example MasterSlave1Master decodes to: name = 
+MasterSlave, id = 1, role = Master. This indicates that the
+module should notify the MasterSlave connector (the mediator)
+on all state changes. The connector id is used to chain the
+appropriate modules together and to improve the
+reusability of the connector. It can contain multiple
+connector ids (e.g. 1,2,MasterSlave1Master).
+                                        </div>
+                                    </div>
+ 
+     
+
+                                    <hr />
+                                    </div>        
+
+                            </div>
+                        </div>
 
                     </div>
 
@@ -661,6 +745,15 @@
                     </div>
 
 
+                    <div id="configList" class="module">
+                        <h4>Configuration Attributes</h4>
+                        <ul class="content">        
+                                <li class=""><a href="#config_.mod" title=".mod">.mod</a></li>
+                                <li class=""><a href="#config_.mod{moduleName}" title=".mod{moduleName}">.mod{moduleName}</a></li>
+                                <li class=""><a href="#config_.skin{moduleName}{skinName}" title=".skin{moduleName}{skinName}">.skin{moduleName}{skinName}</a></li>
+                                <li class=""><a href="#config_data-connectors" title="data-connectors">data-connectors</a></li>
+                        </ul>
+                    </div>
 
             </div>
 		</div>
@@ -671,7 +764,7 @@
 	</div>
 </div>
 <script type="text/javascript">
-    ALL_YUI_PROPS = [{"url": "Tc.Application.html#property_$ctx", "access": "", "host": "Tc.Application", "type": "property", "name": "$ctx"}, {"url": "Tc.Application.html#property_config", "access": "", "host": "Tc.Application", "type": "property", "name": "config"}, {"url": "Tc.Application.html#property_connectors", "access": "", "host": "Tc.Application", "type": "property", "name": "connectors"}, {"url": "Tc.Config.html#property_dependencyPath", "access": "", "host": "Tc.Config", "type": "property", "name": "dependencyPath"}, {"url": "Tc.Application.html#method_init", "access": "", "host": "Tc.Application", "type": "method", "name": "init"}, {"url": "Tc.Application.html#property_modules", "access": "", "host": "Tc.Application", "type": "property", "name": "modules"}, {"url": "Tc.Application.html#method_registerConnection", "access": "", "host": "Tc.Application", "type": "method", "name": "registerConnection"}, {"url": "Tc.Application.html#method_registerModule", "access": "", "host": "Tc.Application", "type": "method", "name": "registerModule"}, {"url": "Tc.Application.html#method_registerModules", "access": "", "host": "Tc.Application", "type": "method", "name": "registerModules"}, {"url": "Tc.Application.html#property_sandbox", "access": "", "host": "Tc.Application", "type": "property", "name": "sandbox"}, {"url": "Tc.Application.html#method_start", "access": "", "host": "Tc.Application", "type": "method", "name": "start"}, {"url": "Tc.Application.html#method_stop", "access": "", "host": "Tc.Application", "type": "method", "name": "stop"}, {"url": "Tc.Application.html#method_unregisterModule", "access": "", "host": "Tc.Application", "type": "method", "name": "unregisterModule"}, {"url": "Tc.Application.html#property_wildcardComponents", "access": "", "host": "Tc.Application", "type": "property", "name": "wildcardComponents"}];
+    ALL_YUI_PROPS = [{"url": "Tc.Application.html#property_$ctx", "access": "", "host": "Tc.Application", "type": "property", "name": "$ctx"}, {"url": "Tc.Application.html#property_config", "access": "", "host": "Tc.Application", "type": "property", "name": "config"}, {"url": "Tc.Application.html#property_connectors", "access": "", "host": "Tc.Application", "type": "property", "name": "connectors"}, {"url": "Tc.Application.html#config_data-connectors", "access": "", "host": "Tc.Application", "type": "config", "name": "data-connectors"}, {"url": "Tc.Config.html#property_dependencyPath", "access": "", "host": "Tc.Config", "type": "property", "name": "dependencyPath"}, {"url": "Tc.Application.html#method_init", "access": "", "host": "Tc.Application", "type": "method", "name": "init"}, {"url": "Tc.Application.html#config_.mod", "access": "", "host": "Tc.Application", "type": "config", "name": ".mod"}, {"url": "Tc.Application.html#property_modules", "access": "", "host": "Tc.Application", "type": "property", "name": "modules"}, {"url": "Tc.Application.html#config_.mod{moduleName}", "access": "", "host": "Tc.Application", "type": "config", "name": ".mod{moduleName}"}, {"url": "Tc.Application.html#method_registerConnection", "access": "", "host": "Tc.Application", "type": "method", "name": "registerConnection"}, {"url": "Tc.Application.html#method_registerModule", "access": "", "host": "Tc.Application", "type": "method", "name": "registerModule"}, {"url": "Tc.Application.html#method_registerModules", "access": "", "host": "Tc.Application", "type": "method", "name": "registerModules"}, {"url": "Tc.Application.html#property_sandbox", "access": "", "host": "Tc.Application", "type": "property", "name": "sandbox"}, {"url": "Tc.Application.html#config_.skin{moduleName}{skinName}", "access": "", "host": "Tc.Application", "type": "config", "name": ".skin{moduleName}{skinName}"}, {"url": "Tc.Application.html#method_start", "access": "", "host": "Tc.Application", "type": "method", "name": "start"}, {"url": "Tc.Application.html#method_stop", "access": "", "host": "Tc.Application", "type": "method", "name": "stop"}, {"url": "Tc.Application.html#method_unregisterModule", "access": "", "host": "Tc.Application", "type": "method", "name": "unregisterModule"}, {"url": "Tc.Application.html#property_wildcardComponents", "access": "", "host": "Tc.Application", "type": "property", "name": "wildcardComponents"}];
 </script>
 </body>
 </html>

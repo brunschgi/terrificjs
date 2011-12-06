@@ -4,11 +4,11 @@
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 	<title>API: Tc  Tc.Sandbox   (TerrificJS)</title>
 
-	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css?stamp=1305270425.45" />
-	<link rel="stylesheet" type="text/css" href="assets/api.css?stamp=1305270425.45" />
+	<link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css?stamp=1312469774.91" />
+	<link rel="stylesheet" type="text/css" href="assets/api.css?stamp=1312469774.91" />
 
-    <script type="text/javascript" src="assets/api-js?stamp=1305270425.45"></script>
-    <script type="text/javascript" src="assets/ac-js?stamp=1305270425.45"></script>
+    <script type="text/javascript" src="assets/api-js?stamp=1312469774.91"></script>
+    <script type="text/javascript" src="assets/ac-js?stamp=1312469774.91"></script>
 </head>
 
 <body id="yahoo-com">
@@ -59,8 +59,9 @@
   
 
                     <div class="summary description" property="yui:description">
-                        The sandbox is used as a central point to get resources from / grant permissions etc.
-It is shared between all modules.
+                        The sandbox function
+The sandbox is used as a central point to get resources from, grant
+permissions, etc.  It is shared between all modules.
                     </div>
 
                         <div class="section constructor details" rel="yui:constructor" resource="#constructor">
@@ -199,7 +200,8 @@ It is shared between all modules.
                                                         <code><span property="yui:name">$ctx</span>
                                                         &lt;<span property="yui:type">jQuery</span>&gt;
                                                         </code>
-                                                        <span property="yui:description"> the jquery context.</span>
+                                                        <span property="yui:description"> 
+The jQuery context.</span>
                                                         </dd>
                                                 </dl>
 
@@ -208,7 +210,7 @@ It is shared between all modules.
                                                     <code property="yui:return">
                                                         Array
                                                     </code></dt>
-                                                    <dd property="yui:returnInfo">a list containing the references of the registered modules.</dd>
+                                                    <dd property="yui:returnInfo">A list containing the references of the registered modules.</dd>
                                                 </dl>
 
 
@@ -245,7 +247,7 @@ It is shared between all modules.
                                                     <code property="yui:return">
                                                         Object
                                                     </code></dt>
-                                                    <dd property="yui:returnInfo">the configuration object</dd>
+                                                    <dd property="yui:returnInfo">The configuration object</dd>
                                                 </dl>
 
 
@@ -287,7 +289,8 @@ It is shared between all modules.
                                                         <code><span property="yui:name">name</span>
                                                         &lt;<span property="yui:type">String</span>&gt;
                                                         </code>
-                                                        <span property="yui:description"> the param name</span>
+                                                        <span property="yui:description"> 
+The param name</span>
                                                         </dd>
                                                 </dl>
 
@@ -296,7 +299,7 @@ It is shared between all modules.
                                                     <code property="yui:return">
                                                         mixed
                                                     </code></dt>
-                                                    <dd property="yui:returnInfo">the appropriate configuration param</dd>
+                                                    <dd property="yui:returnInfo">The appropriate configuration param</dd>
                                                 </dl>
 
 
@@ -327,7 +330,7 @@ It is shared between all modules.
                                         </code>
                                         
                                         <div class="description" property="yui:description">
-                                            Gets the appropriate module for the given id.
+                                            Gets the appropriate module for the given ID.
                                         </div>
 
                                         <div class="description">
@@ -338,7 +341,8 @@ It is shared between all modules.
                                                         <code><span property="yui:name">id</span>
                                                         &lt;<span property="yui:type">int</span>&gt;
                                                         </code>
-                                                        <span property="yui:description"> the module id</span>
+                                                        <span property="yui:description"> 
+The module ID</span>
                                                         </dd>
                                                 </dl>
 
@@ -347,7 +351,7 @@ It is shared between all modules.
                                                     <code property="yui:return">
                                                         Module
                                                     </code></dt>
-                                                    <dd property="yui:returnInfo">the appropriate module</dd>
+                                                    <dd property="yui:returnInfo">The appropriate module</dd>
                                                 </dl>
 
 
@@ -393,13 +397,15 @@ It is shared between all modules.
                                                         <code><span property="yui:name">application</span>
                                                         &lt;<span property="yui:type">Applicaton</span>&gt;
                                                         </code>
-                                                        <span property="yui:description"> the application reference</span>
+                                                        <span property="yui:description"> 
+The application reference</span>
                                                         </dd>
                                                         <dd rel="yui:parameter">
                                                         <code><span property="yui:name">config</span>
                                                         &lt;<span property="yui:type">Object</span>&gt;
                                                         </code>
-                                                        <span property="yui:description"> the configuration</span>
+                                                        <span property="yui:description"> 
+The configuration</span>
                                                         </dd>
                                                 </dl>
 
@@ -462,25 +468,31 @@ It is shared between all modules.
                                                         <code><span property="yui:name">dependency</span>
                                                         &lt;<span property="yui:type">String</span>&gt;
                                                         </code>
-                                                        <span property="yui:description"> the dependency (i.e. swfobject.js)</span>
+                                                        <span property="yui:description"> 
+The dependency (e.g. swfobject.js)</span>
                                                         </dd>
                                                         <dd rel="yui:parameter">
                                                         <code><span property="yui:name">type</span>
                                                         &lt;<span property="yui:type">String</span>&gt;
                                                         </code>
-                                                        <span property="yui:description"> the dependency type (plugin | library | util | url)</span>
+                                                        <span property="yui:description"> 
+The dependency type (plugin | library | util | url)</span>
                                                         </dd>
                                                         <dd rel="yui:parameter">
                                                         <code><span property="yui:name">callback</span>
                                                         &lt;<span property="yui:type">Function</span>&gt;
                                                         </code>
-                                                        <span property="yui:description"> the callback to execute after the dependency has successfully loaded</span>
+                                                        <span property="yui:description"> 
+The callback to execute after the dependency has successfully
+loaded.</span>
                                                         </dd>
                                                         <dd rel="yui:parameter">
                                                         <code><span property="yui:name">phase</span>
                                                         &lt;<span property="yui:type">String</span>&gt;
                                                         </code>
-                                                        <span property="yui:description"> the module phase where the dependency is needed (ie. beforeBinding, onBinding)</span>
+                                                        <span property="yui:description"> 
+The module phase where the dependency is needed
+(e.g. beforeBinding, onBinding).</span>
                                                         </dd>
                                                 </dl>
 
@@ -520,7 +532,8 @@ It is shared between all modules.
                                         </code>
                                         
                                         <div class="description" property="yui:description">
-                                            Collects the module status messages (ready for after binding) and handles the callbacks.
+                                            Collects the module status messages and handles the callbacks.
+This means that it is ready for afterBinding.
                                         </div>
 
                                         <div class="description">
@@ -531,7 +544,8 @@ It is shared between all modules.
                                                         <code><span property="yui:name">callback</span>
                                                         &lt;<span property="yui:type">Function</span>&gt;
                                                         </code>
-                                                        <span property="yui:description"> the afterBinding module callback</span>
+                                                        <span property="yui:description"> 
+The afterBinding module callback</span>
                                                         </dd>
                                                 </dl>
 
@@ -571,7 +585,8 @@ It is shared between all modules.
                                         </code>
                                         
                                         <div class="description" property="yui:description">
-                                            Removes (stop and unregister) the modules by the given module instances.
+                                            Removes a module by module instances.
+This stops and unregisters a module through a module instance.
                                         </div>
 
                                         <div class="description">
@@ -582,7 +597,8 @@ It is shared between all modules.
                                                         <code><span property="yui:name">modules</span>
                                                         &lt;<span property="yui:type">Array</span>&gt;
                                                         </code>
-                                                        <span property="yui:description"> a list containting the module instances to remove.</span>
+                                                        <span property="yui:description"> 
+A list containting the module instances to remove.</span>
                                                         </dd>
                                                 </dl>
 
@@ -683,7 +699,7 @@ It is shared between all modules.
 	</div>
 </div>
 <script type="text/javascript">
-    ALL_YUI_PROPS = [{"url": "Tc.Application.html#property_$ctx", "access": "", "host": "Tc.Application", "type": "property", "name": "$ctx"}, {"url": "Tc.Sandbox.html#method_addModules", "access": "", "host": "Tc.Sandbox", "type": "method", "name": "addModules"}, {"url": "Tc.Sandbox.html#property_afterBindingCallbacks", "access": "", "host": "Tc.Sandbox", "type": "property", "name": "afterBindingCallbacks"}, {"url": "Tc.Sandbox.html#property_application", "access": "", "host": "Tc.Sandbox", "type": "property", "name": "application"}, {"url": "Tc.Application.html#property_config", "access": "", "host": "Tc.Application", "type": "property", "name": "config"}, {"url": "Tc.Sandbox.html#property_config", "access": "", "host": "Tc.Sandbox", "type": "property", "name": "config"}, {"url": "Tc.Application.html#property_connectors", "access": "", "host": "Tc.Application", "type": "property", "name": "connectors"}, {"url": "Tc.Sandbox.html#property_dependencies", "access": "", "host": "Tc.Sandbox", "type": "property", "name": "dependencies"}, {"url": "Tc.Config.html#property_dependencyPath", "access": "", "host": "Tc.Config", "type": "property", "name": "dependencyPath"}, {"url": "Tc.Sandbox.html#property_firstScript", "access": "", "host": "Tc.Sandbox", "type": "property", "name": "firstScript"}, {"url": "Tc.Sandbox.html#method_getConfig", "access": "", "host": "Tc.Sandbox", "type": "method", "name": "getConfig"}, {"url": "Tc.Sandbox.html#method_getConfigParam", "access": "", "host": "Tc.Sandbox", "type": "method", "name": "getConfigParam"}, {"url": "Tc.Sandbox.html#method_getModuleById", "access": "", "host": "Tc.Sandbox", "type": "method", "name": "getModuleById"}, {"url": "Tc.Application.html#method_init", "access": "", "host": "Tc.Application", "type": "method", "name": "init"}, {"url": "Tc.Sandbox.html#method_init", "access": "", "host": "Tc.Sandbox", "type": "method", "name": "init"}, {"url": "Tc.Sandbox.html#method_loadDependency", "access": "", "host": "Tc.Sandbox", "type": "method", "name": "loadDependency"}, {"url": "Tc.Application.html#property_modules", "access": "", "host": "Tc.Application", "type": "property", "name": "modules"}, {"url": "Tc.Sandbox.html#method_readyForAfterBinding", "access": "", "host": "Tc.Sandbox", "type": "method", "name": "readyForAfterBinding"}, {"url": "Tc.Application.html#method_registerConnection", "access": "", "host": "Tc.Application", "type": "method", "name": "registerConnection"}, {"url": "Tc.Application.html#method_registerModule", "access": "", "host": "Tc.Application", "type": "method", "name": "registerModule"}, {"url": "Tc.Application.html#method_registerModules", "access": "", "host": "Tc.Application", "type": "method", "name": "registerModules"}, {"url": "Tc.Sandbox.html#method_removeModules", "access": "", "host": "Tc.Sandbox", "type": "method", "name": "removeModules"}, {"url": "Tc.Application.html#property_sandbox", "access": "", "host": "Tc.Application", "type": "property", "name": "sandbox"}, {"url": "Tc.Application.html#method_start", "access": "", "host": "Tc.Application", "type": "method", "name": "start"}, {"url": "Tc.Application.html#method_stop", "access": "", "host": "Tc.Application", "type": "method", "name": "stop"}, {"url": "Tc.Application.html#method_unregisterModule", "access": "", "host": "Tc.Application", "type": "method", "name": "unregisterModule"}, {"url": "Tc.Application.html#property_wildcardComponents", "access": "", "host": "Tc.Application", "type": "property", "name": "wildcardComponents"}];
+    ALL_YUI_PROPS = [{"url": "Tc.Application.html#property_$ctx", "access": "", "host": "Tc.Application", "type": "property", "name": "$ctx"}, {"url": "Tc.Sandbox.html#method_addModules", "access": "", "host": "Tc.Sandbox", "type": "method", "name": "addModules"}, {"url": "Tc.Sandbox.html#property_afterBindingCallbacks", "access": "", "host": "Tc.Sandbox", "type": "property", "name": "afterBindingCallbacks"}, {"url": "Tc.Sandbox.html#property_application", "access": "", "host": "Tc.Sandbox", "type": "property", "name": "application"}, {"url": "Tc.Application.html#property_config", "access": "", "host": "Tc.Application", "type": "property", "name": "config"}, {"url": "Tc.Sandbox.html#property_config", "access": "", "host": "Tc.Sandbox", "type": "property", "name": "config"}, {"url": "Tc.Application.html#property_connectors", "access": "", "host": "Tc.Application", "type": "property", "name": "connectors"}, {"url": "Tc.Application.html#config_data-connectors", "access": "", "host": "Tc.Application", "type": "config", "name": "data-connectors"}, {"url": "Tc.Sandbox.html#property_dependencies", "access": "", "host": "Tc.Sandbox", "type": "property", "name": "dependencies"}, {"url": "Tc.Config.html#property_dependencyPath", "access": "", "host": "Tc.Config", "type": "property", "name": "dependencyPath"}, {"url": "Tc.Sandbox.html#property_firstScript", "access": "", "host": "Tc.Sandbox", "type": "property", "name": "firstScript"}, {"url": "Tc.Sandbox.html#method_getConfig", "access": "", "host": "Tc.Sandbox", "type": "method", "name": "getConfig"}, {"url": "Tc.Sandbox.html#method_getConfigParam", "access": "", "host": "Tc.Sandbox", "type": "method", "name": "getConfigParam"}, {"url": "Tc.Sandbox.html#method_getModuleById", "access": "", "host": "Tc.Sandbox", "type": "method", "name": "getModuleById"}, {"url": "Tc.Application.html#method_init", "access": "", "host": "Tc.Application", "type": "method", "name": "init"}, {"url": "Tc.Sandbox.html#method_init", "access": "", "host": "Tc.Sandbox", "type": "method", "name": "init"}, {"url": "Tc.Sandbox.html#method_loadDependency", "access": "", "host": "Tc.Sandbox", "type": "method", "name": "loadDependency"}, {"url": "Tc.Application.html#config_.mod", "access": "", "host": "Tc.Application", "type": "config", "name": ".mod"}, {"url": "Tc.Application.html#property_modules", "access": "", "host": "Tc.Application", "type": "property", "name": "modules"}, {"url": "Tc.Application.html#config_.mod{moduleName}", "access": "", "host": "Tc.Application", "type": "config", "name": ".mod{moduleName}"}, {"url": "Tc.Sandbox.html#method_readyForAfterBinding", "access": "", "host": "Tc.Sandbox", "type": "method", "name": "readyForAfterBinding"}, {"url": "Tc.Application.html#method_registerConnection", "access": "", "host": "Tc.Application", "type": "method", "name": "registerConnection"}, {"url": "Tc.Application.html#method_registerModule", "access": "", "host": "Tc.Application", "type": "method", "name": "registerModule"}, {"url": "Tc.Application.html#method_registerModules", "access": "", "host": "Tc.Application", "type": "method", "name": "registerModules"}, {"url": "Tc.Sandbox.html#method_removeModules", "access": "", "host": "Tc.Sandbox", "type": "method", "name": "removeModules"}, {"url": "Tc.Application.html#property_sandbox", "access": "", "host": "Tc.Application", "type": "property", "name": "sandbox"}, {"url": "Tc.Application.html#config_.skin{moduleName}{skinName}", "access": "", "host": "Tc.Application", "type": "config", "name": ".skin{moduleName}{skinName}"}, {"url": "Tc.Application.html#method_start", "access": "", "host": "Tc.Application", "type": "method", "name": "start"}, {"url": "Tc.Application.html#method_stop", "access": "", "host": "Tc.Application", "type": "method", "name": "stop"}, {"url": "Tc.Application.html#method_unregisterModule", "access": "", "host": "Tc.Application", "type": "method", "name": "unregisterModule"}, {"url": "Tc.Application.html#property_wildcardComponents", "access": "", "host": "Tc.Application", "type": "property", "name": "wildcardComponents"}];
 </script>
 </body>
 </html>
