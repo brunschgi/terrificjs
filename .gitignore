@@ -1,5 +1,4 @@
 .idea
-.idea/*
 examples
-examples/*
 *.pyc
+release
