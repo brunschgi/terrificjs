@@ -129,7 +129,7 @@
                  * @config data-connectors
                  */
 
-                var classes = $this.attr('class').split(' ');
+                var classes = this.className.split(' ');
 
                 if (classes.length > 1) {
                     var modName,
