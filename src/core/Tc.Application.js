@@ -89,7 +89,7 @@
 
             $ctx = $ctx || this.$ctx;
 
-            $('.mod', $ctx).each(function() {
+            $ctx.find('.mod').each(function() {
                 var $this = $(this);
 
                 /**
