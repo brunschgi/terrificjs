@@ -194,7 +194,9 @@
 
                     // Delete the references in the connectors
                     for (var connId in connectors) {
-                        connectors[connId].unregisterComponent(module);
+                        if (connectors.hasOwnProperty(connId)) {
+                            connectors[connId].unregisterComponent(module);
+                        }
                     }
 
                     // Delete the references in the wildcard components
@@ -237,11 +239,12 @@
             for (var i = 0, len = wildcardComponents.length; i < len; i++) {
                 var component = wildcardComponents[i];
                 if ($.inArray(component, modules) > -1) {
-                    for (var connectorId in connectors) {
-                        // The connector observes the component and attaches it
-            // as an observer
-                        component.attachConnector(connectors[connectorId]);
-                        connectors[connectorId].registerComponent(component, '*');
+                    for (var connId in connectors) {
+                        if (connectors.hasOwnProperty(connId)) {
+                            // The connector observes the component and attaches it as an observer
+                            component.attachConnector(connectors[connId]);
+                            connectors[connId].registerComponent(component, '*');
+                        }
                     }
                 }
             }

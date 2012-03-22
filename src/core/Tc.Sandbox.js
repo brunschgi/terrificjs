@@ -111,6 +111,27 @@
         },
 
         /**
+         * Registers a connection between a module and a connector.
+         *
+         * @method registerConnection
+         * @param {String} connector
+         *      The full connector name (e.g. MasterSlave1Slave).
+         * @param {Module} module
+         *      The module instance.
+         * @return {void}
+         */
+        registerConnection : function(connector, module) {
+            var application = this.application;
+
+            if(module instanceof Tc.Module && connector) {
+                // explicitly cast connector to string
+                connector = connector + '';
+
+                application.registerConnection(connector, module);
+            }
+        },
+
+        /**
          * Gets the appropriate module for the given ID.
          *
          * @method getModuleById

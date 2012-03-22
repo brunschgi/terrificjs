@@ -54,8 +54,10 @@
             var components = this.components;
 
             for (var id in components) {
-                if (components[id].component === component) {
-                    delete components[id];
+                if (components.hasOwnProperty(id)) {
+                    if (components[id].component === component) {
+                        delete components[id];
+                    }
                 }
             }
         },
@@ -89,9 +91,11 @@
                 components = this.components;
 
             for (var id in components) {
-                if (components[id].component !== component && components[id].component[state]) {
-                    if (components[id].component[state](data, callback) === false) {
-                        proceed = false;
+                if (components.hasOwnProperty(id)) {
+                    if (components[id].component !== component && components[id].component[state]) {
+                        if (components[id].component[state](data, callback) === false) {
+                            proceed = false;
+                        }
                     }
                 }
             }
