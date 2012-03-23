@@ -1,4 +1,6 @@
 (function($) {
+    "use strict";
+
     /**
      * Responsible for application-wide issues such as the creation of modules.
      *
@@ -85,7 +87,7 @@
          */
         registerModules : function($ctx) {
             var that = this,
-                    modules = [];
+                modules = [];
 
             $ctx = $ctx || this.$ctx;
 
@@ -176,7 +178,7 @@
          */
         unregisterModules : function(modules) {
             var connectors = this.connectors,
-                    wildcardComponents = this.wildcardComponents;
+                wildcardComponents = this.wildcardComponents;
 
             modules = modules || this.modules;
 
@@ -193,19 +195,24 @@
                     var index;
 
                     // Delete the references in the connectors
-                    for (var connId in connectors) {
-                        if (connectors.hasOwnProperty(connId)) {
-                            connectors[connId].unregisterComponent(module);
+                    for (var connectorId in connectors) {
+                        if (connectors.hasOwnProperty(connectorId)) {
+                            connectors[connectorId].unregisterComponent(module);
                         }
                     }
 
                     // Delete the references in the wildcard components
                     index = $.inArray(module, wildcardComponents);
-                    delete wildcardComponents[index];
+                    if(index > -1) {
+                        delete wildcardComponents[index];
+                        wildcardComponents.splice(index, 1);
+                    }
 
                     // Delete the module instance itself
                     index = $.inArray(module, this.modules);
-                    delete this.modules[index];
+                    if(index > -1) {
+                        delete this.modules[index];
+                    }
                 }
             }
         },
@@ -220,7 +227,7 @@
          */
         start: function(modules) {
             var wildcardComponents = this.wildcardComponents,
-                    connectors = this.connectors;
+                connectors = this.connectors;
 
             modules = modules || this.modules;
 
@@ -239,11 +246,11 @@
             for (var i = 0, len = wildcardComponents.length; i < len; i++) {
                 var component = wildcardComponents[i];
                 if ($.inArray(component, modules) > -1) {
-                    for (var connId in connectors) {
-                        if (connectors.hasOwnProperty(connId)) {
+                    for (var connectorId in connectors) {
+                        if (connectors.hasOwnProperty(connectorId)) {
                             // The connector observes the component and attaches it as an observer
-                            component.attachConnector(connectors[connId]);
-                            connectors[connId].registerComponent(component, '*');
+                            component.attachConnector(connectors[connectorId]);
+                            connectors[connectorId].registerComponent(component, '*');
                         }
                     }
                 }
@@ -328,42 +335,74 @@
          * @return {void}
          */
         registerConnection : function(connector, component) {
-            var connectorType = connector.replace(/[0-9]+[a-zA-Z]*$/, ''),
-                    connectorId = connector.replace(/[a-zA-Z]*$/, '').replace(/^[a-zA-Z]*/, ''),
-                    connectorRole = connector.replace(/^[a-zA-Z]*[0-9]*/, '');
+            var connectorType = $.trim(connector.replace(/[0-9]+[a-zA-Z]*$/, '')),
+                connectorId = $.trim(connector.replace(/[a-zA-Z]*$/, '').replace(/^[a-zA-Z]*/, '')),
+                connectorRole = $.trim(connector.replace(/^[a-zA-Z]*[0-9]*/, ''));
 
-            if (connectorId === '*' && connectorRole === '*') {
-                // Add the component to the wildcard component stack
-                this.wildcardComponents.push(component);
-            }
-            else {
-                var connectors = this.connectors;
+            if(connectorId) {
+                if (connectorId === '*' && connectorRole === '*') {
+                    // Add the component to the wildcard component stack
+                    this.wildcardComponents.push(component);
+                }
+                else {
+                    var connectors = this.connectors;
 
-                if (!connectors[connectorId]) {
-                    // Instantiate the appropriate connector if it does not
-            // exist yet
-                    if (connectorType === '') {
-                        connectors[connectorId] = new Tc.Connector(connectorId);
+                    if (!connectors[connectorId]) {
+                        // Instantiate the appropriate connector if it does not
+                // exist yet
+                        if (connectorType === '') {
+                            connectors[connectorId] = new Tc.Connector(connectorId);
+                        }
+                        else if (Tc.Connector[connectorType]) {
+                            connectors[connectorId] = new Tc.Connector[connectorType](connectorId);
+                        }
                     }
-                    else if (Tc.Connector[connectorType]) {
-                        connectors[connectorId] = new Tc.Connector[connectorType](connectorId);
+
+                    if (connectors[connectorId]) {
+                        /**
+                         * The connector observes the component and attaches it as
+                         * an observer.
+                         */
+                        component.attachConnector(connectors[connectorId]);
+
+                        /**
+                         * The component wants to be informed over state changes.
+                         * It registers it as connector member.
+                         */
+                        connectors[connectorId].registerComponent(component, connectorRole);
                     }
                 }
-
-                if (connectors[connectorId]) {
-                    /**
-                     * The connector observes the component and attaches it as
-                     * an observer.
-                     */
-                    component.attachConnector(connectors[connectorId]);
-
-                    /**
-                     * The component wants to be informed over state changes. 
-                     * It registers it as connector member.
-                     */
-                    connectors[connectorId].registerComponent(component, connectorRole);
-                }
             }
+        },
+
+        /**
+         * Unregisters a module from a connector.
+         *
+         * @method unregisterConnection
+         * @param {int} connectorId
+         *      The connector channel id (e.g. 2).
+         * @param {Module} component
+         *      The module instance.
+         * @return {void}
+         */
+        unregisterConnection : function(connectorId, component) {
+            var wildcardComponents = this.wildcardComponents,
+                connectors = this.connectors,
+                connector = connectors[connectorId];
+
+            // Delete the references in the connector and the module
+            if (connector) {
+                connector.unregisterComponent(component);
+                component.detachConnector(connector);
+            }
+
+            // Delete the references in the wildcard components
+            var index = $.inArray(component, wildcardComponents);
+            if(index > -1) {
+                delete wildcardComponents[index];
+                wildcardComponents.splice(index, 1);
+            }
+
         }
     });
 })(Tc.$);

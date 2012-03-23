@@ -20,6 +20,77 @@
             }
         });
 
+        /*asyncTest('dynamic connectors (establish a connection between to modules)', function() {
+
+            // create fixture
+            var modules = [
+                {
+                    module: 'Subscription',
+                    skins: [],
+                    connectors: []
+                },
+                {
+                    module: 'Subscription',
+                    skins: [],
+                    connectors: []
+                }
+            ];
+
+            $('#module').tmpl(modules).appendTo($('#qunit-fixture'));
+
+            // register modules
+            var application = new Tc.Application();
+
+            application.registerModules();
+
+            // start the modules and check that the modules have a properly lifecycle
+            application.start();
+
+            setTimeout(function() {
+                equals(messages.length, 2, '2 onTest messages received');
+                equals(messages[0], 'received onTest message');
+                equals(messages[1], 'received onTest message');
+                start();
+            }, 500);
+
+        });*/
+
+        asyncTest('dynamic connectors (subscribe, unsubscribe)', function() {
+
+            // create fixture
+            var modules = [
+                {
+                    module: 'Subscription',
+                    skins: [],
+                    connectors: []
+                },
+                {
+                    module: 'UnSubscription',
+                    skins: [],
+                    connectors: []
+                }
+            ];
+
+            $('#module').tmpl(modules).appendTo($('#qunit-fixture'));
+
+            // register modules
+            var application = new Tc.Application();
+
+            application.registerModules();
+
+            // start the modules and check that the modules have a properly lifecycle
+            application.start();
+
+            setTimeout(function() {
+                equals(messages.length, 3, '3 messages received');
+                equals(messages[0], 'received onTest message');
+                equals(messages[1], 'received onTest message');
+                equals(messages[2], 'default handler executed');
+                start();
+            }, 1000);
+
+        });
+
         asyncTest('lifecycle (two empty modules)', function() {
 
             // create fixture

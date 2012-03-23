@@ -1,4 +1,6 @@
 (function($) {
+    "use strict";
+
     /**
      * Base class for the different connectors.
      *
@@ -14,9 +16,8 @@
          * @method init
          * @return {void}
          * @constructor
-         * @param {String} connectorId 
+         * @param {String} connectorId
          *      The unique connector ID
-         * @param {Object} connectorId
          */
         init : function(connectorId) {
             this.connectorId = connectorId;
@@ -57,6 +58,8 @@
                 if (components.hasOwnProperty(id)) {
                     if (components[id].component === component) {
                         delete components[id];
+                        components.splice(id, 1);
+                        break
                     }
                 }
             }
@@ -80,7 +83,7 @@
          *      Indicates whether the default action should be excuted or not
          */
         notify: function(component, state, data, callback) {
-            
+
             /**
              * Gives the components the ability to prevent the default- and
              * afteraction from the events by returning false in the

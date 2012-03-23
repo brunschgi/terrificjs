@@ -1,4 +1,6 @@
 (function($) {
+    "use strict";
+
     /**
      * Base class for the different modules.
      *
@@ -278,7 +280,7 @@
         fire: function(state, data, defaultAction) {
             var that = this,
                 connectors = this.connectors;
-            
+
             data = data ||{};
             state = Tc.Utils.String.capitalize(state);
 
@@ -315,6 +317,26 @@
          */
         attachConnector: function(connector) {
             this.connectors.push(connector);
+        },
+
+        /**
+         * Detaches a connector (observer).
+         *
+         * @method detachConnector
+         * @param {Connector} connector
+         *      The connector to detach
+         * @return {void}
+         */
+        detachConnector: function(connector) {
+            var connectors = this.connectors;
+
+            for (var i = 0, len = connectors.length; i < len; i++) {
+                if(connectors[i] === connector) {
+                    delete connectors[i];
+                    connectors.splice(i, 1);
+                    break;
+                }
+            }
         },
 
         /**

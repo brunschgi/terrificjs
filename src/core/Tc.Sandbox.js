@@ -1,4 +1,6 @@
 (function($) {
+    "use strict";
+
     /**
      * The sandbox function
      * The sandbox is used as a central point to get resources from, grant
@@ -111,16 +113,16 @@
         },
 
         /**
-         * Registers a connection between a module and a connector.
+         * Subscribes a module to a connector.
          *
-         * @method registerConnection
+         * @method subscribe
          * @param {String} connector
          *      The full connector name (e.g. MasterSlave1Slave).
          * @param {Module} module
          *      The module instance.
          * @return {void}
          */
-        registerConnection : function(connector, module) {
+        subscribe : function(connector, module) {
             var application = this.application;
 
             if(module instanceof Tc.Module && connector) {
@@ -128,6 +130,27 @@
                 connector = connector + '';
 
                 application.registerConnection(connector, module);
+            }
+        },
+
+        /**
+         * Unsubscribes a module from a connector.
+         *
+         * @method unsubscribe
+         * @param {int} connectorId
+         *      The connector channel id (e.g. 2).
+         * @param {Module} module
+         *      The module instance.
+         * @return {void}
+         */
+        unsubscribe : function(connectorId, module) {
+            var application = this.application;
+
+            if(module instanceof Tc.Module && connectorId) {
+                // explicitly cast connector id to int
+                connectorId = parseInt(connectorId)
+
+                application.unregisterConnection(connectorId, module);
             }
         },
 

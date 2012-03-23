@@ -220,5 +220,51 @@
                 parent.afterBinding();
             };
         };
+
+        Tc.Module.Subscription = Tc.Module.extend({
+            init: function($ctx, sandbox, modId) {
+                // call base constructor
+                this._super($ctx, sandbox, modId);
+            },
+
+            beforeBinding: function(callback) {
+                this.sandbox.subscribe(1, this);
+                callback();
+            },
+
+            afterBinding: function() {
+                this.fire('test');
+            },
+
+            onTest: function() {
+                messages.push('received onTest message');
+            }
+        });
+
+        Tc.Module.UnSubscription = Tc.Module.extend({
+            init: function($ctx, sandbox, modId) {
+                // call base constructor
+                this._super($ctx, sandbox, modId);
+            },
+
+            beforeBinding: function(callback) {
+                this.sandbox.subscribe(1, this);
+                callback();
+            },
+
+            afterBinding: function() {
+                var that = this;
+
+                this.fire('test');
+                this.sandbox.unsubscribe(1, this);
+                this.fire('test', null, function() {
+                    messages.push('default handler executed')
+                });
+            },
+
+            onTest: function() {
+                messages.push('received onTest message');
+            }
+        });
     })(Tc.$);
 </script>
