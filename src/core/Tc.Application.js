@@ -91,9 +91,7 @@
 
             $ctx = $ctx || this.$ctx;
 
-            $ctx.find('.mod').each(function() {
-                var $this = $(this);
-
+            $ctx.find('.mod').each(function() {                
                 /**
                  * Indicates that it is a base module, this is the default and
                  * no JavaScript needs to be involved. It must occur excactly
@@ -131,12 +129,12 @@
                  * @config data-connectors
                  */
 
-                var classes = $this.attr('class').split(' ');
+                var classes = this.className.split(' ');
 
                 if (classes.length > 1) {
                     var modName,
-                            skins = [],
-                            connectors = [];
+                            dataConnectors = this.getAttribute('data-connectors'),                            
+                            skins = [];
 
                     for (var i = 0, len = classes.length; i < len; i++) {
                         var part = $.trim(classes[i]);
@@ -151,8 +149,8 @@
                     }
 
 
-                    if ($this.attr('data-connectors')) {
-                        connectors = $this.attr('data-connectors').split(',');
+                    if (dataConnectors) {
+                        var connectors = dataConnectors.split(',');
                         for (var i = 0, len = connectors.length; i < len; i++) {
                             connectors[i] = $.trim(connectors[i]);
                         }
@@ -160,7 +158,7 @@
 
 
                     if (modName && Tc.Module[modName]) {
-                        modules.push(that.registerModule($this, modName, skins, connectors));
+                        modules.push(that.registerModule($(this), modName, skins, connectors));
                     }
                 }
             });
