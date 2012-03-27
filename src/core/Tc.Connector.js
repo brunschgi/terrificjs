@@ -60,23 +60,27 @@
          * Notifies all registered components about the state change (to be overriden in the specific connectors).
          *
          * @method notify
-         * @param {Module} component the module that sends the state change
+         * @param {Module} origin the module that sends the state change
          * @param {String} state the state
          * @param {Object} data contains the state relevant data (if any)
          * @param {Function} callback the callback function (could be executed after an asynchronous action)
          * @return {boolean} indicates whether the default action should be excuted or not
          */
-        notify: function(component, state, data, callback) {
-            /* 
+        notify: function(origin, state, data, callback) {
+            /*
              * gives the components the ability to prevent the default- and afteraction from the events
              * (by returning false in the on<Event>-Handler)
              */
             var proceed = true,
-                components = this.components;
+                components = this.components,
+                component,
+                i;
 
-            for (var id in components) {
-                if (components[id].component !== component && components[id].component[state]) {
-                    if (components[id].component[state](data, callback) === false) {
+            for (i = 0; i < components.length; i++) {
+                component = components[i].component;
+
+                if (component !== origin && component[state]) {
+                    if (component[state](data, callback) === false) {
                         proceed = false;
                     }
                 }
