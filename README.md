@@ -79,7 +79,7 @@ To build your own release of Terrific, just run ant in the build directory and y
 You will get the following release artifacts:
 
 * release/docs/ – generated API documentation
-* release/terrific-1.0.0.js – the full release
-* release/terrific-1.0.0.min.js – the minified release for production use
+* release/terrific-<version>.js – the full release
+* release/terrific-<version>.min.js – the minified release for production use
 
 – thx to [Roger Dudler](https://github.com/rogerdudler) for writing this tutorial –
