@@ -70,7 +70,7 @@
          * This can be be overriden in the specific connectors.
          *
          * @method notify
-         * @param {Module} component 
+         * @param {Module} origin
          *      The module that sends the state change
          * @param {String} state 
          *      The component's state
@@ -82,7 +82,7 @@
          * @return {boolean} 
          *      Indicates whether the default action should be excuted or not
          */
-        notify: function(component, state, data, callback) {
+        notify: function(origin, state, data, callback) {
 
             /**
              * Gives the components the ability to prevent the default- and
@@ -95,8 +95,9 @@
 
             for (var id in components) {
                 if (components.hasOwnProperty(id)) {
-                    if (components[id].component !== component && components[id].component[state]) {
-                        if (components[id].component[state](data, callback) === false) {
+                    var component = components[id].component;
+                    if (component !== origin && component[state]) {
+                        if (component[state](data, callback) === false) {
                             proceed = false;
                         }
                     }

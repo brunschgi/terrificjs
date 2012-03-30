@@ -20,7 +20,7 @@
             }
         });
 
-        /*asyncTest('dynamic connectors (establish a connection between to modules)', function() {
+        asyncTest('dynamic connectors (subscribe)', function() {
 
             // create fixture
             var modules = [
@@ -47,13 +47,15 @@
             application.start();
 
             setTimeout(function() {
-                equals(messages.length, 2, '2 onTest messages received');
+                equals(messages.length, 4, '4 onTest messages received');
                 equals(messages[0], 'received onTest message');
                 equals(messages[1], 'received onTest message');
+                equals(messages[2], 'received onTest message');
+                equals(messages[3], 'received onTest message');
                 start();
             }, 500);
 
-        });*/
+        });
 
         asyncTest('dynamic connectors (subscribe, unsubscribe)', function() {
 
@@ -86,6 +88,53 @@
                 equals(messages[0], 'received onTest message');
                 equals(messages[1], 'received onTest message');
                 equals(messages[2], 'default handler executed');
+                start();
+            }, 1000);
+
+        });
+
+        asyncTest('dynamic connectors with 3 modules (subscribe, unsubscribe)', function() {
+
+            // create fixture
+            var modules = [
+                {
+                    module: 'Subscription',
+                    skins: [],
+                    connectors: []
+                },
+                {
+                    module: 'Subscription',
+                    skins: [],
+                    connectors: []
+                },
+                {
+                    module: 'UnSubscription',
+                    skins: [],
+                    connectors: []
+                }
+            ];
+
+            $('#module').tmpl(modules).appendTo($('#qunit-fixture'));
+
+            // register modules
+            var application = new Tc.Application();
+
+            application.registerModules();
+
+            // start the modules and check that the modules have a properly lifecycle
+            application.start();
+
+            setTimeout(function() {
+                equals(messages.length, 9, '9 messages received');
+                equals(messages[0], 'received onTest message');
+                equals(messages[1], 'received onTest message');
+                equals(messages[2], 'received onTest message');
+                equals(messages[3], 'received onTest message');
+                equals(messages[4], 'received onTest message');
+                equals(messages[5], 'received onTest message');
+                equals(messages[6], 'default handler executed');
+                equals(messages[7], 'received onTest message');
+                equals(messages[8], 'received onTest message');
                 start();
             }, 1000);
 

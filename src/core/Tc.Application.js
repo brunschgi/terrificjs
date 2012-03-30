@@ -135,8 +135,8 @@
 
                 if (classes.length > 1) {
                     var modName,
-                            skins = [],
-                            connectors = [];
+                        skins = [],
+                        connectors = [];
 
                     for (var i = 0, len = classes.length; i < len; i++) {
                         var part = $.trim(classes[i]);
@@ -150,14 +150,15 @@
                         }
                     }
 
-
                     if ($this.attr('data-connectors')) {
                         connectors = $this.attr('data-connectors').split(',');
                         for (var i = 0, len = connectors.length; i < len; i++) {
-                            connectors[i] = $.trim(connectors[i]);
+                            var connector = $.trim(connectors[i]);
+                            if(connector) {
+                                connectors[i] = connector;
+                            }
                         }
                     }
-
 
                     if (modName && Tc.Module[modName]) {
                         modules.push(that.registerModule($this, modName, skins, connectors));
@@ -239,7 +240,7 @@
             /*
              * Special treatment for the wildcard connection (conn*) -> it will
              * be notified about all state changes from all connections and is
-             * able to propagate its changes to all modules. Tis must be done on
+             * able to propagate its changes to all modules. This must be done on
              * init to make sure that all connectors on the page has been
              * instantiated. Only do this for the given modules.
              */
@@ -335,9 +336,9 @@
          * @return {void}
          */
         registerConnection : function(connector, component) {
-            var connectorType = $.trim(connector.replace(/[0-9]+[a-zA-Z]*$/, '')),
-                connectorId = $.trim(connector.replace(/[a-zA-Z]*$/, '').replace(/^[a-zA-Z]*/, '')),
-                connectorRole = $.trim(connector.replace(/^[a-zA-Z]*[0-9]*/, ''));
+            var connectorType = connector.replace(/[0-9]+[a-zA-Z]*$/, ''),
+                connectorId = connector.replace(/[a-zA-Z]*$/, '').replace(/^[a-zA-Z]*/, ''),
+                connectorRole = connector.replace(/^[a-zA-Z]*[0-9]*/, '');
 
             if(connectorId) {
                 if (connectorId === '*' && connectorRole === '*') {

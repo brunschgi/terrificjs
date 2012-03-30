@@ -233,7 +233,14 @@
             },
 
             afterBinding: function() {
+                var that = this;
+
                 this.fire('test');
+
+                // wait till the other modules had time to deregister themself
+                setTimeout(function() {
+                    that.fire('test');
+                }, 200);
             },
 
             onTest: function() {
