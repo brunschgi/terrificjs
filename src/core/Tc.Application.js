@@ -150,8 +150,8 @@
                         }
                     }
 
-                    if ($this.attr('data-connectors')) {
-                        connectors = $this.attr('data-connectors').split(',');
+                    if ($this.data('connectors')) {
+                        connectors = $this.data('connectors').split(',');
                         for (var i = 0, len = connectors.length; i < len; i++) {
                             var connector = $.trim(connectors[i]);
                             if(connector) {
