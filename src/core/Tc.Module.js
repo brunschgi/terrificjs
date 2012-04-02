@@ -1,4 +1,6 @@
 (function($) {
+    "use strict";
+
     /**
      * Base class for the different modules.
      *
@@ -14,9 +16,12 @@
          * @method init
          * @return {void}
          * @constructor
-         * @param {jQuery} $ctx the jquery context
-         * @param {Sandbox} sandbox the sandbox to get the resources from
-         * @param {String} modId the unique module id
+         * @param {jQuery} $ctx 
+         *      The jQuery context
+         * @param {Sandbox} sandbox 
+         *      The sandbox to get the resources from
+         * @param {String} modId 
+         *      The Unique module ID
          */
         init: function($ctx, sandbox, modId) {
             /**
@@ -28,7 +33,7 @@
             this.$ctx = $ctx;
 
             /**
-             * Contains the unique module id.
+             * Contains the unique module ID.
              *
              * @property modId
              * @type String
@@ -51,8 +56,14 @@
              */
             this.dependencyCounter = {
                 beforeBinding: 0,
-                onBinding: 1, // not 0, because of the beforeBinding callback (which is also a dependency)
-                afterBinding: 1 // not 0, because a completed onBinding phase is required (which is also a dependency)
+                /**
+                 * The following counters have to be at least zero, so that
+                 * the onBinding callback is loaded as a dependency for
+                 * onBinding and the onBinding phase is completed for 
+                 * afterBinding.
+                 */
+                onBinding: 1,
+                afterBinding: 1 
             };
 
             /**
@@ -65,14 +76,15 @@
         },
 
         /**
-         * Template method to start (init) the module.
-         * This method provides some hook functions which could be overridden from the concrete implementation
+         * Template method to start (i.e. init) the module.
+         * This method provides hook functions which can be overridden
+         * by the individual instance.
          *
          * @method start
          * @return {void}
          */
         start: function() {
-            // call the hook method dependecies from the concrete implementation
+            // Call the hook method dependencies from the individual instance
             if (this.dependencies) {
                 this.dependencies();
             }
@@ -89,13 +101,13 @@
         stop: function() {
             var $ctx = this.$ctx;
             
-            // remove all bound events and associated jquery data
+            // Remove all bound events and associated jQuery data
             $('*', $ctx).unbind().removeData();
             $ctx.unbind().removeData();
         },
 
         /**
-         * Initializes the before binding phase.
+         * Initializes the beforeBinding phase.
          *
          * @method initBeforeBinding
          * @return {void}
@@ -103,11 +115,17 @@
         initBeforeBinding: function() {
             var that = this;
 
-             // start the before binding phase if there are no dependency for this phase
+            /** 
+             * Start the beforeBinding phase if there are no dependency for
+             * this phase
+             */
             this.checkDependencies('beforeBinding', function() {
-                // call the hook method beforeBinding from the concrete implementation
-                // because there might be some ajax calls, the bindEvents method must be called from
-                // the beforeBinding function after it has been run
+                /**
+                 * Call the hook method beforeBinding from the individual
+                 * instance because there might be some ajax calls, the
+                 * bindEvents method must be called from the beforeBinding
+                 * function after it has been run.
+                 */
                 if (that.beforeBinding) {
                     that.beforeBinding(function() {
                         that.beforeBindingCallback();
@@ -126,13 +144,13 @@
          * @return {void}
          */
         beforeBindingCallback: function() {
-            // decrement the dependency counter for the on binding phase
+            // Decrement the dependency counter for the onBinding phase
             this.dependencyCounter.onBinding--;
             this.initOnBinding();
         },
 
         /**
-         * Initializes the on binding phase.
+         * Initializes the onBinding phase.
          *
          * @method initOnBinding
          * @return {void}
@@ -140,21 +158,24 @@
         initOnBinding: function() {
             var that = this;
 
-            // start the on binding phase if there are no dependencies for this phase
+            /** 
+             * Start the onBinding phase if there are no dependencies for this
+             * phase.
+             */
             this.checkDependencies('onBinding',function() {
-                // call the hook method bindEvents from the concrete implementation
+                // Call the hook method bindEvents from the individual instance
                 if (that.onBinding) {
                     that.onBinding();
                 }
 
-                // decrement the dependency counter for the after binding phase
+                // Decrement the dependency counter for the afterBinding phase
                 that.dependencyCounter.afterBinding--;
                 that.initAfterBinding();
             });
         },
 
         /**
-         * Initializes the after binding phase.
+         * Initializes the afterBinding phase.
          *
          * @method initAfterBinding
          * @return {void}
@@ -162,12 +183,21 @@
         initAfterBinding: function() {
             var that = this;
 
-            // start the after binding phase if there are no dependencies for this phase
+            /**
+             * Start the afterBinding phase if there are no dependencies for
+             * this phase
+             */
             this.checkDependencies('afterBinding', function() {
-                // inform the sandbox that the module is ready for the after binding phase
+                /** 
+                 * Inform the sandbox that the module is ready for the
+                 * afterBinding phase.
+                 */
                 that.sandbox.readyForAfterBinding(function() {
 
-                    // call the hook method afterBinding from the concrete implementation
+                    /**
+                     * Call the hook method afterBinding from the individual
+                     * instance
+                     */
                     if (that.afterBinding) {
                         that.afterBinding();
                     }
@@ -180,13 +210,15 @@
          * Initializes the appropriate phase if all dependencies are loaded.
          *
          * @method checkDependencies
-         * @param {String} phase the phase to check / initialize
-         * @param {Function} callback the callback to execute if all dependencies were loaded
+         * @param {String} phase 
+         *      The phase to check / initialize
+         * @param {Function} callback 
+         *      The callback to execute if all dependencies were loaded
          * @return {void}
          */
         checkDependencies: function(phase, callback) {
             if (this.dependencyCounter[phase] === 0) {
-                // execute the callback
+                // Execute the callback
                 callback();
             }
         },
@@ -195,10 +227,17 @@
          * Manages the required dependencies.
          *
          * @method require
-         * @param {String} dependency the dependency (i.e. swfobject.js)
-         * @param {String} type the dependency type (library | plugin | util | url)
-         * @param {String} phase the module phase where the dependency is needed (ie. beforeBinding, onBinding)
-         * @param {boolean} executeCallback indicates whether the phase callback should be executed or not (useful for dependencies that provide their own callback mechanism)
+         * @param {String} dependency 
+         *      The dependency (e.g. swfobject.js)
+         * @param {String} type 
+         *      The dependency type (library | plugin | util | url)
+         * @param {String} phase 
+         *      The module phase where the dependency is needed
+         *      (e.g. beforeBinding, onBinding)
+         * @param {boolean} executeCallback 
+         *      Indicates whether the phase callback should be executed or not.
+         *      This is useful for dependencies that provide their own callback
+         *      mechanism.
          * @return {void}
          */
         require: function(dependency, type, phase, executeCallback) {
@@ -206,15 +245,18 @@
             phase = phase || 'onBinding';
             executeCallback = executeCallback === false ? false : true;
 
-            // increment the dependency counter
+            // Increment the dependency counter
             this.dependencyCounter[phase]++;
 
-            // proxy the callback to the outermost decorator
+            // Proxy the callback to the outermost decorator
             var callback = $.proxy(function() {
                 if (executeCallback) {
                     var that = this;
 
-                    // decrement the dependency counter for the appropriate phase
+                    /**
+                     * Decrement the dependency counter for the appropriate
+                     * phase.
+                     */
                     this.dependencyCounter[phase]--;
                     that['init' + Tc.Utils.String.capitalize(phase)]();
                 }
@@ -227,22 +269,25 @@
          * Notifies all attached connectors about changes.
          *
          * @method fire
-         * @param {String} state the new state
-         * @param {Object} data the data to provide to your connected modules
-         * @param {Function} defaultAction the default action to perform
+         * @param {String} state 
+         *      The new state
+         * @param {Object} data 
+         *      The data to provide to your connected modules
+         * @param {Function} defaultAction 
+         *      The default action to perform
          * @return {void}
          */
         fire: function(state, data, defaultAction) {
             var that = this,
                 connectors = this.connectors;
-            
+
             data = data ||{};
             state = Tc.Utils.String.capitalize(state);
 
             $.each(connectors, function() {
                 var connector = this;
 
-                // callback combining the defaultAction and the afterAction
+                // Callback combining the defaultAction and the afterAction
                 var callback = function() {
                     if (typeof defaultAction == 'function') {
                         defaultAction();
@@ -266,7 +311,8 @@
          * Attaches a connector (observer).
          *
          * @method attachConnector
-         * @param {Connector} connector the connector to attach
+         * @param {Connector} connector 
+         *      The connector to attach
          * @return {void}
          */
         attachConnector: function(connector) {
@@ -274,12 +320,35 @@
         },
 
         /**
+         * Detaches a connector (observer).
+         *
+         * @method detachConnector
+         * @param {Connector} connector
+         *      The connector to detach
+         * @return {void}
+         */
+        detachConnector: function(connector) {
+            var connectors = this.connectors;
+
+            for (var i = 0, len = connectors.length; i < len; i++) {
+                if(connectors[i] === connector) {
+                    delete connectors[i];
+                    connectors.splice(i, 1);
+                    break;
+                }
+            }
+        },
+
+        /**
          * Decorates itself with the given skin.
          *
          * @method getDecoratedModule
-         * @param {String} module the name of the module
-         * @param {String} skin the name of the skin
-         * @return {Module} the decorated module
+         * @param {String} module 
+         *      The name of the module
+         * @param {String} skin 
+         *      The name of the skin
+         * @return {Module} 
+         *      The decorated module
          */
         getDecoratedModule: function(module, skin) {
             if (Tc.Module[module][skin]) {
@@ -287,7 +356,8 @@
 
                 /*
                  * Sets the prototype object to the module.
-                 * So the "non-decorated" functions will be called on the module (without implementing the whole module interface).
+                 * So the "non-decorated" functions will be called on the module
+                 * without implementing the whole module interface.
                  */
                 decorator.prototype = this;
                 decorator.prototype.constructor = Tc.Module[module][skin];

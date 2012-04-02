@@ -300,7 +300,7 @@
             ok(!application.modules[0], 'module 1 removed');
             deepEqual(application.modules[1].$ctx, $node2, 'module 2 still exists');
             ok(application.connectors[1], 'connector still exists');
-            equals(application.connectors[1].components.length, 2, 'connector component removed');
+            equals(application.connectors[1].components.length, 1, 'connector component removed');
         });
     });
 })(Tc.$);

@@ -4,7 +4,7 @@
 What is TerrificJS
 ------------------
 
-TerrificJS is a neatly, clever piece of code that allows you to modularize your jQuery code by solely relying on the OOCSS naming conventions.
+TerrificJS is a neat, clever piece of code that allows you to modularize your jQuery code by solely relying on the OOCSS naming conventions.
 
 So simple, so effective! TerrificJS helps you to structure your project in a way you have never dreamt of. Try the magic and get addicted.
 
@@ -25,9 +25,9 @@ Prerequisites for building your own TerrificJS
 Installing Python and Ant
 --------------------------
 
-Notice: This tutorial is for building TerrificjS on Linux (Ubuntu).
+Notice: This tutorial is for building TerrificJS on Linux (Ubuntu).
 
-First of all, you need Python and Ant, if you have them not already installed.
+First of all, you need Python and Ant, if you do not already have those installed.
 
 1. `sudo apt-get install python ant`
 
@@ -35,8 +35,7 @@ First of all, you need Python and Ant, if you have them not already installed.
 Installing node.js and npm (Node Package Manager)
 -------------------------------------------------
 
-To get the build running, we need UglifyJS, which itself needs node.js. There are a few alternative installation procedures for [NodeJS](http://nodejs.org/). I had problems with the packages
-from the official repository and the one from node.js, so I decided to do it using the following alternative installation method (from here).
+To get the build environment up and running, we need UglifyJS, which itself depends on node.js. There are a several different methods available for installing [NodeJS](http://nodejs.org/). I chose the following method because I had problems with the packages from the official repository and the one from node.js.
 
 1. `sudo mkdir -p /usr/local/{share/man,bin,lib/node,include/node}`
 2. `sudo chown -R $USER /usr/local/{share/man,bin,lib/node,include/node`}
@@ -80,7 +79,7 @@ To build your own release of Terrific, just run ant in the build directory and y
 You will get the following release artifacts:
 
 * release/docs/ – generated API documentation
-* release/terrific-1.0.0.js – the full release
-* release/terrific-1.0.0.min.js – the minified release for production use
+* release/terrific-<version>.js – the full release
+* release/terrific-<version>.min.js – the minified release for production use
 
 – thx to [Roger Dudler](https://github.com/rogerdudler) for writing this tutorial –
