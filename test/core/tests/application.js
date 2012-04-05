@@ -269,7 +269,7 @@
         });
 
         test('unregister modules (specific module)', function() {
-            expect(4);
+            expect(5);
 
             // create fixture
             var modules = [
@@ -300,7 +300,8 @@
             ok(!application.modules[0], 'module 1 removed');
             deepEqual(application.modules[1].$ctx, $node2, 'module 2 still exists');
             ok(application.connectors[1], 'connector still exists');
-            equals(application.connectors[1].components.length, 1, 'connector component removed');
+            deepEqual(application.connectors[1].components[0], undefined, 'connector component removed');
+            ok(application.connectors[1].components[1], 'other connector component still exists');
         });
     });
 })(Tc.$);

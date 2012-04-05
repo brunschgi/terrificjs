@@ -227,7 +227,7 @@
             // None indicates that it is not a dependency for a specific phase
 
             phase = phase || 'none';             
-        type = type || 'plugin';
+            type = type || 'plugin';
 
             if (that.dependencies[dependency] && 
             that.dependencies[dependency].state === 'requested') { 
@@ -310,8 +310,7 @@
             afterBindingCallbacks.push(callback);
 
             // Check whether all modules are ready for the afterBinding phase
-            if (this.application.modules.length == 
-            afterBindingCallbacks.length) {
+            if (this.application.modules.length == afterBindingCallbacks.length) {
                 for (var i = 0; i < afterBindingCallbacks.length; i++) {
                     afterBindingCallbacks[i]();
                 }
