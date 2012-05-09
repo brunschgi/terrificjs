@@ -150,8 +150,8 @@
                         }
                     }
 
-                    if ($this.attr('data-connectors')) {
-                        connectors = $this.attr('data-connectors').split(',');
+                    if ($this.data('tc-connectors')) {
+                        connectors = $this.data('tc-connectors').split(',');
                         for (var i = 0, len = connectors.length; i < len; i++) {
                             var connector = $.trim(connectors[i]);
                             if(connector) {
@@ -302,7 +302,7 @@
             if (modName && Tc.Module[modName]) {
                 // Generate a unique ID for every module
                 var modId = modules.length;
-                $node.data('id', modId);
+                $node.data('tc-id', modId);
 
                 modules[modId] = new Tc.Module[modName]($node, this.sandbox, modId);
 
