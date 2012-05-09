@@ -6,7 +6,7 @@
     <link rel="stylesheet" type="text/css" href="css/qunit.css" media="screen" />
     <script type="text/javascript" src="../../src/jquery/jquery-1.7.2.min.js"></script>
     <!-- terrific js release -->
-    <!-- <script type="text/javascript" src="../../release/terrific-1.0.0.min.js"></script> -->
+    <!-- <script type="text/javascript" src="../../release/terrific-1.1.1.min.js"></script> -->
 
     <!-- terrific js sources -->
     <script type="text/javascript" src="../../src/core/oo.js"></script>

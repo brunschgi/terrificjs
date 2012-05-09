@@ -40,7 +40,7 @@
 
             /**
              * Contains references to all modules on the page. This can, for
-             * xample, be useful when there are interactions between Flash
+             * example, be useful when there are interactions between Flash
              * objects and Javascript.
              *
              * @property modules
@@ -150,8 +150,8 @@
                         }
                     }
 
-                    if ($this.data('connectors')) {
-                        connectors = $this.data('connectors').split(',');
+                    if ($this.attr('data-connectors')) {
+                        connectors = $this.attr('data-connectors').split(',');
                         for (var i = 0, len = connectors.length; i < len; i++) {
                             var connector = $.trim(connectors[i]);
                             if(connector) {
@@ -206,7 +206,6 @@
                     index = $.inArray(module, wildcardComponents);
                     if(index > -1) {
                         delete wildcardComponents[index];
-                        wildcardComponents.splice(index, 1);
                     }
 
                     // Delete the module instance itself
@@ -401,9 +400,7 @@
             var index = $.inArray(component, wildcardComponents);
             if(index > -1) {
                 delete wildcardComponents[index];
-                wildcardComponents.splice(index, 1);
             }
-
         }
     });
 })(Tc.$);

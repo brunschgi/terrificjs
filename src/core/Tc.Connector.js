@@ -54,14 +54,10 @@
         unregisterComponent: function(component) {
             var components = this.components;
 
-            for (var id in components) {
-                if (components.hasOwnProperty(id)) {
-                    if (components[id].component === component) {
-                        delete components[id];
-                        components.splice(id, 1);
-                        break
-                    }
-                }
+            for (var i = 0, len = components.length; i < len; i++) {
+               if(components[i] && components[i].component === component) {
+                   delete components[i];
+               }
             }
         },
 
@@ -93,13 +89,11 @@
             var proceed = true,
                 components = this.components;
 
-            for (var id in components) {
-                if (components.hasOwnProperty(id)) {
-                    var component = components[id].component;
-                    if (component !== origin && component[state]) {
-                        if (component[state](data, callback) === false) {
-                            proceed = false;
-                        }
+            for (var i = 0, len = components.length; i < len; i++) {
+                var component = components[i].component;
+                if (component && component !== origin && component[state]) {
+                    if (component[state](data, callback) === false) {
+                        proceed = false;
                     }
                 }
             }
