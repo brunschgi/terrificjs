@@ -131,7 +131,8 @@
                  * @config data-connectors
                  */
 
-                var classes = $this.attr('class').split(' ');
+                var classes = $this.attr('class').split(' '),
+                    data_connectors;
 
                 if (classes.length > 1) {
                     var modName,
@@ -150,8 +151,10 @@
                         }
                     }
 
-                    if ($this.attr('data-connectors')) {
-                        connectors = $this.attr('data-connectors').split(',');
+                    data_connectors = $.data($this, 'tc-connectors');
+
+                    if (data_connectors) {
+                        connectors = data_connectors.split(',');
                         for (var i = 0, len = connectors.length; i < len; i++) {
                             var connector = $.trim(connectors[i]);
                             if(connector) {
@@ -302,7 +305,7 @@
             if (modName && Tc.Module[modName]) {
                 // Generate a unique ID for every module
                 var modId = modules.length;
-                $node.data('id', modId);
+                $.data($node[0], 'tc-id', modId);
 
                 modules[modId] = new Tc.Module[modName]($node, this.sandbox, modId);
 
