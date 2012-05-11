@@ -253,16 +253,11 @@
                 var path;
 
                 switch (type) {
-                    case 'library':
-                    case 'plugin':
-                    case 'util':
-                        path = this.config.dependencyPath[type];
-                        break;
                     case 'url':
                         path = '';
                         break;
                     case 'default':
-                        path = '';
+                        path = this.config.dependencyPath[type];
                         break;
                 }
 
