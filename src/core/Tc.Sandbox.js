@@ -60,7 +60,7 @@
          */
         addModules: function($ctx) {
             var modules = [],
-                    application = this.application;
+                application = this.application;
 
             if ($ctx) {
                 // Register modules
@@ -204,7 +204,13 @@
             // Check whether all modules are ready for the 'after' hook
             if (this.application.modules.length == afterCallbacks.length) {
                 for (var i = 0; i < afterCallbacks.length; i++) {
-                    afterCallbacks[i]();
+                    var afterCallback = afterCallbacks[i];
+
+                    if(typeof afterCallback == "function") {
+                        // make sure the callback is only executed once (and is not called during addModules)
+                        delete afterCallbacks[i];
+                        afterCallback();
+                    }
                 }
             }
         }

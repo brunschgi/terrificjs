@@ -43,7 +43,7 @@
 
             application.registerModules();
 
-            // start the modules and check that the modules have a properly lifecycle
+            // start the modules and check that the modules have a proper lifecycle
             application.start();
 
             setTimeout(function() {
@@ -80,7 +80,7 @@
 
             application.registerModules();
 
-            // start the modules and check that the modules have a properly lifecycle
+            // start the modules and check that the modules have a proper lifecycle
             application.start();
 
             setTimeout(function() {
@@ -121,7 +121,7 @@
 
             application.registerModules();
 
-            // start the modules and check that the modules have a properly lifecycle
+            // start the modules and check that the modules have a proper lifecycle
             application.start();
 
             setTimeout(function() {
@@ -161,7 +161,7 @@
             var application = new Tc.Application();
             application.registerModules();
 
-            // start the modules and check that the modules have a properly lifecycle
+            // start the modules and check that the modules have a proper lifecycle
             application.start();
 
             setTimeout(function() {
@@ -191,7 +191,7 @@
             var application = new Tc.Application();
             application.registerModules();
 
-            // start the modules and check that the modules have a properly lifecycle
+            // start the modules and check that the modules have a proper lifecycle
             application.start();
 
             setTimeout(function() {
@@ -221,7 +221,7 @@
             var application = new Tc.Application();
             application.registerModules();
 
-            // start the modules and check that the modules have a properly lifecycle
+            // start the modules and check that the modules have a proper lifecycle
             application.start();
 
             setTimeout(function() {
@@ -261,7 +261,7 @@
 
             application.registerModules();
 
-            // start the modules and check that the modules have a properly lifecycle
+            // start the modules and check that the modules have a proper lifecycle
             application.start();
 
             setTimeout(function() {
@@ -274,6 +274,38 @@
                 equals(messages[5], 'Skin MoreDependency: after');
                 equals(messages[6], 'Skin Dependency: after');
                 equals(messages[7], 'Module Dependency: after');
+                start();
+            }, 1000);
+
+        });
+
+        asyncTest('lifecycle async (with modules that are added later)', function() {
+
+            // create fixture
+            var modules = [
+                {
+                    module: 'Register',
+                    skins: [],
+                    connectors: []
+                }
+            ];
+
+            $('#module').tmpl(modules).appendTo($('#qunit-fixture'));
+
+            // register modules
+            var application = new Tc.Application();
+
+            application.registerModules();
+
+            // start the modules and check that the modules have a proper lifecycle
+            application.start();
+
+            setTimeout(function() {
+                equals(messages.length, 4, '4 dependency and status messages');
+                equals(messages[0], 'Module Register: on');
+                equals(messages[1], 'Module Register: after');
+                equals(messages[2], 'Module All: on');
+                equals(messages[3], 'Module All: after');
                 start();
             }, 1000);
 

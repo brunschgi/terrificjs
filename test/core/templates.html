@@ -66,6 +66,35 @@
             }
         });
 
+        Tc.Module.Register = Tc.Module.extend({
+            init: function($ctx, sandbox, modId) {
+                // call base constructor
+                this._super($ctx, sandbox, modId);
+            },
+            on: function(callback) {
+                messages.push('Module Register: on');
+                callback();
+            },
+            after: function() {
+                messages.push('Module Register: after');
+
+                // create fixture
+                var modules = [
+                    {
+                        module: 'All',
+                        skins: [],
+                        connectors: []
+                    }
+                ];
+
+                var $container = $('<div class="container"></div>');
+                $('#qunit-fixture').append($container);
+                $('#module').tmpl(modules).appendTo($container);
+                this.sandbox.addModules($container);
+            }
+        });
+
+
         // Skins
         Tc.Module.All.All = function(parent) {
             this.on = function(callback) {
