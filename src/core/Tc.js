@@ -21,5 +21,5 @@ var Tc = Tc || {};
 /*
  * The jQuery object.
  */
-Tc.$ = jQuery.noConflict(false);
+Tc.$ = jQuery;
 
