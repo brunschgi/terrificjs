@@ -21,7 +21,7 @@
          */
         init : function(connectorId) {
             this.connectorId = connectorId;
-            this.components = [];
+            this.components = {};
         },
 
         /**
@@ -37,10 +37,10 @@
         registerComponent: function(component, role) {
             role = role || 'standard';
 
-            this.components.push({
+            this.components[component.id] = {
                 'component': component,
                 'role': role
-            });
+            };
         },
 
         /**
@@ -54,10 +54,8 @@
         unregisterComponent: function(component) {
             var components = this.components;
 
-            for (var i = 0, len = components.length; i < len; i++) {
-               if(components[i] && components[i].component === component) {
-                   delete components[i];
-               }
+            if(components[component.id]) {
+                delete components[component.id];
             }
         },
 
@@ -79,21 +77,21 @@
          *      Indicates whether the default action should be excuted or not
          */
         notify: function(origin, state, data, callback) {
-
             /**
              * Gives the components the ability to prevent the default- and
-             * afteraction from the events by returning false in the
+             * after action from the events by returning false in the
              * on {Event}-Handler.
              */
-            
             var proceed = true,
                 components = this.components;
 
-            for (var i = 0, len = components.length; i < len; i++) {
-                var component = components[i].component;
-                if (component && component !== origin && component[state]) {
-                    if (component[state](data, callback) === false) {
-                        proceed = false;
+            for (var id in components) {
+                if(components.hasOwnProperty(id)) {
+                    var component = components[id].component;
+                    if (component !== origin && component[state]) {
+                        if (component[state](data, callback) === false) {
+                            proceed = false;
+                        }
                     }
                 }
             }

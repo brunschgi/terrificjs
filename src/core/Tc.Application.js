@@ -57,14 +57,6 @@
             this.connectors = {};
 
             /**
-             * Contains references to all wildcard components on the page.
-             *
-             * @property wildcardComponents
-             * @type Array
-             */
-            this.wildcardComponents = [];
-
-            /**
              * The sandbox to get the resources from 
              * This sandbox is shared between all modules.
              *
@@ -92,7 +84,8 @@
             $ctx = $ctx || this.$ctx;
 
             $ctx.find('.mod').each(function() {
-                var $this = $(this);
+                var $this = $(this),
+                    classes = $this.attr('class').split(' ');
 
                 /**
                  * Indicates that it is a base module, this is the default and
@@ -118,7 +111,7 @@
                 /** 
                  * A module can have a comma-separated list of data connectors.
                  * The list contains the IDs of the connectors in the following
-                 * schema: {connectorName}{connectorId}{connectorRole}
+                 * schema: {connectorId}{connectorRole}
                  * 
                  * The example MasterSlave1Master decodes to: name = 
                  * MasterSlave, id = 1, role = Master. This indicates that the
@@ -131,13 +124,11 @@
                  * @config data-connectors
                  */
 
-                var classes = $this.attr('class').split(' '),
-                    data_connectors;
-
                 if (classes.length > 1) {
                     var modName,
                         skins = [],
-                        connectors = [];
+                        connectors = [],
+                        dataConnectors;
 
                     for (var i = 0, len = classes.length; i < len; i++) {
                         var part = $.trim(classes[i]);
@@ -151,10 +142,14 @@
                         }
                     }
 
-                    data_connectors = $.data($this, 'tc-connectors');
+                    /**
+                     * This needs to be done via attr() instead of data().
+                     * As data() cast a single number-only connector to an integer, the split will fail.
+                     */
+                    dataConnectors = $this.attr('data-connectors');
 
-                    if (data_connectors) {
-                        connectors = data_connectors.split(',');
+                    if (dataConnectors) {
+                        connectors = dataConnectors.split(',');
                         for (var i = 0, len = connectors.length; i < len; i++) {
                             var connector = $.trim(connectors[i]);
                             if(connector) {
@@ -181,34 +176,26 @@
          * @return {void}
          */
         unregisterModules : function(modules) {
-            var connectors = this.connectors,
-                wildcardComponents = this.wildcardComponents;
+            var connectors = this.connectors;
 
             modules = modules || this.modules;
 
             if (modules === this.modules) {
-                // Empty everything if the arrays are equal
-                this.wildcardComponents = [];
+                // Clear everything if the arrays are equal
                 this.connectors = [];
                 this.modules = [];
             }
             else {
                 // Unregister the given modules
                 for (var i = 0, len = modules.length; i < len; i++) {
-                    var module = modules[i];
-                    var index;
+                    var module = modules[i],
+                        index;
 
                     // Delete the references in the connectors
                     for (var connectorId in connectors) {
                         if (connectors.hasOwnProperty(connectorId)) {
                             connectors[connectorId].unregisterComponent(module);
                         }
-                    }
-
-                    // Delete the references in the wildcard components
-                    index = $.inArray(module, wildcardComponents);
-                    if(index > -1) {
-                        delete wildcardComponents[index];
                     }
 
                     // Delete the module instance itself
@@ -229,34 +216,11 @@
          * @return {void}
          */
         start: function(modules) {
-            var wildcardComponents = this.wildcardComponents,
-                connectors = this.connectors;
-
             modules = modules || this.modules;
 
             // Start the modules
             for (var i = 0, len = modules.length; i < len; i++) {
                 modules[i].start();
-            }
-
-            /*
-             * Special treatment for the wildcard connection (conn*) -> it will
-             * be notified about all state changes from all connections and is
-             * able to propagate its changes to all modules. This must be done on
-             * init to make sure that all connectors on the page has been
-             * instantiated. Only do this for the given modules.
-             */
-            for (var i = 0, len = wildcardComponents.length; i < len; i++) {
-                var component = wildcardComponents[i];
-                if ($.inArray(component, modules) > -1) {
-                    for (var connectorId in connectors) {
-                        if (connectors.hasOwnProperty(connectorId)) {
-                            // The connector observes the component and attaches it as an observer
-                            component.attachConnector(connectors[connectorId]);
-                            connectors[connectorId].registerComponent(component, '*');
-                        }
-                    }
-                }
             }
         },
 
@@ -304,24 +268,24 @@
 
             if (modName && Tc.Module[modName]) {
                 // Generate a unique ID for every module
-                var modId = modules.length;
-                $.data($node[0], 'tc-id', modId);
+                var id = modules.length;
+                $.data($node[0], 'id', id);
 
-                modules[modId] = new Tc.Module[modName]($node, this.sandbox, modId);
+                modules[id] = new Tc.Module[modName]($node, this.sandbox, id);
 
                 for (var i = 0, len = skins.length; i < len; i++) {
                     var skinName = skins[i];
 
                     if (Tc.Module[modName][skinName]) {
-                        modules[modId] = modules[modId].getDecoratedModule(modName, skinName);
+                        modules[id] = modules[id].getDecoratedModule(modName, skinName);
                     }
                 }
 
                 for (var i = 0, len = connectors.length; i < len; i++) {
-                    this.registerConnection(connectors[i], modules[modId]);
+                    this.registerConnection(connectors[i], modules[id]);
                 }
 
-                return modules[modId];
+                return modules[id];
             }
 
             return null;
@@ -343,37 +307,30 @@
                 connectorRole = connector.replace(/^[a-zA-Z]*[0-9]*/, '');
 
             if(connectorId) {
-                if (connectorId === '*' && connectorRole === '*') {
-                    // Add the component to the wildcard component stack
-                    this.wildcardComponents.push(component);
+                var connectors = this.connectors;
+
+                if (!connectors[connectorId]) {
+                    // Instantiate the appropriate connector if it does not exist yet
+                    if (connectorType === '') {
+                        connectors[connectorId] = new Tc.Connector(connectorId);
+                    }
+                    else if (Tc.Connector[connectorType]) {
+                        connectors[connectorId] = new Tc.Connector[connectorType](connectorId);
+                    }
                 }
-                else {
-                    var connectors = this.connectors;
 
-                    if (!connectors[connectorId]) {
-                        // Instantiate the appropriate connector if it does not
-                // exist yet
-                        if (connectorType === '') {
-                            connectors[connectorId] = new Tc.Connector(connectorId);
-                        }
-                        else if (Tc.Connector[connectorType]) {
-                            connectors[connectorId] = new Tc.Connector[connectorType](connectorId);
-                        }
-                    }
+                if (connectors[connectorId]) {
+                    /**
+                     * The connector observes the component and attaches it as
+                     * an observer.
+                     */
+                    component.attachConnector(connectors[connectorId]);
 
-                    if (connectors[connectorId]) {
-                        /**
-                         * The connector observes the component and attaches it as
-                         * an observer.
-                         */
-                        component.attachConnector(connectors[connectorId]);
-
-                        /**
-                         * The component wants to be informed over state changes.
-                         * It registers it as connector member.
-                         */
-                        connectors[connectorId].registerComponent(component, connectorRole);
-                    }
+                    /**
+                     * The component wants to be informed over state changes.
+                     * It registers it as connector member.
+                     */
+                    connectors[connectorId].registerComponent(component, connectorRole);
                 }
             }
         },
@@ -382,27 +339,19 @@
          * Unregisters a module from a connector.
          *
          * @method unregisterConnection
-         * @param {int} connectorId
+         * @param {String} connectorId
          *      The connector channel id (e.g. 2).
          * @param {Module} component
          *      The module instance.
          * @return {void}
          */
         unregisterConnection : function(connectorId, component) {
-            var wildcardComponents = this.wildcardComponents,
-                connectors = this.connectors,
-                connector = connectors[connectorId];
+            var connector =  this.connectors[connectorId];
 
             // Delete the references in the connector and the module
             if (connector) {
                 connector.unregisterComponent(component);
                 component.detachConnector(connector);
-            }
-
-            // Delete the references in the wildcard components
-            var index = $.inArray(component, wildcardComponents);
-            if(index > -1) {
-                delete wildcardComponents[index];
             }
         }
     });

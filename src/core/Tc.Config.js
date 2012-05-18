@@ -13,13 +13,12 @@ Tc.Config = {
     /** 
      * The paths for the different types of dependencies.
      *
-     * @property dependencyPath
+     * @property dependencies
      * @type Object
      */
-    dependencyPath: {
-        library: '/js/libraries/dynamic/',
-        plugin: '/js/plugins/dynamic/',
-        util: '/js/utils/dynamic/'
+    dependencies: {
+        css: '/css/dependencies',
+        js: '/js/dependencies'
     }
 };
 

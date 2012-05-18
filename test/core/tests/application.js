@@ -44,12 +44,12 @@
 
             // check that the module has been registered properly
             equals(application.modules.length, 1, 'module registered');
-            deepEqual(application.connectors, {}, 'no connectors in application');
+            ok($.isEmptyObject(application.connectors), 'no connectors in application');
 
             // check the module properties
             ok(module instanceof Tc.Module, 'instance of Tc.Module');
             ok(module.hasOwnProperty('$ctx'), 'no skins applied');
-            equals(module.connectors.length, 0, 'no connectors');
+            ok($.isEmptyObject(module.connectors), 'no connectors');
             deepEqual(module.$ctx, $node, 'context node');
         });
 
@@ -73,12 +73,12 @@
 
             // check that the module has been registered properly
             equals(application.modules.length, 1, 'module registered');
-            deepEqual(application.connectors, {}, 'no connectors in application');
+            ok($.isEmptyObject(application.connectors), 'no connectors in application');
 
             // check the module properties
             ok(module instanceof Tc.Module, 'instance of Tc.Module');
             ok(!module.hasOwnProperty('$ctx'), 'skins applied');
-            equals(module.connectors.length, 0, 'no connectors');
+            ok($.isEmptyObject(module.connectors), 'no connectors');
             deepEqual(module.$ctx, $node, 'context node');
         });
 
@@ -107,7 +107,7 @@
             // check the module properties
             ok(module instanceof Tc.Module, 'instance of Tc.Module');
             ok(module.hasOwnProperty('$ctx'), 'no skins applied');
-            equals(module.connectors.length, 1, 'connectors applied');
+            equals(Object.keys(module.connectors).length, 1, 'connectors applied');
             deepEqual(module.$ctx, $node, 'context node');
         });
 
@@ -138,7 +138,7 @@
             // check the module properties
             ok(module instanceof Tc.Module, 'instance of Tc.Module');
             ok(!module.hasOwnProperty('$ctx'), 'skins applied');
-            equals(module.connectors.length, 2, 'connectors applied');
+            equals(Object.keys(module.connectors).length, 2, 'connectors applied');
             deepEqual(module.$ctx, $node, 'context node');
         });
 
@@ -235,7 +235,7 @@
             // check that the modules have been registered
             equals(application.modules.length, 2, 'appropriate modules registered');
             ok(application.connectors[1], 'connector in application');
-            equals(application.connectors[1].components.length, 2, 'connector contains appropriate modules');
+            equals(Object.keys(application.connectors[1].components).length, 2, 'connector contains appropriate modules');
         });
 
         test('unregister modules (all modules)', function() {
@@ -269,29 +269,29 @@
         });
 
         test('unregister modules (specific module)', function() {
-            expect(5);
+            expect(8);
 
             // create fixture
             var modules = [
                 {
                     module: 'All',
                     skins: ['All'],
-                    connectors: ['1']
+                    connectors: ['1','2']
                 },
                 {
                     module: 'All',
                     skins: ['All'],
-                    connectors: ['1']
+                    connectors: ['1','2']
                 }
             ];
             $('#module').tmpl(modules).appendTo($('#qunit-fixture'));
 
-            // register modules	
+            // register modules
             var application = new Tc.Application();
-            var $node1 = $('modAll:eq(0)');
-            var $node2 = $('modAll:eq(1)');
-            var module = application.registerModule($node1, 'All', ['All'], ['1']);
-            application.registerModule($node2, 'All', ['All'], ['1']);
+            var $node1 = $('.modAll:eq(0)');
+            var $node2 = $('.modAll:eq(1)');
+            var module = application.registerModule($node1, 'All', ['All'], ['1','2']);
+            application.registerModule($node2, 'All', ['All'], ['1','2']);
 
             // unregister modules
             application.unregisterModules([module]);
@@ -299,9 +299,61 @@
             // check that the module, skin and connector have been removed
             ok(!application.modules[0], 'module 1 removed');
             deepEqual(application.modules[1].$ctx, $node2, 'module 2 still exists');
-            ok(application.connectors[1], 'connector still exists');
-            deepEqual(application.connectors[1].components[0], undefined, 'connector component removed');
-            ok(application.connectors[1].components[1], 'other connector component still exists');
+            ok(application.connectors[1], 'connector 1 still exists');
+            ok(application.connectors[2], 'connector 2 still exists');
+            deepEqual(application.connectors[1].components[0], undefined, 'connector 1 component removed');
+            ok(application.connectors[1].components[1], 'other connector 1 component still exists');
+            deepEqual(application.connectors[2].components[0], undefined, 'connector 2 component removed');
+            ok(application.connectors[2].components[1], 'other connector 2 component still exists');
+
+
+        });
+
+        test('unregister / register modules', function() {
+            expect(11);
+
+            // create fixture
+            var modules = [
+                {
+                    module: 'All',
+                    skins: ['All'],
+                    connectors: ['1','2']
+                },
+                {
+                    module: 'All',
+                    skins: ['All'],
+                    connectors: ['1','2']
+                }
+            ];
+            $('#module').tmpl(modules).appendTo($('#qunit-fixture'));
+
+            // register modules
+            var application = new Tc.Application();
+            var $node1 = $('.modAll:eq(0)');
+            var $node2 = $('.modAll:eq(1)');
+            var first = application.registerModule($node1, 'All', ['All'], ['1','2']);
+            application.registerModule($node2, 'All', ['All'], ['1','2']);
+
+            // unregister first module
+            application.unregisterModules([first]);
+
+            // reregister module
+            var first = application.registerModule($node1, 'All', ['All'], ['1','2']);
+
+            // check that the module, skin and connector have been removed
+            ok(!application.modules[0], 'module 1 removed');
+            deepEqual(application.modules[1].$ctx, $node2, 'module 2 still exists');
+            deepEqual(application.modules[2].$ctx, $node1, 'module 1 exists again');
+            ok(application.connectors[1], 'connector 1 still exists');
+            ok(application.connectors[2], 'connector 2 still exists');
+            deepEqual(application.connectors[1].components[0], undefined, 'connector 1 component removed');
+            ok(application.connectors[1].components[1], 'other connector 1 component still exists');
+            ok(application.connectors[1].components[2], 'connector 1 component exists again');
+            deepEqual(application.connectors[2].components[0], undefined, 'connector 2 component removed');
+            ok(application.connectors[2].components[1], 'other connector 2 component still exists');
+            ok(application.connectors[2].components[2], 'other connector 2 component exists again');
+
+
         });
     });
 })(Tc.$);
