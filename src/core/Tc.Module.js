@@ -44,9 +44,9 @@
              * Contains the attached connectors.
              *
              * @property connectors
-             * @type Array
+             * @type Object
              */
-            this.connectors = [];
+            this.connectors = {};
 
             /**
              * Contains the dependency counter for the different phases.
@@ -59,11 +59,11 @@
                 /**
                  * The following counters have to be at least zero, so that
                  * the onBinding callback is loaded as a dependency for
-                 * onBinding and the onBinding phase is completed for 
+                 * onBinding and the onBinding phase is completed for
                  * afterBinding.
                  */
                 onBinding: 1,
-                afterBinding: 1 
+                afterBinding: 1
             };
 
             /**
@@ -284,23 +284,25 @@
             data = data ||{};
             state = Tc.Utils.String.capitalize(state);
 
-            $.each(connectors, function() {
-                var connector = this;
+            for (var connectorId in connectors) {
+                if(connectors.hasOwnProperty(connectorId)) {
+                    var connector = connectors[connectorId];
 
-                // Callback combining the defaultAction and the afterAction
-                var callback = function() {
-                    if (typeof defaultAction == 'function') {
-                        defaultAction();
+                    // Callback combining the defaultAction and the afterAction
+                    var callback = function() {
+                        if (typeof defaultAction == 'function') {
+                            defaultAction();
+                        }
+                        connector.notify(that, 'after' + state, data);
+                    };
+
+                    if (connector.notify(that, 'on' + state, data, callback)) {
+                        callback();
                     }
-                    connector.notify(that, 'after' + state, data);
-                };
-
-                if (connector.notify(that, 'on' + state, data, callback)) {
-                    callback();
                 }
-            });
+            }
 
-            if (connectors.length < 1) {
+            if ($.isEmptyObject(connectors)) {
                 if (typeof defaultAction == 'function') {
                     defaultAction();
                 }
@@ -316,7 +318,7 @@
          * @return {void}
          */
         attachConnector: function(connector) {
-            this.connectors.push(connector);
+            this.connectors[connector.connectorId] = connector;
         },
 
         /**
@@ -328,15 +330,7 @@
          * @return {void}
          */
         detachConnector: function(connector) {
-            var connectors = this.connectors;
-
-            for (var i = 0, len = connectors.length; i < len; i++) {
-                if(connectors[i] === connector) {
-                    delete connectors[i];
-                    connectors.splice(i, 1);
-                    break;
-                }
-            }
+            delete this.connectors[connector.connectorId];
         },
 
         /**

@@ -49,7 +49,7 @@
             // check the module properties
             ok(module instanceof Tc.Module, 'instance of Tc.Module');
             ok(module.hasOwnProperty('$ctx'), 'no skins applied');
-            equals(module.connectors.length, 0, 'no connectors');
+            ok($.isEmptyObject(module.connectors), 'no connectors');
             deepEqual(module.$ctx, $node, 'context node');
         });
 
@@ -78,7 +78,7 @@
             // check the module properties
             ok(module instanceof Tc.Module, 'instance of Tc.Module');
             ok(!module.hasOwnProperty('$ctx'), 'skins applied');
-            equals(module.connectors.length, 0, 'no connectors');
+            ok($.isEmptyObject(module.connectors), 'no connectors');
             deepEqual(module.$ctx, $node, 'context node');
         });
 
@@ -107,7 +107,7 @@
             // check the module properties
             ok(module instanceof Tc.Module, 'instance of Tc.Module');
             ok(module.hasOwnProperty('$ctx'), 'no skins applied');
-            equals(module.connectors.length, 1, 'connectors applied');
+            equals(Object.keys(module.connectors).length, 1, 'connectors applied');
             deepEqual(module.$ctx, $node, 'context node');
         });
 
@@ -138,7 +138,7 @@
             // check the module properties
             ok(module instanceof Tc.Module, 'instance of Tc.Module');
             ok(!module.hasOwnProperty('$ctx'), 'skins applied');
-            equals(module.connectors.length, 2, 'connectors applied');
+            equals(Object.keys(module.connectors).length, 2, 'connectors applied');
             deepEqual(module.$ctx, $node, 'context node');
         });
 
@@ -210,7 +210,7 @@
             equals(application.modules.length, 1, 'appropriate module registered');
         });
 
-        test('register modules (two modules, both with js and the same connector)', function() {
+        test('register modules 2 (two modules, both with js and the same connector)', function() {
             expect(3);
 
             // create fixture
@@ -235,7 +235,7 @@
             // check that the modules have been registered
             equals(application.modules.length, 2, 'appropriate modules registered');
             ok(application.connectors[1], 'connector in application');
-            equals(application.connectors[1].components.length, 2, 'connector contains appropriate modules');
+            equals(Object.keys(application.connectors[1].components).length, 2, 'connector contains appropriate modules');
         });
 
         test('unregister modules (all modules)', function() {
@@ -268,7 +268,7 @@
             ok(!application.connectors[1], 'connectors removed');
         });
 
-        test('unregister modules (specific module)', function() {
+        test('unregister modules 1 (specific module)', function() {
             expect(5);
 
             // create fixture

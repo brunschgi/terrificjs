@@ -186,7 +186,7 @@
             if (modules === this.modules) {
                 // Empty everything if the arrays are equal
                 this.wildcardComponents = [];
-                this.connectors = [];
+                this.connectors = {};
                 this.modules = [];
             }
             else {
