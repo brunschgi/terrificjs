@@ -82,6 +82,8 @@
             deepEqual(module.$ctx, $node, 'context node');
         });
 
+
+
         test('register module (with a connector)', function() {
             expect(6);
 
@@ -236,6 +238,67 @@
             equals(application.modules.length, 2, 'appropriate modules registered');
             ok(application.connectors[1], 'connector in application');
             equals(Object.keys(application.connectors[1].components).length, 2, 'connector contains appropriate modules');
+        });
+
+        test('register modules (dash variant)', function() {
+            expect(3);
+
+            // create fixture
+            var modules = [
+                {
+                    module: 'all',
+                    skins: [],
+                    connectors: ['1']
+                },
+                {
+                    module: 'all',
+                    skins: [],
+                    connectors: ['1']
+                }
+            ];
+            $('#module-dash').tmpl(modules).appendTo($('#qunit-fixture'));
+
+            // register modules
+            var application = new Tc.Application();
+            application.registerModules();
+
+            // check that the modules have been registered
+            equals(application.modules.length, 2, 'appropriate modules registered');
+            ok(application.connectors[1], 'connector in application');
+            equals(Object.keys(application.connectors[1].components).length, 2, 'connector contains appropriate modules');
+        });
+
+        test('register modules with skins (dash variant)', function() {
+            expect(8);
+
+            // create fixture
+            var modules = [
+                {
+                    module: 'all',
+                    skins: ['all', 'more-all'],
+                    connectors: ['1', '2', 'MasterSlave-2']
+                },
+                {
+                    module: 'all',
+                    skins: ['all', 'more-all'],
+                    connectors: ['1', '2']
+                }
+            ];
+            $('#module-dash').tmpl(modules).appendTo($('#qunit-fixture'));
+
+            // register modules
+            var application = new Tc.Application();
+            application.registerModules();
+
+            // check that the modules have been registered
+            equals(application.modules.length, 2, 'appropriate modules registered');
+            ok(application.connectors[1], 'connector 1 in application');
+            ok(application.connectors[2], 'connector 2 in application');
+            ok(!application.connectors['MasterSlave2'], 'connector MasterSlave2 not in application');
+            ok(!application.modules[0].hasOwnProperty('$ctx'), 'skins applied on first module');
+            ok(!application.modules[1].hasOwnProperty('$ctx'), 'skins applied on second module');
+            equals(Object.keys(application.connectors[1].components).length, 2, 'connector 1 contains appropriate modules');
+            equals(Object.keys(application.connectors[2].components).length, 2, 'connector 2 contains appropriate modules');
         });
 
         test('unregister modules (all modules)', function() {

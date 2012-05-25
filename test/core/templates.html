@@ -18,6 +18,26 @@
     </div>
 </script>
 
+<script id="module-dash" type="text/html">
+    <div
+            class="mod mod-${module}
+            {{each skins}}
+                skin-${module}-${$value}
+            {{/each}}"
+
+            data-connectors="
+            {{each connectors}}
+                ${$value},
+            {{/each}}"
+            >
+        <div class="inner">
+            <div class="bd">
+                Empty Module
+            </div>
+        </div>
+    </div>
+</script>
+
 <script type="text/javascript">
     (function($) {
         // Modules

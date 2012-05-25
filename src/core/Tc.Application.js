@@ -79,7 +79,8 @@
          */
         registerModules : function($ctx) {
             var that = this,
-                modules = [];
+                modules = [],
+                stringUtils = Tc.Utils.String;
 
             $ctx = $ctx || this.$ctx;
 
@@ -97,29 +98,31 @@
                 /**
                  * Indicates that it is a module of type basic, which is
                  * derived from the base module. It can occur at most
-                 * once. Example: .modBasic
-                 * @config .mod{moduleName}
+                 * once. Example: .modBasic || .mod-basic
+                 * @config .mod{moduleName} || .mod-{module-name}
                  */
 
                 /**
                  * Indicates that the module basic has the submarine skin. It
                  * will be decorated by the skin JS (if it exists). It can occur
-                 * arbitrarily. Example: .skinBasicSubmarine
-                 * @config .skin{moduleName}{skinName} 
+                 * arbitrarily. Example: .skinBasicSubmarine || .skin-basic-submarine
+                 * @config .skin{moduleName}{skinName} || .skin-{module-name}-{skin-name}
                  */
 
                 /** 
                  * A module can have a comma-separated list of data connectors.
                  * The list contains the IDs of the connectors in the following
-                 * schema: {connectorId}{connectorRole}
-                 * 
-                 * The example MasterSlave1Master decodes to: name = 
-                 * MasterSlave, id = 1, role = Master. This indicates that the
-                 * module should notify the MasterSlave connector (the mediator)
-                 * on all state changes. The connector id is used to chain the
-                 * appropriate modules together and to improve the
-                 * reusability of the connector. It can contain multiple
-                 * connector ids (e.g. 1,2,MasterSlave1Master). 
+                 * schema: {connectorType}-{connectorId}
+                 *
+                 * {connectorType} is optional. If only the {connectorId} is given, the
+                 * default connector is instantiated.
+                 *
+                 * The example MasterSlave-Navigation decodes to: type =
+                 * MasterSlave, id = Navigation. This instantiates the MasterSlave
+                 * connector (as mediator) with the connector id Navigation.
+                 * The connector id is used to chain the appropriate (the ones with the same id)
+                 * modules together and to improve the reusability of the connector.
+                 * It can contain multiple connector ids (e.g. 1,2,MasterSlave-Navigation).
                  *
                  * @config data-connectors
                  */
@@ -133,12 +136,20 @@
                     for (var i = 0, len = classes.length; i < len; i++) {
                         var part = $.trim(classes[i]);
 
-                        if (part.indexOf('mod') === 0 && part.length > 3) {
-                            modName = part.substr(3);
-                        }
-                        else if (part.indexOf('skin') === 0) {
-                            // Remove the mod name part from the skin name
-                            skins.push(part.substr(4).replace(modName, ''));
+                        // do nothing for empty parts
+                        if(part) {
+                            // convert to camel if necessary
+                            if (part.indexOf('-') > -1) {
+                                part = stringUtils.toCamel(part);
+                            }
+
+                            if (part.indexOf('mod') === 0 && part.length > 3) {
+                                modName = part.substr(3);
+                            }
+                            else if (part.indexOf('skin') === 0) {
+                                // Remove the mod name part from the skin name
+                                skins.push(part.substr(4).replace(modName, ''));
+                            }
                         }
                     }
 
@@ -152,6 +163,7 @@
                         connectors = dataConnectors.split(',');
                         for (var i = 0, len = connectors.length; i < len; i++) {
                             var connector = $.trim(connectors[i]);
+                            // do nothing for empty connectors
                             if(connector) {
                                 connectors[i] = connector;
                             }
@@ -302,35 +314,51 @@
          * @return {void}
          */
         registerConnection : function(connector, component) {
-            var connectorType = connector.replace(/[0-9]+[a-zA-Z]*$/, ''),
-                connectorId = connector.replace(/[a-zA-Z]*$/, '').replace(/^[a-zA-Z]*/, ''),
-                connectorRole = connector.replace(/^[a-zA-Z]*[0-9]*/, '');
+            connector = $.trim(connector);
 
-            if(connectorId) {
+            var parts = connector.split('-'),
+                connectorType,
+                connectorId,
+                identifier;
+
+            if(parts.length === 1) {
+                // default connector
+                connectorType = '';
+                connectorId = parts[0];
+            }
+            else if(parts.length === 2) {
+                // a specific connector type is given
+                connectorType = parts[0];
+                connectorId = parts[1];
+            }
+
+            identifier = connectorType + connectorId;
+
+            if(identifier) {
                 var connectors = this.connectors;
 
-                if (!connectors[connectorId]) {
+                if (!connectors[identifier]) {
                     // Instantiate the appropriate connector if it does not exist yet
-                    if (connectorType === '') {
-                        connectors[connectorId] = new Tc.Connector(connectorId);
+                    if (!connectorType) {
+                        connectors[identifier] = new Tc.Connector(connectorId);
                     }
                     else if (Tc.Connector[connectorType]) {
-                        connectors[connectorId] = new Tc.Connector[connectorType](connectorId);
+                        connectors[identifier] = new Tc.Connector[connectorType](connectorId);
                     }
                 }
 
-                if (connectors[connectorId]) {
+                if (connectors[identifier]) {
                     /**
                      * The connector observes the component and attaches it as
                      * an observer.
                      */
-                    component.attachConnector(connectors[connectorId]);
+                    component.attachConnector(connectors[identifier]);
 
                     /**
                      * The component wants to be informed over state changes.
                      * It registers it as connector member.
                      */
-                    connectors[connectorId].registerComponent(component, connectorRole);
+                    connectors[identifier].registerComponent(component);
                 }
             }
         },

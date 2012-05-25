@@ -20,7 +20,7 @@
             }
         });
 
-        asyncTest('dynamic connectors (subscribe)', function() {
+        asyncTest('dynamic connectors 1 (subscribe)', function() {
 
             // create fixture
             var modules = [
