@@ -144,6 +144,82 @@
             deepEqual(module.$ctx, $node, 'context node');
         });
 
+        test('register modules (one module, with js)', function() {
+            expect(1);
+
+            // create fixture
+            var modules = [
+                {
+                    module: 'All',
+                    skins: [],
+                    connectors: []
+                }
+            ];
+            $('#module').tmpl(modules).appendTo($('#qunit-fixture'));
+
+            // register modules
+            var application = new Tc.Application();
+            application.registerModules();
+
+            // check that the module has been registered
+            equals(application.modules.length, 1, 'module registered');
+        });
+
+        test('register modules (one with data-ignore set, one normal)', function() {
+            expect(1);
+
+            // create fixture
+            var modules = [
+                {
+                    module: 'All',
+                    skins: [],
+                    connectors: [],
+                },
+                {
+                    module: 'All',
+                    skins: [],
+                    connectors: [],
+                    attrs: ['data-ignore=true']
+                }
+            ];
+            $('#module').tmpl(modules).appendTo($('#qunit-fixture'));
+
+            // register modules
+            var application = new Tc.Application();
+            application.registerModules();
+
+            // check that the module has been registered
+            equals(application.modules.length, 1, 'one module registered');
+        });
+
+        test('register modules (two modules with data-ignore set)', function() {
+            expect(1);
+
+            // create fixture
+            var modules = [
+                {
+                    module: 'All',
+                    skins: [],
+                    connectors: [],
+                    attrs: ['data-ignore=true']
+                },
+                {
+                    module: 'All',
+                    skins: [],
+                    connectors: [],
+                    attrs: ['data-ignore=true']
+                }
+            ];
+            $('#module').tmpl(modules).appendTo($('#qunit-fixture'));
+
+            // register modules
+            var application = new Tc.Application();
+            application.registerModules();
+
+            // check that the module has been registered
+            equals(application.modules.length, 0, 'no modules registered');
+        });
+
         test('register modules (one module, without js)', function() {
             expect(1);
 
@@ -276,7 +352,7 @@
                 {
                     module: 'all',
                     skins: ['all', 'more-all'],
-                    connectors: ['1', '2', 'MasterSlave-2']
+                    connectors: ['1', '2']
                 },
                 {
                     module: 'all',
@@ -368,8 +444,6 @@
             ok(application.connectors[1].components[1], 'other connector 1 component still exists');
             deepEqual(application.connectors[2].components[0], undefined, 'connector 2 component removed');
             ok(application.connectors[2].components[1], 'other connector 2 component still exists');
-
-
         });
 
         test('unregister / register modules', function() {

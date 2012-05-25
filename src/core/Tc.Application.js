@@ -84,7 +84,7 @@
 
             $ctx = $ctx || this.$ctx;
 
-            $ctx.find('.mod').each(function() {
+            $ctx.find('.mod:not([data-ignore="true"])').each(function() {
                 var $this = $(this),
                     classes = $this.attr('class').split(' ');
 
@@ -323,16 +323,14 @@
 
             if(parts.length === 1) {
                 // default connector
-                connectorType = '';
-                connectorId = parts[0];
+                identifier = connectorId = parts[0];
             }
             else if(parts.length === 2) {
                 // a specific connector type is given
                 connectorType = parts[0];
                 connectorId = parts[1];
+                identifier = connectorType + connectorId;
             }
-
-            identifier = connectorType + connectorId;
 
             if(identifier) {
                 var connectors = this.connectors;

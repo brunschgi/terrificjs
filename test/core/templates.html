@@ -9,6 +9,10 @@
             {{each connectors}}
                 ${$value},
             {{/each}}"
+
+        {{each attrs}}
+            ${$value}
+        {{/each}}
     >
         <div class="inner">
             <div class="bd">
@@ -26,10 +30,14 @@
             {{/each}}"
 
             data-connectors="
-            {{each connectors}}
-                ${$value},
-            {{/each}}"
-            >
+                {{each connectors}}
+                    ${$value},
+                {{/each}}"
+
+            {{each attrs}}
+                ${$value}
+            {{/each}}
+    >
         <div class="inner">
             <div class="bd">
                 Empty Module
