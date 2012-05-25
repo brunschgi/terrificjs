@@ -10,17 +10,17 @@
                  * @property dependencyPath
                  * @type Object
                  */
-                dependencyPath: {
-                    util: '../../test/core/js/util/'
+                dependencies: {
+                    js: '../../test/core/js/dependencies'
                 }
-            }
+            };
         },
             teardown: function() {
                 delete messages;
             }
         });
 
-        asyncTest('dynamic connectors (subscribe)', function() {
+        asyncTest('dynamic connectors 1 (subscribe)', function() {
 
             // create fixture
             var modules = [
@@ -43,7 +43,7 @@
 
             application.registerModules();
 
-            // start the modules and check that the modules have a properly lifecycle
+            // start the modules and check that the modules have a proper lifecycle
             application.start();
 
             setTimeout(function() {
@@ -57,7 +57,7 @@
 
         });
 
-        asyncTest('dynamic connectors (subscribe, unsubscribe)', function() {
+        asyncTest('dynamic connectors 2 (subscribe, unsubscribe)', function() {
 
             // create fixture
             var modules = [
@@ -80,7 +80,7 @@
 
             application.registerModules();
 
-            // start the modules and check that the modules have a properly lifecycle
+            // start the modules and check that the modules have a proper lifecycle
             application.start();
 
             setTimeout(function() {
@@ -121,7 +121,7 @@
 
             application.registerModules();
 
-            // start the modules and check that the modules have a properly lifecycle
+            // start the modules and check that the modules have a proper lifecycle
             application.start();
 
             setTimeout(function() {
@@ -161,19 +161,15 @@
             var application = new Tc.Application();
             application.registerModules();
 
-            // start the modules and check that the modules have a properly lifecycle
+            // start the modules and check that the modules have a proper lifecycle
             application.start();
 
             setTimeout(function() {
-                equals(messages.length, 8, '8 phases');
-                equals(messages[0], 'Module All: dependencies');
-                equals(messages[1], 'Module All: beforeBinding');
-                equals(messages[2], 'Module All: onBinding');
-                equals(messages[3], 'Module All: dependencies');
-                equals(messages[4], 'Module All: beforeBinding');
-                equals(messages[5], 'Module All: onBinding');
-                equals(messages[6], 'Module All: afterBinding');
-                equals(messages[7], 'Module All: afterBinding');
+                equals(messages.length, 4, '4 phases');
+                equals(messages[0], 'Module All: on');
+                equals(messages[1], 'Module All: on');
+                equals(messages[2], 'Module All: after');
+                equals(messages[3], 'Module All: after');
 
                 start();
             }, 500);
@@ -195,19 +191,15 @@
             var application = new Tc.Application();
             application.registerModules();
 
-            // start the modules and check that the modules have a properly lifecycle
+            // start the modules and check that the modules have a proper lifecycle
             application.start();
 
             setTimeout(function() {
-                equals(messages.length, 8, '8 phases')
-                equals(messages[0], 'Skin All: dependencies');
-                equals(messages[1], 'Module All: dependencies');
-                equals(messages[2], 'Skin All: beforeBinding');
-                equals(messages[3], 'Module All: beforeBinding');
-                equals(messages[4], 'Skin All: onBinding');
-                equals(messages[5], 'Module All: onBinding');
-                equals(messages[6], 'Skin All: afterBinding');
-                equals(messages[7], 'Module All: afterBinding');
+                equals(messages.length, 4, '4 phases')
+                equals(messages[0], 'Skin All: on');
+                equals(messages[1], 'Module All: on');
+                equals(messages[2], 'Skin All: after');
+                equals(messages[3], 'Module All: after');
 
                 start();
             }, 500);
@@ -229,115 +221,36 @@
             var application = new Tc.Application();
             application.registerModules();
 
-            // start the modules and check that the modules have a properly lifecycle
+            // start the modules and check that the modules have a proper lifecycle
             application.start();
 
             setTimeout(function() {
-                equals(messages.length, 12, '12 phases')
-                equals(messages[0], 'Skin MoreAll: dependencies');
-                equals(messages[1], 'Skin All: dependencies');
-                equals(messages[2], 'Module All: dependencies');
-                equals(messages[3], 'Skin MoreAll: beforeBinding');
-                equals(messages[4], 'Skin All: beforeBinding');
-                equals(messages[5], 'Module All: beforeBinding');
-                equals(messages[6], 'Skin MoreAll: onBinding');
-                equals(messages[7], 'Skin All: onBinding');
-                equals(messages[8], 'Module All: onBinding');
-                equals(messages[9], 'Skin MoreAll: afterBinding');
-                equals(messages[10], 'Skin All: afterBinding');
-                equals(messages[11], 'Module All: afterBinding');
+                equals(messages.length, 6, '6 phases')
+                equals(messages[0], 'Skin MoreAll: on');
+                equals(messages[1], 'Skin All: on');
+                equals(messages[2], 'Module All: on');
+                equals(messages[3], 'Skin MoreAll: after');
+                equals(messages[4], 'Skin All: after');
+                equals(messages[5], 'Module All: after');
 
                 start();
             }, 500);
         });
 
-        asyncTest('lifecycle (one module - with dependencies for all phases)', function() {
+
+        asyncTest('lifecycle (two modules, one empty, one with two skins - with yepnope dependencies)', function() {
 
             // create fixture
             var modules = [
-                {
-                    module: 'Dependency',
-                    skins: [],
-                    connectors: []
-                }
-            ];
-
-            $('#module').tmpl(modules).appendTo($('#qunit-fixture'));
-
-            // register modules
-            var application = new Tc.Application();
-
-            application.registerModules();
-
-            // start the modules and check that the modules have a properly lifecycle
-            application.start();
-
-            setTimeout(function() {
-                equals(messages.length, 4, '4 dependency messages')
-                equals(messages[0], 'Module Dependency: dependencies');
-                equals(messages[1], 'Module Dependency: dependency (beforeBinding) ready');
-                equals(messages[2], 'Module Dependency: dependency (onBinding) ready');
-                equals(messages[3], 'Module Dependency: dependency (afterBinding) ready');
-
-                start();
-            }, 500);
-
-        });
-
-        asyncTest('lifecycle (one module, with two skins - with dependencies for all phases)', function() {
-
-            // create fixture
-            var modules = [
-                {
-                    module: 'Dependency',
-                    skins: ['Dependency', 'MoreDependency'],
-                    connectors: []
-                }
-            ];
-
-            $('#module').tmpl(modules).appendTo($('#qunit-fixture'));
-
-            // register modules
-            var application = new Tc.Application();
-
-            application.registerModules();
-
-            // start the  modules and check that the modules have a properly lifecycle
-            application.start();
-
-            setTimeout(function() {
-                equals(messages.length, 12, '12 dependency messages')
-                equals(messages[0], 'Skin MoreDependency: dependencies');
-                equals(messages[1], 'Skin Dependency: dependencies');
-                equals(messages[2], 'Module Dependency: dependencies');
-                equals(messages[3], 'Skin MoreDependency: dependency (beforeBinding) ready');
-                equals(messages[4], 'Skin Dependency: dependency (beforeBinding) ready');
-                equals(messages[5], 'Module Dependency: dependency (beforeBinding) ready');
-                equals(messages[6], 'Skin MoreDependency: dependency (onBinding) ready');
-                equals(messages[7], 'Skin Dependency: dependency (onBinding) ready');
-                equals(messages[8], 'Module Dependency: dependency (onBinding) ready');
-                equals(messages[9], 'Skin MoreDependency: dependency (afterBinding) ready');
-                equals(messages[10], 'Skin Dependency: dependency (afterBinding) ready');
-                equals(messages[11], 'Module Dependency: dependency (afterBinding) ready');
-
-                start();
-            }, 500);
-
-        });
-
-        asyncTest('lifecycle (two modules, one empty, one with two skins - with dependencies for all phases)', function() {
-
-            // create fixture
-            var modules = [
-                {
-                    module: 'Dependency',
-                    skins: ['Dependency', 'MoreDependency'],
-                    connectors: []
-                },
                 {
                     module: 'All',
                     skins: [],
                     connectors: []
+                },
+                {
+                    module: 'Dependency',
+                    skins: ['Dependency', 'MoreDependency'],
+                    connectors: []
                 }
             ];
 
@@ -348,50 +261,31 @@
 
             application.registerModules();
 
-            // start the modules and check that the modules have a properly lifecycle
+            // start the modules and check that the modules have a proper lifecycle
             application.start();
 
             setTimeout(function() {
-                equals(messages.length, 16, '16 dependency and status messages');
-                equals(messages[0], 'Skin MoreDependency: dependencies');
-                equals(messages[1], 'Skin Dependency: dependencies');
-                equals(messages[2], 'Module Dependency: dependencies');
-                equals(messages[3], 'Module All: dependencies');
-                equals(messages[4], 'Module All: beforeBinding');
-                equals(messages[5], 'Module All: onBinding');
-                equals(messages[6], 'Skin MoreDependency: dependency (beforeBinding) ready');
-                equals(messages[7], 'Skin Dependency: dependency (beforeBinding) ready');
-                equals(messages[8], 'Module Dependency: dependency (beforeBinding) ready');
-                equals(messages[9], 'Skin MoreDependency: dependency (onBinding) ready');
-                equals(messages[10], 'Skin Dependency: dependency (onBinding) ready');
-                equals(messages[11], 'Module Dependency: dependency (onBinding) ready');
-                equals(messages[12], 'Module All: afterBinding');
-                equals(messages[13], 'Skin MoreDependency: dependency (afterBinding) ready');
-                equals(messages[14], 'Skin Dependency: dependency (afterBinding) ready');
-                equals(messages[15], 'Module Dependency: dependency (afterBinding) ready');
-
+                equals(messages.length, 8, '8 dependency and status messages');
+                equals(messages[0], 'Module All: on');
+                equals(messages[1], 'Skin MoreDependency: dependency ready');
+                equals(messages[2], 'Skin Dependency: dependency ready');
+                equals(messages[3], 'Module Dependency: dependency ready');
+                equals(messages[4], 'Module All: after');
+                equals(messages[5], 'Skin MoreDependency: after');
+                equals(messages[6], 'Skin Dependency: after');
+                equals(messages[7], 'Module Dependency: after');
                 start();
             }, 1000);
 
         });
 
-        asyncTest('lifecycle (three modules, one empty, two with two skins - with dependencies for all phases)', function() {
+        asyncTest('lifecycle async (with modules that are added later)', function() {
 
             // create fixture
             var modules = [
                 {
-                    module: 'Dependency',
-                    skins: ['Dependency', 'MoreDependency'],
-                    connectors: []
-                },
-                {
-                    module: 'All',
+                    module: 'Register',
                     skins: [],
-                    connectors: []
-                },
-                {
-                    module: 'Dependency',
-                    skins: ['Dependency', 'MoreDependency'],
                     connectors: []
                 }
             ];
@@ -403,32 +297,15 @@
 
             application.registerModules();
 
-            // start the modules and check that the modules have a properly lifecycle
+            // start the modules and check that the modules have a proper lifecycle
             application.start();
 
             setTimeout(function() {
-                equals(messages.length, 28, '28 dependency and status messages');
-                equals(messages[0], 'Skin MoreDependency: dependencies');
-                equals(messages[1], 'Skin Dependency: dependencies');
-                equals(messages[2], 'Module Dependency: dependencies');
-                equals(messages[3], 'Module All: dependencies');
-                equals(messages[4], 'Module All: beforeBinding');
-                equals(messages[5], 'Module All: onBinding');
-                equals(messages[6], 'Skin MoreDependency: dependencies');
-                equals(messages[7], 'Skin Dependency: dependencies');
-                equals(messages[8], 'Module Dependency: dependencies');
-                equals(messages[9], 'Skin MoreDependency: dependency (beforeBinding) ready');
-                equals(messages[10], 'Skin Dependency: dependency (beforeBinding) ready');
-                equals(messages[11], 'Module Dependency: dependency (beforeBinding) ready');
-                equals(messages[12], 'Skin MoreDependency: dependency (beforeBinding) ready');
-                equals(messages[21], 'Module All: afterBinding');
-                equals(messages[22], 'Skin MoreDependency: dependency (afterBinding) ready');
-                equals(messages[23], 'Skin Dependency: dependency (afterBinding) ready');
-                equals(messages[24], 'Module Dependency: dependency (afterBinding) ready');
-                equals(messages[25], 'Skin MoreDependency: dependency (afterBinding) ready');
-                equals(messages[26], 'Skin Dependency: dependency (afterBinding) ready');
-                equals(messages[27], 'Module Dependency: dependency (afterBinding) ready');
-
+                equals(messages.length, 4, '4 dependency and status messages');
+                equals(messages[0], 'Module Register: on');
+                equals(messages[1], 'Module Register: after');
+                equals(messages[2], 'Module All: on');
+                equals(messages[3], 'Module All: after');
                 start();
             }, 1000);
 

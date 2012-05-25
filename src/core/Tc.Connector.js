@@ -28,18 +28,13 @@
          * Registers a component.
          *
          * @method registerComponent
-         * @param {Module} component
+         * @param {Module} component 
          *      The module to register
-         * @param {String} role
-         *      The role of the module (e.g. master, slave etc.)
          * @return {void}
          */
-        registerComponent: function(component, role) {
-            role = role || 'standard';
-
-            this.components[component.modId] = {
-                'component': component,
-                'role': role
+        registerComponent: function(component) {
+            this.components[component.id] = {
+                'component': component
             };
         },
 
@@ -47,33 +42,33 @@
          * Unregisters a component.
          *
          * @method unregisterComponent
-         * @param {Module} component
+         * @param {Module} component 
          *      The module to unregister
          * @return {void}
          */
         unregisterComponent: function(component) {
             var components = this.components;
 
-            if(components[component.modId]) {
-                delete components[component.modId];
+            if(components[component.id]) {
+                delete components[component.id];
             }
         },
 
         /**
-         * Notifies all registered components about a state change
+         * Notifies all registered components about a state change 
          * This can be be overriden in the specific connectors.
          *
          * @method notify
          * @param {Module} origin
          *      The module that sends the state change
-         * @param {String} state
+         * @param {String} state 
          *      The component's state
-         * @param {Object} data
+         * @param {Object} data 
          *      Contains the state relevant data (if any)
-         * @param {Function} callback
+         * @param {Function} callback 
          *      The callback function, it can be executed after an asynchronous
          *      action.
-         * @return {boolean}
+         * @return {boolean} 
          *      Indicates whether the default action should be excuted or not
          */
         notify: function(origin, state, data, callback) {
@@ -100,3 +95,4 @@
         }
     });
 })(Tc.$);
+

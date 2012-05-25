@@ -9,6 +9,34 @@
             {{each connectors}}
                 ${$value},
             {{/each}}"
+
+        {{each attrs}}
+            ${$value}
+        {{/each}}
+    >
+        <div class="inner">
+            <div class="bd">
+                Empty Module
+            </div>
+        </div>
+    </div>
+</script>
+
+<script id="module-dash" type="text/html">
+    <div
+            class="mod mod-${module}
+            {{each skins}}
+                skin-${module}-${$value}
+            {{/each}}"
+
+            data-connectors="
+                {{each connectors}}
+                    ${$value},
+                {{/each}}"
+
+            {{each attrs}}
+                ${$value}
+            {{/each}}
     >
         <div class="inner">
             <div class="bd">
@@ -33,18 +61,12 @@
                 // call base constructor
                 this._super($ctx, sandbox, modId);
             },
-            dependencies: function() {
-                messages.push('Module All: dependencies');
-            },
-            beforeBinding: function(callback) {
-                messages.push('Module All: beforeBinding');
+            on: function(callback) {
+                messages.push('Module All: on');
                 callback();
             },
-            onBinding: function() {
-                messages.push('Module All: onBinding');
-            },
-            afterBinding: function() {
-                messages.push('Module All: afterBinding');
+            after: function() {
+                messages.push('Module All: after');
             },
             stop: function() {
                 messages.push('Module All: stop');
@@ -56,57 +78,65 @@
                 // call base constructor
                 this._super($ctx, sandbox, modId);
             },
-            dependencies: function() {
-                messages.push('Module Dependency: dependencies');
-                this.require('moddependencybeforebinding.js','util','beforeBinding');
-                this.require('moddependencyonbinding.js','util','onBinding');
-                this.require('moddependencyafterbinding.js','util','afterBinding');
+            on: function(callback) {
+                yepnope({
+                    load: Tc.Config.dependencies.js + '/dependencyon.js',
+                    complete: function() {
+                        if (dependencies.dependencyon) {
+                            messages.push('Module Dependency: dependency ready');
+                        }
+                        callback()
+                    }
+                });
             },
-            beforeBinding: function(callback) {
-                if (dependencies.modDependency.beforeBinding) {
-                    messages.push('Module Dependency: dependency (beforeBinding) ready');
-                }
-                callback();
-            },
-            onBinding: function() {
-                if (dependencies.modDependency.onBinding) {
-                    messages.push('Module Dependency: dependency (onBinding) ready');
-                }
-            },
-            afterBinding: function() {
-                if (dependencies.modDependency.afterBinding) {
-                    messages.push('Module Dependency: dependency (afterBinding) ready');
-                }
+            after: function() {
+                messages.push('Module Dependency: after');
             }
         });
 
+        Tc.Module.Register = Tc.Module.extend({
+            init: function($ctx, sandbox, modId) {
+                // call base constructor
+                this._super($ctx, sandbox, modId);
+            },
+            on: function(callback) {
+                messages.push('Module Register: on');
+                callback();
+            },
+            after: function() {
+                messages.push('Module Register: after');
+
+                // create fixture
+                var modules = [
+                    {
+                        module: 'All',
+                        skins: [],
+                        connectors: []
+                    }
+                ];
+
+                var $container = $('<div class="container"></div>');
+                $('#qunit-fixture').append($container);
+                $('#module').tmpl(modules).appendTo($container);
+                this.sandbox.addModules($container);
+            }
+        });
+
+
         // Skins
         Tc.Module.All.All = function(parent) {
-            this.dependencies = function() {
-                messages.push('Skin All: dependencies');
+            this.on = function(callback) {
+                messages.push('Skin All: on');
                 // calling parent method
-                parent.dependencies();
+                parent.on(callback);
             };
 
-            this.beforeBinding = function(callback) {
-                messages.push('Skin All: beforeBinding');
+            this.after = function() {
+                messages.push('Skin All: after');
                 // calling parent method
-                parent.beforeBinding(function() {
-                    callback();
-                });
+                parent.after();
             };
 
-            this.onBinding = function() {
-                messages.push('Skin All: onBinding');
-                // calling parent method
-                parent.onBinding();
-            };
-
-            this.afterBinding = function() {
-                messages.push('Skin All: afterBinding');
-                // calling parent method
-                parent.afterBinding();
-            };
             this.stop = function() {
                 messages.push('Skin All: stop');
                 // calling parent method
@@ -115,30 +145,16 @@
         };
 
         Tc.Module.All.MoreAll = function(parent) {
-            this.dependencies = function() {
-                messages.push('Skin MoreAll: dependencies');
+            this.on = function(callback) {
+                messages.push('Skin MoreAll: on');
                 // calling parent method
-                parent.dependencies();
+                parent.on(callback);
             };
 
-            this.beforeBinding = function(callback) {
-                messages.push('Skin MoreAll: beforeBinding');
+            this.after = function() {
+                messages.push('Skin MoreAll: after');
                 // calling parent method
-                parent.beforeBinding(function() {
-                    callback();
-                });
-            };
-
-            this.onBinding = function() {
-                messages.push('Skin MoreAll: onBinding');
-                // calling parent method
-                parent.onBinding();
-            };
-
-            this.afterBinding = function() {
-                messages.push('Skin MoreAll: afterBinding');
-                // calling parent method
-                parent.afterBinding();
+                parent.after();
             };
             this.stop = function() {
                 messages.push('Skin MoreAll: stop');
@@ -148,76 +164,46 @@
         };
 
         Tc.Module.Dependency.Dependency = function(parent) {
-            this.dependencies = function() {
-                messages.push('Skin Dependency: dependencies');
-                this.require('skindependencybeforebinding.js','util','beforeBinding');
-                this.require('skindependencyonbinding.js','util','onBinding');
-                this.require('skindependencyafterbinding.js','util','afterBinding');
-                // calling parent method
-                parent.dependencies();
-            };
-
-            this.beforeBinding = function(callback) {
-                if (dependencies.skinDependency.beforeBinding) {
-                    messages.push('Skin Dependency: dependency (beforeBinding) ready');
-                }
-                // calling parent method
-                parent.beforeBinding(function() {
-                    callback();
+            this.on = function(callback) {
+                yepnope({
+                    load: Tc.Config.dependencies.js + '/skindependencyon.js',
+                    complete: function() {
+                        if (dependencies.skindependencyon) {
+                            messages.push('Skin Dependency: dependency ready');
+                        }
+                        // calling parent method
+                        parent.on(callback);
+                    }
                 });
             };
 
-            this.onBinding = function() {
-                if (dependencies.skinDependency.onBinding) {
-                    messages.push('Skin Dependency: dependency (onBinding) ready');
-                }
-                // calling parent method
-                parent.onBinding();
-            };
+            this.after = function() {
+                messages.push('Skin Dependency: after');
 
-            this.afterBinding = function() {
-                if (dependencies.skinDependency.afterBinding) {
-                    messages.push('Skin Dependency: dependency (afterBinding) ready');
-                }
                 // calling parent method
-                parent.afterBinding();
+                parent.after();
             };
         };
 
         Tc.Module.Dependency.MoreDependency = function(parent) {
-            this.dependencies = function() {
-                messages.push('Skin MoreDependency: dependencies');
-                this.require('skinmoredependencybeforebinding.js','util','beforeBinding');
-                this.require('skinmoredependencyonbinding.js','util','onBinding');
-                this.require('skinmoredependencyafterbinding.js','util','afterBinding');
-                // calling parent method
-                parent.dependencies();
-            };
-
-            this.beforeBinding = function(callback) {
-                if (dependencies.skinMoreDependency.beforeBinding) {
-                    messages.push('Skin MoreDependency: dependency (beforeBinding) ready');
-                }
-                // calling parent method
-                parent.beforeBinding(function() {
-                    callback();
+            this.on = function(callback) {
+                yepnope({
+                    load: Tc.Config.dependencies.js + '/skinmoredependencyon.js',
+                    complete: function() {
+                        if (dependencies.skinmoredependencyon) {
+                            messages.push('Skin MoreDependency: dependency ready');
+                        }
+                        // calling parent method
+                        parent.on(callback);
+                    }
                 });
             };
 
-            this.onBinding = function() {
-                if (dependencies.skinMoreDependency.onBinding) {
-                    messages.push('Skin MoreDependency: dependency (onBinding) ready');
-                }
-                // calling parent method
-                parent.onBinding();
-            };
+            this.after = function() {
+                messages.push('Skin MoreDependency: after');
 
-            this.afterBinding = function() {
-                if (dependencies.skinMoreDependency.afterBinding) {
-                    messages.push('Skin MoreDependency: dependency (afterBinding) ready');
-                }
                 // calling parent method
-                parent.afterBinding();
+                parent.after();
             };
         };
 
@@ -227,14 +213,15 @@
                 this._super($ctx, sandbox, modId);
             },
 
-            beforeBinding: function(callback) {
+            on: function(callback) {
                 this.sandbox.subscribe(1, this);
                 callback();
             },
 
-            afterBinding: function() {
+            after: function() {
                 var that = this;
 
+                // notify
                 this.fire('test');
 
                 // wait till the other modules had time to deregister themself
@@ -254,14 +241,15 @@
                 this._super($ctx, sandbox, modId);
             },
 
-            beforeBinding: function(callback) {
+            on: function(callback) {
                 this.sandbox.subscribe(1, this);
                 callback();
             },
 
-            afterBinding: function() {
+            after: function() {
                 var that = this;
 
+                // notify
                 this.fire('test');
                 this.sandbox.unsubscribe(1, this);
                 this.fire('test', null, function() {
@@ -274,4 +262,19 @@
             }
         });
     })(Tc.$);
+
+
+
+    // Helpers
+    if (!Object.keys) {
+        Object.keys = function (obj) {
+            var keys = [], k;
+            for (k in obj) {
+                if (Object.prototype.hasOwnProperty.call(obj, k)) {
+                    keys.push(k);
+                }
+            }
+            return keys;
+        };
+    }
 </script>
