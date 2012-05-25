@@ -2,7 +2,7 @@
 <project default="all" basedir=".">
 
     <!-- release variables -->
-    <property name="VERSION" value="1.1.1" description="Version"/>
+    <property name="VERSION" value="1.1.2" description="Version"/>
 
     <!-- paths -->
     <property name="TERRIFIC_DIR" value="../src/core/" description="Terrific Source Folder"/>
