@@ -30,16 +30,11 @@
          * @method registerComponent
          * @param {Module} component 
          *      The module to register
-         * @param {String} role 
-         *      The role of the module (e.g. master, slave etc.)
          * @return {void}
          */
-        registerComponent: function(component, role) {
-            role = role || 'standard';
-
+        registerComponent: function(component) {
             this.components[component.id] = {
-                'component': component,
-                'role': role
+                'component': component
             };
         },
 
