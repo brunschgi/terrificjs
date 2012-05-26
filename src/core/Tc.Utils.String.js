@@ -22,6 +22,15 @@
             return str.substr(0, 1).toUpperCase().concat(str.substr(1));
         },
 
+        /**
+         * Camelizes the given string.
+         *
+         * @method toCamel
+         * @param {String} str
+         *      The original string
+         * @return {String}
+         *      The camelized string
+         */
         toCamel: function(str){
             return str.replace(/(\-[A-Za-z])/g, function($1){return $1.toUpperCase().replace('-','');});
         }
