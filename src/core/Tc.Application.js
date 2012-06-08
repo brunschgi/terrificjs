@@ -276,7 +276,7 @@
         registerModule : function($node, modName, skins, connectors) {
             var modules = this.modules;
 
-            modName = modName || null;
+            modName = modName || undefined;
             skins = skins || [];
             connectors = connectors || [];
 

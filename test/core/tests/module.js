@@ -57,6 +57,52 @@
 
         });
 
+        asyncTest('subscribe and fire to specific channel', function() {
+
+            // create fixture
+            var modules = [
+                {
+                    module: 'Subscription',
+                    skins: [],
+                    connectors: []
+                },
+                {
+                    module: 'SpecialSubscription',
+                    skins: [],
+                    connectors: []
+                }
+            ];
+
+            $('#module').tmpl(modules).appendTo($('#qunit-fixture'));
+
+            // register modules
+            var application = new Tc.Application();
+
+            application.registerModules();
+
+            // start the modules and check that the modules have a proper lifecycle
+            application.start();
+
+            setTimeout(function() {
+                equals(messages.length, 12, '12 messages received');
+                equals(messages[0], 'received special onTest message');
+                equals(messages[1], 'received onTest message');
+                equals(messages[2], 'received onTest message');
+                equals(messages[3], 'default handler executed');
+                equals(messages[4], 'special default handler executed');
+                equals(messages[5], 'received onTest message');
+                equals(messages[6], 'empty data default handler executed');
+                equals(messages[7], 'received onTest message');
+                equals(messages[8], 'null default handler executed');
+                equals(messages[9], 'empty special default handler executed');
+                equals(messages[10], 'null special default handler executed');
+                equals(messages[11], 'received special onTest message');
+
+                start();
+            }, 1000);
+
+        });
+        
         asyncTest('dynamic connectors 2 (subscribe, unsubscribe)', function() {
 
             // create fixture
@@ -93,6 +139,7 @@
 
         });
 
+        
         asyncTest('dynamic connectors with 3 modules (subscribe, unsubscribe)', function() {
 
             // create fixture

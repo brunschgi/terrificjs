@@ -112,23 +112,57 @@
          *
          * @method fire
          * @param {String} state The new state
-         * @param {Object} data The data to provide to your connected modules
-         * @param {Function} defaultAction The default action to perform
+         * @param {Object} data The data to provide to your connected modules (optional)
+         * @param {Array} channels  A list containting the channel ids to send the event to (optional)
+         * @param {Function} defaultAction The default action to perform (optinal)
          */
-        fire: function(state, data, defaultAction) {
+        fire: function(state, data, channels, defaultAction) {
             var self = this,
-                connectors = this.connectors;
+                connectors = this.connectors,
+                called = false; // makes sure the default handler is only called once
 
-            data = data ||{};
+            // validate params
+            if(channels == null && defaultAction == null) {
+                // max. 2 params
+                if (typeof data === 'function') {
+                    // (state, defaultAction)
+                    defaultAction = data;
+                    data = undefined;
+                }
+                else if ($.isArray(data)) {
+                    // (state, channels)
+                    channels = data;
+                    data = undefined;
+                }
+            }
+            else if(defaultAction == null) {
+                // 2-3 params
+                if (typeof channels === 'function') {
+                    // (state, data, defaultAction)
+                    defaultAction = channels;
+                    channels = undefined;
+                }
+
+                if ($.isArray(data)) {
+                    // (state, channels, defaultAction)
+                    channels = data;
+                    data = undefined;
+                }
+            }
+           
             state = Tc.Utils.String.capitalize(state);
-
-            for (var connectorId in connectors) {
+            data = data || {};
+            channels = channels || Object.keys(connectors);
+            
+            for (var i = 0, len = channels.length; i < len; i++) {
+                var connectorId = channels[i];
                 if(connectors.hasOwnProperty(connectorId)) {
                     var connector = connectors[connectorId];
 
                     // Callback combining the defaultAction and the afterAction
                     var callback = function() {
-                        if (typeof defaultAction == 'function') {
+                        if (typeof defaultAction === 'function' && !called) {
+                            called = true;
                             defaultAction();
                         }
                         connector.notify(self, 'after' + state, data);
@@ -137,11 +171,14 @@
                     if (connector.notify(self, 'on' + state, data, callback)) {
                         callback();
                     }
+                } else {
+                    throw new Error('the module #' + self.id + ' is not connected to connector ' + connectorId);
                 }
             }
 
-            if ($.isEmptyObject(connectors)) {
-                if (typeof defaultAction == 'function') {
+            // execute default action in any cases
+            if (!called) {
+                if (typeof defaultAction === 'function') {
                     defaultAction();
                 }
             }

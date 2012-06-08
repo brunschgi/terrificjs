@@ -50,16 +50,16 @@
     (function($) {
         // Modules
         Tc.Module.None = Tc.Module.extend({
-            init: function($ctx, sandbox, modId) {
+            init: function($ctx, sandbox, id) {
                 // call base constructor
-                this._super($ctx, sandbox, modId);
+                this._super($ctx, sandbox, id);
             }
         });
 
         Tc.Module.All = Tc.Module.extend({
-            init: function($ctx, sandbox, modId) {
+            init: function($ctx, sandbox, id) {
                 // call base constructor
-                this._super($ctx, sandbox, modId);
+                this._super($ctx, sandbox, id);
             },
             on: function(callback) {
                 messages.push('Module All: on');
@@ -74,9 +74,9 @@
         });
 
         Tc.Module.Dependency = Tc.Module.extend({
-            init: function($ctx, sandbox, modId) {
+            init: function($ctx, sandbox, id) {
                 // call base constructor
-                this._super($ctx, sandbox, modId);
+                this._super($ctx, sandbox, id);
             },
             on: function(callback) {
                 yepnope({
@@ -95,9 +95,9 @@
         });
 
         Tc.Module.Register = Tc.Module.extend({
-            init: function($ctx, sandbox, modId) {
+            init: function($ctx, sandbox, id) {
                 // call base constructor
-                this._super($ctx, sandbox, modId);
+                this._super($ctx, sandbox, id);
             },
             on: function(callback) {
                 messages.push('Module Register: on');
@@ -208,9 +208,9 @@
         };
 
         Tc.Module.Subscription = Tc.Module.extend({
-            init: function($ctx, sandbox, modId) {
+            init: function($ctx, sandbox, id) {
                 // call base constructor
-                this._super($ctx, sandbox, modId);
+                this._super($ctx, sandbox, id);
             },
 
             on: function(callback) {
@@ -227,7 +227,7 @@
                 // wait till the other modules had time to deregister themself
                 setTimeout(function() {
                     that.fire('test');
-                }, 200);
+                }, 300);
             },
 
             onTest: function() {
@@ -235,10 +235,67 @@
             }
         });
 
-        Tc.Module.UnSubscription = Tc.Module.extend({
-            init: function($ctx, sandbox, modId) {
+        Tc.Module.SpecialSubscription = Tc.Module.extend({
+            init: function($ctx, sandbox, id) {
                 // call base constructor
-                this._super($ctx, sandbox, modId);
+                this._super($ctx, sandbox, id);
+            },
+
+            on: function(callback) {
+                this.sandbox.subscribe('special', this);
+                this.sandbox.subscribe(1, this);
+                callback();
+            },
+
+            after: function() {
+                var that = this;
+
+                // (state, data)
+                this.fire('test', {});
+                
+                // (state, channels)
+                this.fire('test', ['special']);
+
+                // (state, defaultHandler)
+                this.fire('test', function() {
+                    messages.push('default handler executed') 
+                });
+
+                // (state, channels, defaultHandler)
+                this.fire('test', ['special'], function() {
+                    messages.push('special default handler executed')
+                });
+
+                // (state, data, defaultHandler)
+                this.fire('test', {}, function() {
+                    messages.push('empty data default handler executed')
+                });
+
+                // (state, null, defaultHandler)
+                this.fire('test', null, function() {
+                    messages.push('null default handler executed')
+                });
+
+                // (state, data, channels, defaultHandler)
+                this.fire('test', {}, ['special'], function() {
+                    messages.push('empty special default handler executed')
+                });
+
+                // (state, null, channels, defaultHandler)
+                this.fire('test', null, ['special'], function() {
+                    messages.push('null special default handler executed')
+                });
+            },
+
+            onTest: function() {
+                messages.push('received special onTest message');
+            }
+        });
+
+        Tc.Module.UnSubscription = Tc.Module.extend({
+            init: function($ctx, sandbox, id) {
+                // call base constructor
+                this._super($ctx, sandbox, id);
             },
 
             on: function(callback) {
@@ -262,7 +319,6 @@
             }
         });
     })(Tc.$);
-
 
 
     // Helpers
