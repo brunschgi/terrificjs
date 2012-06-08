@@ -8,63 +8,54 @@ TerrificJS is a neat, clever piece of code that allows you to modularize your jQ
 
 So simple, so effective! TerrificJS helps you to structure your project in a way you have never dreamt of. Try the magic and get addicted.
 
-Notice: the documentation of TerrificJS is under heavy construction and will be available soon (probably end of June) at [http://terrifically.org](http://terrifically.org).
+Notice: the documentation of TerrificJS is available at [http://terrifically.org/api](http://terrifically.org/api).
 
 
 Prerequisites for building your own TerrificJS
 ----------------------------------------------
 
-* Python (for node.js and Cheetah)
 * Ant (for the build execution)
-* node.js (for UglifyJS)
-* npm (for UglifyJS)
+* node.js (for UglifyJS, YUIDoc)
+* npm (for UglifyJS, YUIDoc)
 * UglifyJS
-* Cheetah (because of yuidoc)
+* YUIDoc
+
+Notice: Some of the commands used below are Linux (Ubuntu) specific.
 
 
-Installing Python and Ant
---------------------------
+Installing Ant
+--------------
 
-Notice: This tutorial is for building TerrificJS on Linux (Ubuntu).
+First of all, you need Ant, if you do not already have those installed.
 
-First of all, you need Python and Ant, if you do not already have those installed.
-
-1. `sudo apt-get install python ant`
+1. `sudo apt-get install ant`
 
 
 Installing node.js and npm (Node Package Manager)
 -------------------------------------------------
 
-To get the build environment up and running, we need UglifyJS, which itself depends on node.js. There are a several different methods available for installing [NodeJS](http://nodejs.org/). I chose the following method because I had problems with the packages from the official repository and the one from node.js.
+To get the build environment up and running, we need UglifyJS and YUIDcc, which itself depends on node.js.
+Get appropriate installer package from [NodeJS](http://nodejs.org/).
 
-1. `sudo mkdir -p /usr/local/{share/man,bin,lib/node,include/node}`
-2. `sudo chown -R $USER /usr/local/{share/man,bin,lib/node,include/node`}
-3. `mkdir node-install`
-4. `curl http://nodejs.org/dist/node-v0.4.7.tar.gz | tar -xzf - -C node-install`
-5. `cd node-install/*`
-6. `./configure`
-7. `make install`
-8. `curl http://npmjs.org/install.sh | sh`
+Notice: npm comes bundled with node.js
 
 
 Installing UglifyJS
 -------------------
 
-As mentioned before, Terrific uses UglifyJS to build the minimized version of the Javascript file. Install it via npm using the following commands.
+TerrificJS uses UglifyJS to build the minimized version of the JavaScript file. Install it via npm using the following commands.
 
-1. `npm install uglify-js
-2. `sudo ln -s /home/$USER/node-install/node-v0.4.7/node_modules/uglify-js/bin/uglifyjs /usr/bin/uglifyjs
+1. `npm install uglify-js`
+2. `sudo ln -s /home/$USER/node-install/node-v0.6.19/node_modules/uglify-js/bin/uglifyjs /usr/bin/uglifyjs`
 
 
-Installing Cheetah (for yuidoc)
--------------------------------
+Installing YUIDoc
+-----------------
 
-To generate the API documentation, the project uses yuidoc from Yahoo. To get this one running, we need to install the python-powered template engine Cheetah.
+To generate the API documentation, the TerrificJS uses [YUIDoc](http://yui.github.com/yuidoc/) from Yahoo. Install it via npm using the following commands.
 
-1. `wget http://pypi.python.org/packages/source/C/Cheetah/Cheetah-2.4.4.tar.gz`
-2. `tar xvfz Cheetah-2.4.4.tar.gz`
-3. `cd Cheetah-2.4.4`
-4. `sudo python setup.py install`
+1. `npm -g install yuidocjs`
+2. `sudo ln -s /home/$USER/node-install/node-v0.6.19/node_modules/yuidocjs/node_modules/yui/yuidoc /usr/bin/yuidoc`
 
 
 Run Ant Build
@@ -81,5 +72,3 @@ You will get the following release artifacts:
 * release/docs/ – generated API documentation
 * release/terrific-<version>.js – the full release
 * release/terrific-<version>.min.js – the minified release for production use
-
-– thx to [Roger Dudler](https://github.com/rogerdudler) for writing this tutorial –

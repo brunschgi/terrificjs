@@ -14,7 +14,6 @@
          * Initializes the Connector.
          *
          * @method init
-         * @return {void}
          * @constructor
          * @param {String} connectorId
          *      The unique connector ID
@@ -30,7 +29,6 @@
          * @method registerComponent
          * @param {Module} component 
          *      The module to register
-         * @return {void}
          */
         registerComponent: function(component) {
             this.components[component.id] = {
@@ -44,7 +42,6 @@
          * @method unregisterComponent
          * @param {Module} component 
          *      The module to unregister
-         * @return {void}
          */
         unregisterComponent: function(component) {
             var components = this.components;
@@ -67,7 +64,7 @@
          *      Contains the state relevant data (if any)
          * @param {Function} callback 
          *      The callback function, it can be executed after an asynchronous
-         *      action.
+         *      action
          * @return {boolean} 
          *      Indicates whether the default action should be excuted or not
          */

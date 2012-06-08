@@ -14,7 +14,6 @@
          * Initializes the Module.
          *
          * @method init
-         * @return {void}
          * @constructor
          * @param {jQuery} $ctx 
          *      The jQuery context
@@ -63,15 +62,16 @@
          * by the individual instance.
          *
          * @method start
-         * @return {void}
          */
         start: function() {
-            var that = this;
+            var self = this;
 
             // Call the hook method from the individual instance and provide the appropriate callback
             if (this.on) {
                 this.on(function() {
-                    that.initAfter();
+                    self.initAfter();
+                }, self, function(selector) {
+                    self.$ctx.find(selector);
                 });
             }
         },
@@ -80,7 +80,6 @@
          * Template method to stop the module.
          *
          * @method stop
-         * @return {void}
          */
         stop: function() {
             var $ctx = this.$ctx;
@@ -95,17 +94,19 @@
          * Initialization callback.
          *
          * @method initAfter
-         * @return {void}
+         * @protected
          */
         initAfter: function() {
-            var that = this;
+            var self = this;
 
             this.sandbox.ready(function() {
                 /**
-                 * Call the 'after' hook method  from the individual instance
+                 * Call the 'after' hook method from the individual instance
                  */
-                if (that.after) {
-                    that.after();
+                if (self.after) {
+                    self.after(self, function(selector) {
+                        self.$ctx.find(selector);
+                    });
                 }
             });
         },
@@ -120,10 +121,9 @@
          *      The data to provide to your connected modules
          * @param {Function} defaultAction 
          *      The default action to perform
-         * @return {void}
          */
         fire: function(state, data, defaultAction) {
-            var that = this,
+            var self = this,
                 connectors = this.connectors;
 
             data = data ||{};
@@ -138,10 +138,10 @@
                         if (typeof defaultAction == 'function') {
                             defaultAction();
                         }
-                        connector.notify(that, 'after' + state, data);
+                        connector.notify(self, 'after' + state, data);
                     };
 
-                    if (connector.notify(that, 'on' + state, data, callback)) {
+                    if (connector.notify(self, 'on' + state, data, callback)) {
                         callback();
                     }
                 }
@@ -160,7 +160,6 @@
          * @method attachConnector
          * @param {Connector} connector 
          *      The connector to attach
-         * @return {void}
          */
         attachConnector: function(connector) {
             this.connectors[connector.connectorId] = connector;
@@ -172,7 +171,6 @@
          * @method detachConnector
          * @param {Connector} connector
          *      The connector to detach
-         * @return {void}
          */
         detachConnector: function(connector) {
             delete this.connectors[connector.connectorId];

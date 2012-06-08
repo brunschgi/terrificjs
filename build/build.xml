@@ -2,7 +2,7 @@
 <project default="all" basedir=".">
 
     <!-- release variables -->
-    <property name="VERSION" value="2.x" description="Version"/>
+    <property name="VERSION" value="2.0.0" description="Version"/>
 
     <!-- paths -->
     <property name="TERRIFIC_DIR" value="../src/core/" description="Terrific Source Folder"/>
@@ -45,16 +45,11 @@
         <echo message="Building YUI documentation"/>
         <mkdir dir="${RELEASE_DIR}"/>
         <mkdir dir="${DOCUMENTATION_DIR}"/>
-        <mkdir dir="${TMP_DIR}/output"/>
-        <exec executable="yuidoc/bin/yuidoc.py">
+        <exec executable="yuidoc">
             <arg line="${TMP_DIR}/js"/>
-            <arg line="-p ${TMP_DIR}/output"/>
             <arg line="-o ${DOCUMENTATION_DIR}"/>
-            <arg line="-t yuidoc/template"/>
-            <arg line="-v ${VERSION}"/>
             <arg line="-m 'Terrific JavaScript Framework'"/>
             <arg line="-u 'http://www.terrifically.org'"/>
-            <arg line="-Y 2"/>
         </exec>
         <echo message="YUI documentation built."/>
     </target>

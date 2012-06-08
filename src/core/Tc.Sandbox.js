@@ -15,7 +15,6 @@
          * Initializes the Sandbox.
          *
          * @method init
-         * @return {void}
          * @constructor
          * @param {Applicaton} application 
          *      The application reference
@@ -54,9 +53,9 @@
          *
          * @method addModules
          * @param {jQuery} $ctx 
-         *      The jQuery context.
+         *      The jQuery context
          * @return {Array} 
-         *      A list containing the references of the registered modules.
+         *      A list containing the references of the registered modules
          */
         addModules: function($ctx) {
             var modules = [],
@@ -79,8 +78,7 @@
          *
          * @method removeModules
          * @param {Array} modules 
-         *      A list containting the module instances to remove.
-         * @return {void}
+         *      A list containting the module instances to remove
          */
         removeModules: function(modules) {
             var application = this.application;
@@ -99,10 +97,9 @@
          *
          * @method subscribe
          * @param {String} connector
-         *      The full connector name (e.g. MasterSlave1Slave).
+         *      The full connector name (e.g. MasterSlave-Navigation)
          * @param {Module} module
-         *      The module instance.
-         * @return {void}
+         *      The module instance
          */
         subscribe: function(connector, module) {
             var application = this.application;
@@ -119,10 +116,9 @@
          *
          * @method unsubscribe
          * @param {String} connectorId
-         *      The connector channel id (e.g. 2).
+         *      The connector channel id (e.g. 2 or Navigation)
          * @param {Module} module
-         *      The module instance.
-         * @return {void}
+         *      The module instance
          */
         unsubscribe: function(connectorId, module) {
             var application = this.application;
@@ -193,7 +189,6 @@
          * @method ready
          * @param {Function} callback 
          *      The 'after' hook module callback
-         * @return {void}
          */
         ready: function(callback) {
             var afterCallbacks = this.afterCallbacks;
