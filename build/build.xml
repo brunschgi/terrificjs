@@ -5,8 +5,7 @@
     <property name="VERSION" value="2.0.0" description="Version"/>
 
     <!-- paths -->
-    <property name="TERRIFIC_DIR" value="../src/core/" description="Terrific Source Folder"/>
-    <property name="TMP_DIR" value="tmp" description="Folder for temporary files"/>
+    <property name="TERRIFIC_DIR" value="../src/core" description="Terrific Source Folder"/>
     <property name="BUILD_DIR" value="build" description="Files for parsing etc."/>
     <property name="JS_JAR" value="js.jar" description="Rhino JS Engine"/>
     <property name="RELEASE_DIR" value="../release" description="Folder for release files"/>
@@ -19,9 +18,8 @@
     <!-- terrific js (full version) -->
     <target name="fulljs" description="Main build, concatenates source files and replaces @VERSION">
         <echo message="Building ${JS}"/>
-        <mkdir dir="${TMP_DIR}"/>
-        <mkdir dir="${TMP_DIR}/js"/>
-        <concat fixlastline="yes" destfile="${TMP_DIR}/js/${JS}" encoding="UTF-8">
+        <mkdir dir="${RELEASE_DIR}" />
+        <concat fixlastline="yes" destfile="${RELEASE_DIR}/${JS}" encoding="UTF-8">
             <fileset dir="${TERRIFIC_DIR}" includes="Tc.js"/>
             <fileset dir="${TERRIFIC_DIR}" includes="oo.js"/>
             <fileset dir="${TERRIFIC_DIR}" includes="Tc.Config.js"/>
@@ -34,7 +32,7 @@
         </concat>
         <java jar="${JS_JAR}" fork="true">
             <arg value="${BUILD_DIR}/replacement.js"/>
-            <arg value="${TMP_DIR}/js/${JS}"/>
+            <arg value="${RELEASE_DIR}/${JS}"/>
             <arg value="${VERSION}"/>
         </java>
         <echo message="${JS} built."/>
@@ -43,27 +41,21 @@
     <!-- yui doc  -->
     <target name="yuidoc" description="Generates the javascript YUI documentation from the sources">
         <echo message="Building YUI documentation"/>
-        <mkdir dir="${RELEASE_DIR}"/>
         <mkdir dir="${DOCUMENTATION_DIR}"/>
         <exec executable="yuidoc">
-            <arg line="${TMP_DIR}/js"/>
+            <arg line="${RELEASE_DIR}"/>
             <arg line="-o ${DOCUMENTATION_DIR}"/>
-            <arg line="-m 'Terrific JavaScript Framework'"/>
-            <arg line="-u 'http://www.terrifically.org'"/>
         </exec>
         <echo message="YUI documentation built."/>
     </target>
 
     <!-- release -->
     <target name="clean">
-        <delete dir="${TMP_DIR}"/>
         <delete dir="${RELEASE_DIR}"/>
     </target>
 
     <!-- terrific js (minified version) -->
     <target name="minjs" description="Minifies the main build by using UglifyJS">
-        <move file="${TMP_DIR}/js/${JS}" tofile="${RELEASE_DIR}/${JS}"/>
-        <delete dir="${TMP_DIR}"/>
         <exec executable="uglifyjs">
             <arg line="-o ${RELEASE_DIR}/${JS_MIN}"/>
             <arg line="${RELEASE_DIR}/${JS}"/>

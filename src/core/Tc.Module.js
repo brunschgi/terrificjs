@@ -16,10 +16,10 @@
          * @method init
          * @constructor
          * @param {jQuery} $ctx 
-         *      The jQuery context
+         *      The jQuery context 
          * @param {Sandbox} sandbox 
          *      The sandbox to get the resources from
-         * @param {String} id
+         * @param {String} id 
          *      The Unique module ID
          */
         init: function($ctx, sandbox, id) {
@@ -100,7 +100,7 @@
             var self = this;
 
             this.sandbox.ready(function() {
-                /**
+                /*
                  * Call the 'after' hook method from the individual instance
                  */
                 if (self.after) {
@@ -115,12 +115,9 @@
          * Notifies all attached connectors about changes.
          *
          * @method fire
-         * @param {String} state 
-         *      The new state
-         * @param {Object} data 
-         *      The data to provide to your connected modules
-         * @param {Function} defaultAction 
-         *      The default action to perform
+         * @param {String} state The new state
+         * @param {Object} data The data to provide to your connected modules
+         * @param {Function} defaultAction The default action to perform
          */
         fire: function(state, data, defaultAction) {
             var self = this,
@@ -169,8 +166,7 @@
          * Detaches a connector (observer).
          *
          * @method detachConnector
-         * @param {Connector} connector
-         *      The connector to detach
+         * @param {Connector} connector The connector to detach
          */
         detachConnector: function(connector) {
             delete this.connectors[connector.connectorId];
@@ -180,12 +176,9 @@
          * Decorates itself with the given skin.
          *
          * @method getDecoratedModule
-         * @param {String} module 
-         *      The name of the module
-         * @param {String} skin 
-         *      The name of the skin
-         * @return {Module} 
-         *      The decorated module
+         * @param {String} module The name of the module
+         * @param {String} skin The name of the skin
+         * @return {Module} The decorated module
          */
         getDecoratedModule: function(module, skin) {
             if (Tc.Module[module][skin]) {

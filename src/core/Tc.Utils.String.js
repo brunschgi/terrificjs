@@ -2,8 +2,8 @@
  * Contains utility functions for string concerning tasks.
  *
  * @author Remo Brunschwiler
- * @namespace Tc.Utils
- * @class String
+ * @namespace Tc
+ * @class Utils.String
  * @static
  */
 (function($) {
@@ -12,9 +12,9 @@
          * Capitalizes the first letter of the given string.
          *
          * @method capitalize
-         * @param {String} str
+         * @param {String} str 
          *      The original string
-         * @return {String}
+         * @return {String} 
          *      The capitalized string
          */
         capitalize: function(str) {
@@ -26,9 +26,9 @@
          * Camelizes the given string.
          *
          * @method toCamel
-         * @param {String} str
+         * @param {String} str 
          *      The original string
-         * @return {String}
+         * @return {String} 
          *      The camelized string
          */
         toCamel: function(str){

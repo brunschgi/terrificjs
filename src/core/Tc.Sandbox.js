@@ -96,10 +96,8 @@
          * Subscribes a module to a connector.
          *
          * @method subscribe
-         * @param {String} connector
-         *      The full connector name (e.g. MasterSlave-Navigation)
-         * @param {Module} module
-         *      The module instance
+         * @param {String} connector The full connector name (e.g. MasterSlave-Navigation)
+         * @param {Module} module The module instance
          */
         subscribe: function(connector, module) {
             var application = this.application;
@@ -115,10 +113,8 @@
          * Unsubscribes a module from a connector.
          *
          * @method unsubscribe
-         * @param {String} connectorId
-         *      The connector channel id (e.g. 2 or Navigation)
-         * @param {Module} module
-         *      The module instance
+         * @param {String} connectorId The connector channel id (e.g. 2 or Navigation)
+         * @param {Module} module The module instance
          */
         unsubscribe: function(connectorId, module) {
             var application = this.application;

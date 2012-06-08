@@ -63,13 +63,12 @@
          * @param {Object} data 
          *      Contains the state relevant data (if any)
          * @param {Function} callback 
-         *      The callback function, it can be executed after an asynchronous
-         *      action
+         *      The callback function, it can be executed after an asynchronous action
          * @return {boolean} 
          *      Indicates whether the default action should be excuted or not
          */
         notify: function(origin, state, data, callback) {
-            /**
+            /*
              * Gives the components the ability to prevent the default- and
              * after action from the events by returning false in the
              * on {Event}-Handler.
