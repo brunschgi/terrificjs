@@ -70,8 +70,6 @@
             if (this.on) {
                 this.on(function() {
                     self.initAfter();
-                }, self, function(selector) {
-                    self.$ctx.find(selector);
                 });
             }
         },
@@ -104,9 +102,7 @@
                  * Call the 'after' hook method from the individual instance
                  */
                 if (self.after) {
-                    self.after(self, function(selector) {
-                        self.$ctx.find(selector);
-                    });
+                    self.after();
                 }
             });
         },
