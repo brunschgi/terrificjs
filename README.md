@@ -4,7 +4,7 @@
 What is TerrificJS
 ------------------
 
-TerrificJS is a neat, clever piece of code that allows you to modularize your jQuery code by solely relying on the OOCSS naming conventions.
+TerrificJS is a neat, clever piece of code that allows you to modularize your jQuery code by solely relying on CSS naming conventions.
 
 So simple, so effective! TerrificJS helps you to structure your project in a way you have never dreamt of. Try the magic and get addicted.
 
