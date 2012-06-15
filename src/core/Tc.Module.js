@@ -14,13 +14,12 @@
          * Initializes the Module.
          *
          * @method init
-         * @return {void}
          * @constructor
          * @param {jQuery} $ctx 
-         *      The jQuery context
+         *      The jQuery context 
          * @param {Sandbox} sandbox 
          *      The sandbox to get the resources from
-         * @param {String} id
+         * @param {String} id 
          *      The Unique module ID
          */
         init: function($ctx, sandbox, id) {
@@ -63,15 +62,14 @@
          * by the individual instance.
          *
          * @method start
-         * @return {void}
          */
         start: function() {
-            var that = this;
+            var self = this;
 
             // Call the hook method from the individual instance and provide the appropriate callback
             if (this.on) {
                 this.on(function() {
-                    that.initAfter();
+                    self.initAfter();
                 });
             }
         },
@@ -80,7 +78,6 @@
          * Template method to stop the module.
          *
          * @method stop
-         * @return {void}
          */
         stop: function() {
             var $ctx = this.$ctx;
@@ -95,17 +92,17 @@
          * Initialization callback.
          *
          * @method initAfter
-         * @return {void}
+         * @protected
          */
         initAfter: function() {
-            var that = this;
+            var self = this;
 
             this.sandbox.ready(function() {
-                /**
-                 * Call the 'after' hook method  from the individual instance
+                /*
+                 * Call the 'after' hook method from the individual instance
                  */
-                if (that.after) {
-                    that.after();
+                if (self.after) {
+                    self.after();
                 }
             });
         },
@@ -114,41 +111,74 @@
          * Notifies all attached connectors about changes.
          *
          * @method fire
-         * @param {String} state 
-         *      The new state
-         * @param {Object} data 
-         *      The data to provide to your connected modules
-         * @param {Function} defaultAction 
-         *      The default action to perform
-         * @return {void}
+         * @param {String} state The new state
+         * @param {Object} data The data to provide to your connected modules (optional)
+         * @param {Array} channels  A list containting the channel ids to send the event to (optional)
+         * @param {Function} defaultAction The default action to perform (optinal)
          */
-        fire: function(state, data, defaultAction) {
-            var that = this,
-                connectors = this.connectors;
+        fire: function(state, data, channels, defaultAction) {
+            var self = this,
+                connectors = this.connectors,
+                called = false; // makes sure the default handler is only called once
 
-            data = data ||{};
+            // validate params
+            if(channels == null && defaultAction == null) {
+                // max. 2 params
+                if (typeof data === 'function') {
+                    // (state, defaultAction)
+                    defaultAction = data;
+                    data = undefined;
+                }
+                else if ($.isArray(data)) {
+                    // (state, channels)
+                    channels = data;
+                    data = undefined;
+                }
+            }
+            else if(defaultAction == null) {
+                // 2-3 params
+                if (typeof channels === 'function') {
+                    // (state, data, defaultAction)
+                    defaultAction = channels;
+                    channels = undefined;
+                }
+
+                if ($.isArray(data)) {
+                    // (state, channels, defaultAction)
+                    channels = data;
+                    data = undefined;
+                }
+            }
+           
             state = Tc.Utils.String.capitalize(state);
-
-            for (var connectorId in connectors) {
+            data = data || {};
+            channels = channels || Object.keys(connectors);
+            
+            for (var i = 0, len = channels.length; i < len; i++) {
+                var connectorId = channels[i];
                 if(connectors.hasOwnProperty(connectorId)) {
                     var connector = connectors[connectorId];
 
                     // Callback combining the defaultAction and the afterAction
                     var callback = function() {
-                        if (typeof defaultAction == 'function') {
+                        if (typeof defaultAction === 'function' && !called) {
+                            called = true;
                             defaultAction();
                         }
-                        connector.notify(that, 'after' + state, data);
+                        connector.notify(self, 'after' + state, data);
                     };
 
-                    if (connector.notify(that, 'on' + state, data, callback)) {
+                    if (connector.notify(self, 'on' + state, data, callback)) {
                         callback();
                     }
+                } else {
+                    throw new Error('the module #' + self.id + ' is not connected to connector ' + connectorId);
                 }
             }
 
-            if ($.isEmptyObject(connectors)) {
-                if (typeof defaultAction == 'function') {
+            // execute default action in any cases
+            if (!called) {
+                if (typeof defaultAction === 'function') {
                     defaultAction();
                 }
             }
@@ -160,7 +190,6 @@
          * @method attachConnector
          * @param {Connector} connector 
          *      The connector to attach
-         * @return {void}
          */
         attachConnector: function(connector) {
             this.connectors[connector.connectorId] = connector;
@@ -170,9 +199,7 @@
          * Detaches a connector (observer).
          *
          * @method detachConnector
-         * @param {Connector} connector
-         *      The connector to detach
-         * @return {void}
+         * @param {Connector} connector The connector to detach
          */
         detachConnector: function(connector) {
             delete this.connectors[connector.connectorId];
@@ -182,12 +209,9 @@
          * Decorates itself with the given skin.
          *
          * @method getDecoratedModule
-         * @param {String} module 
-         *      The name of the module
-         * @param {String} skin 
-         *      The name of the skin
-         * @return {Module} 
-         *      The decorated module
+         * @param {String} module The name of the module
+         * @param {String} skin The name of the skin
+         * @return {Module} The decorated module
          */
         getDecoratedModule: function(module, skin) {
             if (Tc.Module[module][skin]) {

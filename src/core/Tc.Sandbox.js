@@ -15,7 +15,6 @@
          * Initializes the Sandbox.
          *
          * @method init
-         * @return {void}
          * @constructor
          * @param {Applicaton} application 
          *      The application reference
@@ -54,9 +53,9 @@
          *
          * @method addModules
          * @param {jQuery} $ctx 
-         *      The jQuery context.
+         *      The jQuery context
          * @return {Array} 
-         *      A list containing the references of the registered modules.
+         *      A list containing the references of the registered modules
          */
         addModules: function($ctx) {
             var modules = [],
@@ -79,8 +78,7 @@
          *
          * @method removeModules
          * @param {Array} modules 
-         *      A list containting the module instances to remove.
-         * @return {void}
+         *      A list containting the module instances to remove
          */
         removeModules: function(modules) {
             var application = this.application;
@@ -98,11 +96,8 @@
          * Subscribes a module to a connector.
          *
          * @method subscribe
-         * @param {String} connector
-         *      The full connector name (e.g. MasterSlave1Slave).
-         * @param {Module} module
-         *      The module instance.
-         * @return {void}
+         * @param {String} connector The full connector name (e.g. MasterSlave-Navigation)
+         * @param {Module} module The module instance
          */
         subscribe: function(connector, module) {
             var application = this.application;
@@ -118,11 +113,8 @@
          * Unsubscribes a module from a connector.
          *
          * @method unsubscribe
-         * @param {String} connectorId
-         *      The connector channel id (e.g. 2).
-         * @param {Module} module
-         *      The module instance.
-         * @return {void}
+         * @param {String} connectorId The connector channel id (e.g. 2 or Navigation)
+         * @param {Module} module The module instance
          */
         unsubscribe: function(connectorId, module) {
             var application = this.application;
@@ -193,7 +185,6 @@
          * @method ready
          * @param {Function} callback 
          *      The 'after' hook module callback
-         * @return {void}
          */
         ready: function(callback) {
             var afterCallbacks = this.afterCallbacks;
@@ -206,7 +197,7 @@
                 for (var i = 0; i < afterCallbacks.length; i++) {
                     var afterCallback = afterCallbacks[i];
 
-                    if(typeof afterCallback == "function") {
+                    if(typeof afterCallback === "function") {
                         // make sure the callback is only executed once (and is not called during addModules)
                         delete afterCallbacks[i];
                         afterCallback();

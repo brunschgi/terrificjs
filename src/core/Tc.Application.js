@@ -2,7 +2,7 @@
     "use strict";
 
     /**
-     * Responsible for application-wide issues such as the creation of modules.
+     * Responsible for application-wide issues such as the creation of modules and establishing connections between them.
      *
      * @author Remo Brunschwiler
      * @namespace Tc
@@ -14,10 +14,9 @@
          * Initializes the application.
          *
          * @method init
-         * @return {void}
          * @constructor
          * @param {jQuery} $ctx 
-         *      The jquery context
+         *      The jQuery context
          * @param {Object} config 
          *      The configuration
          */
@@ -73,12 +72,12 @@
          *
          * @method registerModules
          * @param {jQuery} $ctx 
-         *      The jQuery context.
+         *      The jQuery context
          * @return {Array} 
-         *      A list containing the references of the registered modules.
+         *      A list containing the references of the registered modules
          */
         registerModules : function($ctx) {
-            var that = this,
+            var self = this,
                 modules = [],
                 stringUtils = Tc.Utils.String;
 
@@ -88,28 +87,38 @@
                 var $this = $(this),
                     classes = $this.attr('class').split(' ');
 
-                /**
+                /*
+                 * A module can have several different classes and data attributes.
+                 * See below for possible values.
+                 */
+
+                /*
+                 * @config .mod
+                 *
                  * Indicates that it is a base module, this is the default and
                  * no JavaScript needs to be involved. It must occur excactly
                  * once.
-                 * @config .mod 
                  */
 
-                /**
+                /*
+                 * @config .mod{moduleName} || .mod-{module-name}
+                 *
                  * Indicates that it is a module of type basic, which is
                  * derived from the base module. It can occur at most
                  * once. Example: .modBasic || .mod-basic
-                 * @config .mod{moduleName} || .mod-{module-name}
                  */
 
-                /**
+                /*
+                 * @config .skin{moduleName}{skinName} || .skin-{module-name}-{skin-name}
+                 *
                  * Indicates that the module basic has the submarine skin. It
                  * will be decorated by the skin JS (if it exists). It can occur
                  * arbitrarily. Example: .skinBasicSubmarine || .skin-basic-submarine
-                 * @config .skin{moduleName}{skinName} || .skin-{module-name}-{skin-name}
                  */
 
-                /** 
+                /*
+                 * @config data-connectors
+                 *
                  * A module can have a comma-separated list of data connectors.
                  * The list contains the IDs of the connectors in the following
                  * schema: {connectorType}-{connectorId}
@@ -123,8 +132,6 @@
                  * The connector id is used to chain the appropriate (the ones with the same id)
                  * modules together and to improve the reusability of the connector.
                  * It can contain multiple connector ids (e.g. 1,2,MasterSlave-Navigation).
-                 *
-                 * @config data-connectors
                  */
 
                 if (classes.length > 1) {
@@ -153,7 +160,7 @@
                         }
                     }
 
-                    /**
+                    /*
                      * This needs to be done via attr() instead of data().
                      * As data() cast a single number-only connector to an integer, the split will fail.
                      */
@@ -171,7 +178,7 @@
                     }
 
                     if (modName && Tc.Module[modName]) {
-                        modules.push(that.registerModule($this, modName, skins, connectors));
+                        modules.push(self.registerModule($this, modName, skins, connectors));
                     }
                 }
             });
@@ -185,7 +192,6 @@
          * @method unregisterModule
          * @param {Array} modules 
          *      A list containting the module instances to unregister
-         * @return {void}
          */
         unregisterModules : function(modules) {
             var connectors = this.connectors;
@@ -225,7 +231,6 @@
          * @method start
          * @param {Array} modules 
          *      A list of the modules to start
-         * @return {void}
          */
         start: function(modules) {
             modules = modules || this.modules;
@@ -241,8 +246,7 @@
          *
          * @method stop
          * @param {Array} modules 
-         *      A list containting the module instances to stop.
-         * @return {void}
+         *      A list containting the module instances to stop
          */
         stop: function(modules) {
             modules = modules || this.modules;
@@ -258,23 +262,21 @@
          *
          * @method registerModule
          * @param {jQuery} $node 
-         *      The module node.
+         *      The module node
          * @param {String} modName 
          *      The module name. It must match the class name of the module
-         *      (case sensitive).
          * @param {Array} skins 
-         *      A list of skin names. Each entry must match a class name of a
-         *      skin (case sensitive).
+         *      A list of skin names. Each entry must match a class name of a skin
          * @param {Array} connectors 
-         *      A list of connectors identifiers (e.g. MasterSlave1Master).
-         *      Schema: {connectorName}{connectorId}{connectorRole}
+         *      A list of connectors identifiers (e.g. MasterSlave-Navigation)
+         *      Schema: {connectorName}-{connectorId}
          * @return {Module} 
-         *      The reference to the registered module.
+         *      The reference to the registered module
          */
         registerModule : function($node, modName, skins, connectors) {
             var modules = this.modules;
 
-            modName = modName || null;
+            modName = modName || undefined;
             skins = skins || [];
             connectors = connectors || [];
 
@@ -283,8 +285,10 @@
                 var id = modules.length;
                 $.data($node[0], 'id', id);
 
+                // Instantiate module
                 modules[id] = new Tc.Module[modName]($node, this.sandbox, id);
 
+                // Decorate it
                 for (var i = 0, len = skins.length; i < len; i++) {
                     var skinName = skins[i];
 
@@ -293,6 +297,7 @@
                     }
                 }
 
+                // Register connections
                 for (var i = 0, len = connectors.length; i < len; i++) {
                     this.registerConnection(connectors[i], modules[id]);
                 }
@@ -308,10 +313,9 @@
          *
          * @method registerConnection
          * @param {String} connector 
-         *      The full connector name (e.g. MasterSlave1Slave).
+         *      The full connector name (e.g. MasterSlave-Navigation)
          * @param {Module} component 
-         *      The module instance.
-         * @return {void}
+         *      The module instance
          */
         registerConnection : function(connector, component) {
             connector = $.trim(connector);
@@ -346,13 +350,13 @@
                 }
 
                 if (connectors[identifier]) {
-                    /**
+                    /*
                      * The connector observes the component and attaches it as
                      * an observer.
                      */
                     component.attachConnector(connectors[identifier]);
 
-                    /**
+                    /*
                      * The component wants to be informed over state changes.
                      * It registers it as connector member.
                      */
@@ -365,11 +369,10 @@
          * Unregisters a module from a connector.
          *
          * @method unregisterConnection
-         * @param {String} connectorId
-         *      The connector channel id (e.g. 2).
-         * @param {Module} component
-         *      The module instance.
-         * @return {void}
+         * @param {String} connectorId 
+         *      The connector channel id (e.g. 2)
+         * @param {Module} component 
+         *      The module instance
          */
         unregisterConnection : function(connectorId, component) {
             var connector =  this.connectors[connectorId];
