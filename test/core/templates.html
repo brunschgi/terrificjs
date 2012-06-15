@@ -227,7 +227,7 @@
                 // wait till the other modules had time to deregister themself
                 setTimeout(function() {
                     that.fire('test');
-                }, 300);
+                }, 700);
             },
 
             onTest: function() {
@@ -250,41 +250,43 @@
             after: function() {
                 var that = this;
 
-                // (state, data)
-                this.fire('test', {});
-                
-                // (state, channels)
-                this.fire('test', ['special']);
+                setTimeout(function() {
+                    // (state, data)
+                    that.fire('test', {});
 
-                // (state, defaultHandler)
-                this.fire('test', function() {
-                    messages.push('default handler executed') 
-                });
+                    // (state, channels)
+                    that.fire('test', ['special']);
 
-                // (state, channels, defaultHandler)
-                this.fire('test', ['special'], function() {
-                    messages.push('special default handler executed')
-                });
+                    // (state, defaultHandler)
+                    that.fire('test', function() {
+                        messages.push('default handler executed')
+                    });
 
-                // (state, data, defaultHandler)
-                this.fire('test', {}, function() {
-                    messages.push('empty data default handler executed')
-                });
+                    // (state, channels, defaultHandler)
+                    that.fire('test', ['special'], function() {
+                        messages.push('special default handler executed')
+                    });
 
-                // (state, null, defaultHandler)
-                this.fire('test', null, function() {
-                    messages.push('null default handler executed')
-                });
+                    // (state, data, defaultHandler)
+                    that.fire('test', {}, function() {
+                        messages.push('empty data default handler executed')
+                    });
 
-                // (state, data, channels, defaultHandler)
-                this.fire('test', {}, ['special'], function() {
-                    messages.push('empty special default handler executed')
-                });
+                    // (state, null, defaultHandler)
+                    that.fire('test', null, function() {
+                        messages.push('null default handler executed')
+                    });
 
-                // (state, null, channels, defaultHandler)
-                this.fire('test', null, ['special'], function() {
-                    messages.push('null special default handler executed')
-                });
+                    // (state, data, channels, defaultHandler)
+                    that.fire('test', {}, ['special'], function() {
+                        messages.push('empty special default handler executed')
+                    });
+
+                    // (state, null, channels, defaultHandler)
+                    that.fire('test', null, ['special'], function() {
+                        messages.push('null special default handler executed')
+                    });
+                }, 200);
             },
 
             onTest: function() {

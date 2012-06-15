@@ -62,9 +62,7 @@
          *      The component's state
          * @param {Object} data 
          *      Contains the state relevant data (if any)
-         * @param {Function} callback 
-         *      The callback function, it can be executed after an asynchronous action
-         * @return {boolean} 
+         * @return {boolean}
          *      Indicates whether the default action should be excuted or not
          */
         notify: function(origin, state, data, callback) {
@@ -80,7 +78,7 @@
                 if(components.hasOwnProperty(id)) {
                     var component = components[id].component;
                     if (component !== origin && component[state]) {
-                        if (component[state](data, callback) === false) {
+                        if (component[state](data) === false) {
                             proceed = false;
                         }
                     }

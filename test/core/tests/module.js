@@ -53,7 +53,7 @@
                 equals(messages[2], 'received onTest message');
                 equals(messages[3], 'received onTest message');
                 start();
-            }, 500);
+            }, 1000);
 
         });
 
@@ -97,9 +97,8 @@
                 equals(messages[9], 'empty special default handler executed');
                 equals(messages[10], 'null special default handler executed');
                 equals(messages[11], 'received special onTest message');
-
                 start();
-            }, 1000);
+            }, 800);
 
         });
         
