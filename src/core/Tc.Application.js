@@ -285,8 +285,10 @@
                 var id = modules.length;
                 $.data($node[0], 'id', id);
 
+                // Instantiate module
                 modules[id] = new Tc.Module[modName]($node, this.sandbox, id);
 
+                // Decorate it
                 for (var i = 0, len = skins.length; i < len; i++) {
                     var skinName = skins[i];
 
@@ -295,6 +297,7 @@
                     }
                 }
 
+                // Register connections
                 for (var i = 0, len = connectors.length; i < len; i++) {
                     this.registerConnection(connectors[i], modules[id]);
                 }
