@@ -193,7 +193,7 @@
             afterCallbacks.push(callback);
 
             // Check whether all modules are ready for the 'after' hook
-            if (this.application.modules.length == afterCallbacks.length) {
+            if (this.application.modules.length === afterCallbacks.length) {
                 for (var i = 0; i < afterCallbacks.length; i++) {
                     var afterCallback = afterCallbacks[i];
 

@@ -7,6 +7,8 @@
  * @static
  */
 (function($) {
+    "use strict";
+
     Tc.Utils.String = {
         /**
          * Capitalizes the first letter of the given string.
