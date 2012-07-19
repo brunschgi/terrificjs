@@ -122,7 +122,7 @@
                 called = false; // makes sure the default handler is only called once
 
             // validate params
-            if(channels === null && defaultAction === null) {
+            if(channels == null && defaultAction == null) {
                 // Max. 2 params
                 if (typeof data === 'function') {
                     // (state, defaultAction)
@@ -135,7 +135,7 @@
                     data = undefined;
                 }
             }
-            else if(defaultAction === null) {
+            else if(defaultAction == null) {
                 // 2-3 params
                 if (typeof channels === 'function') {
                     // (state, data, defaultAction)
