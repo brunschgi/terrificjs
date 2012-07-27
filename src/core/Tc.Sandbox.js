@@ -170,8 +170,8 @@
         getConfigParam: function(name) {
             var config = this.config;
 
-            if (config.name !== undefined) {
-                return config.name;
+            if (config[name] !== undefined) {
+                return config[name];
             }
             else {
                 throw new Error('the config param ' + name + ' does not exist');
