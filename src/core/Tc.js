@@ -14,12 +14,12 @@
  * MIT Licensed.
  *
  * @module Tc
- * 
+ *
  */
 var Tc = Tc || {};
 
 /*
- * The jQuery object.
+ * The base library object.
  */
-Tc.$ = jQuery;
+Tc.$ = $;
 

@@ -1,17 +1,18 @@
-<script id="module" type="text/html">
+<script id="module" type="text/x-handlebars-template">
+    {{#each modules}}
     <div
-        class="mod mod${module}
-            {{each skins}}
-                skin${module}${$value}
+        class="mod mod{{module}}
+            {{#each skins}}
+                skin{{../module}}{{this}}
             {{/each}}"
 
         data-connectors="
-            {{each connectors}}
-                ${$value},
+            {{#each connectors}}
+                {{this}},
             {{/each}}"
 
-        {{each attrs}}
-            ${$value}
+        {{#each attrs}}
+            {{this}}
         {{/each}}
     >
         <div class="inner">
@@ -20,22 +21,24 @@
             </div>
         </div>
     </div>
+    {{/each}}
 </script>
 
-<script id="module-dash" type="text/html">
+<script id="module-dash" type="text/x-handlebars-template">
+    {{#each modules}}
     <div
-            class="mod mod-${module}
-            {{each skins}}
-                skin-${module}-${$value}
+            class="mod mod-{{module}}
+            {{#each skins}}
+                skin-{{../module}}-{{this}}
             {{/each}}"
 
             data-connectors="
-                {{each connectors}}
-                    ${$value},
+                {{#each connectors}}
+                    {{this}},
                 {{/each}}"
 
-            {{each attrs}}
-                ${$value}
+            {{#each attrs}}
+                {{this}}
             {{/each}}
     >
         <div class="inner">
@@ -44,6 +47,7 @@
             </div>
         </div>
     </div>
+    {{/each}}
 </script>
 
 <script type="text/javascript">
@@ -80,7 +84,7 @@
             },
             on: function(callback) {
                 yepnope({
-                    load: Tc.Config.dependencies.js + '/dependencyon.js',
+                    load: '../' + Tc.Config.dependencies.js + '/dependencyon.js',
                     complete: function() {
                         if (dependencies.dependencyon) {
                             messages.push('Module Dependency: dependency ready');
@@ -116,8 +120,8 @@
                 ];
 
                 var $container = $('<div class="container"></div>');
-                $('#qunit-fixture').append($container);
-                $('#module').tmpl(modules).appendTo($container);
+                var template = Handlebars.compile($('#module').html());
+                $container.html(template({ modules : modules }));
                 this.sandbox.addModules($container);
             }
         });
@@ -166,7 +170,7 @@
         Tc.Module.Dependency.Dependency = function(parent) {
             this.on = function(callback) {
                 yepnope({
-                    load: Tc.Config.dependencies.js + '/skindependencyon.js',
+                    load: '../' + Tc.Config.dependencies.js + '/skindependencyon.js',
                     complete: function() {
                         if (dependencies.skindependencyon) {
                             messages.push('Skin Dependency: dependency ready');
@@ -188,7 +192,7 @@
         Tc.Module.Dependency.MoreDependency = function(parent) {
             this.on = function(callback) {
                 yepnope({
-                    load: Tc.Config.dependencies.js + '/skinmoredependencyon.js',
+                    load: '../' + Tc.Config.dependencies.js + '/skinmoredependencyon.js',
                     complete: function() {
                         if (dependencies.skinmoredependencyon) {
                             messages.push('Skin MoreDependency: dependency ready');
