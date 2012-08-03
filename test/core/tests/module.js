@@ -35,8 +35,8 @@
                     connectors: []
                 }
             ];
-
-            $('#module').tmpl(modules).appendTo($('#qunit-fixture'));
+            var template = Handlebars.compile($('#module').html());
+            $('#qunit-fixture').html(template({ modules : modules }));
 
             // register modules
             var application = new Tc.Application();
@@ -72,8 +72,8 @@
                     connectors: []
                 }
             ];
-
-            $('#module').tmpl(modules).appendTo($('#qunit-fixture'));
+            var template = Handlebars.compile($('#module').html());
+            $('#qunit-fixture').html(template({ modules : modules }));
 
             // register modules
             var application = new Tc.Application();
@@ -101,7 +101,7 @@
             }, 800);
 
         });
-        
+
         asyncTest('dynamic connectors 2 (subscribe, unsubscribe)', function() {
 
             // create fixture
@@ -117,8 +117,8 @@
                     connectors: []
                 }
             ];
-
-            $('#module').tmpl(modules).appendTo($('#qunit-fixture'));
+            var template = Handlebars.compile($('#module').html());
+            $('#qunit-fixture').html(template({ modules : modules }));
 
             // register modules
             var application = new Tc.Application();
@@ -138,7 +138,7 @@
 
         });
 
-        
+
         asyncTest('dynamic connectors with 3 modules (subscribe, unsubscribe)', function() {
 
             // create fixture
@@ -159,8 +159,8 @@
                     connectors: []
                 }
             ];
-
-            $('#module').tmpl(modules).appendTo($('#qunit-fixture'));
+            var template = Handlebars.compile($('#module').html());
+            $('#qunit-fixture').html(template({ modules : modules }));
 
             // register modules
             var application = new Tc.Application();
@@ -201,9 +201,10 @@
                     connectors: []
                 }
             ];
-            $('#module').tmpl(modules).appendTo($('#qunit-fixture'));
+            var template = Handlebars.compile($('#module').html());
+            $('#qunit-fixture').html(template({ modules : modules }));
 
-            // register modules	
+            // register modules
             var application = new Tc.Application();
             application.registerModules();
 
@@ -231,9 +232,10 @@
                     connectors: []
                 }
             ];
-            $('#module').tmpl(modules).appendTo($('#qunit-fixture'));
+            var template = Handlebars.compile($('#module').html());
+            $('#qunit-fixture').html(template({ modules : modules }));
 
-            // register modules	
+            // register modules
             var application = new Tc.Application();
             application.registerModules();
 
@@ -261,9 +263,10 @@
                     connectors: []
                 }
             ];
-            $('#module').tmpl(modules).appendTo($('#qunit-fixture'));
+            var template = Handlebars.compile($('#module').html());
+            $('#qunit-fixture').html(template({ modules : modules }));
 
-            // register modules	
+            // register modules
             var application = new Tc.Application();
             application.registerModules();
 
@@ -299,8 +302,8 @@
                     connectors: []
                 }
             ];
-
-            $('#module').tmpl(modules).appendTo($('#qunit-fixture'));
+            var template = Handlebars.compile($('#module').html());
+            $('#qunit-fixture').html(template({ modules : modules }));
 
             // register modules
             var application = new Tc.Application();
@@ -335,8 +338,8 @@
                     connectors: []
                 }
             ];
-
-            $('#module').tmpl(modules).appendTo($('#qunit-fixture'));
+            var template = Handlebars.compile($('#module').html());
+            $('#qunit-fixture').html(template({ modules : modules }));
 
             // register modules
             var application = new Tc.Application();

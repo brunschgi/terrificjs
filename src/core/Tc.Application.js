@@ -15,9 +15,9 @@
          *
          * @method init
          * @constructor
-         * @param {jQuery} $ctx 
+         * @param {jQuery} $ctx
          *      The jQuery context
-         * @param {Object} config 
+         * @param {Object} config
          *      The configuration
          */
         init: function($ctx, config) {
@@ -56,7 +56,7 @@
             this.connectors = {};
 
             /**
-             * The sandbox to get the resources from 
+             * The sandbox to get the resources from
              * This sandbox is shared between all modules.
              *
              * @property sandbox
@@ -67,13 +67,13 @@
 
         /**
          * Register modules withing scope
-         * Automatically registers all modules within the scope, 
+         * Automatically registers all modules within the scope,
          * as long as the modules use the OOCSS naming conventions.
          *
          * @method registerModules
-         * @param {jQuery} $ctx 
+         * @param {jQuery} $ctx
          *      The jQuery context
-         * @return {Array} 
+         * @return {Array}
          *      A list containing the references of the registered modules
          */
         registerModules : function($ctx) {
@@ -190,7 +190,7 @@
          * Unregisters the modules given by the module instances.
          *
          * @method unregisterModule
-         * @param {Array} modules 
+         * @param {Array} modules
          *      A list containting the module instances to unregister
          */
         unregisterModules : function(modules) {
@@ -229,7 +229,7 @@
          * Starts (intializes) the registered modules.
          *
          * @method start
-         * @param {Array} modules 
+         * @param {Array} modules
          *      A list of the modules to start
          */
         start: function(modules) {
@@ -245,7 +245,7 @@
          * Stops the registered modules.
          *
          * @method stop
-         * @param {Array} modules 
+         * @param {Array} modules
          *      A list containting the module instances to stop
          */
         stop: function(modules) {
@@ -261,16 +261,16 @@
          * Registers a module.
          *
          * @method registerModule
-         * @param {jQuery} $node 
+         * @param {jQuery} $node
          *      The module node
-         * @param {String} modName 
+         * @param {String} modName
          *      The module name. It must match the class name of the module
-         * @param {Array} skins 
+         * @param {Array} skins
          *      A list of skin names. Each entry must match a class name of a skin
-         * @param {Array} connectors 
+         * @param {Array} connectors
          *      A list of connectors identifiers (e.g. MasterSlave-Navigation)
          *      Schema: {connectorName}-{connectorId}
-         * @return {Module} 
+         * @return {Module}
          *      The reference to the registered module
          */
         registerModule : function($node, modName, skins, connectors) {
@@ -283,7 +283,7 @@
             if (modName && Tc.Module[modName]) {
                 // Generate a unique ID for every module
                 var id = modules.length;
-                $.data($node[0], 'id', id);
+                $node.data('id', id);
 
                 // Instantiate module
                 modules[id] = new Tc.Module[modName]($node, this.sandbox, id);
@@ -312,9 +312,9 @@
          * Registers a connection between a module and a connector.
          *
          * @method registerConnection
-         * @param {String} connector 
+         * @param {String} connector
          *      The full connector name (e.g. MasterSlave-Navigation)
-         * @param {Module} component 
+         * @param {Module} component
          *      The module instance
          */
         registerConnection : function(connector, component) {
@@ -369,9 +369,9 @@
          * Unregisters a module from a connector.
          *
          * @method unregisterConnection
-         * @param {String} connectorId 
+         * @param {String} connectorId
          *      The connector channel id (e.g. 2)
-         * @param {Module} component 
+         * @param {Module} component
          *      The module instance
          */
         unregisterConnection : function(connectorId, component) {

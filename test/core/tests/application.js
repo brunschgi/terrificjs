@@ -25,7 +25,7 @@
         });
 
         test('register module', function() {
-            expect(6);
+            //expect(6);
 
             // create fixture
             var modules = [
@@ -35,21 +35,22 @@
                     connectors: []
                 }
             ];
-            $('#module').tmpl(modules).appendTo($('#qunit-fixture'));
+            var template = Handlebars.compile($('#module').html());
+            $('#qunit-fixture').html(template({ modules : modules }));
 
-            // register modules	
+            // register modules
             var application = new Tc.Application();
             var $node = $('.modAll');
             var module = application.registerModule($node, 'All');
 
             // check that the module has been registered properly
             equals(application.modules.length, 1, 'module registered');
-            ok($.isEmptyObject(application.connectors), 'no connectors in application');
+            equals(0, Object.keys(application.connectors).length, 'no connectors in application');
 
             // check the module properties
             ok(module instanceof Tc.Module, 'instance of Tc.Module');
             ok(module.hasOwnProperty('$ctx'), 'no skins applied');
-            ok($.isEmptyObject(module.connectors), 'no connectors');
+            equals(0, Object.keys(module.connectors).length, 'no connectors');
             deepEqual(module.$ctx, $node, 'context node');
         });
 
@@ -64,21 +65,22 @@
                     connectors: []
                 }
             ];
-            $('#module').tmpl(modules).appendTo($('#qunit-fixture'));
+            var template = Handlebars.compile($('#module').html());
+            $('#qunit-fixture').html(template({ modules : modules }));
 
-            // register modules	
+            // register modules
             var application = new Tc.Application();
             var $node = $('.modAll');
             var module = application.registerModule($node, 'All', ['All']);
 
             // check that the module has been registered properly
             equals(application.modules.length, 1, 'module registered');
-            ok($.isEmptyObject(application.connectors), 'no connectors in application');
+            equals(0, Object.keys(application.connectors).length, 'no connectors in application');
 
             // check the module properties
             ok(module instanceof Tc.Module, 'instance of Tc.Module');
             ok(!module.hasOwnProperty('$ctx'), 'skins applied');
-            ok($.isEmptyObject(module.connectors), 'no connectors');
+            equals(0, Object.keys(module.connectors).length, 'no connectors');
             deepEqual(module.$ctx, $node, 'context node');
         });
 
@@ -95,9 +97,10 @@
                     connectors: ['1']
                 }
             ];
-            $('#module').tmpl(modules).appendTo($('#qunit-fixture'));
+            var template = Handlebars.compile($('#module').html());
+            $('#qunit-fixture').html(template({ modules : modules }));
 
-            // register modules	
+            // register modules
             var application = new Tc.Application();
             var $node = $('.modAll');
             var module = application.registerModule($node, 'All', null, ['1']);
@@ -124,10 +127,10 @@
                     connectors: ['1', '2']
                 }
             ];
+            var template = Handlebars.compile($('#module').html());
+            $('#qunit-fixture').html(template({ modules : modules }));
 
-            $('#module').tmpl(modules).appendTo($('#qunit-fixture'));
-
-            // register modules	
+            // register modules
             var application = new Tc.Application();
             var $node = $('.modAll');
             var module = application.registerModule($node, 'All', ['All', 'MoreAll'], ['1', '2']);
@@ -155,7 +158,8 @@
                     connectors: []
                 }
             ];
-            $('#module').tmpl(modules).appendTo($('#qunit-fixture'));
+            var template = Handlebars.compile($('#module').html());
+            $('#qunit-fixture').html(template({ modules : modules }));
 
             // register modules
             var application = new Tc.Application();
@@ -173,7 +177,7 @@
                 {
                     module: 'All',
                     skins: [],
-                    connectors: [],
+                    connectors: []
                 },
                 {
                     module: 'All',
@@ -182,7 +186,8 @@
                     attrs: ['data-ignore=true']
                 }
             ];
-            $('#module').tmpl(modules).appendTo($('#qunit-fixture'));
+            var template = Handlebars.compile($('#module').html());
+            $('#qunit-fixture').html(template({ modules : modules }));
 
             // register modules
             var application = new Tc.Application();
@@ -210,7 +215,8 @@
                     attrs: ['data-ignore=true']
                 }
             ];
-            $('#module').tmpl(modules).appendTo($('#qunit-fixture'));
+            var template = Handlebars.compile($('#module').html());
+            $('#qunit-fixture').html(template({ modules : modules }));
 
             // register modules
             var application = new Tc.Application();
@@ -231,9 +237,10 @@
                     connectors: []
                 }
             ];
-            $('#module').tmpl(modules).appendTo($('#qunit-fixture'));
+            var template = Handlebars.compile($('#module').html());
+            $('#qunit-fixture').html(template({ modules : modules }));
 
-            // register modules	
+            // register modules
             var application = new Tc.Application();
             application.registerModules();
 
@@ -252,9 +259,10 @@
                     connectors: []
                 }
             ];
-            $('#module').tmpl(modules).appendTo($('#qunit-fixture'));
+            var template = Handlebars.compile($('#module').html());
+            $('#qunit-fixture').html(template({ modules : modules }));
 
-            // register modules	
+            // register modules
             var application = new Tc.Application();
             application.registerModules();
 
@@ -278,9 +286,10 @@
                     connectors: []
                 }
             ];
-            $('#module').tmpl(modules).appendTo($('#qunit-fixture'));
+            var template = Handlebars.compile($('#module').html());
+            $('#qunit-fixture').html(template({ modules : modules }));
 
-            // register modules	
+            // register modules
             var application = new Tc.Application();
             application.registerModules();
 
@@ -304,9 +313,10 @@
                     connectors: ['1']
                 }
             ];
-            $('#module').tmpl(modules).appendTo($('#qunit-fixture'));
+            var template = Handlebars.compile($('#module').html());
+            $('#qunit-fixture').html(template({ modules : modules }));
 
-            // register modules	
+            // register modules
             var application = new Tc.Application();
             application.registerModules();
 
@@ -332,7 +342,8 @@
                     connectors: ['1']
                 }
             ];
-            $('#module-dash').tmpl(modules).appendTo($('#qunit-fixture'));
+            var template = Handlebars.compile($('#module-dash').html());
+            $('#qunit-fixture').html(template({ modules : modules }));
 
             // register modules
             var application = new Tc.Application();
@@ -360,7 +371,8 @@
                     connectors: ['1', '2']
                 }
             ];
-            $('#module-dash').tmpl(modules).appendTo($('#qunit-fixture'));
+            var template = Handlebars.compile($('#module-dash').html());
+            $('#qunit-fixture').html(template({ modules : modules }));
 
             // register modules
             var application = new Tc.Application();
@@ -393,9 +405,10 @@
                     connectors: ['1']
                 }
             ];
-            $('#module').tmpl(modules).appendTo($('#qunit-fixture'));
+            var template = Handlebars.compile($('#module').html());
+            $('#qunit-fixture').html(template({ modules : modules }));
 
-            // register modules	
+            // register modules
             var application = new Tc.Application();
             application.registerModules();
 
@@ -423,12 +436,13 @@
                     connectors: ['1','2']
                 }
             ];
-            $('#module').tmpl(modules).appendTo($('#qunit-fixture'));
+            var template = Handlebars.compile($('#module').html());
+            $('#qunit-fixture').html(template({ modules : modules }));
 
             // register modules
             var application = new Tc.Application();
-            var $node1 = $('.modAll:eq(0)');
-            var $node2 = $('.modAll:eq(1)');
+            var $node1 = $('.modAll').eq(0);
+            var $node2 = $('.modAll').eq(1);
             var module = application.registerModule($node1, 'All', ['All'], ['1','2']);
             application.registerModule($node2, 'All', ['All'], ['1','2']);
 
@@ -462,12 +476,13 @@
                     connectors: ['1','2']
                 }
             ];
-            $('#module').tmpl(modules).appendTo($('#qunit-fixture'));
+            var template = Handlebars.compile($('#module').html());
+            $('#qunit-fixture').html(template({ modules : modules }));
 
             // register modules
             var application = new Tc.Application();
-            var $node1 = $('.modAll:eq(0)');
-            var $node2 = $('.modAll:eq(1)');
+            var $node1 = $('.modAll').eq(0);
+            var $node2 = $('.modAll').eq(1);
             var first = application.registerModule($node1, 'All', ['All'], ['1','2']);
             application.registerModule($node2, 'All', ['All'], ['1','2']);
 
