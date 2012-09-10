@@ -2,7 +2,7 @@
 <project default="all" basedir=".">
 
     <!-- release variables -->
-    <property name="VERSION" value="2.0.0" description="Version"/>
+    <property name="VERSION" value="2.0.1" description="Version"/>
     <property name="YUIDOC_CONFIG" value="yuidoc/yuidoc.json" description="YUIDoc config parameters (incl. version)"/>
 
     <!-- paths -->
