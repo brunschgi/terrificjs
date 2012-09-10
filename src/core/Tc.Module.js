@@ -15,11 +15,11 @@
          *
          * @method init
          * @constructor
-         * @param {jQuery} $ctx 
-         *      The jQuery context 
-         * @param {Sandbox} sandbox 
+         * @param {jQuery} $ctx
+         *      The jQuery context
+         * @param {Sandbox} sandbox
          *      The sandbox to get the resources from
-         * @param {String} id 
+         * @param {String} id
          *      The Unique module ID
          */
         init: function($ctx, sandbox, id) {
@@ -81,7 +81,7 @@
          */
         stop: function() {
             var $ctx = this.$ctx;
-            
+
             // Remove all bound events and associated jQuery data
             $('*', $ctx).unbind().removeData();
             $ctx.unbind().removeData();
@@ -119,7 +119,7 @@
         fire: function(state, data, channels, defaultAction) {
             var self = this,
                 connectors = this.connectors,
-                called = false; // makes sure the default handler is only called once
+                shouldBeCalled = true;  // indicates whether the default handler should be called
 
             // validate params
             if(channels == null && defaultAction == null) {
@@ -149,32 +149,28 @@
                     data = undefined;
                 }
             }
-           
+
             state = Tc.Utils.String.capitalize(state);
             data = data || {};
             channels = channels || Object.keys(connectors);
-            
+
             for (var i = 0, len = channels.length; i < len; i++) {
                 var connectorId = channels[i];
                 if(connectors.hasOwnProperty(connectorId)) {
                     var connector = connectors[connectorId],
                         proceed = connector.notify(self, 'on' + state, data) || false;
 
-                    if (proceed) {
-                        // Make sure the default action is only called once (and not for every channel)
-                        if (typeof defaultAction === 'function' && !called) {
-                            called = true;
-                            defaultAction();
-                        }
-                        connector.notify(self, 'after' + state, data);
+                    if (!proceed) {
+                        shouldBeCalled = false;
                     }
+
                 } else {
                     throw new Error('the module #' + self.id + ' is not connected to connector ' + connectorId);
                 }
             }
 
-            // Execute default action in any cases
-            if (!called) {
+            // Execute default action unless a veto is provided
+            if (shouldBeCalled) {
                 if (typeof defaultAction === 'function') {
                     defaultAction();
                 }
@@ -185,7 +181,7 @@
          * Attaches a connector (observer).
          *
          * @method attachConnector
-         * @param {Connector} connector 
+         * @param {Connector} connector
          *      The connector to attach
          */
         attachConnector: function(connector) {
