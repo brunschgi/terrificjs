@@ -286,7 +286,7 @@
                 $node.data('id', id);
 
                 // Instantiate module
-                modules[id] = new Tc.Module[modName]($node, this.sandbox, id);
+                modules[id] = new Tc.Module[modName]($node, this.sandbox, id, modName);
 
                 // Decorate it
                 for (var i = 0, len = skins.length; i < len; i++) {

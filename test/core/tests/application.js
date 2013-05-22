@@ -49,6 +49,7 @@
 
             // check the module properties
             ok(module instanceof Tc.Module, 'instance of Tc.Module');
+            ok(module instanceof Tc.Module[module.modName], 'instance of Tc.Module[module.modName]');
             ok(module.hasOwnProperty('$ctx'), 'no skins applied');
             equals(0, Object.keys(module.connectors).length, 'no connectors');
             deepEqual(module.$ctx, $node, 'context node');
