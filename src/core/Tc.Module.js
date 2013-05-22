@@ -22,7 +22,7 @@
          * @param {String} id 
          *      The Unique module ID
          */
-        init: function($ctx, sandbox, id) {
+        init: function($ctx, sandbox, id, modName) {
             /**
              * Contains the module context.
              *
@@ -54,6 +54,14 @@
              * @type Sandbox
              */
             this.sandbox = sandbox;
+
+            /**
+             * The module name (this module's property name in the Tc.Module super class)
+             *
+             * @property modName
+             * @type String
+             */
+            this.modName = modName;
         },
 
         /**

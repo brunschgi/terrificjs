@@ -54,16 +54,16 @@
     (function($) {
         // Modules
         Tc.Module.None = Tc.Module.extend({
-            init: function($ctx, sandbox, id) {
+            init: function($ctx, sandbox, id, modName) {
                 // call base constructor
-                this._super($ctx, sandbox, id);
+                this._super($ctx, sandbox, id, modName);
             }
         });
 
         Tc.Module.All = Tc.Module.extend({
-            init: function($ctx, sandbox, id) {
+            init: function($ctx, sandbox, id, modName) {
                 // call base constructor
-                this._super($ctx, sandbox, id);
+                this._super($ctx, sandbox, id, modName);
             },
             on: function(callback) {
                 messages.push('Module All: on');
@@ -78,9 +78,9 @@
         });
 
         Tc.Module.Dependency = Tc.Module.extend({
-            init: function($ctx, sandbox, id) {
+            init: function($ctx, sandbox, id, modName) {
                 // call base constructor
-                this._super($ctx, sandbox, id);
+                this._super($ctx, sandbox, id, modName);
             },
             on: function(callback) {
                 yepnope({
@@ -99,9 +99,9 @@
         });
 
         Tc.Module.Register = Tc.Module.extend({
-            init: function($ctx, sandbox, id) {
+            init: function($ctx, sandbox, id, modName) {
                 // call base constructor
-                this._super($ctx, sandbox, id);
+                this._super($ctx, sandbox, id, modName);
             },
             on: function(callback) {
                 messages.push('Module Register: on');
@@ -212,9 +212,9 @@
         };
 
         Tc.Module.Subscription = Tc.Module.extend({
-            init: function($ctx, sandbox, id) {
+            init: function($ctx, sandbox, id, modName) {
                 // call base constructor
-                this._super($ctx, sandbox, id);
+                this._super($ctx, sandbox, id, modName);
             },
 
             on: function(callback) {
@@ -240,9 +240,9 @@
         });
 
         Tc.Module.SpecialSubscription = Tc.Module.extend({
-            init: function($ctx, sandbox, id) {
+            init: function($ctx, sandbox, id, modName) {
                 // call base constructor
-                this._super($ctx, sandbox, id);
+                this._super($ctx, sandbox, id, modName);
             },
 
             on: function(callback) {
@@ -299,9 +299,9 @@
         });
 
         Tc.Module.UnSubscription = Tc.Module.extend({
-            init: function($ctx, sandbox, id) {
+            init: function($ctx, sandbox, id, modName) {
                 // call base constructor
-                this._super($ctx, sandbox, id);
+                this._super($ctx, sandbox, id, modName);
             },
 
             on: function(callback) {
