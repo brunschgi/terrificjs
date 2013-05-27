@@ -12,15 +12,7 @@
 
 
     <!-- terrific js sources -->
-    <script type="text/javascript" src="../../../src/core/oo.js"></script>
-    <script type="text/javascript" src="../../../src/core/Tc.js"></script>
-    <script type="text/javascript" src="../../../src/core/Tc.Config.js"></script>
-    <script type="text/javascript" src="../../../src/core/Tc.Application.js"></script>
-    <script type="text/javascript" src="../../../src/core/Tc.Sandbox.js"></script>
-    <script type="text/javascript" src="../../../src/core/Tc.Module.js"></script>
-    <script type="text/javascript" src="../../../src/core/Tc.Connector.js"></script>
-    <script type="text/javascript" src="../../../src/core/Tc.Utils.js"></script>
-    <script type="text/javascript" src="../../../src/core/Tc.Utils.String.js"></script>
+    <script type="text/javascript" src="../../../src/core/Tc.php"></script>
 
     <!-- testing -->
     <script type="text/javascript" src="../js/qunit.js"></script>

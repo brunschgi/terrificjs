@@ -20,7 +20,7 @@
         <echo message="Building ${JS}"/>
         <mkdir dir="${RELEASE_DIR}" />
         <concat fixlastline="yes" destfile="${RELEASE_DIR}/${JS}" encoding="UTF-8">
-            <fileset dir="${TERRIFIC_DIR}" includes="Tc.js"/>
+            <fileset dir="${TERRIFIC_DIR}" includes="Tc.Start.js"/>
             <fileset dir="${TERRIFIC_DIR}" includes="oo.js"/>
             <fileset dir="${TERRIFIC_DIR}" includes="Tc.Config.js"/>
             <fileset dir="${TERRIFIC_DIR}" includes="Tc.Application.js"/>
@@ -29,6 +29,7 @@
             <fileset dir="${TERRIFIC_DIR}" includes="Tc.Connector.js"/>
             <fileset dir="${TERRIFIC_DIR}" includes="Tc.Utils.js"/>
             <fileset dir="${TERRIFIC_DIR}" includes="Tc.Utils.String.js"/>
+            <fileset dir="${TERRIFIC_DIR}" includes="Tc.End.js"/>
         </concat>
         <java jar="${JS_JAR}" fork="true">
             <arg value="${BUILD_DIR}/js/replacement.js"/>

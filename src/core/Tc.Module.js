@@ -113,7 +113,7 @@
          * @method fire
          * @param {String} state The new state
          * @param {Object} data The data to provide to your connected modules (optional)
-         * @param {Array} channels  A list containting the channel ids to send the event to (optional)
+         * @param {Array} channels  A list containing the channel ids to send the event to (optional)
          * @param {Function} defaultAction The default action to perform (optinal)
          */
         fire: function(state, data, channels, defaultAction) {
