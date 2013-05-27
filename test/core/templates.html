@@ -119,10 +119,8 @@
                     }
                 ];
 
-                var $container = $('<div class="container"></div>');
                 var template = Handlebars.compile($('#module').html());
-                $container.html(template({ modules : modules }));
-                this.sandbox.addModules($container);
+                this.sandbox.addModules($(template({ modules : modules })));
             }
         });
 

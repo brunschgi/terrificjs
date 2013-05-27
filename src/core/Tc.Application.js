@@ -191,7 +191,7 @@
          *
          * @method unregisterModule
          * @param {Array} modules
-         *      A list containting the module instances to unregister
+         *      A list containing the module instances to unregister
          */
         unregisterModules : function(modules) {
             var connectors = this.connectors;
@@ -246,7 +246,7 @@
          *
          * @method stop
          * @param {Array} modules
-         *      A list containting the module instances to stop
+         *      A list containing the module instances to stop
          */
         stop: function(modules) {
             modules = modules || this.modules;

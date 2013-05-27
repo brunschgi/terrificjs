@@ -16,9 +16,9 @@
          *
          * @method init
          * @constructor
-         * @param {Applicaton} application 
+         * @param {Applicaton} application
          *      The application reference
-         * @param {Object} config 
+         * @param {Object} config
          *      The configuration
          */
         init : function(application, config) {
@@ -52,9 +52,9 @@
          * Adds (register and start) all modules in the given context scope.
          *
          * @method addModules
-         * @param {jQuery} $ctx 
+         * @param {jQuery} $ctx
          *      The jQuery context
-         * @return {Array} 
+         * @return {Array}
          *      A list containing the references of the registered modules
          */
         addModules: function($ctx) {
@@ -62,8 +62,8 @@
                 application = this.application;
 
             if ($ctx) {
-                // Register modules
-                modules = application.registerModules($ctx);
+                // Register modules (wrap in div to support modules on the root element)
+                modules = application.registerModules($ctx.wrap('<div></div>').parent());
 
                 // Start modules
                 application.start(modules);
@@ -77,8 +77,8 @@
          * This stops and unregisters a module through a module instance.
          *
          * @method removeModules
-         * @param {Array} modules 
-         *      A list containting the module instances to remove
+         * @param {Array} modules
+         *      A list containing the module instances to remove
          */
         removeModules: function(modules) {
             var application = this.application;
@@ -130,9 +130,9 @@
          * Gets the appropriate module for the given ID.
          *
          * @method getModuleById
-         * @param {int} id 
+         * @param {int} id
          *      The module ID
-         * @return {Module} 
+         * @return {Module}
          *      The appropriate module
          */
         getModuleById: function(id) {
@@ -142,7 +142,7 @@
                 return application.modules[id];
             }
             else {
-                throw new Error('the module with the id ' + id + 
+                throw new Error('the module with the id ' + id +
                                 ' does not exist');
             }
         },
@@ -151,7 +151,7 @@
          * Gets the application config.
          *
          * @method getConfig
-         * @return {Object} 
+         * @return {Object}
          *      The configuration object
          */
         getConfig: function() {
@@ -162,9 +162,9 @@
          * Gets an application config param.
          *
          * @method getConfigParam
-         * @param {String} name 
+         * @param {String} name
          *      The param name
-         * @return {mixed} 
+         * @return {mixed}
          *      The appropriate configuration param
          */
         getConfigParam: function(name) {
@@ -183,7 +183,7 @@
          * This means that it is ready for the 'after' hook.
          *
          * @method ready
-         * @param {Function} callback 
+         * @param {Function} callback
          *      The 'after' hook module callback
          */
         ready: function(callback) {
