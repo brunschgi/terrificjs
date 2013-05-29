@@ -124,6 +124,26 @@
             }
         });
 
+        Tc.Module.UnregisterAll = Tc.Module.extend({
+            init: function($ctx, sandbox, id) {
+                // call base constructor
+                this._super($ctx, sandbox, id);
+            },
+            on: function(callback) {
+                messages.push('Module UnregisterAll: on');
+                callback();
+            },
+            after: function() {
+                messages.push('Module UnregisterAll: after');
+
+                // remove all modules
+                this.sandbox.removeModules($('.modUnregisterAll, .modAll'));
+            },
+            stop: function() {
+                messages.push('Module UnregisterAll: stop');
+            }
+        });
+
 
         // Skins
         Tc.Module.All.All = function(parent) {

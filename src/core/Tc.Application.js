@@ -83,9 +83,11 @@
 
             $ctx = $ctx || this.$ctx;
 
-            $ctx.find('.mod:not([data-ignore="true"])').each(function() {
+            $ctx.find('.mod:not([data-ignore="true"])').add($ctx).each(function() {
                 var $this = $(this),
-                    classes = $this.attr('class').split(' ');
+                    classes = $this.attr('class') || '';
+
+                classes = classes.split(' ');
 
                 /*
                  * A module can have several different classes and data attributes.

@@ -87,7 +87,6 @@
             $ctx.unbind().removeData();
         },
 
-
         /**
          * Initialization callback.
          *

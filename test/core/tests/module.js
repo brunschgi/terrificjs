@@ -359,5 +359,53 @@
             }, 1000);
 
         });
+
+        asyncTest('lifecycle (remove modules)', function() {
+
+            // create fixture
+            var modules = [
+                {
+                    module: 'All',
+                    skins: [],
+                    connectors: []
+                },
+                {
+                    module: 'All',
+                    skins: [],
+                    connectors: []
+                },
+                {
+                    module: 'UnregisterAll',
+                    skins: [],
+                    connectors: []
+                }
+            ];
+            var template = Handlebars.compile($('#module').html());
+            $('#qunit-fixture').html(template({ modules : modules }));
+
+            // register modules
+            var application = new Tc.Application();
+
+            application.registerModules($('.modAll, .modUnregisterAll'));
+
+            // start the modules and check that the modules have a proper lifecycle
+            application.start();
+
+            setTimeout(function() {
+                equals(messages.length, 9, '9 dependency and status messages');
+                equals(messages[0], 'Module All: on');
+                equals(messages[1], 'Module All: on');
+                equals(messages[2], 'Module UnregisterAll: on');
+                equals(messages[3], 'Module All: after');
+                equals(messages[4], 'Module All: after');
+                equals(messages[5], 'Module UnregisterAll: after');
+                equals(messages[6], 'Module All: stop');
+                equals(messages[7], 'Module All: stop');
+                equals(messages[8], 'Module UnregisterAll: stop');
+
+                start();
+            }, 1000);
+
+        });
     });
 })(Tc.$);

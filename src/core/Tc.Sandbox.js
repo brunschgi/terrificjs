@@ -62,8 +62,8 @@
                 application = this.application;
 
             if ($ctx) {
-                // Register modules (wrap in div to support modules on the root element)
-                modules = application.registerModules($ctx.wrap('<div></div>').parent());
+                // Register modules
+                modules = application.registerModules($ctx);
 
                 // Start modules
                 application.start(modules);
@@ -81,9 +81,32 @@
          *      A list containing the module instances to remove
          */
         removeModules: function(modules) {
-            var application = this.application;
+            var self = this,
+                application = this.application;
 
-            if (modules) {
+            if (!$.isArray(modules)) {
+                var $ctx = modules;
+
+                // get modules
+                var tmpModules = [];
+
+                $ctx.find('.mod').add($ctx).each(function() {
+                    // check for instance
+                    var id = $(this).data('id');
+
+                    if (id !== undefined) {
+                        module = self.getModuleById(id);
+
+                        if(module) {
+                            tmpModules.push(module);
+                        }
+                    }
+                });
+
+                modules = tmpModules;
+            }
+
+            if(modules) {
                 // Stop modules
                 application.stop(modules);
 
