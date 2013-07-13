@@ -3,7 +3,7 @@
  * http://terrifically.org
  *
  * Copyright @YEAR, Remo Brunschwiler
- * MIT Licensed.
+ * @license MIT Licensed.
  *
  * Date: @DATE
  *
@@ -19,15 +19,9 @@
 (function(){
 
     var root = this; // save a reference to the global object
-    var Tc;
-
-    if (typeof exports !== 'undefined') {
-        Tc = exports;
-    } else {
-        Tc = root.Tc = {};
-    }
+    var Tc = {};
 
     /*
      * The base library object.
      */
-    Tc.$ = root.jQuery || root.Zepto || root.$;
+    var $ = Tc.$ = root.jQuery || root.Zepto || root.$;

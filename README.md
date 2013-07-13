@@ -34,7 +34,7 @@ First of all, you need Ant, if you do not already have those installed.
 Installing node.js and npm (Node Package Manager)
 -------------------------------------------------
 
-To get the build environment up and running, we need UglifyJS and YUIDcc, which itself depends on node.js.
+To get the build environment up and running, we need UglifyJS and YUIDoc, which itself depends on node.js.
 Get appropriate installer package from [NodeJS](http://nodejs.org/).
 
 Notice: npm comes bundled with node.js
@@ -43,19 +43,17 @@ Notice: npm comes bundled with node.js
 Installing UglifyJS
 -------------------
 
-TerrificJS uses UglifyJS to build the minimized version of the JavaScript file. Install it via npm using the following commands.
+TerrificJS uses UglifyJS to build the minimized version of the JavaScript file. Install it via npm using the following command.
 
-1. `npm install uglify-js`
-2. `sudo ln -s /home/$USER/node-install/node-v0.6.19/node_modules/uglify-js/bin/uglifyjs /usr/bin/uglifyjs`
+`npm -g install uglify-js`
 
 
 Installing YUIDoc
 -----------------
 
-To generate the API documentation, the TerrificJS uses [YUIDoc](http://yui.github.com/yuidoc/) from Yahoo. Install it via npm using the following commands.
+To generate the API documentation, the TerrificJS uses [YUIDoc](http://yui.github.com/yuidoc/) from Yahoo. Install it via npm using the following command.
 
-1. `npm -g install yuidocjs`
-2. `sudo ln -s /home/$USER/node-install/node-v0.6.19/node_modules/yuidocjs/node_modules/yui/yuidoc /usr/bin/yuidoc`
+`npm -g install yuidocjs`
 
 
 Run Ant Build

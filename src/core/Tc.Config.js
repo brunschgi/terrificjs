@@ -10,7 +10,7 @@
  * @static
  */
 Tc.Config = {
-    /** 
+    /**
      * The paths for the different types of dependencies.
      *
      * @property dependencies

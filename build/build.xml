@@ -2,7 +2,7 @@
 <project default="all" basedir=".">
 
     <!-- release variables -->
-    <property name="VERSION" value="2.0.1" description="Version"/>
+    <property name="VERSION" value="2.0.2" description="Version"/>
     <property name="YUIDOC_CONFIG" value="yuidoc/yuidoc.json" description="YUIDoc config parameters (incl. version)"/>
 
     <!-- paths -->
@@ -57,6 +57,7 @@
     <!-- terrific js (minified version) -->
     <target name="minjs" description="Minifies the main build by using UglifyJS">
         <exec executable="uglifyjs">
+            <arg line="--comments" />
             <arg line="-o ${RELEASE_DIR}/${JS_MIN}"/>
             <arg line="${RELEASE_DIR}/${JS}"/>
         </exec>
