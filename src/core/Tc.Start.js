@@ -19,9 +19,15 @@
 (function(){
 
     var root = this; // save a reference to the global object
-    var Tc = {};
+    var Tc;
+
+    if (typeof exports !== 'undefined') {
+        Tc = exports;
+    } else {
+        Tc = root.Tc = {};
+    }
 
     /*
      * The base library object.
      */
-    var $ = Tc.$ = root.jQuery || root.Zepto || root.$;
+    Tc.$ = root.jQuery || root.Zepto || root.$;
