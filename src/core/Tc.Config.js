@@ -10,15 +10,9 @@
  * @static
  */
 Tc.Config = {
-    /**
-     * The paths for the different types of dependencies.
-     *
-     * @property dependencies
-     * @type Object
-     */
-    dependencies: {
-        css: '/css/dependencies',
-        js: '/js/dependencies'
-    }
+		modules   : Tc.Module,
+		connectors: Tc.Connector,
+		modPrefix : 'mod',
+		skinPrefix: 'skin'
 };
 
