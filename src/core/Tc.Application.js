@@ -282,7 +282,7 @@ Tc.Application = Class.extend({
         if (modName && Tc.Module[modName]) {
             // Generate a unique ID for every module
             var id = modules.length;
-            $node.data('id', id);
+            $node.data('terrific-id', id);
 
             // Instantiate module
             modules[id] = new Tc.Module[modName]($node, this.sandbox, id);
