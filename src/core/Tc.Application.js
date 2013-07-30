@@ -24,7 +24,7 @@ Tc.Application = Class.extend({
          * @property config
          * @type Object
          */
-        this.config = $.extend(Tc.Config, config);
+        this.config = $.extend({}, Tc.Config, config);
 
         /**
          * The jQuery context.
