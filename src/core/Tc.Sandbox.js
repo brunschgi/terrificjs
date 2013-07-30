@@ -89,7 +89,7 @@ Tc.Sandbox = Class.extend({
 
             $ctx.find('.mod').add($ctx).each(function () {
                 // check for instance
-                var id = $(this).data('id');
+                var id = $(this).data('terrific-id');
 
                 if (id !== undefined) {
                     module = self.getModuleById(id);
