@@ -110,7 +110,7 @@ Tc.Module = Class.extend({
      * @param {String} state The new state
      * @param {Object} data The data to provide to your connected modules (optional)
      * @param {Array} channels  A list containing the channel ids to send the event to (optional)
-     * @param {Function} defaultAction The default action to perform (optinal)
+     * @param {Function} defaultAction The default action to perform (optional)
      */
     fire: function (state, data, channels, defaultAction) {
         var self = this,
@@ -168,7 +168,7 @@ Tc.Module = Class.extend({
         // Execute default action unless a veto is provided
         if (shouldBeCalled) {
             if (typeof defaultAction === 'function') {
-                defaultAction();
+                defaultAction(data);
             }
         }
     },
