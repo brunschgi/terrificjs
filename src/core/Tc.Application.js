@@ -188,7 +188,7 @@ Tc.Application = Class.extend({
     /**
      * Unregisters the modules given by the module instances.
      *
-     * @method unregisterModule
+     * @method unregisterModules
      * @param {Array} modules
      *      A list containing the module instances to unregister
      */
