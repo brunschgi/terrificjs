@@ -224,6 +224,17 @@ Tc.Application = Class.extend({
         }
     },
 
+	/**
+	 * Registers a hook that is called during the after phase.
+	 *
+	 * @param {Function} hook
+	 */
+	after: function(hook) {
+		if(typeof hook === 'function') {
+			this.sandbox.addCallback('after', hook);
+		}
+	},
+
     /**
      * Starts (intializes) the registered modules.
      *

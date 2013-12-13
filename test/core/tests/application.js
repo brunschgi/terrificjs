@@ -1,7 +1,25 @@
 (function($) {
     $(document).ready(function() {
 
-        module("Application");
+		module("Application", {
+			setup: function() {
+				messages = [];
+				Tc.Config = {
+					/**
+					 * The paths for the different dependency types.
+					 *
+					 * @property dependencyPath
+					 * @type Object
+					 */
+					dependencies: {
+						js: '../../test/core/js/dependencies'
+					}
+				};
+			},
+			teardown: function() {
+				delete messages;
+			}
+		});
 
         test('application context (if not set)', function() {
             expect(1);
@@ -25,7 +43,7 @@
         });
 
         test('register module', function() {
-            //expect(6);
+            expect(6);
 
             // create fixture
             var modules = [
@@ -504,8 +522,34 @@
             deepEqual(application.connectors[2].components[0], undefined, 'connector 2 component removed');
             ok(application.connectors[2].components[1], 'other connector 2 component still exists');
             ok(application.connectors[2].components[2], 'other connector 2 component exists again');
-
-
         });
+
+		asyncTest('register a external after hook', function() {
+			expect(1);
+
+			// create fixture
+			var modules = [
+				{
+					module: 'All',
+					skins: [],
+					connectors: []
+				}
+			];
+
+			var template = Handlebars.compile($('#module').html());
+			$('#qunit-fixture').html(template({ modules : modules }));
+
+			// register modules
+			var application = new Tc.Application();
+			application.registerModules();
+
+			// register after hook
+			application.after(function() {
+				ok(true, 'after callback has been called');
+				start();
+			});
+
+			application.start();
+		});
     });
 })(Tc.$);

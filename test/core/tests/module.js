@@ -1,20 +1,21 @@
 (function($) {
     $(document).ready(function() {
 
-        module("Module", { setup: function() {
-            messages = [];
-            Tc.Config = {
-                /**
-                 * The paths for the different dependency types.
-                 *
-                 * @property dependencyPath
-                 * @type Object
-                 */
-                dependencies: {
-                    js: '../../test/core/js/dependencies'
-                }
-            };
-        },
+        module("Module", {
+			setup: function() {
+				messages = [];
+				Tc.Config = {
+					/**
+					 * The paths for the different dependency types.
+					 *
+					 * @property dependencyPath
+					 * @type Object
+					 */
+					dependencies: {
+						js: '../../test/core/js/dependencies'
+					}
+				};
+			},
             teardown: function() {
                 delete messages;
             }

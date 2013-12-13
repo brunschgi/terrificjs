@@ -43,6 +43,19 @@ Tc.Sandbox = Class.extend({
          * @type Array
          */
         this.afterCallbacks = [];
+
+		/**
+		 * Contains function references to externally registered hooks.
+		 * Enables the possibility to use the phases without instantiating a module.
+		 *
+		 * Example:
+		 * application.after(function() { … } // register a hook that is called during the after phase.
+		 * application.start();
+		 *
+		 * @property hooks
+		 * @type Object
+		 */
+		this.hooks = { after: [] };
     },
 
     /**
@@ -198,6 +211,22 @@ Tc.Sandbox = Class.extend({
         }
     },
 
+	/**
+	 * Adds a callback to be executed in the appropriate phase.
+	 *
+	 * @param {String} phase default: after
+	 * @param {Function} callback
+	 */
+	addCallback: function(phase, callback) {
+		// validate params
+		if (callback == null) {
+			// only 1 param
+			phase = 'after';
+		}
+
+		this.hooks[phase].push(callback);
+	},
+
     /**
      * Collects the module status messages and handles the callbacks.
      * This means that it is ready for the 'after' hook.
@@ -223,6 +252,15 @@ Tc.Sandbox = Class.extend({
                     afterCallback();
                 }
             }
+
+			// execute the manually registered hooks
+			var hooks = this.hooks['after'];
+			for (var i = 0; i < hooks.length; i++) {
+				var hook = hooks[i];
+				if (typeof hook === "function") {
+					hook();
+				}
+			}
         }
     }
 });
