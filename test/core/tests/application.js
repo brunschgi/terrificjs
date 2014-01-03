@@ -524,7 +524,7 @@
             ok(application.connectors[2].components[2], 'other connector 2 component exists again');
         });
 
-		asyncTest('register a external after hook', function() {
+		asyncTest('register a external end hook', function() {
 			expect(1);
 
 			// create fixture
@@ -543,9 +543,9 @@
 			var application = new Tc.Application();
 			application.registerModules();
 
-			// register after hook
-			application.after(function() {
-				ok(true, 'after callback has been called');
+			// register end hook
+			application.end(function() {
+				ok(true, 'end callback has been called');
 				start();
 			});
 

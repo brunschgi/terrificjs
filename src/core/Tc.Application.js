@@ -225,13 +225,13 @@ Tc.Application = Class.extend({
     },
 
 	/**
-	 * Registers a hook that is called during the after phase.
+	 * Registers a hook that is called at the end.
 	 *
 	 * @param {Function} hook
 	 */
-	after: function(hook) {
+	end: function(hook) {
 		if(typeof hook === 'function') {
-			this.sandbox.addCallback('after', hook);
+			this.sandbox.addCallback('end', hook);
 		}
 	},
 

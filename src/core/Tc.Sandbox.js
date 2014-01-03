@@ -36,26 +36,13 @@ Tc.Sandbox = Class.extend({
          */
         this.config = config;
 
-        /**
-         * Contains the 'after' hook module callbacks.
-         *
-         * @property afterCallbacks
-         * @type Array
-         */
-        this.afterCallbacks = [];
-
 		/**
-		 * Contains function references to externally registered hooks.
-		 * Enables the possibility to use the phases without instantiating a module.
-		 *
-		 * Example:
-		 * application.after(function() { … } // register a hook that is called during the after phase.
-		 * application.start();
+		 * Contains function references to registered hooks.
 		 *
 		 * @property hooks
 		 * @type Object
 		 */
-		this.hooks = { after: [] };
+		this.hooks = { after: [], end: [] };
     },
 
     /**
@@ -221,7 +208,7 @@ Tc.Sandbox = Class.extend({
 		// validate params
 		if (callback == null) {
 			// only 1 param
-			phase = 'after';
+			phase = 'end';
 		}
 
 		this.hooks[phase].push(callback);
@@ -236,27 +223,27 @@ Tc.Sandbox = Class.extend({
      *      The 'after' hook module callback
      */
     ready: function (callback) {
-        var afterCallbacks = this.afterCallbacks;
+        var afterHooks = this.hooks['after'];
 
         // Add the callback to the stack
-        afterCallbacks.push(callback);
+        afterHooks.push(callback);
 
         // Check whether all modules are ready for the 'after' hook
-        if (this.application.modules.length === afterCallbacks.length) {
-            for (var i = 0; i < afterCallbacks.length; i++) {
-                var afterCallback = afterCallbacks[i];
+        if (this.application.modules.length === afterHooks.length) {
+            for (var i = 0; i < afterHooks.length; i++) {
+                var afterCallback = afterHooks[i];
 
                 if (typeof afterCallback === "function") {
                     // make sure the callback is only executed once (and is not called during addModules)
-                    delete afterCallbacks[i];
+                    delete afterHooks[i];
                     afterCallback();
                 }
             }
 
-			// execute the manually registered hooks
-			var hooks = this.hooks['after'];
-			for (var i = 0; i < hooks.length; i++) {
-				var hook = hooks[i];
+			// execute the end hooks
+			var endHooks = this.hooks['end'];
+			for (var i = 0; i < endHooks.length; i++) {
+				var hook = endHooks[i];
 				if (typeof hook === "function") {
 					hook();
 				}
