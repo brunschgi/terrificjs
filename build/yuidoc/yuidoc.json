@@ -1,7 +1,7 @@
 {
     "name": "Terrific JavaScript Framework",
     "description": "TerrificJS allows you to modularize your jQuery code by solely relying on naming conventions.",
-    "version": "2.0.0",
+    "version": "2.0.2",
     "url": "http://terrifically.org/api/",
     "options" : {
         "outdir" : "../release/docs"

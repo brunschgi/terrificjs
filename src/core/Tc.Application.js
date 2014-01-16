@@ -227,7 +227,9 @@ Tc.Application = Class.extend({
 	/**
 	 * Registers a hook that is called at the end.
 	 *
+	 * @method end
 	 * @param {Function} hook
+	 * 		The hook function to be executed
 	 */
 	end: function(hook) {
 		if(typeof hook === 'function') {

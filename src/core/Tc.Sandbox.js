@@ -74,8 +74,8 @@ Tc.Sandbox = Class.extend({
      * This stops and unregisters a module through a module instance.
      *
      * @method removeModules
-     * @param {Array} modules
-     *      A list containing the module instances to remove
+     * @param {mixed} modules
+     *      A list containing the module instances to remove or the jQuery context to look for registered modules in.
      */
     removeModules: function (modules) {
         var self = this,
@@ -201,7 +201,8 @@ Tc.Sandbox = Class.extend({
 	/**
 	 * Adds a callback to be executed in the appropriate phase.
 	 *
-	 * @param {String} phase default: after
+	 * @method addCallback
+	 * @param {String} phase default: end
 	 * @param {Function} callback
 	 */
 	addCallback: function(phase, callback) {
