@@ -202,9 +202,11 @@ Tc.Module = Class.extend({
      * @param {String} skin The name of the skin
      * @return {Module} The decorated module
      */
-    getDecoratedModule: function (module, skin) {
-        if (Tc.Module[module][skin]) {
-            var Decorator = Tc.Module[module][skin];
+    getDecoratedModule: function(module, skin) {
+    	var modules = this.sandbox.getConfigParam('modules');
+
+        if (modules[module][skin]) {
+            var Decorator = modules[module][skin];
 
             /*
              * Sets the prototype object to the module.
@@ -212,7 +214,7 @@ Tc.Module = Class.extend({
              * without implementing the whole module interface.
              */
             Decorator.prototype = this;
-            Decorator.prototype.constructor = Tc.Module[module][skin];
+            Decorator.prototype.constructor = modules[module][skin];
 
             return new Decorator(this);
         }

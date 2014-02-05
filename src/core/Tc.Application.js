@@ -149,12 +149,12 @@ Tc.Application = Class.extend({
                             part = stringUtils.toCamel(part);
                         }
 
-                        if (part.indexOf('mod') === 0 && part.length > 3) {
-                            modName = part.substr(3);
+                        if (part.indexOf(self.config.modPrefix) === 0 && part.length > self.config.modPrefix.length) {
+                            modName = part.substr(self.config.modPrefix.length);
                         }
-                        else if (part.indexOf('skin') === 0) {
+                        else if (part.indexOf(self.config.skinPrefix) === 0) {
                             // Remove the mod name part from the skin name
-                            skins.push(part.substr(4).replace(modName, ''));
+                            skins.push(part.substr(self.config.skinPrefix.length).replace(modName, ''));
                         }
                     }
                 }
@@ -176,7 +176,7 @@ Tc.Application = Class.extend({
                     }
                 }
 
-                if (modName && Tc.Module[modName]) {
+                if (modName && self.config.modules[modName]) {
                     modules.push(self.registerModule($this, modName, skins, connectors));
                 }
             }
@@ -292,19 +292,18 @@ Tc.Application = Class.extend({
         skins = skins || [];
         connectors = connectors || [];
 
-        if (modName && Tc.Module[modName]) {
+        if (modName && this.config.modules[modName]) {
             // Generate a unique ID for every module
             var id = modules.length;
             $node.data('terrific-id', id);
 
             // Instantiate module
-            modules[id] = new Tc.Module[modName]($node, this.sandbox, id);
+            modules[id] = new this.config.modules[modName]($node, this.sandbox, id);
 
             // Decorate it
             for (var i = 0, len = skins.length; i < len; i++) {
                 var skinName = skins[i];
-
-                if (Tc.Module[modName][skinName]) {
+                if (this.config.modules[modName][skinName]) {
                     modules[id] = modules[id].getDecoratedModule(modName, skinName);
                 }
             }
@@ -356,8 +355,8 @@ Tc.Application = Class.extend({
                 if (!connectorType) {
                     connectors[identifier] = new Tc.Connector(connectorId);
                 }
-                else if (Tc.Connector[connectorType]) {
-                    connectors[identifier] = new Tc.Connector[connectorType](connectorId);
+                else if (this.config.connectors[connectorType]) {
+                    connectors[identifier] = new this.config.connectors[connectorType](connectorId);
                 }
             }
 
