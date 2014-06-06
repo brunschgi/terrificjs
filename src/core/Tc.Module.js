@@ -139,7 +139,7 @@ Tc.Module = Class.extend({
                 channels = undefined;
             }
 
-            if ($.isArray(data)) {
+            if ($.isArray(data) && !$.isArray(channels)) {
                 // (state, channels, defaultAction)
                 channels = data;
                 data = undefined;
