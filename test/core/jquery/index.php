@@ -8,7 +8,7 @@
     <script type="text/javascript" src="../../../src/base/yepnope.1.5.4-min.js"></script>
     <script type="text/javascript" src="../../../src/base/jquery-1.7.2.min.js"></script>
     <!-- terrific js release -->
-    <!-- <script type="text/javascript" src="../../../release/terrific-2.0.0.min.js"></script> -->
+    <!-- <script type="text/javascript" src="../../../dist/terrific-2.1.0.min.js"></script> -->
 
 
     <!-- terrific js sources -->

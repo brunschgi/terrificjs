@@ -1,11 +1,11 @@
 /**
- * Terrific JavaScript Framework v@VERSION
+ * Terrific JavaScript Framework v<%= pkg.version %>
  * http://terrifically.org
  *
- * Copyright @YEAR, Remo Brunschwiler
+ * Copyright <%= grunt.template.today('yyyy') %>, Remo Brunschwiler
  * @license MIT Licensed.
  *
- * Date: @DATE
+ * Date: <%= grunt.template.today() %>
  *
  *
  * Includes:

@@ -92,7 +92,7 @@ Tc.Sandbox = Class.extend({
                 var id = $(this).data('terrific-id');
 
                 if (id !== undefined) {
-                    module = self.getModuleById(id);
+                    var module = self.getModuleById(id);
 
                     if (module) {
                         tmpModules.push(module);
