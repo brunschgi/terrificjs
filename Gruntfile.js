@@ -38,6 +38,9 @@ module.exports = function (grunt) {
 					src: '<%= dist %>/<%= pkg.name %>-<%= pkg.version %>.js', dest: '<%= dist %>/<%= pkg.name %>-<%= pkg.version %>.min.js'
 				}
 			},
+			qunit: {
+				terrific_js: ['test/core/jquery.html', 'test/core/zepto.html']
+			},
 			yuidoc: {
 				terrific_js: {
 					name: '<%= pkg.name %>',
@@ -66,20 +69,23 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-yuidoc');
 	grunt.loadNpmTasks('grunt-contrib-clean');
+	grunt.loadNpmTasks('grunt-contrib-qunit');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 
 	// create pipelines
 	grunt.registerTask('build-js', ['concat:terrific_js']);
 	grunt.registerTask('hint-js', ['jshint:terrific_js']);
 	grunt.registerTask('min-js', ['uglify:terrific_js']);
+	grunt.registerTask('test-js', ['qunit:terrific_js']);
 	grunt.registerTask('doc', ['yuidoc:terrific_js']);
 
 	// aggregate pipelines
-	grunt.registerTask('default', [
+	grunt.registerTask('default', [ // distribution
 		'clean',
 		'build-js',
 		'hint-js',
 		'doc',
-		'min-js'
+		'min-js',
+		'test-js'
 	]);
 };

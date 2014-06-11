@@ -12,7 +12,7 @@
 					 * @type Object
 					 */
 					dependencies: {
-						js: '../../test/core/js/dependencies'
+						js: '../test/core/js/dependencies'
 					}
 				};
 			},
@@ -62,13 +62,13 @@
             var module = application.registerModule($node, 'All');
 
             // check that the module has been registered properly
-            equals(application.modules.length, 1, 'module registered');
-            equals(0, Object.keys(application.connectors).length, 'no connectors in application');
+            equal(application.modules.length, 1, 'module registered');
+            equal(0, Object.keys(application.connectors).length, 'no connectors in application');
 
             // check the module properties
             ok(module instanceof Tc.Module, 'instance of Tc.Module');
             ok(module.hasOwnProperty('$ctx'), 'no skins applied');
-            equals(0, Object.keys(module.connectors).length, 'no connectors');
+            equal(0, Object.keys(module.connectors).length, 'no connectors');
             deepEqual(module.$ctx, $node, 'context node');
         });
 
@@ -92,13 +92,13 @@
             var module = application.registerModule($node, 'All', ['All']);
 
             // check that the module has been registered properly
-            equals(application.modules.length, 1, 'module registered');
-            equals(0, Object.keys(application.connectors).length, 'no connectors in application');
+            equal(application.modules.length, 1, 'module registered');
+            equal(0, Object.keys(application.connectors).length, 'no connectors in application');
 
             // check the module properties
             ok(module instanceof Tc.Module, 'instance of Tc.Module');
             ok(!module.hasOwnProperty('$ctx'), 'skins applied');
-            equals(0, Object.keys(module.connectors).length, 'no connectors');
+            equal(0, Object.keys(module.connectors).length, 'no connectors');
             deepEqual(module.$ctx, $node, 'context node');
         });
 
@@ -124,13 +124,13 @@
             var module = application.registerModule($node, 'All', null, ['1']);
 
             // check that the module has been registered properly
-            equals(application.modules.length, 1, 'module registered');
+            equal(application.modules.length, 1, 'module registered');
             ok(application.connectors['1'], 'connectors in application');
 
             // check the module properties
             ok(module instanceof Tc.Module, 'instance of Tc.Module');
             ok(module.hasOwnProperty('$ctx'), 'no skins applied');
-            equals(Object.keys(module.connectors).length, 1, 'connectors applied');
+            equal(Object.keys(module.connectors).length, 1, 'connectors applied');
             deepEqual(module.$ctx, $node, 'context node');
         });
 
@@ -154,14 +154,14 @@
             var module = application.registerModule($node, 'All', ['All', 'MoreAll'], ['1', '2']);
 
             // check that the module has been registered properly
-            equals(application.modules.length, 1, 'module registered');
+            equal(application.modules.length, 1, 'module registered');
             ok(application.connectors['1'], 'connector 1 in application');
             ok(application.connectors['2'], 'connector 2 in application');
 
             // check the module properties
             ok(module instanceof Tc.Module, 'instance of Tc.Module');
             ok(!module.hasOwnProperty('$ctx'), 'skins applied');
-            equals(Object.keys(module.connectors).length, 2, 'connectors applied');
+            equal(Object.keys(module.connectors).length, 2, 'connectors applied');
             deepEqual(module.$ctx, $node, 'context node');
         });
 
@@ -184,7 +184,7 @@
             application.registerModules();
 
             // check that the module has been registered
-            equals(application.modules.length, 1, 'module registered');
+            equal(application.modules.length, 1, 'module registered');
         });
 
         test('register modules (one with data-ignore set, one normal)', function() {
@@ -212,7 +212,7 @@
             application.registerModules();
 
             // check that the module has been registered
-            equals(application.modules.length, 1, 'one module registered');
+            equal(application.modules.length, 1, 'one module registered');
         });
 
         test('register modules (two modules with data-ignore set)', function() {
@@ -241,7 +241,7 @@
             application.registerModules();
 
             // check that the module has been registered
-            equals(application.modules.length, 0, 'no modules registered');
+            equal(application.modules.length, 0, 'no modules registered');
         });
 
         test('register modules (one module, without js)', function() {
@@ -263,7 +263,7 @@
             application.registerModules();
 
             // check that no module has been registered
-            equals(application.modules.length, 0, 'no module registered');
+            equal(application.modules.length, 0, 'no module registered');
         });
 
         test('register modules (one module, with js)', function() {
@@ -285,7 +285,7 @@
             application.registerModules();
 
             // check that the module has been registered
-            equals(application.modules.length, 1, 'module registered');
+            equal(application.modules.length, 1, 'module registered');
         });
 
         test('register modules (two modules, one with js / one without js)', function() {
@@ -312,7 +312,7 @@
             application.registerModules();
 
             // check that the module has been registered
-            equals(application.modules.length, 1, 'appropriate module registered');
+            equal(application.modules.length, 1, 'appropriate module registered');
         });
 
         test('register modules (two modules, both with js and the same connector)', function() {
@@ -339,9 +339,9 @@
             application.registerModules();
 
             // check that the modules have been registered
-            equals(application.modules.length, 2, 'appropriate modules registered');
+            equal(application.modules.length, 2, 'appropriate modules registered');
             ok(application.connectors[1], 'connector in application');
-            equals(Object.keys(application.connectors[1].components).length, 2, 'connector contains appropriate modules');
+            equal(Object.keys(application.connectors[1].components).length, 2, 'connector contains appropriate modules');
         });
 
         test('register modules (dash variant)', function() {
@@ -368,9 +368,9 @@
             application.registerModules();
 
             // check that the modules have been registered
-            equals(application.modules.length, 2, 'appropriate modules registered');
+            equal(application.modules.length, 2, 'appropriate modules registered');
             ok(application.connectors[1], 'connector in application');
-            equals(Object.keys(application.connectors[1].components).length, 2, 'connector contains appropriate modules');
+            equal(Object.keys(application.connectors[1].components).length, 2, 'connector contains appropriate modules');
         });
 
         test('register modules with skins (dash variant)', function() {
@@ -397,14 +397,14 @@
             application.registerModules();
 
             // check that the modules have been registered
-            equals(application.modules.length, 2, 'appropriate modules registered');
+            equal(application.modules.length, 2, 'appropriate modules registered');
             ok(application.connectors[1], 'connector 1 in application');
             ok(application.connectors[2], 'connector 2 in application');
             ok(!application.connectors['MasterSlave2'], 'connector MasterSlave2 not in application');
             ok(!application.modules[0].hasOwnProperty('$ctx'), 'skins applied on first module');
             ok(!application.modules[1].hasOwnProperty('$ctx'), 'skins applied on second module');
-            equals(Object.keys(application.connectors[1].components).length, 2, 'connector 1 contains appropriate modules');
-            equals(Object.keys(application.connectors[2].components).length, 2, 'connector 2 contains appropriate modules');
+            equal(Object.keys(application.connectors[1].components).length, 2, 'connector 1 contains appropriate modules');
+            equal(Object.keys(application.connectors[2].components).length, 2, 'connector 2 contains appropriate modules');
         });
 
         test('unregister modules (all modules)', function() {
@@ -434,7 +434,7 @@
             application.unregisterModules();
 
             // check that the modules, skins and connectors have been removed
-            equals(application.modules.length, 0, 'appropriate modules removed');
+            equal(application.modules.length, 0, 'appropriate modules removed');
             ok(!application.connectors[1], 'connectors removed');
         });
 

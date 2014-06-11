@@ -44,7 +44,7 @@
             "file": "dist/terrific-2.1.0.js",
             "line": 1115,
             "description": "Terrific JavaScript Framework v2.1.0\nhttp://terrifically.org\n\nCopyright 2014, Remo Brunschwiler",
-            "license": "MIT Licensed.\n\nDate: Wed Jun 11 2014 16:24:09\n\n\nIncludes:\nSimple JavaScript Inheritance\nBy John Resig http://ejohn.org/\nMIT Licensed."
+            "license": "MIT Licensed.\n\nDate: Wed Jun 11 2014 17:25:23\n\n\nIncludes:\nSimple JavaScript Inheritance\nBy John Resig http://ejohn.org/\nMIT Licensed."
         }
     },
     "classes": {
