@@ -1,103 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>dist/terrific-2.1.0.js - terrific</title>
-    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
-    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
-    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
-    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
-    <script src="http://yui.yahooapis.com/combo?3.9.1/build/yui/yui-min.js"></script>
-</head>
-<body class="yui3-skin-sam">
-
-<div id="doc">
-    <div id="hd" class="yui3-g header">
-        <div class="yui3-u-3-4">
-            
-                <h1><img src="../assets/css/logo.png" title="terrific"></h1>
-            
-        </div>
-        <div class="yui3-u-1-4 version">
-            <em>API Docs for: 2.1.0</em>
-        </div>
-    </div>
-    <div id="bd" class="yui3-g">
-
-        <div class="yui3-u-1-4">
-            <div id="docs-sidebar" class="sidebar apidocs">
-                <div id="api-list">
-    <h2 class="off-left">APIs</h2>
-    <div id="api-tabview" class="tabview">
-        <ul class="tabs">
-            <li><a href="#api-classes">Classes</a></li>
-            <li><a href="#api-modules">Modules</a></li>
-        </ul>
-
-        <div id="api-tabview-filter">
-            <input type="search" id="api-filter" placeholder="Type to filter APIs">
-        </div>
-
-        <div id="api-tabview-panel">
-            <ul id="api-classes" class="apis classes">
-            
-                <li><a href="../classes/Tc.Application.html">Tc.Application</a></li>
-            
-                <li><a href="../classes/Tc.Config.html">Tc.Config</a></li>
-            
-                <li><a href="../classes/Tc.Connector.html">Tc.Connector</a></li>
-            
-                <li><a href="../classes/Tc.Module.html">Tc.Module</a></li>
-            
-                <li><a href="../classes/Tc.Sandbox.html">Tc.Sandbox</a></li>
-            
-                <li><a href="../classes/Tc.Utils.String.html">Tc.Utils.String</a></li>
-            
-            </ul>
-
-            <ul id="api-modules" class="apis modules">
-            
-                <li><a href="../modules/Tc.html">Tc</a></li>
-            
-            </ul>
-        </div>
-    </div>
-</div>
-
-            </div>
-        </div>
-        <div class="yui3-u-3-4">
-                <div id="api-options">
-        Show:
-        <label for="api-show-inherited">
-            <input type="checkbox" id="api-show-inherited" checked>
-            Inherited
-        </label>
-
-        <label for="api-show-protected">
-            <input type="checkbox" id="api-show-protected">
-            Protected
-        </label>
-
-        <label for="api-show-private">
-            <input type="checkbox" id="api-show-private">
-            Private
-        </label>
-        <label for="api-show-deprecated">
-            <input type="checkbox" id="api-show-deprecated">
-            Deprecated
-        </label>
-
-    </div>
-
-
-            <div class="apidocs">
-                <div id="docs-main">
-                    <div class="content">
-                        <h1 class="file-heading">File: dist/terrific-2.1.0.js</h1>
-
-<div class="file">
-    <pre class="code prettyprint linenums">
 /**
  * Terrific JavaScript Framework v2.1.0
  * http://terrifically.org
@@ -105,7 +5,7 @@
  * Copyright 2014, Remo Brunschwiler
  * @license MIT Licensed.
  *
- * Date: Thu Jun 12 2014 13:46:59
+ * Date: Thu Jun 12 2014 14:41:23
  *
  *
  * Includes:
@@ -122,7 +22,7 @@
         Tc,
         $;
 
-    if (typeof exports !== &#x27;undefined&#x27;) {
+    if (typeof exports !== 'undefined') {
         Tc = exports;
     } else {
         Tc = root.Tc = {};
@@ -152,16 +52,16 @@
         var _super = this.prototype;
 
         // Instantiate a base class (but only create the instance,
-        // don&#x27;t run the init constructor)
+        // don't run the init constructor)
         initializing = true;
         var prototype = new this();
         initializing = false;
 
         // Copy the properties over onto the new prototype
         for (var name in prop) {
-            // Check if we&#x27;re overwriting an existing function
-            prototype[name] = typeof prop[name] == &quot;function&quot; &amp;&amp;
-            typeof _super[name] == &quot;function&quot; &amp;&amp;
+            // Check if we're overwriting an existing function
+            prototype[name] = typeof prop[name] == "function" &&
+            typeof _super[name] == "function" &&
             fnTest.test(prop[name]) ? (function(name, fn){
                 return function(){
                     var tmp = this._super;
@@ -171,7 +71,7 @@
                     this._super = _super[name];
 
                     // The method only need to be bound temporarily, so we
-                    // remove it when we&#x27;re done executing
+                    // remove it when we're done executing
                     var ret = fn.apply(this, arguments);
                     this._super = tmp;
 
@@ -183,7 +83,7 @@
         // The dummy class constructor
         function Class(){
             // All construction is actually done in the init method
-            if (!initializing &amp;&amp; this.init) {
+            if (!initializing && this.init) {
 				this.init.apply(this, arguments);
 			}
         }
@@ -222,8 +122,8 @@ Tc.Config = {
      * @type Object
      */
     dependencies: {
-        css: &#x27;/css/dependencies&#x27;,
-        js: &#x27;/js/dependencies&#x27;
+        css: '/css/dependencies',
+        js: '/js/dependencies'
     }
 };
 
@@ -262,7 +162,7 @@ Tc.Application = Class.extend({
          * @property $ctx
          * @type jQuery
          */
-        this.$ctx = $ctx || $(&#x27;body&#x27;);
+        this.$ctx = $ctx || $('body');
 
         /**
          * Contains references to all modules on the page. This can, for
@@ -310,11 +210,11 @@ Tc.Application = Class.extend({
 
         $ctx = $ctx || this.$ctx;
 
-        $ctx.find(&#x27;.mod:not([data-ignore=&quot;true&quot;])&#x27;).add($ctx).each(function () {
+        $ctx.find('.mod:not([data-ignore="true"])').add($ctx).each(function () {
             var $this = $(this),
-                classes = $this.attr(&#x27;class&#x27;) || &#x27;&#x27;;
+                classes = $this.attr('class') || '';
 
-            classes = classes.split(&#x27; &#x27;);
+            classes = classes.split(' ');
 
             /*
              * A module can have several different classes and data attributes.
@@ -363,28 +263,28 @@ Tc.Application = Class.extend({
              * It can contain multiple connector ids (e.g. 1,2,MasterSlave-Navigation).
              */
 
-            if (classes.length &gt; 1) {
+            if (classes.length > 1) {
                 var modName,
                     skins = [],
                     connectors = [],
                     dataConnectors;
 
-                for (var i = 0, len = classes.length; i &lt; len; i++) {
+                for (var i = 0, len = classes.length; i < len; i++) {
                     var part = $.trim(classes[i]);
 
                     // do nothing for empty parts
                     if (part) {
                         // convert to camel if necessary
-                        if (part.indexOf(&#x27;-&#x27;) &gt; -1) {
+                        if (part.indexOf('-') > -1) {
                             part = stringUtils.toCamel(part);
                         }
 
-                        if (part.indexOf(&#x27;mod&#x27;) === 0 &amp;&amp; part.length &gt; 3) {
+                        if (part.indexOf('mod') === 0 && part.length > 3) {
                             modName = part.substr(3);
                         }
-                        else if (part.indexOf(&#x27;skin&#x27;) === 0) {
+                        else if (part.indexOf('skin') === 0) {
                             // Remove the mod name part from the skin name
-                            skins.push(part.substr(4).replace(modName, &#x27;&#x27;));
+                            skins.push(part.substr(4).replace(modName, ''));
                         }
                     }
                 }
@@ -393,11 +293,11 @@ Tc.Application = Class.extend({
                  * This needs to be done via attr() instead of data().
                  * As data() cast a single number-only connector to an integer, the split will fail.
                  */
-                dataConnectors = $this.attr(&#x27;data-connectors&#x27;);
+                dataConnectors = $this.attr('data-connectors');
 
                 if (dataConnectors) {
-                    connectors = dataConnectors.split(&#x27;,&#x27;);
-                    for (var i = 0, len = connectors.length; i &lt; len; i++) {
+                    connectors = dataConnectors.split(',');
+                    for (var i = 0, len = connectors.length; i < len; i++) {
                         var connector = $.trim(connectors[i]);
                         // do nothing for empty connectors
                         if (connector) {
@@ -406,7 +306,7 @@ Tc.Application = Class.extend({
                     }
                 }
 
-                if (modName &amp;&amp; Tc.Module[modName]) {
+                if (modName && Tc.Module[modName]) {
                     modules.push(self.registerModule($this, modName, skins, connectors));
                 }
             }
@@ -434,7 +334,7 @@ Tc.Application = Class.extend({
         }
         else {
             // Unregister the given modules
-            for (var i = 0, len = modules.length; i &lt; len; i++) {
+            for (var i = 0, len = modules.length; i < len; i++) {
                 var module = modules[i],
                     index;
 
@@ -447,7 +347,7 @@ Tc.Application = Class.extend({
 
                 // Delete the module instance itself
                 index = $.inArray(module, this.modules);
-                if (index &gt; -1) {
+                if (index > -1) {
                     delete this.modules[index];
                 }
             }
@@ -462,8 +362,8 @@ Tc.Application = Class.extend({
 	 * 		The hook function to be executed
 	 */
 	end: function(hook) {
-		if(typeof hook === &#x27;function&#x27;) {
-			this.sandbox.addCallback(&#x27;end&#x27;, hook);
+		if(typeof hook === 'function') {
+			this.sandbox.addCallback('end', hook);
 		}
 	},
 
@@ -478,7 +378,7 @@ Tc.Application = Class.extend({
         modules = modules || this.modules;
 
         // Start the modules
-        for (var i = 0, len = modules.length; i &lt; len; i++) {
+        for (var i = 0, len = modules.length; i < len; i++) {
             modules[i].start();
         }
     },
@@ -494,7 +394,7 @@ Tc.Application = Class.extend({
         modules = modules || this.modules;
 
         // Stop the modules
-        for (var i = 0, len = modules.length; i &lt; len; i++) {
+        for (var i = 0, len = modules.length; i < len; i++) {
             modules[i].stop();
         }
     },
@@ -522,16 +422,16 @@ Tc.Application = Class.extend({
         skins = skins || [];
         connectors = connectors || [];
 
-        if (modName &amp;&amp; Tc.Module[modName]) {
+        if (modName && Tc.Module[modName]) {
             // Generate a unique ID for every module
             var id = modules.length;
-            $node.data(&#x27;terrific-id&#x27;, id);
+            $node.data('terrific-id', id);
 
             // Instantiate module
             modules[id] = new Tc.Module[modName]($node, this.sandbox, id);
 
             // Decorate it
-            for (var i = 0, len = skins.length; i &lt; len; i++) {
+            for (var i = 0, len = skins.length; i < len; i++) {
                 var skinName = skins[i];
 
                 if (Tc.Module[modName][skinName]) {
@@ -540,7 +440,7 @@ Tc.Application = Class.extend({
             }
 
             // Register connections
-            for (var i = 0, len = connectors.length; i &lt; len; i++) {
+            for (var i = 0, len = connectors.length; i < len; i++) {
                 this.registerConnection(connectors[i], modules[id]);
             }
 
@@ -562,7 +462,7 @@ Tc.Application = Class.extend({
     registerConnection: function (connector, component) {
         connector = $.trim(connector);
 
-        var parts = connector.split(&#x27;-&#x27;),
+        var parts = connector.split('-'),
             connectorType,
             connectorId,
             identifier;
@@ -717,9 +617,9 @@ Tc.Sandbox = Class.extend({
             // get modules
             var tmpModules = [];
 
-            $ctx.find(&#x27;.mod&#x27;).add($ctx).each(function () {
+            $ctx.find('.mod').add($ctx).each(function () {
                 // check for instance
-                var id = $(this).data(&#x27;terrific-id&#x27;);
+                var id = $(this).data('terrific-id');
 
                 if (id !== undefined) {
                     var module = self.getModuleById(id);
@@ -752,9 +652,9 @@ Tc.Sandbox = Class.extend({
     subscribe: function (connector, module) {
         var application = this.application;
 
-        if (module instanceof Tc.Module &amp;&amp; connector) {
+        if (module instanceof Tc.Module && connector) {
             // explicitly cast connector to string
-            connector = connector + &#x27;&#x27;;
+            connector = connector + '';
             application.registerConnection(connector, module);
         }
     },
@@ -769,9 +669,9 @@ Tc.Sandbox = Class.extend({
     unsubscribe: function (connectorId, module) {
         var application = this.application;
 
-        if (module instanceof Tc.Module &amp;&amp; connectorId) {
+        if (module instanceof Tc.Module && connectorId) {
             // explicitly cast connector id to string
-            connectorId = connectorId + &#x27;&#x27;;
+            connectorId = connectorId + '';
             application.unregisterConnection(connectorId, module);
         }
     },
@@ -792,8 +692,8 @@ Tc.Sandbox = Class.extend({
             return application.modules[id];
         }
         else {
-            throw new Error(&#x27;the module with the id &#x27; + id +
-                &#x27; does not exist&#x27;);
+            throw new Error('the module with the id ' + id +
+                ' does not exist');
         }
     },
 
@@ -824,7 +724,7 @@ Tc.Sandbox = Class.extend({
             return config[name];
         }
         else {
-            throw new Error(&#x27;the config param &#x27; + name + &#x27; does not exist&#x27;);
+            throw new Error('the config param ' + name + ' does not exist');
         }
     },
 
@@ -839,7 +739,7 @@ Tc.Sandbox = Class.extend({
 		// validate params
 		if (callback == null) {
 			// only 1 param
-			phase = &#x27;end&#x27;;
+			phase = 'end';
 		}
 
 		this.hooks[phase].push(callback);
@@ -847,24 +747,24 @@ Tc.Sandbox = Class.extend({
 
     /**
      * Collects the module status messages and handles the callbacks.
-     * This means that it is ready for the &#x27;after&#x27; hook.
+     * This means that it is ready for the 'after' hook.
      *
      * @method ready
      * @param {Function} callback
-     *      The &#x27;after&#x27; hook module callback
+     *      The 'after' hook module callback
      */
     ready: function (callback) {
-        var afterHooks = this.hooks[&#x27;after&#x27;];
+        var afterHooks = this.hooks['after'];
 
         // Add the callback to the stack
         afterHooks.push(callback);
 
-        // Check whether all modules are ready for the &#x27;after&#x27; hook
+        // Check whether all modules are ready for the 'after' hook
         if (this.application.modules.length === afterHooks.length) {
-            for (var i = 0; i &lt; afterHooks.length; i++) {
+            for (var i = 0; i < afterHooks.length; i++) {
                 var afterCallback = afterHooks[i];
 
-                if (typeof afterCallback === &quot;function&quot;) {
+                if (typeof afterCallback === "function") {
                     // make sure the callback is only executed once (and is not called during addModules)
                     delete afterHooks[i];
                     afterCallback();
@@ -872,10 +772,10 @@ Tc.Sandbox = Class.extend({
             }
 
 			// execute the end hooks
-			var endHooks = this.hooks[&#x27;end&#x27;];
-			for (var i = 0; i &lt; endHooks.length; i++) {
+			var endHooks = this.hooks['end'];
+			for (var i = 0; i < endHooks.length; i++) {
 				var hook = endHooks[i];
-				if (typeof hook === &quot;function&quot;) {
+				if (typeof hook === "function") {
 					hook();
 				}
 			}
@@ -966,7 +866,7 @@ Tc.Module = Class.extend({
         var $ctx = this.$ctx;
 
         // Remove all bound events and associated jQuery data
-        $(&#x27;*&#x27;, $ctx).unbind().removeData();
+        $('*', $ctx).unbind().removeData();
         $ctx.unbind().removeData();
     },
 
@@ -981,7 +881,7 @@ Tc.Module = Class.extend({
 
         this.sandbox.ready(function () {
             /*
-             * Call the &#x27;after&#x27; hook method from the individual instance
+             * Call the 'after' hook method from the individual instance
              */
             if (self.after) {
                 self.after();
@@ -1004,9 +904,9 @@ Tc.Module = Class.extend({
             shouldBeCalled = true;  // indicates whether the default handler should be called
 
         // validate params
-        if (channels == null &amp;&amp; defaultAction == null) {
+        if (channels == null && defaultAction == null) {
             // Max. 2 params
-            if (typeof data === &#x27;function&#x27;) {
+            if (typeof data === 'function') {
                 // (state, defaultAction)
                 defaultAction = data;
                 data = undefined;
@@ -1019,7 +919,7 @@ Tc.Module = Class.extend({
         }
         else if (defaultAction == null) {
             // 2-3 params
-            if (typeof channels === &#x27;function&#x27;) {
+            if (typeof channels === 'function') {
                 // (state, data, defaultAction)
                 defaultAction = channels;
                 channels = undefined;
@@ -1036,25 +936,25 @@ Tc.Module = Class.extend({
         data = data || {};
         channels = channels || Object.keys(connectors);
 
-        for (var i = 0, len = channels.length; i &lt; len; i++) {
+        for (var i = 0, len = channels.length; i < len; i++) {
             var connectorId = channels[i];
             if (connectors.hasOwnProperty(connectorId)) {
                 var connector = connectors[connectorId],
-                    proceed = connector.notify(self, &#x27;on&#x27; + state, data) || false;
+                    proceed = connector.notify(self, 'on' + state, data) || false;
 
                 if (!proceed) {
                     shouldBeCalled = false;
                 }
 
             } else {
-                throw new Error(&#x27;the module #&#x27; + self.id + &#x27; is not connected to connector &#x27; + connectorId +
-					&#x27; – hint: please make sure that your data is an object and not an array&#x27;);
+                throw new Error('the module #' + self.id + ' is not connected to connector ' + connectorId +
+					' – hint: please make sure that your data is an object and not an array');
             }
         }
 
         // Execute default action unless a veto is provided
         if (shouldBeCalled) {
-            if (typeof defaultAction === &#x27;function&#x27;) {
+            if (typeof defaultAction === 'function') {
                 defaultAction(data);
             }
         }
@@ -1095,7 +995,7 @@ Tc.Module = Class.extend({
 
             /*
              * Sets the prototype object to the module.
-             * So the &quot;non-decorated&quot; functions will be called on the module
+             * So the "non-decorated" functions will be called on the module
              * without implementing the whole module interface.
              */
             Decorator.prototype = this;
@@ -1140,7 +1040,7 @@ Tc.Connector = Class.extend({
      */
     registerComponent: function (component) {
         this.components[component.id] = {
-            &#x27;component&#x27;: component
+            'component': component
         };
     },
 
@@ -1167,7 +1067,7 @@ Tc.Connector = Class.extend({
      * @param {Module} origin
      *      The module that sends the state change
      * @param {String} state
-     *      The component&#x27;s state
+     *      The component's state
      * @param {Object} data
      *      Contains the state relevant data (if any)
      * @return {boolean}
@@ -1185,7 +1085,7 @@ Tc.Connector = Class.extend({
         for (var id in components) {
             if (components.hasOwnProperty(id)) {
                 var component = components[id].component;
-                if (component !== origin &amp;&amp; component[state]) {
+                if (component !== origin && component[state]) {
                     if (component[state](data) === false) {
                         proceed = false;
                     }
@@ -1251,29 +1151,10 @@ Tc.Utils.String = {
      */
     toCamel: function (str) {
         return str.replace(/(\-[A-Za-z])/g, function ($1) {
-            return $1.toUpperCase().replace(&#x27;-&#x27;, &#x27;&#x27;);
+            return $1.toUpperCase().replace('-', '');
         });
     }
 };
 
 
 }).call(this);
-    </pre>
-</div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<script src="../assets/vendor/prettify/prettify-min.js"></script>
-<script>prettyPrint();</script>
-<script src="../assets/js/yui-prettify.js"></script>
-<script src="../assets/../api.js"></script>
-<script src="../assets/js/api-filter.js"></script>
-<script src="../assets/js/api-list.js"></script>
-<script src="../assets/js/api-search.js"></script>
-<script src="../assets/js/apidocs.js"></script>
-</body>
-</html>
