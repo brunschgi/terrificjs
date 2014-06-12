@@ -1,11 +1,11 @@
 /**
- * Terrific JavaScript Framework v2.0.2
+ * Terrific JavaScript Framework v2.1.0
  * http://terrifically.org
  *
  * Copyright 2014, Remo Brunschwiler
  * @license MIT Licensed.
  *
- * Date: Thu, 16 Jan 2014 19:55:30 GMT
+ * Date: Thu Jun 12 2014 14:41:23
  *
  *
  * Includes:
@@ -18,8 +18,9 @@
  */
 (function(){
 
-    var root = this; // save a reference to the global object
-    var Tc;
+    var root = this, // save a reference to the global object
+        Tc,
+        $;
 
     if (typeof exports !== 'undefined') {
         Tc = exports;
@@ -30,29 +31,32 @@
     /*
      * The base library object.
      */
-    Tc.$ = root.jQuery || root.Zepto || root.$;
+    $ = Tc.$ = root.jQuery || root.Zepto || root.$;
+
 /*
  * Simple JavaScript Inheritance
  * By John Resig http://ejohn.org/
  * MIT Licensed.
  */
+/* jshint ignore:start */
 (function(){
-    var initializing = false, fnTest = /xyz/.test(function() { xyz; }) ? /\b_super\b/ : /.*/;
-    
+    var initializing = false,
+		fnTest = /xyz/.test(function() { xyz; }) ? /\b_super\b/ : /.*/;
+
     // The base Class implementation (does nothing)
     this.Class = function(){
     };
-    
+
     // Create a new Class that inherits from this class
     Class.extend = function(prop){
         var _super = this.prototype;
-        
+
         // Instantiate a base class (but only create the instance,
         // don't run the init constructor)
         initializing = true;
         var prototype = new this();
         initializing = false;
-        
+
         // Copy the properties over onto the new prototype
         for (var name in prop) {
             // Check if we're overwriting an existing function
@@ -61,21 +65,21 @@
             fnTest.test(prop[name]) ? (function(name, fn){
                 return function(){
                     var tmp = this._super;
-                    
+
                     // Add a new ._super() method that is the same method
                     // but on the super-class
                     this._super = _super[name];
-                    
+
                     // The method only need to be bound temporarily, so we
                     // remove it when we're done executing
                     var ret = fn.apply(this, arguments);
                     this._super = tmp;
-                    
+
                     return ret;
                 };
             })(name, prop[name]) : prop[name];
         }
-        
+
         // The dummy class constructor
         function Class(){
             // All construction is actually done in the init method
@@ -83,19 +87,21 @@
 				this.init.apply(this, arguments);
 			}
         }
-        
+
         // Populate our constructed prototype object
         Class.prototype = prototype;
-        
+
         // Enforce the constructor to be what we expect
         Class.constructor = Class;
-        
+
         // And make this class extendable
         Class.extend = arguments.callee;
-        
+
         return Class;
     };
 })();
+/* jshint ignore:end */
+
 
 /**
  * Contains the application base config.
@@ -120,6 +126,7 @@ Tc.Config = {
         js: '/js/dependencies'
     }
 };
+
 
 /**
  * Responsible for application-wide issues such as the creation of modules and establishing connections between them.
@@ -520,6 +527,7 @@ Tc.Application = Class.extend({
     }
 });
 
+
 /**
  * The sandbox is used as a central point to get resources from, grant
  * permissions, etc.  It is shared between all modules.
@@ -614,7 +622,7 @@ Tc.Sandbox = Class.extend({
                 var id = $(this).data('terrific-id');
 
                 if (id !== undefined) {
-                    module = self.getModuleById(id);
+                    var module = self.getModuleById(id);
 
                     if (module) {
                         tmpModules.push(module);
@@ -774,6 +782,7 @@ Tc.Sandbox = Class.extend({
         }
     }
 });
+
 
 /**
  * Base class for the different modules.
@@ -938,7 +947,8 @@ Tc.Module = Class.extend({
                 }
 
             } else {
-                throw new Error('the module #' + self.id + ' is not connected to connector ' + connectorId);
+                throw new Error('the module #' + self.id + ' is not connected to connector ' + connectorId +
+					' – hint: please make sure that your data is an object and not an array');
             }
         }
 
@@ -997,6 +1007,7 @@ Tc.Module = Class.extend({
         return null;
     }
 });
+
 
 /**
  * Base class for the different connectors.
@@ -1086,17 +1097,20 @@ Tc.Connector = Class.extend({
     }
 });
 
+
 /*
  * Contains utility functions for several tasks.
  */
 Tc.Utils = {};
 
-// Helper
+// Helpers
+
+// Object.keys is native in JavaScript 1.8.5
 if (!Object.keys) {
     Object.keys = function (obj) {
         var keys = [], k;
         for (k in obj) {
-            if (Object.prototype.hasOwnProperty.call(obj, k)) {
+            if (obj.hasOwnProperty(k)) {
                 keys.push(k);
             }
         }
@@ -1141,5 +1155,6 @@ Tc.Utils.String = {
         });
     }
 };
+
 
 }).call(this);

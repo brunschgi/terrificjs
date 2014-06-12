@@ -21,21 +21,21 @@ module.exports = function (grunt) {
 					process: true
 				},
 				terrific_js: {
-					src: '<%= sources.terrific_js %>', dest: '<%= dist %>/<%= pkg.name %>-<%= pkg.version %>.js'
+					src: '<%= sources.terrific_js %>', dest: '<%= dist %>/<%= pkg.name %>.js'
 				}
 			},
 			jshint: {
 				options: {
 					jshintrc: true
 				},
-				terrific_js: ['<%= dist %>/<%= pkg.name %>-<%= pkg.version %>.js']
+				terrific_js: ['<%= dist %>/<%= pkg.name %>.js']
 			},
 			uglify: {
 				options: {
 					preserveComments: 'some'
 				},
 				terrific_js: {
-					src: '<%= dist %>/<%= pkg.name %>-<%= pkg.version %>.js', dest: '<%= dist %>/<%= pkg.name %>-<%= pkg.version %>.min.js'
+					src: '<%= dist %>/<%= pkg.name %>.js', dest: '<%= dist %>/<%= pkg.name %>.min.js'
 				}
 			},
 			qunit: {
@@ -50,6 +50,19 @@ module.exports = function (grunt) {
 						paths: '<%= dist %>',
 						outdir: '<%= dist %>/docs/'
 					}
+				}
+			},
+			update_json: {
+				bower: {
+					src: 'package.json',
+					dest: 'bower.json',
+					fields: [
+						'name',
+						'version',
+						'description',
+						'main',
+						'license'
+					]
 				}
 			},
 			clean: {
@@ -71,8 +84,10 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-contrib-qunit');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
+	grunt.loadNpmTasks('grunt-update-json');
 
 	// create pipelines
+	grunt.registerTask('sync-json', ['update_json:bower']);
 	grunt.registerTask('build-js', ['concat:terrific_js']);
 	grunt.registerTask('hint-js', ['jshint:terrific_js']);
 	grunt.registerTask('min-js', ['uglify:terrific_js']);
@@ -84,6 +99,7 @@ module.exports = function (grunt) {
 		'clean',
 		'build-js',
 		'hint-js',
+		'sync-json',
 		'doc',
 		'min-js',
 		'test-js'

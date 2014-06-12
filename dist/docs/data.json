@@ -2,11 +2,11 @@
     "project": {
         "name": "terrific",
         "version": "2.1.0",
-        "url": "http://terrifically.org/api/"
+        "url": "https://github.com/brunschgi/terrificjs"
     },
     "files": {
-        "dist/terrific-2.1.0.js": {
-            "name": "dist/terrific-2.1.0.js",
+        "dist/terrific.js": {
+            "name": "dist/terrific.js",
             "modules": {
                 "Tc": 1
             },
@@ -41,10 +41,10 @@
                 "Tc": 1
             },
             "tag": "module",
-            "file": "dist/terrific-2.1.0.js",
+            "file": "dist/terrific.js",
             "line": 1120,
             "description": "Terrific JavaScript Framework v2.1.0\nhttp://terrifically.org\n\nCopyright 2014, Remo Brunschwiler",
-            "license": "MIT Licensed.\n\nDate: Thu Jun 12 2014 13:46:59\n\n\nIncludes:\nSimple JavaScript Inheritance\nBy John Resig http://ejohn.org/\nMIT Licensed."
+            "license": "MIT Licensed.\n\nDate: Thu Jun 12 2014 14:41:23\n\n\nIncludes:\nSimple JavaScript Inheritance\nBy John Resig http://ejohn.org/\nMIT Licensed."
         }
     },
     "classes": {
@@ -58,7 +58,7 @@
             "extension_for": [],
             "module": "Tc",
             "namespace": "Tc",
-            "file": "dist/terrific-2.1.0.js",
+            "file": "dist/terrific.js",
             "line": 106,
             "description": "Contains the application base config.\nThe base config can be extended or overwritten either via\nnew Application ($ctx, config) during bootstrapping the application or via\noverriding the Tc.Config object in your project.",
             "author": "Remo Brunschwiler",
@@ -74,7 +74,7 @@
             "extension_for": [],
             "module": "Tc",
             "namespace": "Tc",
-            "file": "dist/terrific-2.1.0.js",
+            "file": "dist/terrific.js",
             "line": 131,
             "description": "Responsible for application-wide issues such as the creation of modules and establishing connections between them.",
             "author": "Remo Brunschwiler"
@@ -89,7 +89,7 @@
             "extension_for": [],
             "module": "Tc",
             "namespace": "Tc",
-            "file": "dist/terrific-2.1.0.js",
+            "file": "dist/terrific.js",
             "line": 531,
             "description": "The sandbox is used as a central point to get resources from, grant\npermissions, etc.  It is shared between all modules.",
             "author": "Remo Brunschwiler"
@@ -104,7 +104,7 @@
             "extension_for": [],
             "module": "Tc",
             "namespace": "Tc",
-            "file": "dist/terrific-2.1.0.js",
+            "file": "dist/terrific.js",
             "line": 787,
             "description": "Base class for the different modules.",
             "author": "Remo Brunschwiler"
@@ -119,7 +119,7 @@
             "extension_for": [],
             "module": "Tc",
             "namespace": "Tc",
-            "file": "dist/terrific-2.1.0.js",
+            "file": "dist/terrific.js",
             "line": 1012,
             "description": "Base class for the different connectors.",
             "author": "Remo Brunschwiler"
@@ -134,7 +134,7 @@
             "extension_for": [],
             "module": "Tc",
             "namespace": "Tc",
-            "file": "dist/terrific-2.1.0.js",
+            "file": "dist/terrific.js",
             "line": 1120,
             "description": "Contains utility functions for string concerning tasks.",
             "author": "Remo Brunschwiler",
@@ -143,7 +143,7 @@
     },
     "classitems": [
         {
-            "file": "dist/terrific-2.1.0.js",
+            "file": "dist/terrific.js",
             "line": 118,
             "description": "The paths for the different types of dependencies.",
             "itemtype": "property",
@@ -154,7 +154,7 @@
             "namespace": "Tc"
         },
         {
-            "file": "dist/terrific-2.1.0.js",
+            "file": "dist/terrific.js",
             "line": 140,
             "description": "Initializes the application.",
             "itemtype": "method",
@@ -177,7 +177,7 @@
             "namespace": "Tc"
         },
         {
-            "file": "dist/terrific-2.1.0.js",
+            "file": "dist/terrific.js",
             "line": 151,
             "description": "The configuration.",
             "itemtype": "property",
@@ -188,7 +188,7 @@
             "namespace": "Tc"
         },
         {
-            "file": "dist/terrific-2.1.0.js",
+            "file": "dist/terrific.js",
             "line": 159,
             "description": "The jQuery context.",
             "itemtype": "property",
@@ -199,7 +199,7 @@
             "namespace": "Tc"
         },
         {
-            "file": "dist/terrific-2.1.0.js",
+            "file": "dist/terrific.js",
             "line": 167,
             "description": "Contains references to all modules on the page. This can, for\nexample, be useful when there are interactions between Flash\nobjects and Javascript.",
             "itemtype": "property",
@@ -210,7 +210,7 @@
             "namespace": "Tc"
         },
         {
-            "file": "dist/terrific-2.1.0.js",
+            "file": "dist/terrific.js",
             "line": 177,
             "description": "Contains references to all connectors on the page.",
             "itemtype": "property",
@@ -221,7 +221,7 @@
             "namespace": "Tc"
         },
         {
-            "file": "dist/terrific-2.1.0.js",
+            "file": "dist/terrific.js",
             "line": 185,
             "description": "The sandbox to get the resources from\nThis sandbox is shared between all modules.",
             "itemtype": "property",
@@ -232,7 +232,7 @@
             "namespace": "Tc"
         },
         {
-            "file": "dist/terrific-2.1.0.js",
+            "file": "dist/terrific.js",
             "line": 195,
             "description": "Register modules withing scope\nAutomatically registers all modules within the scope,\nas long as the modules use the OOCSS naming conventions.",
             "itemtype": "method",
@@ -253,7 +253,7 @@
             "namespace": "Tc"
         },
         {
-            "file": "dist/terrific-2.1.0.js",
+            "file": "dist/terrific.js",
             "line": 318,
             "description": "Unregisters the modules given by the module instances.",
             "itemtype": "method",
@@ -270,7 +270,7 @@
             "namespace": "Tc"
         },
         {
-            "file": "dist/terrific-2.1.0.js",
+            "file": "dist/terrific.js",
             "line": 357,
             "description": "Registers a hook that is called at the end.",
             "itemtype": "method",
@@ -287,7 +287,7 @@
             "namespace": "Tc"
         },
         {
-            "file": "dist/terrific-2.1.0.js",
+            "file": "dist/terrific.js",
             "line": 370,
             "description": "Starts (intializes) the registered modules.",
             "itemtype": "method",
@@ -304,7 +304,7 @@
             "namespace": "Tc"
         },
         {
-            "file": "dist/terrific-2.1.0.js",
+            "file": "dist/terrific.js",
             "line": 386,
             "description": "Stops the registered modules.",
             "itemtype": "method",
@@ -321,7 +321,7 @@
             "namespace": "Tc"
         },
         {
-            "file": "dist/terrific-2.1.0.js",
+            "file": "dist/terrific.js",
             "line": 402,
             "description": "Registers a module.",
             "itemtype": "method",
@@ -357,7 +357,7 @@
             "namespace": "Tc"
         },
         {
-            "file": "dist/terrific-2.1.0.js",
+            "file": "dist/terrific.js",
             "line": 453,
             "description": "Registers a connection between a module and a connector.",
             "itemtype": "method",
@@ -379,7 +379,7 @@
             "namespace": "Tc"
         },
         {
-            "file": "dist/terrific-2.1.0.js",
+            "file": "dist/terrific.js",
             "line": 510,
             "description": "Unregisters a module from a connector.",
             "itemtype": "method",
@@ -401,7 +401,7 @@
             "namespace": "Tc"
         },
         {
-            "file": "dist/terrific-2.1.0.js",
+            "file": "dist/terrific.js",
             "line": 541,
             "description": "Initializes the Sandbox.",
             "itemtype": "method",
@@ -424,7 +424,7 @@
             "namespace": "Tc"
         },
         {
-            "file": "dist/terrific-2.1.0.js",
+            "file": "dist/terrific.js",
             "line": 553,
             "description": "The application",
             "itemtype": "property",
@@ -435,7 +435,7 @@
             "namespace": "Tc"
         },
         {
-            "file": "dist/terrific-2.1.0.js",
+            "file": "dist/terrific.js",
             "line": 561,
             "description": "The configuration.",
             "itemtype": "property",
@@ -446,7 +446,7 @@
             "namespace": "Tc"
         },
         {
-            "file": "dist/terrific-2.1.0.js",
+            "file": "dist/terrific.js",
             "line": 569,
             "description": "Contains function references to registered hooks.",
             "itemtype": "property",
@@ -457,7 +457,7 @@
             "namespace": "Tc"
         },
         {
-            "file": "dist/terrific-2.1.0.js",
+            "file": "dist/terrific.js",
             "line": 578,
             "description": "Adds (register and start) all modules in the given context scope.",
             "itemtype": "method",
@@ -478,7 +478,7 @@
             "namespace": "Tc"
         },
         {
-            "file": "dist/terrific-2.1.0.js",
+            "file": "dist/terrific.js",
             "line": 602,
             "description": "Removes a module by module instances.\nThis stops and unregisters a module through a module instance.",
             "itemtype": "method",
@@ -495,7 +495,7 @@
             "namespace": "Tc"
         },
         {
-            "file": "dist/terrific-2.1.0.js",
+            "file": "dist/terrific.js",
             "line": 645,
             "description": "Subscribes a module to a connector.",
             "itemtype": "method",
@@ -517,7 +517,7 @@
             "namespace": "Tc"
         },
         {
-            "file": "dist/terrific-2.1.0.js",
+            "file": "dist/terrific.js",
             "line": 662,
             "description": "Unsubscribes a module from a connector.",
             "itemtype": "method",
@@ -539,7 +539,7 @@
             "namespace": "Tc"
         },
         {
-            "file": "dist/terrific-2.1.0.js",
+            "file": "dist/terrific.js",
             "line": 679,
             "description": "Gets the appropriate module for the given ID.",
             "itemtype": "method",
@@ -560,7 +560,7 @@
             "namespace": "Tc"
         },
         {
-            "file": "dist/terrific-2.1.0.js",
+            "file": "dist/terrific.js",
             "line": 700,
             "description": "Gets the application config.",
             "itemtype": "method",
@@ -574,7 +574,7 @@
             "namespace": "Tc"
         },
         {
-            "file": "dist/terrific-2.1.0.js",
+            "file": "dist/terrific.js",
             "line": 711,
             "description": "Gets an application config param.",
             "itemtype": "method",
@@ -595,7 +595,7 @@
             "namespace": "Tc"
         },
         {
-            "file": "dist/terrific-2.1.0.js",
+            "file": "dist/terrific.js",
             "line": 731,
             "description": "Adds a callback to be executed in the appropriate phase.",
             "itemtype": "method",
@@ -617,7 +617,7 @@
             "namespace": "Tc"
         },
         {
-            "file": "dist/terrific-2.1.0.js",
+            "file": "dist/terrific.js",
             "line": 748,
             "description": "Collects the module status messages and handles the callbacks.\nThis means that it is ready for the 'after' hook.",
             "itemtype": "method",
@@ -634,7 +634,7 @@
             "namespace": "Tc"
         },
         {
-            "file": "dist/terrific-2.1.0.js",
+            "file": "dist/terrific.js",
             "line": 796,
             "description": "Initializes the Module.",
             "itemtype": "method",
@@ -662,7 +662,7 @@
             "namespace": "Tc"
         },
         {
-            "file": "dist/terrific-2.1.0.js",
+            "file": "dist/terrific.js",
             "line": 809,
             "description": "Contains the module context.",
             "itemtype": "property",
@@ -673,7 +673,7 @@
             "namespace": "Tc"
         },
         {
-            "file": "dist/terrific-2.1.0.js",
+            "file": "dist/terrific.js",
             "line": 817,
             "description": "Contains the unique module ID.",
             "itemtype": "property",
@@ -684,7 +684,7 @@
             "namespace": "Tc"
         },
         {
-            "file": "dist/terrific-2.1.0.js",
+            "file": "dist/terrific.js",
             "line": 825,
             "description": "Contains the attached connectors.",
             "itemtype": "property",
@@ -695,7 +695,7 @@
             "namespace": "Tc"
         },
         {
-            "file": "dist/terrific-2.1.0.js",
+            "file": "dist/terrific.js",
             "line": 833,
             "description": "The sandbox to get the resources from.",
             "itemtype": "property",
@@ -706,7 +706,7 @@
             "namespace": "Tc"
         },
         {
-            "file": "dist/terrific-2.1.0.js",
+            "file": "dist/terrific.js",
             "line": 842,
             "description": "Template method to start (i.e. init) the module.\nThis method provides hook functions which can be overridden\nby the individual instance.",
             "itemtype": "method",
@@ -716,7 +716,7 @@
             "namespace": "Tc"
         },
         {
-            "file": "dist/terrific-2.1.0.js",
+            "file": "dist/terrific.js",
             "line": 860,
             "description": "Template method to stop the module.",
             "itemtype": "method",
@@ -726,7 +726,7 @@
             "namespace": "Tc"
         },
         {
-            "file": "dist/terrific-2.1.0.js",
+            "file": "dist/terrific.js",
             "line": 873,
             "description": "Initialization callback.",
             "itemtype": "method",
@@ -738,7 +738,7 @@
             "namespace": "Tc"
         },
         {
-            "file": "dist/terrific-2.1.0.js",
+            "file": "dist/terrific.js",
             "line": 892,
             "description": "Notifies all attached connectors about changes.",
             "itemtype": "method",
@@ -770,7 +770,7 @@
             "namespace": "Tc"
         },
         {
-            "file": "dist/terrific-2.1.0.js",
+            "file": "dist/terrific.js",
             "line": 963,
             "description": "Attaches a connector (observer).",
             "itemtype": "method",
@@ -787,7 +787,7 @@
             "namespace": "Tc"
         },
         {
-            "file": "dist/terrific-2.1.0.js",
+            "file": "dist/terrific.js",
             "line": 974,
             "description": "Detaches a connector (observer).",
             "itemtype": "method",
@@ -804,7 +804,7 @@
             "namespace": "Tc"
         },
         {
-            "file": "dist/terrific-2.1.0.js",
+            "file": "dist/terrific.js",
             "line": 984,
             "description": "Decorates itself with the given skin.",
             "itemtype": "method",
@@ -830,7 +830,7 @@
             "namespace": "Tc"
         },
         {
-            "file": "dist/terrific-2.1.0.js",
+            "file": "dist/terrific.js",
             "line": 1021,
             "description": "Initializes the Connector.",
             "itemtype": "method",
@@ -848,7 +848,7 @@
             "namespace": "Tc"
         },
         {
-            "file": "dist/terrific-2.1.0.js",
+            "file": "dist/terrific.js",
             "line": 1034,
             "description": "Registers a component.",
             "itemtype": "method",
@@ -865,7 +865,7 @@
             "namespace": "Tc"
         },
         {
-            "file": "dist/terrific-2.1.0.js",
+            "file": "dist/terrific.js",
             "line": 1047,
             "description": "Unregisters a component.",
             "itemtype": "method",
@@ -882,7 +882,7 @@
             "namespace": "Tc"
         },
         {
-            "file": "dist/terrific-2.1.0.js",
+            "file": "dist/terrific.js",
             "line": 1062,
             "description": "Notifies all registered components about a state change\nThis can be be overriden in the specific connectors.",
             "itemtype": "method",
@@ -913,7 +913,7 @@
             "namespace": "Tc"
         },
         {
-            "file": "dist/terrific-2.1.0.js",
+            "file": "dist/terrific.js",
             "line": 1129,
             "description": "Capitalizes the first letter of the given string.",
             "itemtype": "method",
@@ -934,7 +934,7 @@
             "namespace": "Tc"
         },
         {
-            "file": "dist/terrific-2.1.0.js",
+            "file": "dist/terrific.js",
             "line": 1143,
             "description": "Camelizes the given string.",
             "itemtype": "method",
@@ -958,7 +958,7 @@
     "warnings": [
         {
             "message": "unknown tag: license",
-            "line": " dist/terrific-2.1.0.js:1"
+            "line": " dist/terrific.js:1"
         }
     ]
 }
