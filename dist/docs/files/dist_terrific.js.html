@@ -105,7 +105,7 @@
  * Copyright 2014, Remo Brunschwiler
  * @license MIT Licensed.
  *
- * Date: Thu Jun 12 2014 14:41:23
+ * Date: Thu Jun 12 2014 15:18:26
  *
  *
  * Includes:
@@ -752,11 +752,19 @@ Tc.Sandbox = Class.extend({
     subscribe: function (connector, module) {
         var application = this.application;
 
-        if (module instanceof Tc.Module &amp;&amp; connector) {
-            // explicitly cast connector to string
-            connector = connector + &#x27;&#x27;;
-            application.registerConnection(connector, module);
-        }
+		// explicitly cast connector to string (e.g. to handle 0 case)
+		connector = connector + &#x27;&#x27;;
+
+		// guards
+		if(!module || !connector) {
+			throw new Error(&#x27;subscribe is expecting 2 parameters (connector, module)&#x27;);
+		}
+
+		if(!(module instanceof Tc.Module)) {
+			throw new Error(&#x27;the module param must be an instance of Tc.Module&#x27;);
+		}
+
+		application.registerConnection(connector, module);
     },
 
     /**

@@ -229,6 +229,33 @@
             };
         };
 
+		Tc.Module.CheckSubscription = Tc.Module.extend({
+			init: function($ctx, sandbox, id) {
+				// call base constructor
+				this._super($ctx, sandbox, id);
+			},
+
+			on: function(callback) {
+				this.sandbox.subscribe(0, this); // no error
+
+				try {
+					this.sandbox.subscribe(1); // two params expected
+				}
+				catch(e) {
+					messages.push(e.message);
+				}
+
+				try {
+					this.sandbox.subscribe('test', 1); // module must be an instance of Tc.Module
+				}
+				catch(e) {
+					messages.push(e.message);
+				}
+
+				callback();
+			}
+		});
+
         Tc.Module.Subscription = Tc.Module.extend({
             init: function($ctx, sandbox, id) {
                 // call base constructor

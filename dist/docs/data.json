@@ -42,9 +42,9 @@
             },
             "tag": "module",
             "file": "dist/terrific.js",
-            "line": 1120,
+            "line": 1128,
             "description": "Terrific JavaScript Framework v2.1.0\nhttp://terrifically.org\n\nCopyright 2014, Remo Brunschwiler",
-            "license": "MIT Licensed.\n\nDate: Thu Jun 12 2014 14:41:23\n\n\nIncludes:\nSimple JavaScript Inheritance\nBy John Resig http://ejohn.org/\nMIT Licensed."
+            "license": "MIT Licensed.\n\nDate: Thu Jun 12 2014 15:18:26\n\n\nIncludes:\nSimple JavaScript Inheritance\nBy John Resig http://ejohn.org/\nMIT Licensed."
         }
     },
     "classes": {
@@ -105,7 +105,7 @@
             "module": "Tc",
             "namespace": "Tc",
             "file": "dist/terrific.js",
-            "line": 787,
+            "line": 795,
             "description": "Base class for the different modules.",
             "author": "Remo Brunschwiler"
         },
@@ -120,7 +120,7 @@
             "module": "Tc",
             "namespace": "Tc",
             "file": "dist/terrific.js",
-            "line": 1012,
+            "line": 1020,
             "description": "Base class for the different connectors.",
             "author": "Remo Brunschwiler"
         },
@@ -135,7 +135,7 @@
             "module": "Tc",
             "namespace": "Tc",
             "file": "dist/terrific.js",
-            "line": 1120,
+            "line": 1128,
             "description": "Contains utility functions for string concerning tasks.",
             "author": "Remo Brunschwiler",
             "static": 1
@@ -518,7 +518,7 @@
         },
         {
             "file": "dist/terrific.js",
-            "line": 662,
+            "line": 670,
             "description": "Unsubscribes a module from a connector.",
             "itemtype": "method",
             "name": "unsubscribe",
@@ -540,7 +540,7 @@
         },
         {
             "file": "dist/terrific.js",
-            "line": 679,
+            "line": 687,
             "description": "Gets the appropriate module for the given ID.",
             "itemtype": "method",
             "name": "getModuleById",
@@ -561,7 +561,7 @@
         },
         {
             "file": "dist/terrific.js",
-            "line": 700,
+            "line": 708,
             "description": "Gets the application config.",
             "itemtype": "method",
             "name": "getConfig",
@@ -575,7 +575,7 @@
         },
         {
             "file": "dist/terrific.js",
-            "line": 711,
+            "line": 719,
             "description": "Gets an application config param.",
             "itemtype": "method",
             "name": "getConfigParam",
@@ -596,7 +596,7 @@
         },
         {
             "file": "dist/terrific.js",
-            "line": 731,
+            "line": 739,
             "description": "Adds a callback to be executed in the appropriate phase.",
             "itemtype": "method",
             "name": "addCallback",
@@ -618,7 +618,7 @@
         },
         {
             "file": "dist/terrific.js",
-            "line": 748,
+            "line": 756,
             "description": "Collects the module status messages and handles the callbacks.\nThis means that it is ready for the 'after' hook.",
             "itemtype": "method",
             "name": "ready",
@@ -635,7 +635,7 @@
         },
         {
             "file": "dist/terrific.js",
-            "line": 796,
+            "line": 804,
             "description": "Initializes the Module.",
             "itemtype": "method",
             "name": "init",
@@ -663,7 +663,7 @@
         },
         {
             "file": "dist/terrific.js",
-            "line": 809,
+            "line": 817,
             "description": "Contains the module context.",
             "itemtype": "property",
             "name": "$ctx",
@@ -674,7 +674,7 @@
         },
         {
             "file": "dist/terrific.js",
-            "line": 817,
+            "line": 825,
             "description": "Contains the unique module ID.",
             "itemtype": "property",
             "name": "id",
@@ -685,7 +685,7 @@
         },
         {
             "file": "dist/terrific.js",
-            "line": 825,
+            "line": 833,
             "description": "Contains the attached connectors.",
             "itemtype": "property",
             "name": "connectors",
@@ -696,7 +696,7 @@
         },
         {
             "file": "dist/terrific.js",
-            "line": 833,
+            "line": 841,
             "description": "The sandbox to get the resources from.",
             "itemtype": "property",
             "name": "sandbox",
@@ -707,7 +707,7 @@
         },
         {
             "file": "dist/terrific.js",
-            "line": 842,
+            "line": 850,
             "description": "Template method to start (i.e. init) the module.\nThis method provides hook functions which can be overridden\nby the individual instance.",
             "itemtype": "method",
             "name": "start",
@@ -717,7 +717,7 @@
         },
         {
             "file": "dist/terrific.js",
-            "line": 860,
+            "line": 868,
             "description": "Template method to stop the module.",
             "itemtype": "method",
             "name": "stop",
@@ -727,7 +727,7 @@
         },
         {
             "file": "dist/terrific.js",
-            "line": 873,
+            "line": 881,
             "description": "Initialization callback.",
             "itemtype": "method",
             "name": "initAfter",
@@ -739,7 +739,7 @@
         },
         {
             "file": "dist/terrific.js",
-            "line": 892,
+            "line": 900,
             "description": "Notifies all attached connectors about changes.",
             "itemtype": "method",
             "name": "fire",
@@ -771,7 +771,7 @@
         },
         {
             "file": "dist/terrific.js",
-            "line": 963,
+            "line": 971,
             "description": "Attaches a connector (observer).",
             "itemtype": "method",
             "name": "attachConnector",
@@ -788,7 +788,7 @@
         },
         {
             "file": "dist/terrific.js",
-            "line": 974,
+            "line": 982,
             "description": "Detaches a connector (observer).",
             "itemtype": "method",
             "name": "detachConnector",
@@ -805,7 +805,7 @@
         },
         {
             "file": "dist/terrific.js",
-            "line": 984,
+            "line": 992,
             "description": "Decorates itself with the given skin.",
             "itemtype": "method",
             "name": "getDecoratedModule",
@@ -831,7 +831,7 @@
         },
         {
             "file": "dist/terrific.js",
-            "line": 1021,
+            "line": 1029,
             "description": "Initializes the Connector.",
             "itemtype": "method",
             "name": "init",
@@ -849,7 +849,7 @@
         },
         {
             "file": "dist/terrific.js",
-            "line": 1034,
+            "line": 1042,
             "description": "Registers a component.",
             "itemtype": "method",
             "name": "registerComponent",
@@ -866,7 +866,7 @@
         },
         {
             "file": "dist/terrific.js",
-            "line": 1047,
+            "line": 1055,
             "description": "Unregisters a component.",
             "itemtype": "method",
             "name": "unregisterComponent",
@@ -883,7 +883,7 @@
         },
         {
             "file": "dist/terrific.js",
-            "line": 1062,
+            "line": 1070,
             "description": "Notifies all registered components about a state change\nThis can be be overriden in the specific connectors.",
             "itemtype": "method",
             "name": "notify",
@@ -914,7 +914,7 @@
         },
         {
             "file": "dist/terrific.js",
-            "line": 1129,
+            "line": 1137,
             "description": "Capitalizes the first letter of the given string.",
             "itemtype": "method",
             "name": "capitalize",
@@ -935,7 +935,7 @@
         },
         {
             "file": "dist/terrific.js",
-            "line": 1143,
+            "line": 1151,
             "description": "Camelizes the given string.",
             "itemtype": "method",
             "name": "toCamel",

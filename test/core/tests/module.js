@@ -21,6 +21,37 @@
             }
         });
 
+		asyncTest('subscribe type checking', function() {
+
+			// create fixture
+			var modules = [
+				{
+					module: 'CheckSubscription',
+					skins: [],
+					connectors: []
+				}
+			];
+			var template = Handlebars.compile($('#module').html());
+			$('#qunit-fixture').html(template({ modules : modules }));
+
+			// register modules
+			var application = new Tc.Application();
+
+			application.registerModules();
+
+			// start the modules and check that the modules have a proper lifecycle
+			application.start();
+
+			setTimeout(function() {
+				equal(messages.length, 2, '2 messages received');
+				equal(messages[0], 'subscribe is expecting 2 parameters (connector, module)');
+				equal(messages[1], 'the module param must be an instance of Tc.Module');
+
+				start();
+			}, 300);
+
+		});
+
         asyncTest('dynamic connectors 1 (subscribe)', function() {
 
             // create fixture

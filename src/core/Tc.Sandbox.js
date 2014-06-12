@@ -122,11 +122,19 @@ Tc.Sandbox = Class.extend({
     subscribe: function (connector, module) {
         var application = this.application;
 
-        if (module instanceof Tc.Module && connector) {
-            // explicitly cast connector to string
-            connector = connector + '';
-            application.registerConnection(connector, module);
-        }
+		// explicitly cast connector to string (e.g. to handle 0 case)
+		connector = connector + '';
+
+		// guards
+		if(!module || !connector) {
+			throw new Error('subscribe is expecting 2 parameters (connector, module)');
+		}
+
+		if(!(module instanceof Tc.Module)) {
+			throw new Error('the module param must be an instance of Tc.Module');
+		}
+
+		application.registerConnection(connector, module);
     },
 
     /**
