@@ -42,9 +42,9 @@
             },
             "tag": "module",
             "file": "dist/terrific-2.1.0.js",
-            "line": 1115,
+            "line": 1117,
             "description": "Terrific JavaScript Framework v2.1.0\nhttp://terrifically.org\n\nCopyright 2014, Remo Brunschwiler",
-            "license": "MIT Licensed.\n\nDate: Wed Jun 11 2014 17:25:23\n\n\nIncludes:\nSimple JavaScript Inheritance\nBy John Resig http://ejohn.org/\nMIT Licensed."
+            "license": "MIT Licensed.\n\nDate: Thu Jun 12 2014 12:56:24\n\n\nIncludes:\nSimple JavaScript Inheritance\nBy John Resig http://ejohn.org/\nMIT Licensed."
         }
     },
     "classes": {
@@ -135,7 +135,7 @@
             "module": "Tc",
             "namespace": "Tc",
             "file": "dist/terrific-2.1.0.js",
-            "line": 1115,
+            "line": 1117,
             "description": "Contains utility functions for string concerning tasks.",
             "author": "Remo Brunschwiler",
             "static": 1
@@ -914,7 +914,7 @@
         },
         {
             "file": "dist/terrific-2.1.0.js",
-            "line": 1124,
+            "line": 1126,
             "description": "Capitalizes the first letter of the given string.",
             "itemtype": "method",
             "name": "capitalize",
@@ -935,7 +935,7 @@
         },
         {
             "file": "dist/terrific-2.1.0.js",
-            "line": 1138,
+            "line": 1140,
             "description": "Camelizes the given string.",
             "itemtype": "method",
             "name": "toCamel",

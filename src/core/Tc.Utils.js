@@ -3,12 +3,14 @@
  */
 Tc.Utils = {};
 
-// Helper
+// Helpers
+
+// Object.keys is native in JavaScript 1.8.5
 if (!Object.keys) {
     Object.keys = function (obj) {
         var keys = [], k;
         for (k in obj) {
-            if (Object.prototype.hasOwnProperty.call(obj, k)) {
+            if (obj.hasOwnProperty(k)) {
                 keys.push(k);
             }
         }

@@ -5,7 +5,7 @@
  * Copyright 2014, Remo Brunschwiler
  * @license MIT Licensed.
  *
- * Date: Wed Jun 11 2014 17:25:23
+ * Date: Thu Jun 12 2014 12:56:24
  *
  *
  * Includes:
@@ -1100,12 +1100,14 @@ Tc.Connector = Class.extend({
  */
 Tc.Utils = {};
 
-// Helper
+// Helpers
+
+// Object.keys is native in JavaScript 1.8.5
 if (!Object.keys) {
     Object.keys = function (obj) {
         var keys = [], k;
         for (k in obj) {
-            if (Object.prototype.hasOwnProperty.call(obj, k)) {
+            if (obj.hasOwnProperty(k)) {
                 keys.push(k);
             }
         }
