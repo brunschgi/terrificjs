@@ -21,5 +21,5 @@ Build your own TerrificJS
 You will get the following release artifacts:
 
 * dist/docs/ – generated API documentation
-* dist/terrific-<version>.js – the full release
-* dist/terrific-<version>.min.js – the minified release for production use
+* dist/terrific.js – the full release
+* dist/terrific.min.js – the minified release for production use
