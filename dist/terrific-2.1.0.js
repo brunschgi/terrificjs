@@ -5,7 +5,7 @@
  * Copyright 2014, Remo Brunschwiler
  * @license MIT Licensed.
  *
- * Date: Thu Jun 12 2014 12:56:24
+ * Date: Thu Jun 12 2014 13:46:59
  *
  *
  * Includes:
@@ -18,8 +18,9 @@
  */
 (function(){
 
-    var root = this; // save a reference to the global object
-    var Tc;
+    var root = this, // save a reference to the global object
+        Tc,
+        $;
 
     if (typeof exports !== 'undefined') {
         Tc = exports;
@@ -30,7 +31,8 @@
     /*
      * The base library object.
      */
-    Tc.$ = root.jQuery || root.Zepto || root.$;
+    $ = Tc.$ = root.jQuery || root.Zepto || root.$;
+
 /*
  * Simple JavaScript Inheritance
  * By John Resig http://ejohn.org/
@@ -945,7 +947,8 @@ Tc.Module = Class.extend({
                 }
 
             } else {
-                throw new Error('the module #' + self.id + ' is not connected to connector ' + connectorId);
+                throw new Error('the module #' + self.id + ' is not connected to connector ' + connectorId +
+					' – hint: please make sure that your data is an object and not an array');
             }
         }
 

@@ -161,7 +161,8 @@ Tc.Module = Class.extend({
                 }
 
             } else {
-                throw new Error('the module #' + self.id + ' is not connected to connector ' + connectorId);
+                throw new Error('the module #' + self.id + ' is not connected to connector ' + connectorId +
+					' – hint: please make sure that your data is an object and not an array');
             }
         }
 
