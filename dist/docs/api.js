@@ -15,7 +15,7 @@ YUI.add("yuidoc-meta", function(Y) {
         {
             "displayName": "Tc",
             "name": "Tc",
-            "description": "Terrific JavaScript Framework v2.1.0\nhttp://terrifically.org\n\nCopyright 2014, Remo Brunschwiler"
+            "description": "Terrific JavaScript Framework v2.1.0\nhttp://terrifically.org\n\nCopyright 2015, Remo Brunschwiler"
         }
     ]
 } };

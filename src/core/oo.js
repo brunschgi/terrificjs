@@ -1,3 +1,9 @@
+/**
+ * Check for existence of Resig´s class-pattern to be more 
+ * flexible for overriding/extending it
+ */
+if (!this.Class) {
+
 /*
  * Simple JavaScript Inheritance
  * By John Resig http://ejohn.org/
@@ -67,3 +73,4 @@
 })();
 /* jshint ignore:end */
 
+} // end existence-check
