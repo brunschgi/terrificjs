@@ -2,10 +2,10 @@
  * Terrific JavaScript Framework v2.1.0
  * http://terrifically.org
  *
- * Copyright 2014, Remo Brunschwiler
+ * Copyright 2015, Remo Brunschwiler
  * @license MIT Licensed.
  *
- * Date: Thu Jun 12 2014 15:18:26
+ * Date: Thu Feb 19 2015 10:14:28
  *
  *
  * Includes:
@@ -32,6 +32,12 @@
      * The base library object.
      */
     $ = Tc.$ = root.jQuery || root.Zepto || root.$;
+
+/**
+ * Check for existance of Resig´s class-pattern to be more 
+ * flexible for overriding/extending it
+ */
+if (!this.Class) {
 
 /*
  * Simple JavaScript Inheritance
@@ -102,6 +108,7 @@
 })();
 /* jshint ignore:end */
 
+} // end existance-check
 
 /**
  * Contains the application base config.
