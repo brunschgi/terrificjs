@@ -21,6 +21,11 @@
 			}
 		});
 
+        test('application version', function() {
+            // check the implicitly set context
+            ok(Tc.version !== undefined, 'The version is defined');
+        });
+
         test('application context (if not set)', function() {
             expect(1);
 

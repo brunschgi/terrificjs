@@ -4,7 +4,7 @@
 What is TerrificJS
 ------------------
 
-TerrificJS is a neat, clever piece of code that allows you to modularize your frontend code by solely relying on CSS naming conventions.
+TerrificJS is a neat, clever piece of code that allows you to modularize your frontend code by solely relying on naming conventions.
 
 So simple, so effective! TerrificJS helps you to structure your project in a way you have never dreamt of. Try the magic and get addicted.
 
@@ -15,7 +15,7 @@ Build your own TerrificJS
 -------------------------
 * Install [Node.js](http://nodejs.org/).
 * Open a terminal and execute `npm install`.
-* Run Grunt 'grunt`.
+* Run 'grunt`.
 
 
 You will get the following release artifacts:

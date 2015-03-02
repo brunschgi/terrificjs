@@ -1,6 +1,6 @@
 {
 	"name": "terrific",
-	"version": "2.1.0",
+	"version": "3.0.0-beta",
 	"url" : "https://github.com/brunschgi/terrificjs",
 	"description": "TerrificJS is a neat, clever piece of code that allows you to modularize your frontend code by solely relying on CSS naming conventions.",
 	"main": "dist/terrific.js",

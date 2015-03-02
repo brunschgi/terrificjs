@@ -28,6 +28,8 @@
         Tc = root.Tc = {};
     }
 
+    Tc.version = "<%= pkg.version %>";
+
     /*
      * The base library object.
      */

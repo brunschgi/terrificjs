@@ -1,11 +1,11 @@
 /**
- * Terrific JavaScript Framework v2.1.0
+ * Terrific JavaScript Framework v3.0.0-beta
  * http://terrifically.org
  *
- * Copyright 2014, Remo Brunschwiler
+ * Copyright 2015, Remo Brunschwiler
  * @license MIT Licensed.
  *
- * Date: Thu Jun 12 2014 15:18:26
+ * Date: Mon Mar 02 2015 16:07:19
  *
  *
  * Includes:
@@ -27,6 +27,8 @@
     } else {
         Tc = root.Tc = {};
     }
+
+    Tc.version = "3.0.0-beta";
 
     /*
      * The base library object.
