@@ -3,7 +3,6 @@
  * By John Resig http://ejohn.org/
  * MIT Licensed.
  */
-/* jshint ignore:start */
 (function(){
     var initializing = false,
 		fnTest = /xyz/.test(function() { xyz; }) ? /\b_super\b/ : /.*/;
@@ -65,5 +64,4 @@
         return Class;
     };
 })();
-/* jshint ignore:end */
 
