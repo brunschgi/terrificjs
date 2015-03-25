@@ -1,19 +1,43 @@
 {
-	"name": "terrific",
-	"version": "3.0.0-beta",
-	"url" : "https://github.com/brunschgi/terrificjs",
-	"description": "TerrificJS is a neat, clever piece of code that allows you to modularize your frontend code by solely relying on CSS naming conventions.",
-	"main": "dist/terrific.js",
-	"license": "MIT",
-	"private": true,
-	"devDependencies": {
-		"grunt": "0.4.4",
-		"grunt-contrib-jshint": "0.10.0",
-		"grunt-contrib-concat": "0.3.0",
-		"grunt-contrib-uglify": "0.4.0",
-		"grunt-contrib-clean": "0.5.0",
-		"grunt-contrib-yuidoc": "0.5.2",
-		"grunt-contrib-qunit" : "0.5.0",
-		"grunt-update-json": "0.1.3"
-	}
+  "name": "terrific",
+  "version": "3.0.0-beta",
+  "description": "TerrificJS modularizes your frontend code by solely relying on naming conventions.",
+  "main": "dist/terrific.js",
+  "license": "MIT",
+  "author": "Remo Brunschwiler <remo@terrifically.org>",
+  "scripts": {
+    "test": "karma start --single-run --no-auto-watch"
+  },
+  "keywords" : [
+    "terrific",
+    "terrificjs",
+    "module",
+    "modularize",
+    "scalalable"
+  ],
+  "devDependencies": {
+    "gulp": "^3.8.10",
+    "gulp-concat": "^2.4.2",
+    "gulp-config-sync": "^1.0.1",
+    "gulp-jshint": "^1.9.0",
+    "gulp-karma": "~0.0.1",
+    "gulp-plumber": "^0.6.6",
+    "gulp-rename": "^1.2.0",
+    "gulp-template": "^3.0.0",
+    "gulp-uglify": "^1.0.1",
+    "gulp-watch": "^2.0.0",
+    "gulp-yuidoc": "^0.1.2",
+    "jasmine": "^2.1.1",
+    "jshint-stylish": "^1.0.0",
+    "karma": "^0.12.31",
+    "karma-chrome-launcher": "^0.1.7",
+    "karma-jasmine": "~0.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/brunschgi/terrificjs.git"
+  },
+  "bugs": {
+    "url": "https://github.com/brunschgi/terrificjs/issues"
+  }
 }
