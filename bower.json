@@ -1,23 +1,32 @@
 {
-	"name": "terrific",
-	"version": "3.0.0-beta",
-	"homepage": "https://github.com/brunschgi/terrificjs",
-	"authors": [
-		"Remo Brunschwiler <remo@terrifically.org>"
-	],
-	"description": "TerrificJS is a neat, clever piece of code that allows you to modularize your frontend code by solely relying on CSS naming conventions.",
-	"main": "dist/terrific.js",
-	"keywords": [
-		"terrific",
-		"terrificjs"
-	],
-	"license": "MIT",
-	"dependencies": {
-		"jquery": ">=1.2.3"
-	},
-	"ignore": [
-		"**/.*",
-		"node_modules",
-		"bower_components"
-	]
+  "name": "terrific",
+  "version": "3.0.0-beta",
+  "description": "TerrificJS modularizes your frontend code by solely relying on naming conventions.",
+  "homepage": "https://github.com/brunschgi/terrificjs",
+  "main": "dist/terrific.js",
+  "authors": [
+    "Remo Brunschwiler <remo@terrifically.org>"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "es6-promise": ">=1.2.3"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "spec",
+    "src"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/brunschgi/terrificjs.git"
+  },
+  "keywords": [
+    "terrific",
+    "terrificjs",
+    "module",
+    "modularize",
+    "scalalable"
+  ]
 }
