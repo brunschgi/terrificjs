@@ -1,4 +1,3 @@
 bower_components/**/*.js
-src/oo.js
-src/Tc.Start.js
-src/Tc.End.js
+gulpfile.js
+karma.conf.js

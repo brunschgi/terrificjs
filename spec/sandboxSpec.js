@@ -1,15 +1,14 @@
-'use strict';
-
 describe('Sandbox', function () {
+	'use strict';
 
-    it('should be instance of Tc.Sandbox', function () {
-        var sandbox = new Tc.Sandbox();
-        expect(sandbox instanceof Tc.Sandbox ).toBeTruthy();
+    it('should be instance of T.Sandbox', function () {
+        var sandbox = new T.Sandbox();
+        expect(sandbox instanceof T.Sandbox ).toBeTruthy();
     });
 
     it('getConfig should return the config object', function () {
         var initialConfig = { foo : 'bar', bar : 'foo' };
-        var sandbox = new Tc.Sandbox(null, initialConfig);
+        var sandbox = new T.Sandbox(null, initialConfig);
 
         var config = sandbox.getConfig();
         expect(config).toBeDefined();
@@ -18,19 +17,19 @@ describe('Sandbox', function () {
 
     it('getConfigParam should return the appropriate config param', function () {
         var initialConfig = { foo : 'bar', bar : 'foo' };
-        var sandbox = new Tc.Sandbox(null, initialConfig);
+        var sandbox = new T.Sandbox(null, initialConfig);
 
         var foo = sandbox.getConfigParam('foo');
-        expect(foo).toEqual(initialConfig['foo']);
+        expect(foo).toEqual(initialConfig.foo);
 
         var bar = sandbox.getConfigParam('bar');
-        expect(bar).toEqual(initialConfig['bar']);
+        expect(bar).toEqual(initialConfig.bar);
     });
 
     describe('addModules', function() {
         beforeEach(function () {
             this.application = jasmine.createSpyObj('application', ['registerModules', 'start']);
-            this.sandbox = new Tc.Sandbox(this.application, {});
+            this.sandbox = new T.Sandbox(this.application, {});
         });
 
         it('should delegate to the application when called with a Node', function () {
@@ -54,7 +53,7 @@ describe('Sandbox', function () {
     describe('removeModules', function() {
         beforeEach(function () {
             this.application = jasmine.createSpyObj('application', ['unregisterModules', 'stop']);
-            this.sandbox = new Tc.Sandbox(this.application, {});
+            this.sandbox = new T.Sandbox(this.application, {});
             this.ctx = document.createElement('div');
         });
 
@@ -85,7 +84,7 @@ describe('Sandbox', function () {
     describe('getModuleById', function() {
         beforeEach(function () {
             this.application = jasmine.createSpyObj('application', ['getModuleById']);
-            this.sandbox = new Tc.Sandbox(this.application, {});
+            this.sandbox = new T.Sandbox(this.application, {});
         });
 
         it('should delegate to the application', function () {

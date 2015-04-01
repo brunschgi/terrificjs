@@ -1,28 +1,27 @@
-'use strict';
-
 describe('Application', function () {
+	'use strict';
 
-    it('should be instance of Tc.Application', function () {
-        var application = new Tc.Application();
-        expect(application instanceof Tc.Application ).toBeTruthy();
+    it('should be instance of T.Application', function () {
+        var application = new T.Application();
+        expect(application instanceof T.Application ).toBeTruthy();
     });
 
     it('should have default ctx and config when called with no args', function () {
-        var application = new Tc.Application();
+        var application = new T.Application();
         expect(application.config).toEqual({});
         expect(application.ctx).toEqual(document);
     });
 
     it('should have default ctx when called with config only', function () {
         var config = { 'foo' : 'bar'};
-        var application = new Tc.Application(config);
+        var application = new T.Application(config);
         expect(application.config).toEqual(config);
         expect(application.ctx).toEqual(document);
     });
 
     it('should have default config when called with ctx only', function () {
         var el = document.createElement('div');
-        var application = new Tc.Application(el);
+        var application = new T.Application(el);
         expect(application.config).toEqual({});
         expect(application.ctx).toEqual(el);
     });
@@ -30,7 +29,7 @@ describe('Application', function () {
     it('should support normal order of constructor arguments', function () {
         var config = { 'foo' : 'bar'};
         var el = document.createElement('div');
-        var application = new Tc.Application(el, config);
+        var application = new T.Application(el, config);
         expect(application.config).toEqual(config);
         expect(application.ctx).toEqual(el);
     });
@@ -38,14 +37,14 @@ describe('Application', function () {
     it('should support reverse order of constructor arguments', function () {
         var config = { 'foo' : 'bar'};
         var el = document.createElement('div');
-        var application = new Tc.Application(config, el);
+        var application = new T.Application(config, el);
         expect(application.config).toEqual(config);
         expect(application.ctx).toEqual(el);
     });
 
     describe('registerModules', function() {
         beforeEach(function () {
-            this.application = new Tc.Application();
+            this.application = new T.Application();
             this.ctx = document.createElement('div');
             this.id = 1;
             spyOn(this.application, 'registerModule').and.callFake(function() {
@@ -54,7 +53,7 @@ describe('Application', function () {
         });
 
         it('should register module on ctx node', function () {
-            this.ctx.dataset['tcName'] = 'Foo';
+            this.ctx.dataset.tName = 'Foo';
             var modules = this.application.registerModules(this.ctx);
 
             expect(this.application.registerModule.calls.count()).toEqual(1);
@@ -64,7 +63,7 @@ describe('Application', function () {
         });
 
         it('should register module on child node', function () {
-            this.ctx.innerHTML = '<div data-tc-name="Foo"></div>';
+            this.ctx.innerHTML = '<div data-t-name="Foo"></div>';
             var modules = this.application.registerModules(this.ctx);
 
             expect(this.application.registerModule.calls.count()).toEqual(1);
@@ -73,7 +72,7 @@ describe('Application', function () {
         });
 
         it('should register multiple modules on sibling nodes', function () {
-            this.ctx.innerHTML = '<div data-tc-name="Foo"></div><div data-tc-name="Foo"></div>';
+            this.ctx.innerHTML = '<div data-t-name="Foo"></div><div data-t-name="Foo"></div>';
             var modules = this.application.registerModules(this.ctx);
 
             expect(this.application.registerModule.calls.count()).toEqual(2);
@@ -81,7 +80,7 @@ describe('Application', function () {
         });
 
         it('should register multiple modules on nested nodes', function () {
-            this.ctx.innerHTML =  '<div data-tc-name="Foo"><div data-tc-name="Foo"></div></div>';
+            this.ctx.innerHTML =  '<div data-t-name="Foo"><div data-t-name="Foo"></div></div>';
             var modules = this.application.registerModules(this.ctx);
 
             expect(this.application.registerModule.calls.count()).toEqual(2);
@@ -91,7 +90,7 @@ describe('Application', function () {
 
     describe('unregisterModules', function() {
         beforeEach(function () {
-            this.application = new Tc.Application();
+            this.application = new T.Application();
         });
 
         it('should unregister all modules if called without modules', function () {
@@ -112,7 +111,7 @@ describe('Application', function () {
 
     describe('getModuleById', function() {
         beforeEach(function () {
-            this.application = new Tc.Application();
+            this.application = new T.Application();
         });
 
         it('should throw an error for undefined id', function () {
@@ -142,13 +141,13 @@ describe('Application', function () {
 
     describe('registerModule', function() {
         beforeEach(function () {
-            this.application = new Tc.Application();
+            this.application = new T.Application();
             this.ctx = document.createElement('div');
         });
 
         it('should allow to be called with ctx and module only', function () {
             expect(function() {
-                this.application.registerModule(this.ctx, 'DoesNotExist')
+                this.application.registerModule(this.ctx, 'DoesNotExist');
             }.bind(this)).not.toThrow();
         });
 
@@ -159,25 +158,25 @@ describe('Application', function () {
 
         it('should return module instance if module does exists', function () {
             var module = this.application.registerModule(this.ctx, 'Foo');
-            expect(module instanceof Tc.Module).toBeTruthy();
+            expect(module instanceof T.Module).toBeTruthy();
         });
 
         it('should assign ctx node, sandbox and id to the module instance', function () {
             var module = this.application.registerModule(this.ctx, 'Foo');
             expect(module.ctx instanceof Node).toBeTruthy();
-            expect(module.sandbox instanceof Tc.Sandbox).toBeTruthy();
+            expect(module.sandbox instanceof T.Sandbox).toBeTruthy();
             expect(module.id).toEqual(1);
         });
 
-        it('should set data-tc-id on the ctx node', function () {
+        it('should set data-t-id on the ctx node', function () {
             var module = this.application.registerModule(this.ctx, 'Foo');
-            expect(Number(module.ctx.dataset.tcId)).toEqual(1);
+            expect(Number(module.ctx.dataset.tId)).toEqual(1);
         });
 
         it('should have default on and after callbacks', function () {
             var module = this.application.registerModule(this.ctx, 'Foo');
 
-            expect(module instanceof Tc.Module.Foo).toBeTruthy();
+            expect(module instanceof T.Module.Foo).toBeTruthy();
             expect(module.on).toBeDefined();
             expect(module.on).toBeDefined();
         });
@@ -189,13 +188,13 @@ describe('Application', function () {
                 module = this.application.registerModule(this.ctx, 'Foo', ['DoesNotExists']);
             }.bind(this)).not.toThrow();
 
-            expect(module instanceof Tc.Module.Foo).toBeTruthy();
+            expect(module instanceof T.Module.Foo).toBeTruthy();
         });
 
         it('should decorate the module if skin does exists', function () {
             var module = this.application.registerModule(this.ctx, 'Foo', ['Bar']);
 
-            expect(module instanceof Tc.Module.Foo).toBeTruthy();
+            expect(module instanceof T.Module.Foo).toBeTruthy();
             expect(module.bar).toBeDefined();
             expect(module.bar()).toEqual('bar');
         });
@@ -203,7 +202,7 @@ describe('Application', function () {
         it('should decorate the module with multiple skins', function () {
             var module = this.application.registerModule(this.ctx, 'Foo', ['Bar', 'FooBar']);
 
-            expect(module instanceof Tc.Module.Foo).toBeTruthy();
+            expect(module instanceof T.Module.Foo).toBeTruthy();
             expect(module.bar).toBeDefined();
             expect(module.bar()).toEqual('bar');
             expect(module.foobar).toBeDefined();
@@ -213,7 +212,7 @@ describe('Application', function () {
         it('should not throw an error if on callback does not exist on decorated module', function () {
             var module = this.application.registerModule(this.ctx, 'Foo', ['Bar']);
 
-            expect(module instanceof Tc.Module.Foo).toBeTruthy();
+            expect(module instanceof T.Module.Foo).toBeTruthy();
             expect(module.bar).toBeDefined();
 
             expect(function() {
@@ -234,11 +233,10 @@ describe('Application', function () {
 
     describe('start', function() {
         beforeEach(function () {
-            this.application = new Tc.Application();
+            this.application = new T.Application();
         });
 
         it('should return Promise if no modules are given', function () {
-            var module = jasmine.createSpyObj('module', ['start']);
             var promise = this.application.start();
 
             expect(promise instanceof Promise).toBeTruthy();
@@ -328,7 +326,7 @@ describe('Application', function () {
 
     describe('stop', function() {
         beforeEach(function () {
-            this.application = new Tc.Application();
+            this.application = new T.Application();
         });
 
         it('should call stop on the given modules', function () {
