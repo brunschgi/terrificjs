@@ -2,11 +2,12 @@
  * Utility functions.
  *
  * @author Remo Brunschwiler
- * @namespace Tc
- * @class Utils.String
+ * @namespace T
+ * @class Utils
  * @static
  */
-Tc.Utils = {
+/* jshint unused: false */
+var Utils = {
 	/**
 	 * Capitalizes the first letter of the given string.
 	 *
