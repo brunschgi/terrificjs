@@ -1,22 +1,35 @@
 /**
  * Responsible for inter-module communication.
- * Classic EventEmitter pattern. Inspired by https://github.com/component/emitter
+ * Classic EventEmitter Api. Heavily inspired by https://github.com/component/emitter
  *
  * @author Remo Brunschwiler
  * @namespace T
- * @class Emitter
+ * @class Connector
  *
  * @constructor
+ *
+ * @param {Sandbox} sandbox
+ *      The sandbox instance
  */
-function Emitter() {
-
+function Connector(sandbox) {
 	/**
 	 * The listeners.
 	 *
-	 * @property listeners
+	 * @property _listeners
 	 * @type Object
 	 */
-	this.listeners = {};
+	this._listeners = {};
+
+	/**
+	 * The sandbox instance.
+	 *
+	 * @property _sandbox
+	 * @type Sandbox
+	 */
+	this._sandbox = sandbox;
+
+	// attach connector to the sandbox
+	sandbox.addConnector(this);
 }
 
 /**
@@ -25,10 +38,10 @@ function Emitter() {
  * @method on
  * @param {String} event
  * @param {Function} listener
- * @return {Emitter}
+ * @return {Connector}
  */
-Emitter.prototype.on = Emitter.prototype.addListener = function (event, listener) {
-	(this.listeners[event] = this.listeners[event] || []).push(listener);
+Connector.prototype.on = Connector.prototype.addListener = function (event, listener) {
+	(this._listeners['$' + event] = this._listeners['$' + event] || []).push(listener);
 	return this;
 };
 
@@ -39,9 +52,9 @@ Emitter.prototype.on = Emitter.prototype.addListener = function (event, listener
  * @method once
  * @param {String} event
  * @param {Function} listener
- * @return {Emitter}
+ * @return {Connector}
  */
-Emitter.prototype.once = function (event, listener) {
+Connector.prototype.once = function (event, listener) {
 	function on() {
 		this.off(event, on);
 		listener.apply(this, arguments);
@@ -59,25 +72,25 @@ Emitter.prototype.once = function (event, listener) {
  * @method off
  * @param {String} event
  * @param {Function} listener
- * @return {Emitter}
+ * @return {Connector}
  */
-Emitter.prototype.off = Emitter.prototype.removeListener = Emitter.prototype.removeAllListeners = function (event, listener) {
+Connector.prototype.off = Connector.prototype.removeListener = Connector.prototype.removeAllListeners = function (event, listener) {
 
 	// all
 	if (arguments.length === 0) {
-		this.listeners = {};
+		this._listeners = {};
 		return this;
 	}
 
 	// specific event
-	var listeners = this.listeners[event];
+	var listeners = this._listeners['$' + event];
 	if (!listeners) {
 		return this;
 	}
 
 	// remove all listeners
 	if (arguments.length === 1) {
-		delete this.listeners[event];
+		delete this._listeners['$' + event];
 		return this;
 	}
 
@@ -100,11 +113,11 @@ Emitter.prototype.off = Emitter.prototype.removeListener = Emitter.prototype.rem
  * @method emit
  * @param {String} event
  * @param {Mixed} ...
- * @return {Emitter}
+ * @return {Connector}
  */
-Emitter.prototype.emit = function (event) {
+Connector.prototype.emit = function (event) {
 	var args = [].slice.call(arguments, 1),
-		listeners = this.listeners[event];
+		listeners = this._listeners['$' + event];
 
 	if (listeners) {
 		listeners = listeners.slice(0);
@@ -112,6 +125,9 @@ Emitter.prototype.emit = function (event) {
 			listeners[i].apply(this, args);
 		}
 	}
+
+	// delegate event to the sandbox
+	this._sandbox.dispatch(this, arguments);
 
 	return this;
 };
@@ -123,8 +139,18 @@ Emitter.prototype.emit = function (event) {
  * @param {String} event
  * @return {Array}
  */
-Emitter.prototype.listeners = function (event) {
-	return this.listeners[event] || [];
+Connector.prototype.listeners = function (event) {
+	return this._listeners['$' + event] || [];
 };
 
+/**
+ * Check if this connector has listeners.
+ *
+ * @method hasListeners
+ * @param {String} event
+ * @return {Boolean}
+ */
+Connector.prototype.hasListeners = function(event){
+	return !!this.listeners(event).length;
+};
 

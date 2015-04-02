@@ -13,7 +13,7 @@
  * @param {String} id
  *      The Unique module ID
  */
-/* global ModuleEmitter */
+/* global Connector */
 function Module(ctx, sandbox, id) {
 
 	/**
@@ -33,14 +33,12 @@ function Module(ctx, sandbox, id) {
 	this.sandbox = sandbox;
 
 	/**
-	 * Emitter adapter.
+	 * The emitter.
 	 *
 	 * @property events
-	 * @type EmitterAdapter
+	 * @type Emitter
 	 */
-	if(sandbox && sandbox.events) {
-		this.events = new ModuleEmitter(sandbox.events);
-	}
+	this.events = new Connector(sandbox);
 
 	/**
 	 * Contains the unique module id.

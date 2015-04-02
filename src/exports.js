@@ -1,10 +1,9 @@
-/* global Application, Module, Utils, Sandbox, Emitter, ModuleEmitter */
+/* global Application, Sandbox, Module, Connector, Utils */
 /* jshint unused: false */
 var T = {
 	Application: Application,
 	Sandbox: Sandbox,
 	Module: Module,
-	Emitter: Emitter,
-	ModuleEmitter: ModuleEmitter,
+	Connector: Connector,
 	Utils: Utils
 };

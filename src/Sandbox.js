@@ -12,16 +12,15 @@
  * @param {Object} config
  *      The configuration
  */
-/* global Emitter */
 function Sandbox(application, config) {
 
 	/**
 	 * The application.
 	 *
-	 * @property application
+	 * @property _application
 	 * @type Application
 	 */
-	this.application = application;
+	this._application = application;
 
 	/**
 	 * The configuration.
@@ -29,17 +28,15 @@ function Sandbox(application, config) {
 	 * @property config
 	 * @type Object
 	 */
-	this.config = config;
+	this._config = config;
 
 	/**
-	 * The EventEmitter.
+	 * Contains references to all module connectors.
 	 *
-	 * @property events
-	 * @type Emitter
-	 *
-	 * The singleton is shared between all modules.
+	 * @property _connectors
+	 * @type Array
 	 */
-	this.events = new Emitter();
+	this._connectors = [];
 }
 
 /**
@@ -53,7 +50,7 @@ function Sandbox(application, config) {
  */
 Sandbox.prototype.addModules = function (ctx) {
 	var modules = [],
-		application = this.application;
+		application = this._application;
 
 	if (ctx instanceof Node) {
 		// register modules
@@ -73,9 +70,10 @@ Sandbox.prototype.addModules = function (ctx) {
  * @method removeModules
  * @param {any} modules
  *      A collection of module to remove | Node context to look for registered modules in.
+ * @return {Sandbox}
  */
 Sandbox.prototype.removeModules = function (modules) {
-	var application = this.application;
+	var application = this._application;
 
 	if (modules instanceof Node) {
 		// get modules
@@ -107,6 +105,8 @@ Sandbox.prototype.removeModules = function (modules) {
 		// unregister modules – clean up the application
 		application.unregisterModules(modules);
 	}
+
+	return this;
 };
 
 /**
@@ -119,7 +119,7 @@ Sandbox.prototype.removeModules = function (modules) {
  *      The appropriate module
  */
 Sandbox.prototype.getModuleById = function (id) {
-	return this.application.getModuleById(id);
+	return this._application.getModuleById(id);
 };
 
 /**
@@ -130,7 +130,7 @@ Sandbox.prototype.getModuleById = function (id) {
  *      The configuration object
  */
 Sandbox.prototype.getConfig = function () {
-	return this.config;
+	return this._config;
 };
 
 /**
@@ -143,7 +143,7 @@ Sandbox.prototype.getConfig = function () {
  *      The appropriate configuration param
  */
 Sandbox.prototype.getConfigParam = function (name) {
-	var config = this.config;
+	var config = this._config;
 
 	if (config[name] !== undefined) {
 		return config[name];
@@ -151,4 +151,38 @@ Sandbox.prototype.getConfigParam = function (name) {
 	else {
 		throw Error('The config param ' + name + ' does not exist');
 	}
+};
+
+/**
+ * Adds a connector instance.
+ *
+ * @method addConnector
+ * @param {Connector} connector
+ *      The connector
+ * @return {Sandbox}
+ */
+Sandbox.prototype.addConnector = function (connector) {
+	this._connectors.push(connector);
+	return this;
+};
+
+/**
+ * Dispatches the event with the given arguments to the attached connectors.
+ *
+ * @method dispatch
+ * @param {Connector} connector
+ * @param {Mixed} ...
+ * @return {Sandbox}
+ */
+Sandbox.prototype.dispatch = function (connector) {
+	var connectors = this._connectors,
+		args = [].slice.call(arguments, 1);
+
+	for(var i = 0, len = connectors.length; i < len; i++) {
+		if(connectors[i] !== connector) {
+			connectors[i].emit.apply(args);
+		}
+	}
+
+	return this;
 };

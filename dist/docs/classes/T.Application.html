@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Tc.Application - terrific</title>
+    <title>T.Application</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -15,11 +15,11 @@
     <div id="hd" class="yui3-g header">
         <div class="yui3-u-3-4">
             
-                <h1><img src="../assets/css/logo.png" title="terrific"></h1>
+                <h1><img src="../assets/css/logo.png" title=""></h1>
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.0.0-beta</em>
+            <em>API Docs for: </em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -41,23 +41,21 @@
         <div id="api-tabview-panel">
             <ul id="api-classes" class="apis classes">
             
-                <li><a href="../classes/Tc.Application.html">Tc.Application</a></li>
+                <li><a href="../classes/T.Application.html">T.Application</a></li>
             
-                <li><a href="../classes/Tc.Config.html">Tc.Config</a></li>
+                <li><a href="../classes/T.Connector.html">T.Connector</a></li>
             
-                <li><a href="../classes/Tc.Connector.html">Tc.Connector</a></li>
+                <li><a href="../classes/T.Module.html">T.Module</a></li>
             
-                <li><a href="../classes/Tc.Module.html">Tc.Module</a></li>
+                <li><a href="../classes/T.Sandbox.html">T.Sandbox</a></li>
             
-                <li><a href="../classes/Tc.Sandbox.html">Tc.Sandbox</a></li>
-            
-                <li><a href="../classes/Tc.Utils.String.html">Tc.Utils.String</a></li>
+                <li><a href="../classes/T.Utils.html">T.Utils</a></li>
             
             </ul>
 
             <ul id="api-modules" class="apis modules">
             
-                <li><a href="../modules/Tc.html">Tc</a></li>
+                <li><a href="../modules/T.html">T</a></li>
             
             </ul>
         </div>
@@ -94,7 +92,7 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1>Tc.Application Class</h1>
+                        <h1>T.Application Class</h1>
 <div class="box meta">
     
 
@@ -102,13 +100,13 @@
 
     
         <div class="foundat">
-            Defined in: <a href="../files/dist_terrific.js.html#l133"><code>dist&#x2F;terrific.js:133</code></a>
+            Defined in: <a href="../files/_Users_rbrunschwiler_Documents_github_terrificjs_dist_terrific.js.html#l23"><code>&#x2F;Users&#x2F;rbrunschwiler&#x2F;Documents&#x2F;github&#x2F;terrificjs&#x2F;dist&#x2F;terrific.js:23</code></a>
         </div>
     
 
     
         
-            Module: <a href="../modules/Tc.html">Tc</a>
+            Module: <a href="../modules/T.html">T</a>
         
     
 
@@ -118,160 +116,15 @@
 
 
 <div class="box intro">
-    <p>Responsible for application-wide issues such as the creation of modules and establishing connections between them.</p>
+    <p>Responsible for application-wide issues such as the creation of modules.</p>
 
 </div>
 
 
-
-<div id="classdocs" class="tabview">
-    <ul class="api-class-tabs">
-        <li class="api-class-tab index"><a href="#index">Index</a></li>
-
-        
-            <li class="api-class-tab methods"><a href="#methods">Methods</a></li>
-        
-        
-            <li class="api-class-tab properties"><a href="#properties">Properties</a></li>
-        
-        
-        
-    </ul>
-
-    <div>
-        <div id="index" class="api-class-tabpanel index">
-            <h2 class="off-left">Item Index</h2>
-
-            
-                <div class="index-section methods">
-                    <h3>Methods</h3>
-
-                    <ul class="index-list methods">
-                        
-                            <li class="index-item method">
-                                <a href="#method_end">end</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method">
-                                <a href="#method_init">init</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method">
-                                <a href="#method_registerConnection">registerConnection</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method">
-                                <a href="#method_registerModule">registerModule</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method">
-                                <a href="#method_registerModules">registerModules</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method">
-                                <a href="#method_start">start</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method">
-                                <a href="#method_stop">stop</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method">
-                                <a href="#method_unregisterConnection">unregisterConnection</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method">
-                                <a href="#method_unregisterModules">unregisterModules</a>
-
-                                
-                                
-                            </li>
-                        
-                    </ul>
-                </div>
-            
-
-            
-                <div class="index-section properties">
-                    <h3>Properties</h3>
-
-                    <ul class="index-list properties">
-                        
-                            <li class="index-item property">
-                                <a href="#property_$ctx">$ctx</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item property">
-                                <a href="#property_config">config</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item property">
-                                <a href="#property_connectors">connectors</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item property">
-                                <a href="#property_modules">modules</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item property">
-                                <a href="#property_sandbox">sandbox</a>
-
-                                
-                                
-                            </li>
-                        
-                    </ul>
-                </div>
-            
-
-            
-
-            
-        </div>
-
-        
-            <div id="methods" class="api-class-tabpanel">
-                <h2 class="off-left">Methods</h2>
-
-                
-                    <div id="method_end" class="method item">
-    <h3 class="name"><code>end</code></h3>
+    <div class="constructor">
+        <h2>Constructor</h2>
+        <div id="method_T.Application" class="method item">
+    <h3 class="name"><code>T.Application</code></h3>
 
     
         <div class="args">
@@ -279,96 +132,7 @@
             
                 <li class="arg">
                     
-                        <code>hook</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/dist_terrific.js.html#l359"><code>dist&#x2F;terrific.js:359</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Registers a hook that is called at the end.</p>
-
-    </div>
-
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">hook</code>
-                        <span class="type">Function</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The hook function to be executed</p>
-
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="method_init" class="method item">
-    <h3 class="name"><code>init</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>$ctx</code>
+                        <code>ctx</code>
                     
                 </li>
             
@@ -407,7 +171,7 @@
             
         
         
-        <a href="../files/dist_terrific.js.html#l142"><code>dist&#x2F;terrific.js:142</code></a>
+        <a href="../files/_Users_rbrunschwiler_Documents_github_terrificjs_dist_terrific.js.html#l23"><code>&#x2F;Users&#x2F;rbrunschwiler&#x2F;Documents&#x2F;github&#x2F;terrificjs&#x2F;dist&#x2F;terrific.js:23</code></a>
         
         </p>
 
@@ -418,8 +182,7 @@
     </div>
 
     <div class="description">
-        <p>Initializes the application.</p>
-
+        
     </div>
 
     
@@ -430,14 +193,14 @@
             
                 <li class="param">
                     
-                        <code class="param-name">$ctx</code>
-                        <span class="type">JQuery</span>
+                        <code class="param-name">ctx</code>
+                        <span class="type">Node</span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>The jQuery context</p>
+                        <p>The context node</p>
 
                     </div>
 
@@ -469,9 +232,129 @@
     
 </div>
 
+    </div>
+
+
+<div id="classdocs" class="tabview">
+    <ul class="api-class-tabs">
+        <li class="api-class-tab index"><a href="#index">Index</a></li>
+
+        
+            <li class="api-class-tab methods"><a href="#methods">Methods</a></li>
+        
+        
+            <li class="api-class-tab properties"><a href="#properties">Properties</a></li>
+        
+        
+        
+    </ul>
+
+    <div>
+        <div id="index" class="api-class-tabpanel index">
+            <h2 class="off-left">Item Index</h2>
+
+            
+                <div class="index-section methods">
+                    <h3>Methods</h3>
+
+                    <ul class="index-list methods">
+                        
+                            <li class="index-item method">
+                                <a href="#method_getModuleById">getModuleById</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_registerModule">registerModule</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_registerModules">registerModules</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_start">start</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_stop">stop</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_unregisterModules">unregisterModules</a>
+
+                                
+                                
+                            </li>
+                        
+                    </ul>
+                </div>
+            
+
+            
+                <div class="index-section properties">
+                    <h3>Properties</h3>
+
+                    <ul class="index-list properties">
+                        
+                            <li class="index-item property">
+                                <a href="#property__ctx">_ctx</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property__modules">_modules</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property__sandbox">_sandbox</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_id">id</a>
+
+                                
+                                
+                            </li>
+                        
+                    </ul>
+                </div>
+            
+
+            
+
+            
+        </div>
+
+        
+            <div id="methods" class="api-class-tabpanel">
+                <h2 class="off-left">Methods</h2>
+
                 
-                    <div id="method_registerConnection" class="method item">
-    <h3 class="name"><code>registerConnection</code></h3>
+                    <div id="method_getModuleById" class="method item">
+    <h3 class="name"><code>getModuleById</code></h3>
 
     
         <div class="args">
@@ -479,136 +362,7 @@
             
                 <li class="arg">
                     
-                        <code>connector</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code>component</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/dist_terrific.js.html#l455"><code>dist&#x2F;terrific.js:455</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Registers a connection between a module and a connector.</p>
-
-    </div>
-
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">connector</code>
-                        <span class="type">String</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The full connector name (e.g. MasterSlave-Navigation)</p>
-
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name">component</code>
-                        <span class="type">Module</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The module instance</p>
-
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="method_registerModule" class="method item">
-    <h3 class="name"><code>registerModule</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>$node</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code>modName</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code>skins</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code>connectors</code>
+                        <code>id</code>
                     
                 </li>
             
@@ -645,7 +399,126 @@
             
         
         
-        <a href="../files/dist_terrific.js.html#l404"><code>dist&#x2F;terrific.js:404</code></a>
+        <a href="../files/_Users_rbrunschwiler_Documents_github_terrificjs_dist_terrific.js.html#l281"><code>&#x2F;Users&#x2F;rbrunschwiler&#x2F;Documents&#x2F;github&#x2F;terrificjs&#x2F;dist&#x2F;terrific.js:281</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Gets the appropriate module for the given ID.</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">id</code>
+                        <span class="type">Int</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The module ID</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Module</span>:
+                    
+                    <p>The appropriate module</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_registerModule" class="method item">
+    <h3 class="name"><code>registerModule</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>ctx</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>mod</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>skins</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Module</span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/_Users_rbrunschwiler_Documents_github_terrificjs_dist_terrific.js.html#l239"><code>&#x2F;Users&#x2F;rbrunschwiler&#x2F;Documents&#x2F;github&#x2F;terrificjs&#x2F;dist&#x2F;terrific.js:239</code></a>
         
         </p>
 
@@ -668,14 +541,14 @@
             
                 <li class="param">
                     
-                        <code class="param-name">$node</code>
-                        <span class="type">JQuery</span>
+                        <code class="param-name">ctx</code>
+                        <span class="type">Node</span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>The module node</p>
+                        <p>The context node</p>
 
                     </div>
 
@@ -684,7 +557,7 @@
             
                 <li class="param">
                     
-                        <code class="param-name">modName</code>
+                        <code class="param-name">mod</code>
                         <span class="type">String</span>
                     
 
@@ -708,23 +581,6 @@
 
                     <div class="param-description">
                         <p>A list of skin names. Each entry must match a class name of a skin</p>
-
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name">connectors</code>
-                        <span class="type">Array</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>A list of connectors identifiers (e.g. MasterSlave-Navigation)
-     Schema: {connectorName}-{connectorId}</p>
 
                     </div>
 
@@ -764,7 +620,7 @@
             
                 <li class="arg">
                     
-                        <code>$ctx</code>
+                        <code>ctx</code>
                     
                 </li>
             
@@ -774,7 +630,7 @@
 
     
         <span class="returns-inline">
-            <span class="type">Array</span>
+            <span class="type">Object</span>
         </span>
     
 
@@ -801,7 +657,7 @@
             
         
         
-        <a href="../files/dist_terrific.js.html#l197"><code>dist&#x2F;terrific.js:197</code></a>
+        <a href="../files/_Users_rbrunschwiler_Documents_github_terrificjs_dist_terrific.js.html#l95"><code>&#x2F;Users&#x2F;rbrunschwiler&#x2F;Documents&#x2F;github&#x2F;terrificjs&#x2F;dist&#x2F;terrific.js:95</code></a>
         
         </p>
 
@@ -812,9 +668,9 @@
     </div>
 
     <div class="description">
-        <p>Register modules withing scope
-Automatically registers all modules within the scope,
-as long as the modules use the OOCSS naming conventions.</p>
+        <p>Register modules within the context
+Automatically registers all modules within the context,
+as long as the modules use the naming conventions.</p>
 
     </div>
 
@@ -826,14 +682,14 @@ as long as the modules use the OOCSS naming conventions.</p>
             
                 <li class="param">
                     
-                        <code class="param-name">$ctx</code>
-                        <span class="type">JQuery</span>
+                        <code class="param-name">ctx</code>
+                        <span class="type">Node</span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>The jQuery context</p>
+                        <p>The context node</p>
 
                     </div>
 
@@ -851,9 +707,9 @@ as long as the modules use the OOCSS naming conventions.</p>
             <div class="returns-description">
                 
                     
-                        <span class="type">Array</span>:
+                        <span class="type">Object</span>:
                     
-                    <p>A list containing the references of the registered modules</p>
+                    <p>A collection containing the registered modules</p>
 
                 
             </div>
@@ -882,6 +738,10 @@ as long as the modules use the OOCSS naming conventions.</p>
     
 
     
+        <span class="returns-inline">
+            <span class="type">Promise</span>
+        </span>
+    
 
     
 
@@ -906,7 +766,7 @@ as long as the modules use the OOCSS naming conventions.</p>
             
         
         
-        <a href="../files/dist_terrific.js.html#l372"><code>dist&#x2F;terrific.js:372</code></a>
+        <a href="../files/_Users_rbrunschwiler_Documents_github_terrificjs_dist_terrific.js.html#l174"><code>&#x2F;Users&#x2F;rbrunschwiler&#x2F;Documents&#x2F;github&#x2F;terrificjs&#x2F;dist&#x2F;terrific.js:174</code></a>
         
         </p>
 
@@ -930,13 +790,13 @@ as long as the modules use the OOCSS naming conventions.</p>
                 <li class="param">
                     
                         <code class="param-name">modules</code>
-                        <span class="type">Array</span>
+                        <span class="type">Object</span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>A list of the modules to start</p>
+                        <p>A collection of modules to start</p>
 
                     </div>
 
@@ -947,6 +807,20 @@ as long as the modules use the OOCSS naming conventions.</p>
         </div>
     
 
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Promise</span>:
+                    
+                    <p>The after callback sync Promise</p>
+
+                
+            </div>
+        </div>
     
 
     
@@ -995,7 +869,7 @@ as long as the modules use the OOCSS naming conventions.</p>
             
         
         
-        <a href="../files/dist_terrific.js.html#l388"><code>dist&#x2F;terrific.js:388</code></a>
+        <a href="../files/_Users_rbrunschwiler_Documents_github_terrificjs_dist_terrific.js.html#l221"><code>&#x2F;Users&#x2F;rbrunschwiler&#x2F;Documents&#x2F;github&#x2F;terrificjs&#x2F;dist&#x2F;terrific.js:221</code></a>
         
         </p>
 
@@ -1019,124 +893,13 @@ as long as the modules use the OOCSS naming conventions.</p>
                 <li class="param">
                     
                         <code class="param-name">modules</code>
-                        <span class="type">Array</span>
+                        <span class="type">Object</span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>A list containing the module instances to stop</p>
-
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="method_unregisterConnection" class="method item">
-    <h3 class="name"><code>unregisterConnection</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>connectorId</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code>component</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/dist_terrific.js.html#l512"><code>dist&#x2F;terrific.js:512</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Unregisters a module from a connector.</p>
-
-    </div>
-
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">connectorId</code>
-                        <span class="type">String</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The connector channel id (e.g. 2)</p>
-
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name">component</code>
-                        <span class="type">Module</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The module instance</p>
+                        <p>A collection of modules to stop</p>
 
                     </div>
 
@@ -1195,7 +958,7 @@ as long as the modules use the OOCSS naming conventions.</p>
             
         
         
-        <a href="../files/dist_terrific.js.html#l320"><code>dist&#x2F;terrific.js:320</code></a>
+        <a href="../files/_Users_rbrunschwiler_Documents_github_terrificjs_dist_terrific.js.html#l156"><code>&#x2F;Users&#x2F;rbrunschwiler&#x2F;Documents&#x2F;github&#x2F;terrificjs&#x2F;dist&#x2F;terrific.js:156</code></a>
         
         </p>
 
@@ -1219,13 +982,13 @@ as long as the modules use the OOCSS naming conventions.</p>
                 <li class="param">
                     
                         <code class="param-name">modules</code>
-                        <span class="type">Array</span>
+                        <span class="type">Object</span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>A list containing the module instances to unregister</p>
+                        <p>A collection containing the modules to unregister</p>
 
                     </div>
 
@@ -1250,9 +1013,9 @@ as long as the modules use the OOCSS naming conventions.</p>
                 <h2 class="off-left">Properties</h2>
 
                 
-                    <div id="property_$ctx" class="property item">
-    <h3 class="name"><code>$ctx</code></h3>
-    <span class="type">JQuery</span>
+                    <div id="property__ctx" class="property item">
+    <h3 class="name"><code>_ctx</code></h3>
+    <span class="type">Node</span>
 
     
 
@@ -1273,7 +1036,7 @@ as long as the modules use the OOCSS naming conventions.</p>
             
         
         
-        <a href="../files/dist_terrific.js.html#l161"><code>dist&#x2F;terrific.js:161</code></a>
+        <a href="../files/_Users_rbrunschwiler_Documents_github_terrificjs_dist_terrific.js.html#l61"><code>&#x2F;Users&#x2F;rbrunschwiler&#x2F;Documents&#x2F;github&#x2F;terrificjs&#x2F;dist&#x2F;terrific.js:61</code></a>
         
         </p>
 
@@ -1283,7 +1046,7 @@ as long as the modules use the OOCSS naming conventions.</p>
     </div>
 
     <div class="description">
-        <p>The jQuery context.</p>
+        <p>The context node.</p>
 
     </div>
 
@@ -1295,8 +1058,8 @@ as long as the modules use the OOCSS naming conventions.</p>
 </div>
 
                 
-                    <div id="property_config" class="property item">
-    <h3 class="name"><code>config</code></h3>
+                    <div id="property__modules" class="property item">
+    <h3 class="name"><code>_modules</code></h3>
     <span class="type">Object</span>
 
     
@@ -1318,7 +1081,7 @@ as long as the modules use the OOCSS naming conventions.</p>
             
         
         
-        <a href="../files/dist_terrific.js.html#l153"><code>dist&#x2F;terrific.js:153</code></a>
+        <a href="../files/_Users_rbrunschwiler_Documents_github_terrificjs_dist_terrific.js.html#l78"><code>&#x2F;Users&#x2F;rbrunschwiler&#x2F;Documents&#x2F;github&#x2F;terrificjs&#x2F;dist&#x2F;terrific.js:78</code></a>
         
         </p>
 
@@ -1328,7 +1091,7 @@ as long as the modules use the OOCSS naming conventions.</p>
     </div>
 
     <div class="description">
-        <p>The configuration.</p>
+        <p>Contains references to all modules on the page.</p>
 
     </div>
 
@@ -1340,100 +1103,8 @@ as long as the modules use the OOCSS naming conventions.</p>
 </div>
 
                 
-                    <div id="property_connectors" class="property item">
-    <h3 class="name"><code>connectors</code></h3>
-    <span class="type">Object</span>
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/dist_terrific.js.html#l179"><code>dist&#x2F;terrific.js:179</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Contains references to all connectors on the page.</p>
-
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_modules" class="property item">
-    <h3 class="name"><code>modules</code></h3>
-    <span class="type">Array</span>
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/dist_terrific.js.html#l169"><code>dist&#x2F;terrific.js:169</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Contains references to all modules on the page. This can, for
-example, be useful when there are interactions between Flash
-objects and Javascript.</p>
-
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_sandbox" class="property item">
-    <h3 class="name"><code>sandbox</code></h3>
+                    <div id="property__sandbox" class="property item">
+    <h3 class="name"><code>_sandbox</code></h3>
     <span class="type">Sandbox</span>
 
     
@@ -1455,7 +1126,7 @@ objects and Javascript.</p>
             
         
         
-        <a href="../files/dist_terrific.js.html#l187"><code>dist&#x2F;terrific.js:187</code></a>
+        <a href="../files/_Users_rbrunschwiler_Documents_github_terrificjs_dist_terrific.js.html#l69"><code>&#x2F;Users&#x2F;rbrunschwiler&#x2F;Documents&#x2F;github&#x2F;terrificjs&#x2F;dist&#x2F;terrific.js:69</code></a>
         
         </p>
 
@@ -1465,8 +1136,53 @@ objects and Javascript.</p>
     </div>
 
     <div class="description">
-        <p>The sandbox to get the resources from
-This sandbox is shared between all modules.</p>
+        <p>The sandbox to get the resources from.
+The singleton is shared between all modules.</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_id" class="property item">
+    <h3 class="name"><code>id</code></h3>
+    <span class="type">Number</span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/_Users_rbrunschwiler_Documents_github_terrificjs_dist_terrific.js.html#l86"><code>&#x2F;Users&#x2F;rbrunschwiler&#x2F;Documents&#x2F;github&#x2F;terrificjs&#x2F;dist&#x2F;terrific.js:86</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>The next unique module id to use.</p>
 
     </div>
 

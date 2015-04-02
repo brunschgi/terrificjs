@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Tc.Utils.String - terrific</title>
+    <title>T.Utils</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -15,11 +15,11 @@
     <div id="hd" class="yui3-g header">
         <div class="yui3-u-3-4">
             
-                <h1><img src="../assets/css/logo.png" title="terrific"></h1>
+                <h1><img src="../assets/css/logo.png" title=""></h1>
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.0.0-beta</em>
+            <em>API Docs for: </em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -41,23 +41,21 @@
         <div id="api-tabview-panel">
             <ul id="api-classes" class="apis classes">
             
-                <li><a href="../classes/Tc.Application.html">Tc.Application</a></li>
+                <li><a href="../classes/T.Application.html">T.Application</a></li>
             
-                <li><a href="../classes/Tc.Config.html">Tc.Config</a></li>
+                <li><a href="../classes/T.Connector.html">T.Connector</a></li>
             
-                <li><a href="../classes/Tc.Connector.html">Tc.Connector</a></li>
+                <li><a href="../classes/T.Module.html">T.Module</a></li>
             
-                <li><a href="../classes/Tc.Module.html">Tc.Module</a></li>
+                <li><a href="../classes/T.Sandbox.html">T.Sandbox</a></li>
             
-                <li><a href="../classes/Tc.Sandbox.html">Tc.Sandbox</a></li>
-            
-                <li><a href="../classes/Tc.Utils.String.html">Tc.Utils.String</a></li>
+                <li><a href="../classes/T.Utils.html">T.Utils</a></li>
             
             </ul>
 
             <ul id="api-modules" class="apis modules">
             
-                <li><a href="../modules/Tc.html">Tc</a></li>
+                <li><a href="../modules/T.html">T</a></li>
             
             </ul>
         </div>
@@ -94,7 +92,7 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1>Tc.Utils.String Class</h1>
+                        <h1>T.Utils Class</h1>
 <div class="box meta">
     
 
@@ -102,13 +100,13 @@
 
     
         <div class="foundat">
-            Defined in: <a href="../files/dist_terrific.js.html#l1130"><code>dist&#x2F;terrific.js:1130</code></a>
+            Defined in: <a href="../files/_Users_rbrunschwiler_Documents_github_terrificjs_dist_terrific.js.html#l748"><code>&#x2F;Users&#x2F;rbrunschwiler&#x2F;Documents&#x2F;github&#x2F;terrificjs&#x2F;dist&#x2F;terrific.js:748</code></a>
         </div>
     
 
     
         
-            Module: <a href="../modules/Tc.html">Tc</a>
+            Module: <a href="../modules/T.html">T</a>
         
     
 
@@ -118,7 +116,7 @@
 
 
 <div class="box intro">
-    <p>Contains utility functions for string concerning tasks.</p>
+    <p>Utility functions.</p>
 
 </div>
 
@@ -147,14 +145,14 @@
                     <ul class="index-list methods">
                         
                             <li class="index-item method">
-                                <a href="#method_capitalize">capitalize</a>
+                                <a href="#method_camelize">camelize</a>
 
                                 
                                 
                             </li>
                         
                             <li class="index-item method">
-                                <a href="#method_toCamel">toCamel</a>
+                                <a href="#method_capitalize">capitalize</a>
 
                                 
                                 
@@ -176,8 +174,8 @@
                 <h2 class="off-left">Methods</h2>
 
                 
-                    <div id="method_capitalize" class="method item">
-    <h3 class="name"><code>capitalize</code></h3>
+                    <div id="method_camelize" class="method item">
+    <h3 class="name"><code>camelize</code></h3>
 
     
         <div class="args">
@@ -222,114 +220,7 @@
             
         
         
-        <a href="../files/dist_terrific.js.html#l1139"><code>dist&#x2F;terrific.js:1139</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Capitalizes the first letter of the given string.</p>
-
-    </div>
-
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">str</code>
-                        <span class="type">String</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The original string</p>
-
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
-    
-
-    
-        <div class="returns">
-            <h4>Returns:</h4>
-
-            <div class="returns-description">
-                
-                    
-                        <span class="type">String</span>:
-                    
-                    <p>The capitalized string</p>
-
-                
-            </div>
-        </div>
-    
-
-    
-</div>
-
-                
-                    <div id="method_toCamel" class="method item">
-    <h3 class="name"><code>toCamel</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>str</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-        <span class="returns-inline">
-            <span class="type">String</span>
-        </span>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/dist_terrific.js.html#l1153"><code>dist&#x2F;terrific.js:1153</code></a>
+        <a href="../files/_Users_rbrunschwiler_Documents_github_terrificjs_dist_terrific.js.html#l771"><code>&#x2F;Users&#x2F;rbrunschwiler&#x2F;Documents&#x2F;github&#x2F;terrificjs&#x2F;dist&#x2F;terrific.js:771</code></a>
         
         </p>
 
@@ -380,6 +271,113 @@
                         <span class="type">String</span>:
                     
                     <p>The camelized string</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_capitalize" class="method item">
+    <h3 class="name"><code>capitalize</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>str</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">String</span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/_Users_rbrunschwiler_Documents_github_terrificjs_dist_terrific.js.html#l758"><code>&#x2F;Users&#x2F;rbrunschwiler&#x2F;Documents&#x2F;github&#x2F;terrificjs&#x2F;dist&#x2F;terrific.js:758</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Capitalizes the first letter of the given string.</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">str</code>
+                        <span class="type">String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The original string</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">String</span>:
+                    
+                    <p>The capitalized string</p>
 
                 
             </div>

@@ -26,7 +26,7 @@ describe('Sandbox', function () {
         expect(bar).toEqual(initialConfig.bar);
     });
 
-    describe('addModules', function() {
+    describe('.addModules(ctx)', function() {
         beforeEach(function () {
             this.application = jasmine.createSpyObj('application', ['registerModules', 'start']);
             this.sandbox = new T.Sandbox(this.application, {});
@@ -50,7 +50,7 @@ describe('Sandbox', function () {
         });
     });
 
-    describe('removeModules', function() {
+    describe('.removeModules(modules)', function() {
         beforeEach(function () {
             this.application = jasmine.createSpyObj('application', ['unregisterModules', 'stop']);
             this.sandbox = new T.Sandbox(this.application, {});
@@ -81,7 +81,7 @@ describe('Sandbox', function () {
         });
     });
 
-    describe('getModuleById', function() {
+    describe('.getModuleById(id)', function() {
         beforeEach(function () {
             this.application = jasmine.createSpyObj('application', ['getModuleById']);
             this.sandbox = new T.Sandbox(this.application, {});

@@ -24,7 +24,7 @@
  * @param {Object} config
  *      The configuration
  */
-/* global Module, Utils, Sandbox */
+/* global Sandbox, Module, Utils */
 function Application(ctx, config) {
 
 	// validate params
@@ -52,35 +52,27 @@ function Application(ctx, config) {
 	/**
 	 * The context node.
 	 *
-	 * @property ctx
+	 * @property _ctx
 	 * @type Node
 	 */
-	this.ctx = ctx;
-
-	/**
-	 * The configuration.
-	 *
-	 * @property config
-	 * @type Object
-	 */
-	this.config = config;
+	this._ctx = ctx;
 
 	/**
 	 * The sandbox to get the resources from.
 	 * The singleton is shared between all modules.
 	 *
-	 * @property sandbox
+	 * @property _sandbox
 	 * @type Sandbox
 	 */
-	this.sandbox = new Sandbox(this, config);
+	this._sandbox = new Sandbox(this, config);
 
 	/**
 	 * Contains references to all modules on the page.
 	 *
-	 * @property modules
+	 * @property _modules
 	 * @type Object
 	 */
-	this.modules = {};
+	this._modules = {};
 
 	/**
 	 * The next unique module id to use.
@@ -88,7 +80,7 @@ function Application(ctx, config) {
 	 * @property id
 	 * @type Number
 	 */
-	this.id = 1;
+	this._id = 1;
 }
 
 /**
@@ -105,7 +97,7 @@ function Application(ctx, config) {
 Application.prototype.registerModules = function (ctx) {
 	var modules = {};
 
-	ctx = ctx || this.ctx;
+	ctx = ctx || this._ctx;
 
 	var fragment = document.createDocumentFragment();
 	fragment.appendChild(ctx);
@@ -160,12 +152,12 @@ Application.prototype.registerModules = function (ctx) {
  *      A collection containing the modules to unregister
  */
 Application.prototype.unregisterModules = function (modules) {
-	modules = modules || this.modules;
+	modules = modules || this._modules;
 
 	// unregister the given modules
 	for (var id in modules) {
 		if (modules.hasOwnProperty(id)) {
-			delete this.modules[id];
+			delete this._modules[id];
 		}
 	}
 };
@@ -180,7 +172,7 @@ Application.prototype.unregisterModules = function (modules) {
  *      The after callback sync Promise
  */
 Application.prototype.start = function (modules) {
-	modules = modules || this.modules;
+	modules = modules || this._modules;
 
 	var promises = [];
 
@@ -206,9 +198,9 @@ Application.prototype.start = function (modules) {
 	// synchronize after callbacks
 	var all = Promise.all(promises);
 	all.then(function (callbacks) {
-		callbacks.forEach(function (callback) {
-			callback();
-		});
+		for(var i = 0, len = callbacks.length; i < len; i++) {
+			callbacks[i]();
+		}
 	}.bind(this))
 		.catch(function (error) {
 			throw Error('Synchronizing the after callbacks failed: ' + error);
@@ -225,7 +217,7 @@ Application.prototype.start = function (modules) {
  *      A collection of modules to stop
  */
 Application.prototype.stop = function (modules) {
-	modules = modules || this.modules;
+	modules = modules || this._modules;
 
 	// stop the modules
 	for (var id in modules) {
@@ -249,25 +241,27 @@ Application.prototype.stop = function (modules) {
  *      The reference to the registered module
  */
 Application.prototype.registerModule = function (ctx, mod, skins) {
-	var modules = this.modules;
+	var modules = this._modules;
 
 	mod = mod || undefined;
 	skins = skins || [];
 
 	if (mod && Module[mod]) {
 		// assign the module a unique id
-		var id = this.id++;
+		var id = this._id++;
 		ctx.setAttribute('data-t-id', id);
 
 		// instantiate module
-		modules[id] = new Module[mod](ctx, this.sandbox, id);
+		modules[id] = new Module[mod](ctx, this._sandbox, id);
 
 		// decorate it
-		skins.forEach(function (skin) {
+		for(var i = 0, len = skins.length; i < len; i++) {
+			var skin = skins[i];
+
 			if (Module[mod][skin]) {
 				Module[mod][skin](modules[id]);
 			}
-		});
+		}
 
 		return modules[id];
 	}
@@ -285,8 +279,8 @@ Application.prototype.registerModule = function (ctx, mod, skins) {
  *      The appropriate module
  */
 Application.prototype.getModuleById = function (id) {
-	if (this.modules[id] !== undefined) {
-		return this.modules[id];
+	if (this._modules[id] !== undefined) {
+		return this._modules[id];
 	}
 	else {
 		throw Error('The module with the id ' + id +

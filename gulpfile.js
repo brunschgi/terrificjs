@@ -28,8 +28,7 @@ var gulp = require('gulp'),
 		'./src/Application.js',
 		'./src/Sandbox.js',
 		'./src/Module.js',
-		'./src/Emitter.js',
-		'./src/ModuleEmitter.js',
+		'./src/Connector.js',
 		'./src/Utils.js',
 		'./src/exports.js'
 	];

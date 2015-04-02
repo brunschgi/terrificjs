@@ -6,43 +6,32 @@ describe('Application', function () {
         expect(application instanceof T.Application ).toBeTruthy();
     });
 
-    it('should have default ctx and config when called with no args', function () {
+    it('should have default ctx when called with no args', function () {
         var application = new T.Application();
-        expect(application.config).toEqual({});
-        expect(application.ctx).toEqual(document);
+        expect(application._ctx).toEqual(document);
     });
 
     it('should have default ctx when called with config only', function () {
         var config = { 'foo' : 'bar'};
         var application = new T.Application(config);
-        expect(application.config).toEqual(config);
-        expect(application.ctx).toEqual(document);
-    });
-
-    it('should have default config when called with ctx only', function () {
-        var el = document.createElement('div');
-        var application = new T.Application(el);
-        expect(application.config).toEqual({});
-        expect(application.ctx).toEqual(el);
+        expect(application._ctx).toEqual(document);
     });
 
     it('should support normal order of constructor arguments', function () {
         var config = { 'foo' : 'bar'};
         var el = document.createElement('div');
         var application = new T.Application(el, config);
-        expect(application.config).toEqual(config);
-        expect(application.ctx).toEqual(el);
+        expect(application._ctx).toEqual(el);
     });
 
     it('should support reverse order of constructor arguments', function () {
         var config = { 'foo' : 'bar'};
         var el = document.createElement('div');
         var application = new T.Application(config, el);
-        expect(application.config).toEqual(config);
-        expect(application.ctx).toEqual(el);
+        expect(application._ctx).toEqual(el);
     });
 
-    describe('registerModules', function() {
+    describe('.registerModules(ctx)', function() {
         beforeEach(function () {
             this.application = new T.Application();
             this.ctx = document.createElement('div');
@@ -53,7 +42,7 @@ describe('Application', function () {
         });
 
         it('should register module on ctx node', function () {
-            this.ctx.dataset.tName = 'Foo';
+            this.ctx.setAttribute('data-t-name', 'Foo');
             var modules = this.application.registerModules(this.ctx);
 
             expect(this.application.registerModule.calls.count()).toEqual(1);
@@ -88,28 +77,34 @@ describe('Application', function () {
         });
     });
 
-    describe('unregisterModules', function() {
-        beforeEach(function () {
-            this.application = new T.Application();
-        });
+    describe('.unregisterModules()', function() {
+		beforeEach(function () {
+			this.application = new T.Application();
+		});
 
-        it('should unregister all modules if called without modules', function () {
-            this.application.modules = { 1 : true, 2 : true, 3: true};
-            this.application.unregisterModules();
+		it('should unregister all modules', function () {
+			this.application._modules = {1: true, 2: true, 3: true};
+			this.application.unregisterModules();
 
-            expect(Object.keys(this.application.modules).length).toEqual(0);
-        });
+			expect(Object.keys(this.application._modules).length).toEqual(0);
+		});
+	});
+
+	describe('.unregisterModules(modules)', function() {
+		beforeEach(function () {
+			this.application = new T.Application();
+		});
 
         it('should unregister the given modules', function () {
-            this.application.modules = { 1 : true, 2 : true, 3: true};
+            this.application._modules = { 1 : true, 2 : true, 3: true};
             this.application.unregisterModules({ 1 : true, 2: true});
 
-            expect(Object.keys(this.application.modules).length).toEqual(1);
-            expect(this.application.modules[3]).toBeDefined();
+            expect(Object.keys(this.application._modules).length).toEqual(1);
+            expect(this.application._modules[3]).toBeDefined();
         });
     });
 
-    describe('getModuleById', function() {
+    describe('.getModuleById(id)', function() {
         beforeEach(function () {
             this.application = new T.Application();
         });
@@ -127,25 +122,26 @@ describe('Application', function () {
         });
 
         it('should return registered module instance', function () {
-            this.application.modules = { 3 : true};
+            this.application._modules = { 3 : true};
             var instance = this.application.getModuleById(3);
             expect(instance).toBeTruthy();
         });
 
         it('should cast the id', function () {
-            this.application.modules = { 3 : true};
+            this.application._modules = { 3 : true};
             var instance = this.application.getModuleById('3');
             expect(instance).toBeTruthy();
         });
     });
 
-    describe('registerModule', function() {
+    describe('.registerModule(ctx, mod, skins)', function() {
         beforeEach(function () {
-            this.application = new T.Application();
+			this.application = new T.Application();
             this.ctx = document.createElement('div');
         });
 
-        it('should allow to be called with ctx and module only', function () {
+        it('should allow to be called with ctx and module name only', function () {
+
             expect(function() {
                 this.application.registerModule(this.ctx, 'DoesNotExist');
             }.bind(this)).not.toThrow();
@@ -231,7 +227,7 @@ describe('Application', function () {
         });
     });
 
-    describe('start', function() {
+    describe('.start()', function() {
         beforeEach(function () {
             this.application = new T.Application();
         });
@@ -324,7 +320,7 @@ describe('Application', function () {
         });
     });
 
-    describe('stop', function() {
+    describe('.stop()', function() {
         beforeEach(function () {
             this.application = new T.Application();
         });

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Tc.Module - terrific</title>
+    <title>T.Connector</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -15,11 +15,11 @@
     <div id="hd" class="yui3-g header">
         <div class="yui3-u-3-4">
             
-                <h1><img src="../assets/css/logo.png" title="terrific"></h1>
+                <h1><img src="../assets/css/logo.png" title=""></h1>
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 3.0.0-beta</em>
+            <em>API Docs for: </em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -41,23 +41,21 @@
         <div id="api-tabview-panel">
             <ul id="api-classes" class="apis classes">
             
-                <li><a href="../classes/Tc.Application.html">Tc.Application</a></li>
+                <li><a href="../classes/T.Application.html">T.Application</a></li>
             
-                <li><a href="../classes/Tc.Config.html">Tc.Config</a></li>
+                <li><a href="../classes/T.Connector.html">T.Connector</a></li>
             
-                <li><a href="../classes/Tc.Connector.html">Tc.Connector</a></li>
+                <li><a href="../classes/T.Module.html">T.Module</a></li>
             
-                <li><a href="../classes/Tc.Module.html">Tc.Module</a></li>
+                <li><a href="../classes/T.Sandbox.html">T.Sandbox</a></li>
             
-                <li><a href="../classes/Tc.Sandbox.html">Tc.Sandbox</a></li>
-            
-                <li><a href="../classes/Tc.Utils.String.html">Tc.Utils.String</a></li>
+                <li><a href="../classes/T.Utils.html">T.Utils</a></li>
             
             </ul>
 
             <ul id="api-modules" class="apis modules">
             
-                <li><a href="../modules/Tc.html">Tc</a></li>
+                <li><a href="../modules/T.html">T</a></li>
             
             </ul>
         </div>
@@ -94,7 +92,7 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1>Tc.Module Class</h1>
+                        <h1>T.Connector Class</h1>
 <div class="box meta">
     
 
@@ -102,13 +100,13 @@
 
     
         <div class="foundat">
-            Defined in: <a href="../files/dist_terrific.js.html#l797"><code>dist&#x2F;terrific.js:797</code></a>
+            Defined in: <a href="../files/_Users_rbrunschwiler_Documents_github_terrificjs_dist_terrific.js.html#l591"><code>&#x2F;Users&#x2F;rbrunschwiler&#x2F;Documents&#x2F;github&#x2F;terrificjs&#x2F;dist&#x2F;terrific.js:591</code></a>
         </div>
     
 
     
         
-            Module: <a href="../modules/Tc.html">Tc</a>
+            Module: <a href="../modules/T.html">T</a>
         
     
 
@@ -118,10 +116,102 @@
 
 
 <div class="box intro">
-    <p>Base class for the different modules.</p>
+    <p>Responsible for inter-module communication.
+Classic EventEmitter Api. Heavily inspired by <a href="https://github.com/component/emitter">https://github.com/component/emitter</a></p>
 
 </div>
 
+
+    <div class="constructor">
+        <h2>Constructor</h2>
+        <div id="method_T.Connector" class="method item">
+    <h3 class="name"><code>T.Connector</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>sandbox</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/_Users_rbrunschwiler_Documents_github_terrificjs_dist_terrific.js.html#l591"><code>&#x2F;Users&#x2F;rbrunschwiler&#x2F;Documents&#x2F;github&#x2F;terrificjs&#x2F;dist&#x2F;terrific.js:591</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">sandbox</code>
+                        <span class="type">Sandbox</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The sandbox instance</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+    </div>
 
 
 <div id="classdocs" class="tabview">
@@ -149,56 +239,42 @@
                     <ul class="index-list methods">
                         
                             <li class="index-item method">
-                                <a href="#method_attachConnector">attachConnector</a>
+                                <a href="#method_emit">emit</a>
 
                                 
                                 
                             </li>
                         
                             <li class="index-item method">
-                                <a href="#method_detachConnector">detachConnector</a>
+                                <a href="#method_hasListeners">hasListeners</a>
 
                                 
                                 
                             </li>
                         
                             <li class="index-item method">
-                                <a href="#method_fire">fire</a>
+                                <a href="#method_listeners">listeners</a>
 
                                 
                                 
                             </li>
                         
                             <li class="index-item method">
-                                <a href="#method_getDecoratedModule">getDecoratedModule</a>
+                                <a href="#method_off">off</a>
 
                                 
                                 
                             </li>
                         
                             <li class="index-item method">
-                                <a href="#method_init">init</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method protected">
-                                <a href="#method_initAfter">initAfter</a>
+                                <a href="#method_on">on</a>
 
                                 
                                 
                             </li>
                         
                             <li class="index-item method">
-                                <a href="#method_start">start</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method">
-                                <a href="#method_stop">stop</a>
+                                <a href="#method_once">once</a>
 
                                 
                                 
@@ -215,28 +291,14 @@
                     <ul class="index-list properties">
                         
                             <li class="index-item property">
-                                <a href="#property_$ctx">$ctx</a>
+                                <a href="#property__listeners">_listeners</a>
 
                                 
                                 
                             </li>
                         
                             <li class="index-item property">
-                                <a href="#property_connectors">connectors</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item property">
-                                <a href="#property_id">id</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item property">
-                                <a href="#property_sandbox">sandbox</a>
+                                <a href="#property__sandbox">_sandbox</a>
 
                                 
                                 
@@ -256,8 +318,8 @@
                 <h2 class="off-left">Methods</h2>
 
                 
-                    <div id="method_attachConnector" class="method item">
-    <h3 class="name"><code>attachConnector</code></h3>
+                    <div id="method_emit" class="method item">
+    <h3 class="name"><code>emit</code></h3>
 
     
         <div class="args">
@@ -265,346 +327,13 @@
             
                 <li class="arg">
                     
-                        <code>connector</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/dist_terrific.js.html#l973"><code>dist&#x2F;terrific.js:973</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Attaches a connector (observer).</p>
-
-    </div>
-
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">connector</code>
-                        <span class="type">Connector</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The connector to attach</p>
-
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="method_detachConnector" class="method item">
-    <h3 class="name"><code>detachConnector</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>connector</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/dist_terrific.js.html#l984"><code>dist&#x2F;terrific.js:984</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Detaches a connector (observer).</p>
-
-    </div>
-
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">connector</code>
-                        <span class="type">Connector</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The connector to detach</p>
-
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="method_fire" class="method item">
-    <h3 class="name"><code>fire</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>state</code>
+                        <code>event</code>
                     
                 </li>
             
                 <li class="arg">
                     
-                        <code>data</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code>channels</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code>defaultAction</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/dist_terrific.js.html#l902"><code>dist&#x2F;terrific.js:902</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Notifies all attached connectors about changes.</p>
-
-    </div>
-
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">state</code>
-                        <span class="type">String</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The new state</p>
-
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name">data</code>
-                        <span class="type">Object</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The data to provide to your connected modules (optional)</p>
-
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name">channels</code>
-                        <span class="type">Array</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>A list containing the channel ids to send the event to (optional)</p>
-
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name">defaultAction</code>
-                        <span class="type">Function</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The default action to perform (optional)</p>
-
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="method_getDecoratedModule" class="method item">
-    <h3 class="name"><code>getDecoratedModule</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>module</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code>skin</code>
+                        <code>...</code>
                     
                 </li>
             
@@ -614,7 +343,7 @@
 
     
         <span class="returns-inline">
-            <span class="type">Module</span>
+            <span class="type">Connector</span>
         </span>
     
 
@@ -641,7 +370,7 @@
             
         
         
-        <a href="../files/dist_terrific.js.html#l994"><code>dist&#x2F;terrific.js:994</code></a>
+        <a href="../files/_Users_rbrunschwiler_Documents_github_terrificjs_dist_terrific.js.html#l700"><code>&#x2F;Users&#x2F;rbrunschwiler&#x2F;Documents&#x2F;github&#x2F;terrificjs&#x2F;dist&#x2F;terrific.js:700</code></a>
         
         </p>
 
@@ -652,7 +381,7 @@
     </div>
 
     <div class="description">
-        <p>Decorates itself with the given skin.</p>
+        <p>Emit event with the given arguments.</p>
 
     </div>
 
@@ -664,15 +393,14 @@
             
                 <li class="param">
                     
-                        <code class="param-name">module</code>
+                        <code class="param-name">event</code>
                         <span class="type">String</span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>The name of the module</p>
-
+                         
                     </div>
 
                     
@@ -680,15 +408,14 @@
             
                 <li class="param">
                     
-                        <code class="param-name">skin</code>
-                        <span class="type">String</span>
+                        <code class="param-name">...</code>
+                        <span class="type">Mixed</span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>The name of the skin</p>
-
+                         
                     </div>
 
                     
@@ -705,10 +432,8 @@
             <div class="returns-description">
                 
                     
-                        <span class="type">Module</span>:
+                        <span class="type">Connector</span>:
                     
-                    <p>The decorated module</p>
-
                 
             </div>
         </div>
@@ -718,8 +443,8 @@
 </div>
 
                 
-                    <div id="method_init" class="method item">
-    <h3 class="name"><code>init</code></h3>
+                    <div id="method_hasListeners" class="method item">
+    <h3 class="name"><code>hasListeners</code></h3>
 
     
         <div class="args">
@@ -727,19 +452,7 @@
             
                 <li class="arg">
                     
-                        <code>$ctx</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code>sandbox</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code>id</code>
+                        <code>event</code>
                     
                 </li>
             
@@ -747,6 +460,10 @@
         </div>
     
 
+    
+        <span class="returns-inline">
+            <span class="type">Boolean</span>
+        </span>
     
 
     
@@ -772,7 +489,7 @@
             
         
         
-        <a href="../files/dist_terrific.js.html#l806"><code>dist&#x2F;terrific.js:806</code></a>
+        <a href="../files/_Users_rbrunschwiler_Documents_github_terrificjs_dist_terrific.js.html#l736"><code>&#x2F;Users&#x2F;rbrunschwiler&#x2F;Documents&#x2F;github&#x2F;terrificjs&#x2F;dist&#x2F;terrific.js:736</code></a>
         
         </p>
 
@@ -783,7 +500,7 @@
     </div>
 
     <div class="description">
-        <p>Initializes the Module.</p>
+        <p>Check if this connector has listeners.</p>
 
     </div>
 
@@ -795,47 +512,14 @@
             
                 <li class="param">
                     
-                        <code class="param-name">$ctx</code>
-                        <span class="type">JQuery</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The jQuery context</p>
-
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name">sandbox</code>
-                        <span class="type">Sandbox</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The sandbox to get the resources from</p>
-
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name">id</code>
+                        <code class="param-name">event</code>
                         <span class="type">String</span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>The Unique module ID</p>
-
+                         
                     </div>
 
                     
@@ -846,75 +530,44 @@
     
 
     
+        <div class="returns">
+            <h4>Returns:</h4>
 
-    
-</div>
-
+            <div class="returns-description">
                 
-                    <div id="method_initAfter" class="method item protected">
-    <h3 class="name"><code>initAfter</code></h3>
-
-    
-        <span class="paren">()</span>
-    
-
-    
-
-    
-
-    
-        <span class="flag protected">protected</span>
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
+                    
+                        <span class="type">Boolean</span>:
+                    
                 
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/dist_terrific.js.html#l883"><code>dist&#x2F;terrific.js:883</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Initialization callback.</p>
-
-    </div>
-
-    
-
+            </div>
+        </div>
     
 
     
 </div>
 
                 
-                    <div id="method_start" class="method item">
-    <h3 class="name"><code>start</code></h3>
+                    <div id="method_listeners" class="method item">
+    <h3 class="name"><code>listeners</code></h3>
 
     
-        <span class="paren">()</span>
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>event</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
     
 
+    
+        <span class="returns-inline">
+            <span class="type">Array</span>
+        </span>
     
 
     
@@ -940,7 +593,7 @@
             
         
         
-        <a href="../files/dist_terrific.js.html#l852"><code>dist&#x2F;terrific.js:852</code></a>
+        <a href="../files/_Users_rbrunschwiler_Documents_github_terrificjs_dist_terrific.js.html#l725"><code>&#x2F;Users&#x2F;rbrunschwiler&#x2F;Documents&#x2F;github&#x2F;terrificjs&#x2F;dist&#x2F;terrific.js:725</code></a>
         
         </p>
 
@@ -951,27 +604,80 @@
     </div>
 
     <div class="description">
-        <p>Template method to start (i.e. init) the module.
-This method provides hook functions which can be overridden
-by the individual instance.</p>
+        <p>Return array of listeners for the given event.</p>
 
     </div>
 
     
+        <div class="params">
+            <h4>Parameters:</h4>
 
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">event</code>
+                        <span class="type">String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Array</span>:
+                    
+                
+            </div>
+        </div>
     
 
     
 </div>
 
                 
-                    <div id="method_stop" class="method item">
-    <h3 class="name"><code>stop</code></h3>
+                    <div id="method_off" class="method item">
+    <h3 class="name"><code>off</code></h3>
 
     
-        <span class="paren">()</span>
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>event</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>listener</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
     
 
+    
+        <span class="returns-inline">
+            <span class="type">Connector</span>
+        </span>
     
 
     
@@ -997,7 +703,7 @@ by the individual instance.</p>
             
         
         
-        <a href="../files/dist_terrific.js.html#l870"><code>dist&#x2F;terrific.js:870</code></a>
+        <a href="../files/_Users_rbrunschwiler_Documents_github_terrificjs_dist_terrific.js.html#l658"><code>&#x2F;Users&#x2F;rbrunschwiler&#x2F;Documents&#x2F;github&#x2F;terrificjs&#x2F;dist&#x2F;terrific.js:658</code></a>
         
         </p>
 
@@ -1008,12 +714,314 @@ by the individual instance.</p>
     </div>
 
     <div class="description">
-        <p>Template method to stop the module.</p>
+        <p>Remove the given listener for the given event or all
+registered listeners.</p>
 
     </div>
 
     
+        <div class="params">
+            <h4>Parameters:</h4>
 
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">event</code>
+                        <span class="type">String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">listener</code>
+                        <span class="type">Function</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Connector</span>:
+                    
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_on" class="method item">
+    <h3 class="name"><code>on</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>event</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>listener</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Connector</span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/_Users_rbrunschwiler_Documents_github_terrificjs_dist_terrific.js.html#l625"><code>&#x2F;Users&#x2F;rbrunschwiler&#x2F;Documents&#x2F;github&#x2F;terrificjs&#x2F;dist&#x2F;terrific.js:625</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Adds a listener for the given event.</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">event</code>
+                        <span class="type">String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">listener</code>
+                        <span class="type">Function</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Connector</span>:
+                    
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_once" class="method item">
+    <h3 class="name"><code>once</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>event</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>listener</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Connector</span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/_Users_rbrunschwiler_Documents_github_terrificjs_dist_terrific.js.html#l638"><code>&#x2F;Users&#x2F;rbrunschwiler&#x2F;Documents&#x2F;github&#x2F;terrificjs&#x2F;dist&#x2F;terrific.js:638</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Adds a listener that will be invoked a single
+time and automatically removed afterwards.</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">event</code>
+                        <span class="type">String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">listener</code>
+                        <span class="type">Function</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Connector</span>:
+                    
+                
+            </div>
+        </div>
     
 
     
@@ -1028,53 +1036,8 @@ by the individual instance.</p>
                 <h2 class="off-left">Properties</h2>
 
                 
-                    <div id="property_$ctx" class="property item">
-    <h3 class="name"><code>$ctx</code></h3>
-    <span class="type">JQuery</span>
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/dist_terrific.js.html#l819"><code>dist&#x2F;terrific.js:819</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Contains the module context.</p>
-
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_connectors" class="property item">
-    <h3 class="name"><code>connectors</code></h3>
+                    <div id="property__listeners" class="property item">
+    <h3 class="name"><code>_listeners</code></h3>
     <span class="type">Object</span>
 
     
@@ -1096,7 +1059,7 @@ by the individual instance.</p>
             
         
         
-        <a href="../files/dist_terrific.js.html#l835"><code>dist&#x2F;terrific.js:835</code></a>
+        <a href="../files/_Users_rbrunschwiler_Documents_github_terrificjs_dist_terrific.js.html#l605"><code>&#x2F;Users&#x2F;rbrunschwiler&#x2F;Documents&#x2F;github&#x2F;terrificjs&#x2F;dist&#x2F;terrific.js:605</code></a>
         
         </p>
 
@@ -1106,7 +1069,7 @@ by the individual instance.</p>
     </div>
 
     <div class="description">
-        <p>Contains the attached connectors.</p>
+        <p>The listeners.</p>
 
     </div>
 
@@ -1118,53 +1081,8 @@ by the individual instance.</p>
 </div>
 
                 
-                    <div id="property_id" class="property item">
-    <h3 class="name"><code>id</code></h3>
-    <span class="type">String</span>
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/dist_terrific.js.html#l827"><code>dist&#x2F;terrific.js:827</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Contains the unique module ID.</p>
-
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_sandbox" class="property item">
-    <h3 class="name"><code>sandbox</code></h3>
+                    <div id="property__sandbox" class="property item">
+    <h3 class="name"><code>_sandbox</code></h3>
     <span class="type">Sandbox</span>
 
     
@@ -1186,7 +1104,7 @@ by the individual instance.</p>
             
         
         
-        <a href="../files/dist_terrific.js.html#l843"><code>dist&#x2F;terrific.js:843</code></a>
+        <a href="../files/_Users_rbrunschwiler_Documents_github_terrificjs_dist_terrific.js.html#l613"><code>&#x2F;Users&#x2F;rbrunschwiler&#x2F;Documents&#x2F;github&#x2F;terrificjs&#x2F;dist&#x2F;terrific.js:613</code></a>
         
         </p>
 
@@ -1196,7 +1114,7 @@ by the individual instance.</p>
     </div>
 
     <div class="description">
-        <p>The sandbox to get the resources from.</p>
+        <p>The sandbox instance.</p>
 
     </div>
 
