@@ -28,8 +28,13 @@ function Connector(sandbox) {
 	 */
 	this._sandbox = sandbox;
 
-	// attach connector to the sandbox
-	sandbox.addConnector(this);
+	/**
+	 * Indicates whether the instance is connected to the sandbox.
+	 *
+	 * @property _connected
+	 * @type Boolean
+	 */
+	this._connected = false;
 }
 
 /**
@@ -41,6 +46,8 @@ function Connector(sandbox) {
  * @return {Connector}
  */
 Connector.prototype.on = Connector.prototype.addListener = function (event, listener) {
+	this.connect();
+
 	(this._listeners['$' + event] = this._listeners['$' + event] || []).push(listener);
 	return this;
 };
@@ -55,6 +62,8 @@ Connector.prototype.on = Connector.prototype.addListener = function (event, list
  * @return {Connector}
  */
 Connector.prototype.once = function (event, listener) {
+	this.connect();
+
 	function on() {
 		this.off(event, on);
 		listener.apply(this, arguments);
@@ -75,7 +84,6 @@ Connector.prototype.once = function (event, listener) {
  * @return {Connector}
  */
 Connector.prototype.off = Connector.prototype.removeListener = Connector.prototype.removeAllListeners = function (event, listener) {
-
 	// all
 	if (arguments.length === 0) {
 		this._listeners = {};
@@ -96,7 +104,7 @@ Connector.prototype.off = Connector.prototype.removeListener = Connector.prototy
 
 	// remove specific listener
 	var cb;
-	for (var i = 0; i < listeners.length; i++) {
+	for (var i = 0, len = listeners.length; i < len; i++) {
 		cb = listeners[i];
 		if (cb === listener || cb.listener === listener) {
 			listeners.splice(i, 1);
@@ -108,14 +116,30 @@ Connector.prototype.off = Connector.prototype.removeListener = Connector.prototy
 };
 
 /**
- * Emit event with the given arguments.
+ * Dispatches event to the sandbox.
  *
  * @method emit
+ * @param {Mixed} ...
+ * @return {Connector}
+ */
+Connector.prototype.emit = function () {
+	this.connect();
+
+	// dispatches event to the sandbox
+	this._sandbox.dispatch.apply(this._sandbox, arguments);
+
+	return this;
+};
+
+/**
+ * Handles dispatched event from sandbox.
+ *
+ * @method handle
  * @param {String} event
  * @param {Mixed} ...
  * @return {Connector}
  */
-Connector.prototype.emit = function (event) {
+Connector.prototype.handle = function (event) {
 	var args = [].slice.call(arguments, 1),
 		listeners = this._listeners['$' + event];
 
@@ -126,11 +150,9 @@ Connector.prototype.emit = function (event) {
 		}
 	}
 
-	// delegate event to the sandbox
-	this._sandbox.dispatch(this, arguments);
-
 	return this;
 };
+
 
 /**
  * Return array of listeners for the given event.
@@ -150,7 +172,37 @@ Connector.prototype.listeners = function (event) {
  * @param {String} event
  * @return {Boolean}
  */
-Connector.prototype.hasListeners = function(event){
+Connector.prototype.hasListeners = function (event) {
 	return !!this.listeners(event).length;
+};
+
+/**
+ * Connect instance to the sandbox.
+ *
+ * @method connect
+ * @return {Connector}
+ */
+Connector.prototype.connect = function () {
+	if (!this._connected) {
+		this._sandbox.addConnector(this);
+		this._connected = true;
+	}
+
+	return this;
+};
+
+/**
+ * Disconnect instance from the sandbox.
+ *
+ * @method disconnect
+ * @return {Connector}
+ */
+Connector.prototype.disconnect = function () {
+	if (this._connected) {
+		this._sandbox.removeConnector(this);
+		this._connected = false;
+	}
+
+	return this;
 };
 

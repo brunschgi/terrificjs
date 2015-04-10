@@ -15,7 +15,6 @@
  */
 /* global Connector */
 function Module(ctx, sandbox, id) {
-
 	/**
 	 * Contains the context node.
 	 *
@@ -80,7 +79,7 @@ Module.prototype.start = function () {
  * @method stop
  */
 Module.prototype.stop = function () {
-	this.events.removeAllListeners();
+	this.events.disconnect();
 };
 
 /**

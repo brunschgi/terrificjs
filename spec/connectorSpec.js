@@ -2,10 +2,18 @@ describe('Connector', function(){
 	'use strict';
 
 	beforeEach(function () {
-		this.connector = new T.Connector(new T.Sandbox(new T.Application(), {}));
+		this.sandbox = new T.Sandbox(new T.Application(), {});
+		this.connector = new T.Connector(this.sandbox);
 	});
 
 	describe('.on(event, listener)', function(){
+		it('should call connect', function() {
+			spyOn(this.connector, 'connect').and.callThrough();
+
+			this.connector.on('foo', function() {});
+
+			expect(this.connector.connect).toHaveBeenCalled();
+		});
 
 		it('should add listeners', function(){
 			var calls = [];
@@ -44,6 +52,14 @@ describe('Connector', function(){
 	});
 
 	describe('.once(event, listener)', function(){
+		it('should call connect', function() {
+			spyOn(this.connector, 'connect').and.callThrough();
+
+			this.connector.on('foo', function() {});
+
+			expect(this.connector.connect).toHaveBeenCalled();
+		});
+
 		it('should add a single-shot listener', function(){
 			var calls = [];
 
@@ -97,16 +113,16 @@ describe('Connector', function(){
 				called = true;
 			}
 
-			this.connector.on('tobi', function () {
-				this.connector.off('tobi', b);
+			this.connector.on('foo', function () {
+				this.connector.off('foo', b);
 			}.bind(this));
 
-			this.connector.on('tobi', b);
-			this.connector.emit('tobi');
+			this.connector.on('foo', b);
+			this.connector.emit('foo');
 			expect(called).toBeTruthy();
 
 			called = false;
-			this.connector.emit('tobi');
+			this.connector.emit('foo');
 			expect(called).toBeFalsy();
 		});
 	});
@@ -148,6 +164,83 @@ describe('Connector', function(){
 			this.connector.emit('bar');
 
 			expect(calls).toEqual(['one', 'two']);
+		});
+	});
+
+	describe('.emit(event, arguments)', function(){
+		it('should call connect', function() {
+			spyOn(this.connector, 'connect').and.callThrough();
+
+			this.connector.on('foo', function() {});
+
+			expect(this.connector.connect).toHaveBeenCalled();
+		});
+
+		it('should delegate to the sandbox dispatch method', function() {
+			spyOn(this.sandbox, 'dispatch').and.callThrough();
+
+			this.connector.emit('foo', 1, 'foo', { foo: 'bar'});
+
+			expect(this.sandbox.dispatch).toHaveBeenCalledWith('foo', 1, 'foo', { foo: 'bar'});
+		});
+	});
+
+	describe('.handle(event, arguments)', function(){
+		it('should handle the emitted event', function() {
+			spyOn(this.connector, 'handle').and.callThrough();
+
+			this.connector.emit('foo', 1, 'foo', { foo: 'bar'});
+
+			expect(this.connector.handle).toHaveBeenCalledWith('foo', 1, 'foo', { foo: 'bar'});
+		});
+	});
+
+	describe('.connect()', function(){
+		it('should add itself to the sandbox', function() {
+			spyOn(this.sandbox, 'addConnector').and.callThrough();
+
+			this.connector.connect();
+
+			expect(this.sandbox.addConnector).toHaveBeenCalledWith(this.connector);
+		});
+
+		it('should add itself only once to the sandbox', function() {
+			spyOn(this.sandbox, 'addConnector').and.callThrough();
+
+			this.connector.connect();
+			this.connector.connect();
+
+			expect(this.sandbox.addConnector.calls.count()).toEqual(1);
+		});
+
+		it('should set _connected to true', function() {
+			this.connector.connect();
+
+			expect(this.connector._connected).toBeTruthy();
+		});
+	});
+
+	describe('.disconnect()', function(){
+		it('should remove itself from the sandbox', function() {
+			spyOn(this.sandbox, 'removeConnector').and.callThrough();
+
+			this.connector.connect();
+			this.connector.disconnect();
+
+			expect(this.sandbox.removeConnector).toHaveBeenCalledWith(this.connector);
+		});
+
+		it('should set _connected to false', function() {
+			this.connector.connect();
+			this.connector.disconnect();
+
+			expect(this.connector._connected).toBeFalsy();
+		});
+
+		it('should do nothing if not already connected', function() {
+			this.connector.disconnect();
+
+			expect(this.connector._connected).toBeFalsy();
 		});
 	});
 

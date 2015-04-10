@@ -13,7 +13,6 @@
  *      The configuration
  */
 function Sandbox(application, config) {
-
 	/**
 	 * The application.
 	 *
@@ -167,21 +166,37 @@ Sandbox.prototype.addConnector = function (connector) {
 };
 
 /**
+ * Removes a connector instance.
+ *
+ * @method addConnector
+ * @param {Connector} connector
+ *      The connector
+ * @return {Sandbox}
+ */
+Sandbox.prototype.removeConnector = function (connector) {
+	var connectors = this._connectors;
+	for (var i = 0, len = connectors.length; i < len; i++) {
+		if (connectors[i] === connector) {
+			connectors.splice(i, 1);
+			break;
+		}
+	}
+	return this;
+};
+
+/**
  * Dispatches the event with the given arguments to the attached connectors.
  *
- * @method dispatch
- * @param {Connector} connector
+ * @method dispatchEvent
  * @param {Mixed} ...
  * @return {Sandbox}
  */
-Sandbox.prototype.dispatch = function (connector) {
-	var connectors = this._connectors,
-		args = [].slice.call(arguments, 1);
+Sandbox.prototype.dispatch = function () {
+	var connectors = this._connectors;
 
 	for(var i = 0, len = connectors.length; i < len; i++) {
-		if(connectors[i] !== connector) {
-			connectors[i].emit.apply(args);
-		}
+		var connector = connectors[i];
+		connector.handle.apply(connector, arguments);
 	}
 
 	return this;

@@ -26,7 +26,6 @@
  */
 /* global Sandbox, Module, Utils */
 function Application(ctx, config) {
-
 	// validate params
 	if (!ctx && !config) {
 		// both empty

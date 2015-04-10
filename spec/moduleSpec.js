@@ -2,10 +2,7 @@ describe('Module', function () {
 	'use strict';
 
     it('should be instance of T.Module', function () {
-		var ctx = document.createElement('div');
-		var sandbox = new T.Sandbox();
-		var id = 1;
-        var module = new T.Module(ctx, sandbox, id);
+		var module = new T.Module(document.createElement('div'), new T.Sandbox(), 1);
         expect(module instanceof T.Module ).toBeTruthy();
     });
 
@@ -22,20 +19,14 @@ describe('Module', function () {
 
     describe('.start()', function () {
         it('should return Promise', function () {
-			var ctx = document.createElement('div');
-			var sandbox = new T.Sandbox();
-			var id = 1;
-            var module = new T.Module.Foo(ctx, sandbox, id);
+			var module = new T.Module.Foo(document.createElement('div'), new T.Sandbox(), 1);
             var promise = module.start();
 
             expect(promise instanceof Promise).toBeTruthy();
         });
 
         it('should not throw an error if no callbacks are provided', function () {
-			var ctx = document.createElement('div');
-			var sandbox = new T.Sandbox();
-			var id = 1;
-			var module = new T.Module.Foo(ctx, sandbox, id);
+			var module = new T.Module.Foo(document.createElement('div'), new T.Sandbox(), 1);
 
             expect(function() {
                 module.start();
@@ -43,10 +34,7 @@ describe('Module', function () {
         });
 
         it('should not throw an error if only the after callback is provided', function () {
-			var ctx = document.createElement('div');
-			var sandbox = new T.Sandbox();
-			var id = 1;
-			var module = new T.Module.FooAfter(ctx, sandbox, id);
+			var module = new T.Module.FooAfter(document.createElement('div'), new T.Sandbox(), 1);
 
             expect(function() {
                 module.start();
@@ -54,10 +42,7 @@ describe('Module', function () {
         });
 
         it('should not throw an error if only the on callback is provided', function () {
-			var ctx = document.createElement('div');
-			var sandbox = new T.Sandbox();
-			var id = 1;
-			var module = new T.Module.FooOn(ctx, sandbox, id);
+			var module = new T.Module.FooOn(document.createElement('div'), new T.Sandbox(), 1);
 
             expect(function() {
                 module.start();
@@ -65,10 +50,7 @@ describe('Module', function () {
         });
 
         it('should call after callback if no on callback is provided', function (done) {
-			var ctx = document.createElement('div');
-			var sandbox = new T.Sandbox();
-			var id = 1;
-			var module = new T.Module.FooAfter(ctx, sandbox, id);
+			var module = new T.Module.FooAfter(document.createElement('div'), new T.Sandbox(), 1);
 
             spyOn(module, 'after');
 
@@ -82,10 +64,7 @@ describe('Module', function () {
         });
 
         it('should call on and after callbacks if both are provided', function (done) {
-			var ctx = document.createElement('div');
-			var sandbox = new T.Sandbox();
-			var id = 1;
-			var module = new T.Module.FooBoth(ctx, sandbox, id);
+			var module = new T.Module.FooBoth(document.createElement('div'), new T.Sandbox(), 1);
 
             spyOn(module, 'on').and.callThrough();
             spyOn(module, 'after');

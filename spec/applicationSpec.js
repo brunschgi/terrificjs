@@ -69,7 +69,7 @@ describe('Application', function () {
         });
 
         it('should register multiple modules on nested nodes', function () {
-            this.ctx.innerHTML =  '<div data-t-name="Foo"><div data-t-name="Foo"></div></div>';
+            this.ctx.innerHTML = '<div data-t-name="Foo"><div data-t-name="Foo"></div></div>';
             var modules = this.application.registerModules(this.ctx);
 
             expect(this.application.registerModule.calls.count()).toEqual(2);

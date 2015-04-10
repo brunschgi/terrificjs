@@ -8,5 +8,6 @@
   "disallowTrailingWhitespace": true,
   "disallowMultipleLineStrings": true,
   "disallowMixedSpacesAndTabs": true,
+  "disallowMultipleSpaces": true,
   "disallowEmptyBlocks": true
 }
