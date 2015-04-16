@@ -860,5 +860,3 @@ var T = {
 };
 return T;
 }));
-
-//# sourceMappingURL=terrific.js.map

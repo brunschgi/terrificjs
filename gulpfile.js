@@ -81,29 +81,26 @@ gulp.task('lint-test', function () {
 gulp.task('build', ['lint-src', 'clean'], function () {
 	return gulp.src(files)
 		.pipe(plumber())
-		.pipe(sourcemaps.init({loadMaps: true}))
 		.pipe(concat(name + '.js'))
 		.pipe(umd(umdconf))
-		.pipe(sourcemaps.write('./'))
 		.pipe(size())
 		.pipe(size({ gzip: true }))
 		.pipe(gulp.dest('./dist'));
 });
 
 gulp.task('minify', ['build'], function () {
-	return gulp.src(files)
+	return gulp.src(path.join('./dist/', name + '.js'))
 		.pipe(plumber())
-		.pipe(sourcemaps.init({loadMaps: true}))
+		.pipe(sourcemaps.init({ debug: true }))
 		.pipe(concat(name + '.min.js'))
-		.pipe(umd(umdconf))
 		.pipe(uglify({preserveComments: 'some'}))
-		.pipe(sourcemaps.write('./'))
 		.pipe(size())
 		.pipe(size({ gzip: true }))
+		.pipe(sourcemaps.write('./'))
 		.pipe(gulp.dest('./dist'));
 });
 
-gulp.task('doc', ['minify'], function () {
+gulp.task('doc', ['build'], function () {
 	return gulp
 		.src(path.join('./dist', name + '.js'))
 		.pipe(plumber())
