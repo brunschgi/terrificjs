@@ -6,7 +6,7 @@
   "license": "MIT",
   "author": "Remo Brunschwiler <remo@terrifically.org>",
   "scripts": {
-    "test": "karma start --single-run --no-auto-watch"
+    "test": "karma start --single-run --no-auto-watch --browsers PhantomJS"
   },
   "keywords": [
     "terrific",
@@ -37,6 +37,7 @@
     "karma": "^0.12.31",
     "karma-chrome-launcher": "^0.1.7",
     "karma-jasmine": "~0.2.0",
+    "karma-phantomjs-launcher": "^0.1.4",
     "mkdirp": "^0.5.0"
   },
   "repository": {
