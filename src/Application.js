@@ -2,7 +2,7 @@
  * TerrificJS modularizes your frontend code by solely relying on naming conventions.
  * http://terrifically.org
  *
- * @copyright   Copyright (c) <%= grunt.template.today('yyyy') %> Remo Brunschwiler
+ * @copyright   Copyright (c) <%= gulp.template.today('yyyy') %> Remo Brunschwiler
  * @license     Licensed under MIT license
  * @version     <%= pkg.version %>
  */
