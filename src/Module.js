@@ -10,42 +10,32 @@
  *      The context node
  * @param {Sandbox} sandbox
  *      The sandbox to get the resources from
- * @param {String} id
- *      The Unique module ID
  */
 /* global Connector */
-function Module(ctx, sandbox, id) {
+function Module(ctx, sandbox) {
 	/**
 	 * Contains the context node.
 	 *
 	 * @property ctx
 	 * @type Node
 	 */
-	this.ctx = ctx;
+	this._ctx = ctx;
 
 	/**
 	 * The sandbox to get the resources from.
 	 *
-	 * @property sandbox
+	 * @property _sandbox
 	 * @type Sandbox
 	 */
-	this.sandbox = sandbox;
+	this._sandbox = sandbox;
 
 	/**
 	 * The emitter.
 	 *
-	 * @property events
+	 * @property _events
 	 * @type Emitter
 	 */
-	this.events = new Connector(sandbox);
-
-	/**
-	 * Contains the unique module id.
-	 *
-	 * @property id
-	 * @type Number
-	 */
-	this.id = id;
+	this._events = new Connector(sandbox);
 }
 
 /**
@@ -79,7 +69,7 @@ Module.prototype.start = function () {
  * @method stop
  */
 Module.prototype.stop = function () {
-	this.events.disconnect();
+	this._events.disconnect();
 };
 
 /**

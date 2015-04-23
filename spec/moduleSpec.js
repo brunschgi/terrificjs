@@ -9,12 +9,10 @@ describe('Module', function () {
     it('should set instance variables', function () {
         var ctx = document.createElement('div');
         var sandbox = new T.Sandbox();
-        var id = 1;
-        var module = new T.Module(ctx, sandbox, id);
+        var module = new T.Module(ctx, sandbox);
 
-        expect(module.ctx).toEqual(ctx);
-        expect(module.sandbox).toEqual(sandbox);
-        expect(module.id).toEqual(id);
+        expect(module._ctx).toEqual(ctx);
+        expect(module._sandbox).toEqual(sandbox);
     });
 
     describe('.start()', function () {

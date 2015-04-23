@@ -187,7 +187,7 @@ Sandbox.prototype.removeConnector = function (connector) {
 /**
  * Dispatches the event with the given arguments to the attached connectors.
  *
- * @method dispatchEvent
+ * @method dispatch
  * @param {Mixed} ...
  * @return {Sandbox}
  */

@@ -1,6 +1,6 @@
 /* Foo */
-Foo = function(ctx, sandbox, id) {
-	T.Module.call(this, ctx, sandbox, id);
+Foo = function(ctx, sandbox) {
+	T.Module.call(this, ctx, sandbox);
 };
 
 Foo.prototype = Object.create(T.Module.prototype);
@@ -10,8 +10,8 @@ T.Module.Foo = Foo;
 
 
 /* FooOn */
-FooOn = function(ctx, sandbox, id) {
-	T.Module.call(this, ctx, sandbox, id);
+FooOn = function(ctx, sandbox) {
+	T.Module.call(this, ctx, sandbox);
 };
 
 FooOn.prototype = Object.create(T.Module.prototype);
@@ -25,8 +25,8 @@ T.Module.FooOn = FooOn;
 
 
 /* FooAfter */
-FooAfter = function(ctx, sandbox, id) {
-	T.Module.call(this, ctx, sandbox, id);
+FooAfter = function(ctx, sandbox) {
+	T.Module.call(this, ctx, sandbox);
 };
 
 FooAfter.prototype = Object.create(T.Module.prototype);
@@ -38,8 +38,8 @@ T.Module.FooAfter = FooAfter;
 
 
 /* FooBoth */
-FooBoth = function(ctx, sandbox, id) {
-	T.Module.call(this, ctx, sandbox, id);
+FooBoth = function(ctx, sandbox) {
+	T.Module.call(this, ctx, sandbox);
 };
 
 FooBoth.prototype = Object.create(T.Module.prototype);

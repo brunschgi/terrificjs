@@ -11,7 +11,7 @@
  * TerrificJS modularizes your frontend code by solely relying on naming conventions.
  * http://terrifically.org
  *
- * @copyright   Copyright (c) <%= grunt.template.today('yyyy') %> Remo Brunschwiler
+ * @copyright   Copyright (c) <%= gulp.template.today('yyyy') %> Remo Brunschwiler
  * @license     Licensed under MIT license
  * @version     <%= pkg.version %>
  */
@@ -107,6 +107,8 @@ Application.prototype.registerModules = function (ctx) {
 
 	ctx = ctx || this._ctx;
 
+	this._sandbox.dispatch('t.modules.register.start');
+
 	var fragment = document.createDocumentFragment();
 	fragment.appendChild(ctx);
 
@@ -149,6 +151,8 @@ Application.prototype.registerModules = function (ctx) {
 		}
 	}.bind(this));
 
+	this._sandbox.dispatch('t.modules.register.end');
+
 	return modules;
 };
 
@@ -162,12 +166,16 @@ Application.prototype.registerModules = function (ctx) {
 Application.prototype.unregisterModules = function (modules) {
 	modules = modules || this._modules;
 
+	this._sandbox.dispatch('t.modules.unregister.start');
+
 	// unregister the given modules
 	for (var id in modules) {
 		if (modules.hasOwnProperty(id)) {
 			delete this._modules[id];
 		}
 	}
+
+	this._sandbox.dispatch('t.modules.unregister.end');
 };
 
 /**
@@ -184,6 +192,8 @@ Application.prototype.start = function (modules) {
 
 	var promises = [];
 
+	this._sandbox.dispatch('t.module.on');
+
 	// start the modules
 	for (var id in modules) {
 		if (modules.hasOwnProperty(id)) {
@@ -196,16 +206,11 @@ Application.prototype.start = function (modules) {
 		}
 	}
 
-	// return self-fullfilling Promise if no modules are found
-	if (promises.length === 0) {
-		return new Promise(function (resolve) {
-			resolve([]);
-		});
-	}
-
 	// synchronize after callbacks
 	var all = Promise.all(promises);
 	all.then(function (callbacks) {
+		this._sandbox.dispatch('t.module.after');
+
 		for(var i = 0, len = callbacks.length; i < len; i++) {
 			callbacks[i]();
 		}
@@ -226,6 +231,8 @@ Application.prototype.start = function (modules) {
  */
 Application.prototype.stop = function (modules) {
 	modules = modules || this._modules;
+
+	this._sandbox.dispatch('t.module.stop');
 
 	// stop the modules
 	for (var id in modules) {
@@ -260,7 +267,7 @@ Application.prototype.registerModule = function (ctx, mod, skins) {
 		ctx.setAttribute('data-t-id', id);
 
 		// instantiate module
-		modules[id] = new Module[mod](ctx, this._sandbox, id);
+		modules[id] = new Module[mod](ctx, this._sandbox);
 
 		// decorate it
 		for(var i = 0, len = skins.length; i < len; i++) {
@@ -273,6 +280,8 @@ Application.prototype.registerModule = function (ctx, mod, skins) {
 
 		return modules[id];
 	}
+
+	this._sandbox.dispatch('t.module.missing', ctx, mod, skins);
 
 	return null;
 };
@@ -485,7 +494,7 @@ Sandbox.prototype.removeConnector = function (connector) {
 /**
  * Dispatches the event with the given arguments to the attached connectors.
  *
- * @method dispatchEvent
+ * @method dispatch
  * @param {Mixed} ...
  * @return {Sandbox}
  */
@@ -511,42 +520,32 @@ Sandbox.prototype.dispatch = function () {
  *      The context node
  * @param {Sandbox} sandbox
  *      The sandbox to get the resources from
- * @param {String} id
- *      The Unique module ID
  */
 /* global Connector */
-function Module(ctx, sandbox, id) {
+function Module(ctx, sandbox) {
 	/**
 	 * Contains the context node.
 	 *
 	 * @property ctx
 	 * @type Node
 	 */
-	this.ctx = ctx;
+	this._ctx = ctx;
 
 	/**
 	 * The sandbox to get the resources from.
 	 *
-	 * @property sandbox
+	 * @property _sandbox
 	 * @type Sandbox
 	 */
-	this.sandbox = sandbox;
+	this._sandbox = sandbox;
 
 	/**
 	 * The emitter.
 	 *
-	 * @property events
+	 * @property _events
 	 * @type Emitter
 	 */
-	this.events = new Connector(sandbox);
-
-	/**
-	 * Contains the unique module id.
-	 *
-	 * @property id
-	 * @type Number
-	 */
-	this.id = id;
+	this._events = new Connector(sandbox);
 }
 
 /**
@@ -580,7 +579,7 @@ Module.prototype.start = function () {
  * @method stop
  */
 Module.prototype.stop = function () {
-	this.events.disconnect();
+	this._events.disconnect();
 };
 
 /**

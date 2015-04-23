@@ -98,6 +98,8 @@ Application.prototype.registerModules = function (ctx) {
 
 	ctx = ctx || this._ctx;
 
+	this._sandbox.dispatch('t.modules.register.start');
+
 	var fragment = document.createDocumentFragment();
 	fragment.appendChild(ctx);
 
@@ -140,6 +142,8 @@ Application.prototype.registerModules = function (ctx) {
 		}
 	}.bind(this));
 
+	this._sandbox.dispatch('t.modules.register.end');
+
 	return modules;
 };
 
@@ -153,12 +157,16 @@ Application.prototype.registerModules = function (ctx) {
 Application.prototype.unregisterModules = function (modules) {
 	modules = modules || this._modules;
 
+	this._sandbox.dispatch('t.modules.unregister.start');
+
 	// unregister the given modules
 	for (var id in modules) {
 		if (modules.hasOwnProperty(id)) {
 			delete this._modules[id];
 		}
 	}
+
+	this._sandbox.dispatch('t.modules.unregister.end');
 };
 
 /**
@@ -175,6 +183,8 @@ Application.prototype.start = function (modules) {
 
 	var promises = [];
 
+	this._sandbox.dispatch('t.module.on');
+
 	// start the modules
 	for (var id in modules) {
 		if (modules.hasOwnProperty(id)) {
@@ -187,16 +197,11 @@ Application.prototype.start = function (modules) {
 		}
 	}
 
-	// return self-fullfilling Promise if no modules are found
-	if (promises.length === 0) {
-		return new Promise(function (resolve) {
-			resolve([]);
-		});
-	}
-
 	// synchronize after callbacks
 	var all = Promise.all(promises);
 	all.then(function (callbacks) {
+		this._sandbox.dispatch('t.module.after');
+
 		for(var i = 0, len = callbacks.length; i < len; i++) {
 			callbacks[i]();
 		}
@@ -217,6 +222,8 @@ Application.prototype.start = function (modules) {
  */
 Application.prototype.stop = function (modules) {
 	modules = modules || this._modules;
+
+	this._sandbox.dispatch('t.module.stop');
 
 	// stop the modules
 	for (var id in modules) {
@@ -251,7 +258,7 @@ Application.prototype.registerModule = function (ctx, mod, skins) {
 		ctx.setAttribute('data-t-id', id);
 
 		// instantiate module
-		modules[id] = new Module[mod](ctx, this._sandbox, id);
+		modules[id] = new Module[mod](ctx, this._sandbox);
 
 		// decorate it
 		for(var i = 0, len = skins.length; i < len; i++) {
@@ -264,6 +271,8 @@ Application.prototype.registerModule = function (ctx, mod, skins) {
 
 		return modules[id];
 	}
+
+	this._sandbox.dispatch('t.module.missing', ctx, mod, skins);
 
 	return null;
 };

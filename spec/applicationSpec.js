@@ -75,6 +75,30 @@ describe('Application', function () {
             expect(this.application.registerModule.calls.count()).toEqual(2);
             expect(Object.keys(modules).length).toEqual(2);
         });
+
+		describe('should send lifecycle event', function () {
+			beforeEach(function() {
+				this.connector = new T.Connector(this.application._sandbox);
+			});
+
+			it('t.modules.register.start without arguments', function (done) {
+				this.connector.on('t.modules.register.start', function(args) {
+					expect(args).toBeUndefined();
+					done();
+				});
+
+				this.application.registerModules(this.ctx);
+			});
+
+			it('t.modules.register.end without arguments', function (done) {
+				this.connector.on('t.modules.register.end', function(args) {
+					expect(args).toBeUndefined();
+					done();
+				});
+
+				this.application.registerModules(this.ctx);
+			});
+		});
     });
 
     describe('.unregisterModules()', function() {
@@ -87,6 +111,30 @@ describe('Application', function () {
 			this.application.unregisterModules();
 
 			expect(Object.keys(this.application._modules).length).toEqual(0);
+		});
+
+		describe('should send lifecycle event', function () {
+			beforeEach(function() {
+				this.connector = new T.Connector(this.application._sandbox);
+			});
+
+			it('t.modules.unregister.start without arguments', function (done) {
+				this.connector.on('t.modules.unregister.start', function(args) {
+					expect(args).toBeUndefined();
+					done();
+				});
+
+				this.application.unregisterModules();
+			});
+
+			it('t.modules.unregister.end without arguments', function (done) {
+				this.connector.on('t.modules.unregister.end', function(args) {
+					expect(args).toBeUndefined();
+					done();
+				});
+
+				this.application.unregisterModules();
+			});
 		});
 	});
 
@@ -102,6 +150,30 @@ describe('Application', function () {
             expect(Object.keys(this.application._modules).length).toEqual(1);
             expect(this.application._modules[3]).toBeDefined();
         });
+
+		describe('should send lifecycle event', function () {
+			beforeEach(function() {
+				this.connector = new T.Connector(this.application._sandbox);
+			});
+
+			it('t.modules.unregister.start without arguments', function (done) {
+				this.connector.on('t.modules.unregister.start', function(args) {
+					expect(args).toBeUndefined();
+					done();
+				});
+
+				this.application.unregisterModules();
+			});
+
+			it('t.modules.unregister.end without arguments', function (done) {
+				this.connector.on('t.modules.unregister.end', function(args) {
+					expect(args).toBeUndefined();
+					done();
+				});
+
+				this.application.unregisterModules();
+			});
+		});
     });
 
     describe('.getModuleById(id)', function() {
@@ -141,7 +213,6 @@ describe('Application', function () {
         });
 
         it('should allow to be called with ctx and module name only', function () {
-
             expect(function() {
                 this.application.registerModule(this.ctx, 'DoesNotExist');
             }.bind(this)).not.toThrow();
@@ -152,21 +223,33 @@ describe('Application', function () {
             expect(module).toBeNull();
         });
 
-        it('should return module instance if module does exists', function () {
+		it('should send lifecycle event t.module.missing if the module does not exists', function (done) {
+			var connector = new T.Connector(this.application._sandbox);
+
+			connector.on('t.module.missing', function(ctx, mod, skins) {
+				expect(ctx).toEqual(this.ctx);
+				expect(mod).toEqual('DoesNotExist');
+				expect(skins).toEqual([]);
+				done();
+			}.bind(this));
+
+			this.application.registerModule(this.ctx, 'DoesNotExist');
+		});
+
+		it('should return module instance if module does exists', function () {
             var module = this.application.registerModule(this.ctx, 'Foo');
             expect(module instanceof T.Module).toBeTruthy();
         });
 
-        it('should assign ctx node, sandbox and id to the module instance', function () {
+        it('should assign ctx node and sandbox to the module instance', function () {
             var module = this.application.registerModule(this.ctx, 'Foo');
-            expect(module.ctx instanceof Node).toBeTruthy();
-            expect(module.sandbox instanceof T.Sandbox).toBeTruthy();
-            expect(module.id).toEqual(1);
+            expect(module._ctx instanceof Node).toBeTruthy();
+            expect(module._sandbox instanceof T.Sandbox).toBeTruthy();
         });
 
         it('should set data-t-id on the ctx node', function () {
             var module = this.application.registerModule(this.ctx, 'Foo');
-            expect(Number(module.ctx.dataset.tId)).toEqual(1);
+            expect(Number(module._ctx.getAttribute('data-t-id'))).toEqual(1);
         });
 
         it('should have default on and after callbacks', function () {
@@ -217,13 +300,17 @@ describe('Application', function () {
         });
 
         it('should increment the module id counter by one with every call', function () {
-            var module1 = this.application.registerModule(this.ctx, 'Foo');
-            var module2 = this.application.registerModule(this.ctx, 'Foo');
-            var module3 = this.application.registerModule(this.ctx, 'Foo');
+			var ctx1 = document.createElement('div');
+			var ctx2 = document.createElement('div');
+			var ctx3 = document.createElement('div');
 
-            expect(module1.id).toEqual(1);
-            expect(module2.id).toEqual(2);
-            expect(module3.id).toEqual(3);
+            this.application.registerModule(ctx1, 'Foo');
+            this.application.registerModule(ctx2, 'Foo');
+            this.application.registerModule(ctx3, 'Foo');
+
+            expect(Number(ctx1.getAttribute('data-t-id'))).toEqual(1);
+            expect(Number(ctx2.getAttribute('data-t-id'))).toEqual(2);
+            expect(Number(ctx3.getAttribute('data-t-id'))).toEqual(3);
         });
     });
 
@@ -278,7 +365,7 @@ describe('Application', function () {
             expect(module.start.calls.count()).toEqual(2);
         });
 
-        it('should execute then callback if no modules are given', function (done) {
+		it('should execute then callback if no modules are given', function (done) {
             var promise = this.application.start();
 
             promise.then(function(callbacks) {
@@ -318,23 +405,57 @@ describe('Application', function () {
                 done();
             });
         });
+
+		describe('should send lifecycle event', function () {
+			beforeEach(function() {
+				this.connector = new T.Connector(this.application._sandbox);
+			});
+
+			it('t.module.on without arguments', function (done) {
+				this.connector.on('t.module.on', function(args) {
+					expect(args).toBeUndefined();
+					done();
+				});
+
+				this.application.start();
+			});
+
+			it('t.module.after without arguments', function (done) {
+				this.connector.on('t.module.after', function(args) {
+					expect(args).toBeUndefined();
+					done();
+				});
+
+				this.application.start();
+			});
+		});
     });
 
     describe('.stop()', function() {
-        beforeEach(function () {
-            this.application = new T.Application();
-        });
+		beforeEach(function () {
+			this.application = new T.Application();
+		});
 
-        it('should call stop on the given modules', function () {
-            var module = jasmine.createSpyObj('module', ['stop']);
-            var modules = { 1 : module, 2 : module };
+		it('should call stop on the given modules', function () {
+			var module = jasmine.createSpyObj('module', ['stop']);
+			var modules = { 1 : module, 2 : module };
 
-            this.application.stop(modules);
+			this.application.stop(modules);
 
-            expect(module.stop.calls.count()).toEqual(2);
-        });
-    });
+			expect(module.stop.calls.count()).toEqual(2);
+		});
 
+		it('should send lifecycle event t.module.stop', function (done) {
+			var connector = new T.Connector(this.application._sandbox);
+
+			connector.on('t.module.stop', function(args) {
+				expect(args).toBeUndefined();
+				done();
+			}.bind(this));
+
+			this.application.stop();
+		});
+	});
 });
 
 
