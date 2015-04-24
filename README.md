@@ -34,6 +34,9 @@ Contribute
 TerrificJS makes it easy for you to change and test your own TerrificJS build.
 * Run `gulp watch` and change any source you like
 
-To test your build with karma / jasmine
+To test your build with [PhantomJS](http://phantomjs.org/)
+* Run `npm test`
+
+To test your build in a real browser environment
 * Make sure karma-cli is available globally `npm install -g karma-cli`
 * Run `karma start` (comes with Chrome launcher)
