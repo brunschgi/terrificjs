@@ -1,6 +1,7 @@
+[![Build Status](https://travis-ci.org/brunschgi/terrificjs.svg?branch=develop)](https://travis-ci.org/brunschgi/terrificjs)
+
 [TerrificJS](http://terrifically.org) - Terrific JavaScript Framework
 =====================================================================
-[![Build Status](https://travis-ci.org/brunschgi/terrificjs.svg?branch=develop)](https://travis-ci.org/brunschgi/terrificjs)
 
 What is TerrificJS
 ------------------
