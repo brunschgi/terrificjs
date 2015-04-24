@@ -205,7 +205,7 @@ Application.prototype.registerModules = function (ctx) {
 
 	ctx = ctx || this._ctx;
 
-	this._sandbox.dispatch(&#x27;t.modules.register.start&#x27;);
+	this._sandbox.dispatch(&#x27;t.register.start&#x27;);
 
 	var fragment = document.createDocumentFragment();
 	fragment.appendChild(ctx);
@@ -249,7 +249,7 @@ Application.prototype.registerModules = function (ctx) {
 		}
 	}.bind(this));
 
-	this._sandbox.dispatch(&#x27;t.modules.register.end&#x27;);
+	this._sandbox.dispatch(&#x27;t.register.end&#x27;);
 
 	return modules;
 };
@@ -264,7 +264,7 @@ Application.prototype.registerModules = function (ctx) {
 Application.prototype.unregisterModules = function (modules) {
 	modules = modules || this._modules;
 
-	this._sandbox.dispatch(&#x27;t.modules.unregister.start&#x27;);
+	this._sandbox.dispatch(&#x27;t.unregister.start&#x27;);
 
 	// unregister the given modules
 	for (var id in modules) {
@@ -273,7 +273,7 @@ Application.prototype.unregisterModules = function (modules) {
 		}
 	}
 
-	this._sandbox.dispatch(&#x27;t.modules.unregister.end&#x27;);
+	this._sandbox.dispatch(&#x27;t.unregister.end&#x27;);
 };
 
 /**
@@ -290,7 +290,7 @@ Application.prototype.start = function (modules) {
 
 	var promises = [];
 
-	this._sandbox.dispatch(&#x27;t.module.on&#x27;);
+	this._sandbox.dispatch(&#x27;t.on&#x27;);
 
 	// start the modules
 	for (var id in modules) {
@@ -307,7 +307,7 @@ Application.prototype.start = function (modules) {
 	// synchronize after callbacks
 	var all = Promise.all(promises);
 	all.then(function (callbacks) {
-		this._sandbox.dispatch(&#x27;t.module.after&#x27;);
+		this._sandbox.dispatch(&#x27;t.after&#x27;);
 
 		for(var i = 0, len = callbacks.length; i &lt; len; i++) {
 			callbacks[i]();
@@ -330,7 +330,7 @@ Application.prototype.start = function (modules) {
 Application.prototype.stop = function (modules) {
 	modules = modules || this._modules;
 
-	this._sandbox.dispatch(&#x27;t.module.stop&#x27;);
+	this._sandbox.dispatch(&#x27;t.stop&#x27;);
 
 	// stop the modules
 	for (var id in modules) {
@@ -379,7 +379,7 @@ Application.prototype.registerModule = function (ctx, mod, skins) {
 		return modules[id];
 	}
 
-	this._sandbox.dispatch(&#x27;t.module.missing&#x27;, ctx, mod, skins);
+	this._sandbox.dispatch(&#x27;t.missing&#x27;, ctx, mod, skins);
 
 	return null;
 };

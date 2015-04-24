@@ -107,7 +107,7 @@ Application.prototype.registerModules = function (ctx) {
 
 	ctx = ctx || this._ctx;
 
-	this._sandbox.dispatch('t.modules.register.start');
+	this._sandbox.dispatch('t.register.start');
 
 	var fragment = document.createDocumentFragment();
 	fragment.appendChild(ctx);
@@ -151,7 +151,7 @@ Application.prototype.registerModules = function (ctx) {
 		}
 	}.bind(this));
 
-	this._sandbox.dispatch('t.modules.register.end');
+	this._sandbox.dispatch('t.register.end');
 
 	return modules;
 };
@@ -166,7 +166,7 @@ Application.prototype.registerModules = function (ctx) {
 Application.prototype.unregisterModules = function (modules) {
 	modules = modules || this._modules;
 
-	this._sandbox.dispatch('t.modules.unregister.start');
+	this._sandbox.dispatch('t.unregister.start');
 
 	// unregister the given modules
 	for (var id in modules) {
@@ -175,7 +175,7 @@ Application.prototype.unregisterModules = function (modules) {
 		}
 	}
 
-	this._sandbox.dispatch('t.modules.unregister.end');
+	this._sandbox.dispatch('t.unregister.end');
 };
 
 /**
@@ -192,7 +192,7 @@ Application.prototype.start = function (modules) {
 
 	var promises = [];
 
-	this._sandbox.dispatch('t.module.on');
+	this._sandbox.dispatch('t.on');
 
 	// start the modules
 	for (var id in modules) {
@@ -209,7 +209,7 @@ Application.prototype.start = function (modules) {
 	// synchronize after callbacks
 	var all = Promise.all(promises);
 	all.then(function (callbacks) {
-		this._sandbox.dispatch('t.module.after');
+		this._sandbox.dispatch('t.after');
 
 		for(var i = 0, len = callbacks.length; i < len; i++) {
 			callbacks[i]();
@@ -232,7 +232,7 @@ Application.prototype.start = function (modules) {
 Application.prototype.stop = function (modules) {
 	modules = modules || this._modules;
 
-	this._sandbox.dispatch('t.module.stop');
+	this._sandbox.dispatch('t.stop');
 
 	// stop the modules
 	for (var id in modules) {
@@ -281,7 +281,7 @@ Application.prototype.registerModule = function (ctx, mod, skins) {
 		return modules[id];
 	}
 
-	this._sandbox.dispatch('t.module.missing', ctx, mod, skins);
+	this._sandbox.dispatch('t.missing', ctx, mod, skins);
 
 	return null;
 };

@@ -76,13 +76,13 @@ describe('Application', function () {
             expect(Object.keys(modules).length).toEqual(2);
         });
 
-		describe('should send lifecycle event', function () {
+		describe('should emit lifecycle event', function () {
 			beforeEach(function() {
 				this.connector = new T.Connector(this.application._sandbox);
 			});
 
-			it('t.modules.register.start without arguments', function (done) {
-				this.connector.on('t.modules.register.start', function(args) {
+			it('t.register.start without arguments', function (done) {
+				this.connector.on('t.register.start', function(args) {
 					expect(args).toBeUndefined();
 					done();
 				});
@@ -90,8 +90,8 @@ describe('Application', function () {
 				this.application.registerModules(this.ctx);
 			});
 
-			it('t.modules.register.end without arguments', function (done) {
-				this.connector.on('t.modules.register.end', function(args) {
+			it('t.register.end without arguments', function (done) {
+				this.connector.on('t.register.end', function(args) {
 					expect(args).toBeUndefined();
 					done();
 				});
@@ -113,13 +113,13 @@ describe('Application', function () {
 			expect(Object.keys(this.application._modules).length).toEqual(0);
 		});
 
-		describe('should send lifecycle event', function () {
+		describe('should emit lifecycle event', function () {
 			beforeEach(function() {
 				this.connector = new T.Connector(this.application._sandbox);
 			});
 
-			it('t.modules.unregister.start without arguments', function (done) {
-				this.connector.on('t.modules.unregister.start', function(args) {
+			it('t.unregister.start without arguments', function (done) {
+				this.connector.on('t.unregister.start', function(args) {
 					expect(args).toBeUndefined();
 					done();
 				});
@@ -127,8 +127,8 @@ describe('Application', function () {
 				this.application.unregisterModules();
 			});
 
-			it('t.modules.unregister.end without arguments', function (done) {
-				this.connector.on('t.modules.unregister.end', function(args) {
+			it('t.unregister.end without arguments', function (done) {
+				this.connector.on('t.unregister.end', function(args) {
 					expect(args).toBeUndefined();
 					done();
 				});
@@ -151,13 +151,13 @@ describe('Application', function () {
             expect(this.application._modules[3]).toBeDefined();
         });
 
-		describe('should send lifecycle event', function () {
+		describe('should emit lifecycle event', function () {
 			beforeEach(function() {
 				this.connector = new T.Connector(this.application._sandbox);
 			});
 
-			it('t.modules.unregister.start without arguments', function (done) {
-				this.connector.on('t.modules.unregister.start', function(args) {
+			it('t.unregister.start without arguments', function (done) {
+				this.connector.on('t.unregister.start', function(args) {
 					expect(args).toBeUndefined();
 					done();
 				});
@@ -165,8 +165,8 @@ describe('Application', function () {
 				this.application.unregisterModules();
 			});
 
-			it('t.modules.unregister.end without arguments', function (done) {
-				this.connector.on('t.modules.unregister.end', function(args) {
+			it('t.unregister.end without arguments', function (done) {
+				this.connector.on('t.unregister.end', function(args) {
 					expect(args).toBeUndefined();
 					done();
 				});
@@ -223,10 +223,10 @@ describe('Application', function () {
             expect(module).toBeNull();
         });
 
-		it('should send lifecycle event t.module.missing if the module does not exists', function (done) {
+		it('should emit lifecycle event t.missing if the module does not exists', function (done) {
 			var connector = new T.Connector(this.application._sandbox);
 
-			connector.on('t.module.missing', function(ctx, mod, skins) {
+			connector.on('t.missing', function(ctx, mod, skins) {
 				expect(ctx).toEqual(this.ctx);
 				expect(mod).toEqual('DoesNotExist');
 				expect(skins).toEqual([]);
@@ -406,13 +406,13 @@ describe('Application', function () {
             });
         });
 
-		describe('should send lifecycle event', function () {
+		describe('should emit lifecycle event', function () {
 			beforeEach(function() {
 				this.connector = new T.Connector(this.application._sandbox);
 			});
 
-			it('t.module.on without arguments', function (done) {
-				this.connector.on('t.module.on', function(args) {
+			it('t.on without arguments', function (done) {
+				this.connector.on('t.on', function(args) {
 					expect(args).toBeUndefined();
 					done();
 				});
@@ -420,8 +420,8 @@ describe('Application', function () {
 				this.application.start();
 			});
 
-			it('t.module.after without arguments', function (done) {
-				this.connector.on('t.module.after', function(args) {
+			it('t.after without arguments', function (done) {
+				this.connector.on('t.after', function(args) {
 					expect(args).toBeUndefined();
 					done();
 				});
@@ -445,10 +445,10 @@ describe('Application', function () {
 			expect(module.stop.calls.count()).toEqual(2);
 		});
 
-		it('should send lifecycle event t.module.stop', function (done) {
+		it('should emit lifecycle event t.stop', function (done) {
 			var connector = new T.Connector(this.application._sandbox);
 
-			connector.on('t.module.stop', function(args) {
+			connector.on('t.stop', function(args) {
 				expect(args).toBeUndefined();
 				done();
 			}.bind(this));
