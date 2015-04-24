@@ -33,7 +33,7 @@ function Module(ctx, sandbox) {
 	 * The emitter.
 	 *
 	 * @property _events
-	 * @type Emitter
+	 * @type Connector
 	 */
 	this._events = new Connector(sandbox);
 }

@@ -7,7 +7,7 @@
  * @class Sandbox
  *
  * @constructor
- * @param {Applicaton} application
+ * @param {Application} application
  *      The application reference
  * @param {Object} config
  *      The configuration
