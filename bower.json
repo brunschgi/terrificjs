@@ -1,6 +1,6 @@
 {
   "name": "terrific",
-  "version": "3.0.0-beta",
+  "version": "3.0.0-beta.0",
   "description": "TerrificJS modularizes your frontend code by solely relying on naming conventions.",
   "homepage": "https://github.com/brunschgi/terrificjs",
   "main": "dist/terrific.js",
