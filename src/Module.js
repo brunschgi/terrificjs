@@ -39,28 +39,14 @@ function Module(ctx, sandbox) {
 }
 
 /**
- * Starts the module.
+ * Template method to start the module.
  *
  * @method start
- * @return {Promise} The promise to synchronize after callbacks
+ * @param {Function} callback
+ *      The synchronize callback
  */
-Module.prototype.start = function () {
-	var callback = function () {
-		if (this.after) {
-			this.after();
-		}
-	}.bind(this);
-
-	return new Promise(function (resolve) {
-		if (this.on) {
-			this.on(function () {
-				resolve(callback);
-			});
-		}
-		else {
-			resolve(callback);
-		}
-	}.bind(this));
+Module.prototype.start = function (callback) {
+	callback();
 };
 
 /**
@@ -70,23 +56,4 @@ Module.prototype.start = function () {
  */
 Module.prototype.stop = function () {
 	this._events.disconnect();
-};
-
-/**
- * Template method for the main logic.
- *
- * @method on
- * @param {Function} callback
- *      The synchronize callbackk
- */
-Module.prototype.on = function (callback) {
-	callback();
-};
-
-/**
- * Template method for the synchronized logic.
- *
- * @method after
- */
-Module.prototype.after = function () {
 };

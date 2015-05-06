@@ -185,38 +185,37 @@ Application.prototype.unregisterModules = function (modules) {
  * @param {Object} modules
  *      A collection of modules to start
  * @return {Promise}
- *      The after callback sync Promise
+ *      The synchronize Promise
  */
 Application.prototype.start = function (modules) {
 	modules = modules || this._modules;
 
 	var promises = [];
 
-	this._sandbox.dispatch('t.on');
+	this._sandbox.dispatch('t.start');
 
 	// start the modules
+	function getPromise(id) {
+		return new Promise(function (resolve) {
+			modules[id].start(function() {
+				resolve();
+			});
+		});
+	}
+
 	for (var id in modules) {
 		if (modules.hasOwnProperty(id)) {
-			var promise = modules[id].start();
-			if (!(promise instanceof Promise)) {
-				throw Error('The module with the id ' + id +
-				' does not return a Promise on start');
-			}
-			promises.push(promise);
+			promises.push(getPromise(id));
 		}
 	}
 
-	// synchronize after callbacks
+	// synchronize modules
 	var all = Promise.all(promises);
-	all.then(function (callbacks) {
-		this._sandbox.dispatch('t.after');
-
-		for(var i = 0, len = callbacks.length; i < len; i++) {
-			callbacks[i]();
-		}
+	all.then(function () {
+		this._sandbox.dispatch('t.sync');
 	}.bind(this))
 		.catch(function (error) {
-			throw Error('Synchronizing the after callbacks failed: ' + error);
+			throw Error('Synchronizing the modules failed: ' + error);
 		});
 
 	return all;
@@ -549,28 +548,14 @@ function Module(ctx, sandbox) {
 }
 
 /**
- * Starts the module.
+ * Template method to start the module.
  *
  * @method start
- * @return {Promise} The promise to synchronize after callbacks
+ * @param {Function} callback
+ *      The synchronize callback
  */
-Module.prototype.start = function () {
-	var callback = function () {
-		if (this.after) {
-			this.after();
-		}
-	}.bind(this);
-
-	return new Promise(function (resolve) {
-		if (this.on) {
-			this.on(function () {
-				resolve(callback);
-			});
-		}
-		else {
-			resolve(callback);
-		}
-	}.bind(this));
+Module.prototype.start = function (callback) {
+	callback();
 };
 
 /**
@@ -582,24 +567,6 @@ Module.prototype.stop = function () {
 	this._events.disconnect();
 };
 
-/**
- * Template method for the main logic.
- *
- * @method on
- * @param {Function} callback
- *      The synchronize callbackk
- */
-Module.prototype.on = function (callback) {
-	callback();
-};
-
-/**
- * Template method for the synchronized logic.
- *
- * @method after
- */
-Module.prototype.after = function () {
-};
 /**
  * Responsible for inter-module communication.
  * Classic EventEmitter Api. Heavily inspired by https://github.com/component/emitter

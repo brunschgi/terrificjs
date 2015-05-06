@@ -176,38 +176,37 @@ Application.prototype.unregisterModules = function (modules) {
  * @param {Object} modules
  *      A collection of modules to start
  * @return {Promise}
- *      The after callback sync Promise
+ *      The synchronize Promise
  */
 Application.prototype.start = function (modules) {
 	modules = modules || this._modules;
 
 	var promises = [];
 
-	this._sandbox.dispatch('t.on');
+	this._sandbox.dispatch('t.start');
 
 	// start the modules
+	function getPromise(id) {
+		return new Promise(function (resolve) {
+			modules[id].start(function() {
+				resolve();
+			});
+		});
+	}
+
 	for (var id in modules) {
 		if (modules.hasOwnProperty(id)) {
-			var promise = modules[id].start();
-			if (!(promise instanceof Promise)) {
-				throw Error('The module with the id ' + id +
-				' does not return a Promise on start');
-			}
-			promises.push(promise);
+			promises.push(getPromise(id));
 		}
 	}
 
-	// synchronize after callbacks
+	// synchronize modules
 	var all = Promise.all(promises);
-	all.then(function (callbacks) {
-		this._sandbox.dispatch('t.after');
-
-		for(var i = 0, len = callbacks.length; i < len; i++) {
-			callbacks[i]();
-		}
+	all.then(function () {
+		this._sandbox.dispatch('t.sync');
 	}.bind(this))
 		.catch(function (error) {
-			throw Error('Synchronizing the after callbacks failed: ' + error);
+			throw Error('Synchronizing the modules failed: ' + error);
 		});
 
 	return all;

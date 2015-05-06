@@ -76,6 +76,33 @@ describe('Application', function () {
             expect(Object.keys(modules).length).toEqual(2);
         });
 
+		it('should support capitalized camelCase names', function () {
+			this.ctx.setAttribute('data-t-name', 'FooBar');
+			var modules = this.application.registerModules(this.ctx);
+
+			expect(this.application.registerModule.calls.count()).toEqual(1);
+			expect(this.application.registerModule).toHaveBeenCalledWith(this.ctx, 'FooBar', []);
+			expect(Object.keys(modules).length).toEqual(1);
+		});
+
+		it('should support camelCase names', function () {
+			this.ctx.setAttribute('data-t-name', 'fooBar');
+			var modules = this.application.registerModules(this.ctx);
+
+			expect(this.application.registerModule.calls.count()).toEqual(1);
+			expect(this.application.registerModule).toHaveBeenCalledWith(this.ctx, 'FooBar', []);
+			expect(Object.keys(modules).length).toEqual(1);
+		});
+
+		it('should support kebab-case names', function () {
+			this.ctx.setAttribute('data-t-name', 'foo-bar');
+			var modules = this.application.registerModules(this.ctx);
+
+			expect(this.application.registerModule.calls.count()).toEqual(1);
+			expect(this.application.registerModule).toHaveBeenCalledWith(this.ctx, 'FooBar', []);
+			expect(Object.keys(modules).length).toEqual(1);
+		});
+
 		describe('should emit lifecycle event', function () {
 			beforeEach(function() {
 				this.connector = new T.Connector(this.application._sandbox);
@@ -252,12 +279,12 @@ describe('Application', function () {
             expect(Number(module._ctx.getAttribute('data-t-id'))).toEqual(1);
         });
 
-        it('should have default on and after callbacks', function () {
+        it('should have default start and stop callbacks', function () {
             var module = this.application.registerModule(this.ctx, 'Foo');
 
             expect(module instanceof T.Module.Foo).toBeTruthy();
-            expect(module.on).toBeDefined();
-            expect(module.on).toBeDefined();
+            expect(module.start).toBeDefined();
+            expect(module.stop).toBeDefined();
         });
 
         it('should not do anything if skin does not exists', function () {
@@ -288,14 +315,14 @@ describe('Application', function () {
             expect(module.foobar()).toEqual('foobar');
         });
 
-        it('should not throw an error if on callback does not exist on decorated module', function () {
+        it('should not throw an error if the start method does not exist on the decorated module', function () {
             var module = this.application.registerModule(this.ctx, 'Foo', ['Bar']);
 
             expect(module instanceof T.Module.Foo).toBeTruthy();
             expect(module.bar).toBeDefined();
 
             expect(function() {
-                module.start();
+                module.start(function() {});
             }).not.toThrow();
         });
 
@@ -327,11 +354,6 @@ describe('Application', function () {
 
         it('should return Promise if valid modules are given', function () {
             var module = jasmine.createSpyObj('module', ['start']);
-            module.start.and.callFake(function() {
-                return new Promise(function(resolve) {
-                    resolve();
-                });
-            });
             var modules = { 1 : module, 2 : module };
 
             var promise = this.application.start(modules);
@@ -353,11 +375,6 @@ describe('Application', function () {
 
         it('should call start on the given modules', function () {
             var module = jasmine.createSpyObj('module', ['start']);
-            module.start.and.callFake(function() {
-                return new Promise(function(resolve) {
-                    resolve();
-                });
-            });
             var modules = { 1 : module, 2 : module };
 
             this.application.start(modules);
@@ -368,40 +385,21 @@ describe('Application', function () {
 		it('should execute then callback if no modules are given', function (done) {
             var promise = this.application.start();
 
-            promise.then(function(callbacks) {
-                expect(callbacks.length).toEqual(0);
+            promise.then(function() {
                 done();
             });
         });
 
         it('should execute then callback if all modules are resolved', function (done) {
             var module = jasmine.createSpyObj('module', ['start']);
-            module.start.and.callFake(function() {
-                return new Promise(function(resolve) {
-                    resolve();
-                });
-            });
+			module.start.and.callFake(function(callback) {
+				callback();
+			});
+
             var modules = { 1 : module, 2 : module };
             var promise = this.application.start(modules);
 
-            promise.then(function(callbacks) {
-                expect(callbacks.length).toEqual(2);
-                done();
-            });
-        });
-
-        it('should execute catch block if all modules are rejected', function (done) {
-            var module = jasmine.createSpyObj('module', ['start']);
-            module.start.and.callFake(function() {
-                return new Promise(function(resolve, reject) {
-                    reject('fail');
-                });
-            });
-            var modules = { 1 : module, 2 : module };
-            var promise = this.application.start(modules);
-
-            promise.catch(function(error) {
-                expect(error).toEqual('fail');
+            promise.then(function() {
                 done();
             });
         });
@@ -411,8 +409,8 @@ describe('Application', function () {
 				this.connector = new T.Connector(this.application._sandbox);
 			});
 
-			it('t.on without arguments', function (done) {
-				this.connector.on('t.on', function(args) {
+			it('t.start without arguments', function (done) {
+				this.connector.on('t.start', function(args) {
 					expect(args).toBeUndefined();
 					done();
 				});
@@ -420,8 +418,8 @@ describe('Application', function () {
 				this.application.start();
 			});
 
-			it('t.after without arguments', function (done) {
-				this.connector.on('t.after', function(args) {
+			it('t.sync without arguments', function (done) {
+				this.connector.on('t.sync', function(args) {
 					expect(args).toBeUndefined();
 					done();
 				});

@@ -9,56 +9,27 @@ Foo.prototype.constructor = Foo;
 T.Module.Foo = Foo;
 
 
-/* FooOn */
-FooOn = function(ctx, sandbox) {
+/* FooStart */
+FooStart = function(ctx, sandbox) {
 	T.Module.call(this, ctx, sandbox);
 };
 
-FooOn.prototype = Object.create(T.Module.prototype);
-FooOn.prototype.constructor = FooOn;
+FooStart.prototype = Object.create(T.Module.prototype);
+FooStart.prototype.constructor = FooStart;
 
-FooOn.prototype.on = function(callback) {
+FooStart.prototype.start = function(callback) {
 	callback();
 }
 
-T.Module.FooOn = FooOn;
-
-
-/* FooAfter */
-FooAfter = function(ctx, sandbox) {
-	T.Module.call(this, ctx, sandbox);
-};
-
-FooAfter.prototype = Object.create(T.Module.prototype);
-FooAfter.prototype.constructor = FooAfter;
-
-FooAfter.prototype.after = function() {}
-
-T.Module.FooAfter = FooAfter;
-
-
-/* FooBoth */
-FooBoth = function(ctx, sandbox) {
-	T.Module.call(this, ctx, sandbox);
-};
-
-FooBoth.prototype = Object.create(T.Module.prototype);
-FooBoth.prototype.constructor = FooBoth;
-
-FooBoth.prototype.on = function(callback) {
-	callback();
-}
-FooBoth.prototype.after = function() {}
-
-T.Module.FooBoth = FooBoth;
+T.Module.FooStart = FooStart;
 
 
 // Skins
 T.Module.Foo.Bar = function (module) {
-	var on = module.on;
+	var start = module.start;
 
-	module.on = function (callback) {
-		on(callback);
+	module.start = function (callback) {
+		start(callback);
 	};
 
 	module.bar = function () {
@@ -67,10 +38,10 @@ T.Module.Foo.Bar = function (module) {
 };
 
 T.Module.Foo.FooBar = function (module) {
-	var on = module.on;
+	var start = module.start;
 
-	module.on = function (callback) {
-		on(callback);
+	module.start = function (callback) {
+		start(callback);
 	};
 
 	module.foobar = function () {
