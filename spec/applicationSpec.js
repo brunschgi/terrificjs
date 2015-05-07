@@ -1,3 +1,4 @@
+/* global App, FooStart */
 describe('Application', function () {
 	'use strict';
 
@@ -46,7 +47,7 @@ describe('Application', function () {
             var modules = this.application.registerModules(this.ctx);
 
             expect(this.application.registerModule.calls.count()).toEqual(1);
-            expect(this.application.registerModule).toHaveBeenCalledWith(this.ctx, 'Foo', []);
+            expect(this.application.registerModule).toHaveBeenCalledWith(this.ctx, 'Foo', null, null);
             expect(Object.keys(modules).length).toEqual(1);
 
         });
@@ -56,7 +57,7 @@ describe('Application', function () {
             var modules = this.application.registerModules(this.ctx);
 
             expect(this.application.registerModule.calls.count()).toEqual(1);
-            expect(this.application.registerModule).toHaveBeenCalledWith(this.ctx.firstChild, 'Foo', []);
+            expect(this.application.registerModule).toHaveBeenCalledWith(this.ctx.firstChild, 'Foo', null, null);
             expect(Object.keys(modules).length).toEqual(1);
         });
 
@@ -75,33 +76,6 @@ describe('Application', function () {
             expect(this.application.registerModule.calls.count()).toEqual(2);
             expect(Object.keys(modules).length).toEqual(2);
         });
-
-		it('should support capitalized camelCase names', function () {
-			this.ctx.setAttribute('data-t-name', 'FooBar');
-			var modules = this.application.registerModules(this.ctx);
-
-			expect(this.application.registerModule.calls.count()).toEqual(1);
-			expect(this.application.registerModule).toHaveBeenCalledWith(this.ctx, 'FooBar', []);
-			expect(Object.keys(modules).length).toEqual(1);
-		});
-
-		it('should support camelCase names', function () {
-			this.ctx.setAttribute('data-t-name', 'fooBar');
-			var modules = this.application.registerModules(this.ctx);
-
-			expect(this.application.registerModule.calls.count()).toEqual(1);
-			expect(this.application.registerModule).toHaveBeenCalledWith(this.ctx, 'FooBar', []);
-			expect(Object.keys(modules).length).toEqual(1);
-		});
-
-		it('should support kebab-case names', function () {
-			this.ctx.setAttribute('data-t-name', 'foo-bar');
-			var modules = this.application.registerModules(this.ctx);
-
-			expect(this.application.registerModule.calls.count()).toEqual(1);
-			expect(this.application.registerModule).toHaveBeenCalledWith(this.ctx, 'FooBar', []);
-			expect(Object.keys(modules).length).toEqual(1);
-		});
 
 		describe('should emit lifecycle event', function () {
 			beforeEach(function() {
@@ -233,7 +207,7 @@ describe('Application', function () {
         });
     });
 
-    describe('.registerModule(ctx, mod, skins)', function() {
+    describe('.registerModule(ctx, mod, skins, namespace)', function() {
         beforeEach(function () {
 			this.application = new T.Application();
             this.ctx = document.createElement('div');
@@ -268,7 +242,32 @@ describe('Application', function () {
             expect(module instanceof T.Module).toBeTruthy();
         });
 
-        it('should assign ctx node and sandbox to the module instance', function () {
+		it('should support capitalized camelCase names', function () {
+			var module = this.application.registerModule(this.ctx, 'FooStart');
+			expect(module instanceof FooStart).toBeTruthy();
+		});
+
+		it('should support camelCase names', function () {
+			var module = this.application.registerModule(this.ctx, 'fooStart');
+			expect(module instanceof FooStart).toBeTruthy();
+		});
+
+		it('should support kebab-case names', function () {
+			var module = this.application.registerModule(this.ctx, 'foo-start');
+			expect(module instanceof FooStart).toBeTruthy();
+		});
+
+		it('should support namespace as string', function () {
+			var module = this.application.registerModule(this.ctx, 'Foo', 'App.Components');
+			expect(module instanceof T.Module).toBeTruthy();
+		});
+
+		it('should support namespace as object', function () {
+			var module = this.application.registerModule(this.ctx, 'Foo', App.Components);
+			expect(module instanceof T.Module).toBeTruthy();
+		});
+
+		it('should assign ctx node and sandbox to the module instance', function () {
             var module = this.application.registerModule(this.ctx, 'Foo');
             expect(module._ctx instanceof Node).toBeTruthy();
             expect(module._sandbox instanceof T.Sandbox).toBeTruthy();

@@ -113,29 +113,25 @@ Application.prototype.registerModules = function (ctx) {
 		/*
 		 * @config data-t-name="{mod-name}"
 		 *
-		 * Indicates that a JavaScript module should be bound.
-		 * It can occur at most once.
+		 * Example: data-t-name="foo"
+		 * Indicates that the module Foo should be bound.
+		 */
+
+		/*
+		 * @config data-t-namespace="{namespace}"
 		 *
-		 * Example: data-t-name="basic"
+		 * Example: data-t-skin="App.Components"
+		 * The namespace of the module. Optional.
 		 */
 
 		/*
 		 * @config data-t-skin="{skin-name}"
 		 *
-		 * Indicates that the module Basic should be decorated by the JS skin Submarine. It can occur at most
-		 * once. Multiple skins should be comma-separated.
-		 *
-		 * Example: data-t-skin="submarine"
+		 * Example: data-t-skin="bar"
+		 * Indicates that the module Foo should be decorated by the skin Bar.
+		 * Multiple skins should be comma-separated. Optional.
 		 */
-
-		var mod = Utils.capitalize(Utils.camelize(ctx.getAttribute('data-t-name').trim()));
-		var skins = ctx.getAttribute('data-t-skin') ? ctx.getAttribute('data-t-skin').split(',') : [];
-
-		skins = skins.map(function (skin) {
-			return Utils.capitalize(Utils.camelize(skin.trim()));
-		});
-
-		var module = this.registerModule(ctx, mod, skins);
+		var module = this.registerModule(ctx, ctx.getAttribute('data-t-name'), ctx.getAttribute('data-t-skin'), ctx.getAttribute('data-t-namespace'));
 
 		if (module) {
 			modules[module.id] = module;
@@ -242,36 +238,62 @@ Application.prototype.stop = function (modules) {
  *      The module name. It must match the class name of the module
  * @param {Array} skins
  *      A list of skin names. Each entry must match a class name of a skin
+ * @param {String} namespace
+ *      The module namespace
  * @return {Module}
  *      The reference to the registered module
  */
-Application.prototype.registerModule = function (ctx, mod, skins) {
+Application.prototype.registerModule = function (ctx, mod, skins, namespace) {
 	var modules = this._modules;
 
-	mod = mod || undefined;
-	skins = skins || [];
+	// validate params
+	mod = Utils.capitalize(Utils.camelize(mod));
 
-	if (mod && Module[mod]) {
+	if(Utils.isString(skins)) {
+		if(window[skins]) {
+			// skins param is the namespace
+			namespace = window[skins];
+			skins = null;
+		}
+		else {
+			// convert string to array
+			skins = skins.split(',');
+		}
+	}
+	else if(!Array.isArray(skins) && Utils.isObject(skins)) {
+		// skins is the namespace object
+		namespace = skins;
+		skins = null;
+	}
+
+	skins = skins || [];
+	skins = skins.map(function (skin) {
+		return Utils.capitalize(Utils.camelize(skin.trim()));
+	});
+
+	namespace = namespace || Module;
+
+	if (namespace[mod]) {
 		// assign the module a unique id
 		var id = this._id++;
 		ctx.setAttribute('data-t-id', id);
 
 		// instantiate module
-		modules[id] = new Module[mod](ctx, this._sandbox);
+		modules[id] = new namespace[mod](ctx, this._sandbox);
 
 		// decorate it
 		for(var i = 0, len = skins.length; i < len; i++) {
 			var skin = skins[i];
 
-			if (Module[mod][skin]) {
-				Module[mod][skin](modules[id]);
+			if (namespace[mod][skin]) {
+				namespace[mod][skin](modules[id]);
 			}
 		}
 
 		return modules[id];
 	}
 
-	this._sandbox.dispatch('t.missing', ctx, mod, skins);
+	this._sandbox.dispatch('t.missing', ctx, mod, skins, namespace);
 
 	return null;
 };
