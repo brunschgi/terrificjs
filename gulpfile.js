@@ -10,6 +10,7 @@ var gulp = require('gulp'),
 	jscs = require('gulp-jscs'),
 	yuidoc = require("gulp-yuidoc"),
 	sync = require('gulp-config-sync'),
+	template = require('gulp-template'),
 	size = require('gulp-size'),
 	umd = require('gulp-umd'),
 	umdconf = {
@@ -23,7 +24,8 @@ var gulp = require('gulp'),
 	del = require('del'),
 	karma = require('karma').server,
 	fs = require('fs'),
-	name = JSON.parse(fs.readFileSync('package.json', 'utf8')).name,
+	pkg = JSON.parse(fs.readFileSync('package.json', 'utf8')),
+	name = pkg.name,
 	files = [
 		'./src/Application.js',
 		'./src/Sandbox.js',
@@ -82,6 +84,7 @@ gulp.task('build', ['lint-src', 'clean'], function () {
 	return gulp.src(files)
 		.pipe(plumber())
 		.pipe(concat(name + '.js'))
+		.pipe(template({version: pkg.version, year : new Date().getFullYear()}))
 		.pipe(umd(umdconf))
 		.pipe(size())
 		.pipe(size({ gzip: true }))

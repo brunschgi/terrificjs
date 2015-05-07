@@ -11,9 +11,9 @@
  * TerrificJS modularizes your frontend code by solely relying on naming conventions.
  * http://terrifically.org
  *
- * @copyright   Copyright (c) <%= gulp.template.today('yyyy') %> Remo Brunschwiler
+ * @copyright   Copyright (c) 2015 Remo Brunschwiler
  * @license     Licensed under MIT license
- * @version     <%= pkg.version %>
+ * @version     3.0.0-beta.0
  */
 
 /**
@@ -869,7 +869,8 @@ var T = {
 	Sandbox: Sandbox,
 	Module: Module,
 	Connector: Connector,
-	Utils: Utils
+	Utils: Utils,
+	version: '3.0.0-beta.0'
 };
 return T;
 }));
