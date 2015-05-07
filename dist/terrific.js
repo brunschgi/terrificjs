@@ -13,7 +13,7 @@
  *
  * @copyright   Copyright (c) 2015 Remo Brunschwiler
  * @license     Licensed under MIT license
- * @version     3.0.0-beta.0
+ * @version     3.0.0-beta.1
  */
 
 /**
@@ -870,7 +870,7 @@ var T = {
 	Module: Module,
 	Connector: Connector,
 	Utils: Utils,
-	version: '3.0.0-beta.0'
+	version: '3.0.0-beta.1'
 };
 return T;
 }));
