@@ -109,10 +109,16 @@ Application.prototype.registerModules = function (ctx) {
 
 	this._sandbox.dispatch('t.register.start');
 
-	var fragment = document.createDocumentFragment();
-	fragment.appendChild(ctx);
+	// check childrens
+	var nodes = [].slice.call(ctx.querySelectorAll('[data-t-name]'));
 
-	[].forEach.call(fragment.querySelectorAll('[data-t-name]'), function (ctx) {
+	// check context itself
+	if(ctx.matches('[data-t-name]')) {
+		nodes.unshift(ctx);
+	}
+
+	// check childrens
+	nodes.forEach(function (ctx) {
 
 		/*
 		 * A module can have different data attributes.
@@ -317,7 +323,7 @@ Application.prototype.registerModule = function (ctx, mod, skins, namespace) {
  *      The appropriate module
  */
 Application.prototype.getModuleById = function (id) {
-	if (this._modules[id] !== undefined) {
+	if (this._modules[id]) {
 		return this._modules[id];
 	}
 	else {
