@@ -27,9 +27,8 @@ T.Module.FooStart = FooStart;
 // Skins
 T.Module.Foo.Bar = function (module) {
 	var start = module.start;
-
 	module.start = function (callback) {
-		start(callback);
+		start.call(module, callback);
 	};
 
 	module.bar = function () {
@@ -39,9 +38,8 @@ T.Module.Foo.Bar = function (module) {
 
 T.Module.Foo.FooBar = function (module) {
 	var start = module.start;
-
 	module.start = function (callback) {
-		start(callback);
+		start.call(module, callback);
 	};
 
 	module.foobar = function () {
