@@ -19,7 +19,7 @@
     "README.md",
     ".gitignore",
     ".jscsrc",
-    ".jshintignore",
+    ".jshintrc",
     ".jshintignore",
     ".travis.yml",
     "node_modules",
