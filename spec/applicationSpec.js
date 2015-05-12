@@ -9,13 +9,13 @@ describe('Application', function () {
 
     it('should have default ctx when called with no args', function () {
         var application = new T.Application();
-        expect(application._ctx).toEqual(document);
+        expect(application._ctx).toEqual(document.documentElement);
     });
 
     it('should have default ctx when called with config only', function () {
         var config = { 'foo' : 'bar'};
         var application = new T.Application(config);
-        expect(application._ctx).toEqual(document);
+        expect(application._ctx).toEqual(document.documentElement);
     });
 
     it('should support normal order of constructor arguments', function () {

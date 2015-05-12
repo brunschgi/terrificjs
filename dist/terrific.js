@@ -41,18 +41,18 @@ function Application(ctx, config) {
 		ctx = document;
 		config = {};
 	}
-	else if (config instanceof Node) {
+	else if (Utils.isNode(config)) {
 		// reverse order of arguments
 		var tmpConfig = config;
 		config = ctx;
 		ctx = tmpConfig;
 	}
-	else if (!(ctx instanceof Node) && !config) {
+	else if (!Utils.isNode(ctx) && !config) {
 		// only config is given
 		config = ctx;
 		ctx = document;
 	}
-	else if (ctx instanceof Node && !config) {
+	else if (Utils.isNode(ctx) && !config) {
 		// only ctx is given
 		config = {};
 	}
@@ -63,7 +63,7 @@ function Application(ctx, config) {
 	 * @property _ctx
 	 * @type Node
 	 */
-	this._ctx = ctx;
+	this._ctx = Utils.getElement(ctx);
 
 	/**
 	 * The sandbox to get the resources from.
@@ -105,19 +105,12 @@ function Application(ctx, config) {
 Application.prototype.registerModules = function (ctx) {
 	var modules = {};
 
-	ctx = ctx || this._ctx;
+	ctx = Utils.getElement(ctx) || this._ctx;
 
 	this._sandbox.dispatch('t.register.start');
 
-	// check childrens
-	var nodes = [].slice.call(ctx.querySelectorAll('[data-t-name]'));
-
-	// check context itself
-	if(ctx.matches('[data-t-name]')) {
-		nodes.unshift(ctx);
-	}
-
-	// check childrens
+	// get module nodes
+	var nodes = Utils.getModuleNodes(ctx);
 	nodes.forEach(function (ctx) {
 
 		/*
@@ -346,6 +339,7 @@ Application.prototype.getModuleById = function (id) {
  * @param {Object} config
  *      The configuration
  */
+/* global Utils */
 function Sandbox(application, config) {
 	/**
 	 * The application.
@@ -385,7 +379,7 @@ Sandbox.prototype.addModules = function (ctx) {
 	var modules = [],
 		application = this._application;
 
-	if (ctx instanceof Node) {
+	if (Utils.isNode(ctx)) {
 		// register modules
 		modules = application.registerModules(ctx);
 
@@ -408,14 +402,12 @@ Sandbox.prototype.addModules = function (ctx) {
 Sandbox.prototype.removeModules = function (modules) {
 	var application = this._application;
 
-	if (modules instanceof Node) {
+	if (Utils.isNode(modules)) {
 		// get modules
 		var tmpModules = [];
 
-		var fragment = document.createDocumentFragment();
-		fragment.appendChild(modules);
-
-		[].forEach.call(fragment.querySelectorAll('[data-t-name]'), function (ctx) {
+		var nodes = Utils.getModuleNodes(modules);
+		nodes.forEach(function (ctx) {
 			// check for instance
 			var id = ctx.getAttribute('data-t-id');
 
@@ -862,9 +854,82 @@ var Utils = {
 	 *      The object to check
 	 * @return {Boolean}
 	 */
-
 	isObject : function (obj) {
 		return obj === Object(obj);
+	},
+
+	/**
+	 * Check whether the given param is a valid node.
+	 *
+	 * @method isNode
+	 * @param {Node} node
+	 *      The node to check
+	 * @return {Boolean}
+	 */
+	isNode : function (node) {
+		if(!node || !node.nodeType) {
+			return false;
+		}
+
+		return node.nodeType === 1 || node.nodeType === 9;
+	},
+
+	/**
+	 * Check whether the element matches the given selector.
+	 *
+	 * @method matches
+	 * @param {Element} el
+	 *      The element to check
+ 	 * @param {String} selector
+ 	 * 		The selector to check against
+	 * @return {Boolean}
+	 */
+	matches: function(el, selector) {
+		var p = Element.prototype;
+		var f = p.matches || p.webkitMatchesSelector || p.mozMatchesSelector || p.msMatchesSelector || function(s) {
+			return [].slice.call(document.querySelectorAll(s)).indexOf(this) !== -1;
+		};
+		return f.call(el, selector);
+	},
+
+	/**
+	 * Get the element from a given node.
+	 *
+	 * @method getElement
+	 * @param {Node} node
+	 *      The node to check
+	 * @return {Element}
+	 */
+	getElement: function(node) {
+		if(!this.isNode(node)) {
+			return null;
+		}
+
+		if (node.nodeType === 9 && node.documentElement) {
+			return node.documentElement;
+		}
+		else {
+			return node;
+		}
+	},
+
+	/**
+	 * Get the module nodes.
+	 *
+	 * @method getModuleNodes
+	 * @param {Node} ctx
+	 *      The ctx to check
+	 * @return {Array}
+	 */
+	getModuleNodes: function(ctx) {
+		var nodes = [].slice.call(ctx.querySelectorAll('[data-t-name]'));
+
+		// check context itself
+		if(this.matches(ctx, '[data-t-name]')) {
+			nodes.unshift(ctx);
+		}
+
+		return nodes;
 	}
 };
 

@@ -56,8 +56,81 @@ var Utils = {
 	 *      The object to check
 	 * @return {Boolean}
 	 */
-
 	isObject : function (obj) {
 		return obj === Object(obj);
+	},
+
+	/**
+	 * Check whether the given param is a valid node.
+	 *
+	 * @method isNode
+	 * @param {Node} node
+	 *      The node to check
+	 * @return {Boolean}
+	 */
+	isNode : function (node) {
+		if(!node || !node.nodeType) {
+			return false;
+		}
+
+		return node.nodeType === 1 || node.nodeType === 9;
+	},
+
+	/**
+	 * Check whether the element matches the given selector.
+	 *
+	 * @method matches
+	 * @param {Element} el
+	 *      The element to check
+ 	 * @param {String} selector
+ 	 * 		The selector to check against
+	 * @return {Boolean}
+	 */
+	matches: function(el, selector) {
+		var p = Element.prototype;
+		var f = p.matches || p.webkitMatchesSelector || p.mozMatchesSelector || p.msMatchesSelector || function(s) {
+			return [].slice.call(document.querySelectorAll(s)).indexOf(this) !== -1;
+		};
+		return f.call(el, selector);
+	},
+
+	/**
+	 * Get the element from a given node.
+	 *
+	 * @method getElement
+	 * @param {Node} node
+	 *      The node to check
+	 * @return {Element}
+	 */
+	getElement: function(node) {
+		if(!this.isNode(node)) {
+			return null;
+		}
+
+		if (node.nodeType === 9 && node.documentElement) {
+			return node.documentElement;
+		}
+		else {
+			return node;
+		}
+	},
+
+	/**
+	 * Get the module nodes.
+	 *
+	 * @method getModuleNodes
+	 * @param {Node} ctx
+	 *      The ctx to check
+	 * @return {Array}
+	 */
+	getModuleNodes: function(ctx) {
+		var nodes = [].slice.call(ctx.querySelectorAll('[data-t-name]'));
+
+		// check context itself
+		if(this.matches(ctx, '[data-t-name]')) {
+			nodes.unshift(ctx);
+		}
+
+		return nodes;
 	}
 };

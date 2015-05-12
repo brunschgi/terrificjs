@@ -12,6 +12,7 @@
  * @param {Object} config
  *      The configuration
  */
+/* global Utils */
 function Sandbox(application, config) {
 	/**
 	 * The application.
@@ -51,7 +52,7 @@ Sandbox.prototype.addModules = function (ctx) {
 	var modules = [],
 		application = this._application;
 
-	if (ctx instanceof Node) {
+	if (Utils.isNode(ctx)) {
 		// register modules
 		modules = application.registerModules(ctx);
 
@@ -74,14 +75,12 @@ Sandbox.prototype.addModules = function (ctx) {
 Sandbox.prototype.removeModules = function (modules) {
 	var application = this._application;
 
-	if (modules instanceof Node) {
+	if (Utils.isNode(modules)) {
 		// get modules
 		var tmpModules = [];
 
-		var fragment = document.createDocumentFragment();
-		fragment.appendChild(modules);
-
-		[].forEach.call(fragment.querySelectorAll('[data-t-name]'), function (ctx) {
+		var nodes = Utils.getModuleNodes(modules);
+		nodes.forEach(function (ctx) {
 			// check for instance
 			var id = ctx.getAttribute('data-t-id');
 

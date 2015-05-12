@@ -32,18 +32,18 @@ function Application(ctx, config) {
 		ctx = document;
 		config = {};
 	}
-	else if (config instanceof Node) {
+	else if (Utils.isNode(config)) {
 		// reverse order of arguments
 		var tmpConfig = config;
 		config = ctx;
 		ctx = tmpConfig;
 	}
-	else if (!(ctx instanceof Node) && !config) {
+	else if (!Utils.isNode(ctx) && !config) {
 		// only config is given
 		config = ctx;
 		ctx = document;
 	}
-	else if (ctx instanceof Node && !config) {
+	else if (Utils.isNode(ctx) && !config) {
 		// only ctx is given
 		config = {};
 	}
@@ -54,7 +54,7 @@ function Application(ctx, config) {
 	 * @property _ctx
 	 * @type Node
 	 */
-	this._ctx = ctx;
+	this._ctx = Utils.getElement(ctx);
 
 	/**
 	 * The sandbox to get the resources from.
@@ -96,19 +96,12 @@ function Application(ctx, config) {
 Application.prototype.registerModules = function (ctx) {
 	var modules = {};
 
-	ctx = ctx || this._ctx;
+	ctx = Utils.getElement(ctx) || this._ctx;
 
 	this._sandbox.dispatch('t.register.start');
 
-	// check childrens
-	var nodes = [].slice.call(ctx.querySelectorAll('[data-t-name]'));
-
-	// check context itself
-	if(ctx.matches('[data-t-name]')) {
-		nodes.unshift(ctx);
-	}
-
-	// check childrens
+	// get module nodes
+	var nodes = Utils.getModuleNodes(ctx);
 	nodes.forEach(function (ctx) {
 
 		/*
