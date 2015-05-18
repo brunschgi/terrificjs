@@ -193,8 +193,7 @@ Application.prototype.start = function (modules) {
     function getPromise(id) {
         return new Promise(function (resolve, reject) {
             try {
-                modules[id].start();
-                resolve();
+                modules[id].start(resolve, reject);
             } catch (err) {
                 reject(err);
             }
@@ -573,10 +572,14 @@ function Module(ctx, sandbox) {
  * Template method to start the module.
  *
  * @method start
- * @param {Function} callback
- *      The synchronize callback
+ * @param {Function} resolve
+ *      The resolve promise function
+ * @param {Function} reject
+ * 		The reject promise function
  */
-Module.prototype.start = function () {
+/*jshint unused: true */
+Module.prototype.start = function (resolve) {
+	resolve();
 };
 
 /**

@@ -42,10 +42,14 @@ function Module(ctx, sandbox) {
  * Template method to start the module.
  *
  * @method start
- * @param {Function} callback
- *      The synchronize callback
+ * @param {Function} resolve
+ *      The resolve promise function
+ * @param {Function} reject
+ * 		The reject promise function
  */
-Module.prototype.start = function () {
+/*jshint unused: true */
+Module.prototype.start = function (resolve) {
+	resolve();
 };
 
 /**

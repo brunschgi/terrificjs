@@ -184,8 +184,7 @@ Application.prototype.start = function (modules) {
     function getPromise(id) {
         return new Promise(function (resolve, reject) {
             try {
-                modules[id].start();
-                resolve();
+                modules[id].start(resolve, reject);
             } catch (err) {
                 reject(err);
             }
