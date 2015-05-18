@@ -45,8 +45,7 @@ function Module(ctx, sandbox) {
  * @param {Function} callback
  *      The synchronize callback
  */
-Module.prototype.start = function (callback) {
-	callback();
+Module.prototype.start = function () {
 };
 
 /**

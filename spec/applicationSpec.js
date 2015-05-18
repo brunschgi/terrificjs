@@ -321,7 +321,7 @@ describe('Application', function () {
             expect(module.bar).toBeDefined();
 
             expect(function() {
-                module.start(function() {});
+                module.start();
             }).not.toThrow();
         });
 
@@ -391,9 +391,7 @@ describe('Application', function () {
 
         it('should execute then callback if all modules are resolved', function (done) {
             var module = jasmine.createSpyObj('module', ['start']);
-			module.start.and.callFake(function(callback) {
-				callback();
-			});
+			module.start.and.callFake(function() {});
 
             var modules = { 1 : module, 2 : module };
             var promise = this.application.start(modules);
