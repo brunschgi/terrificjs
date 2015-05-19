@@ -36,10 +36,7 @@ describe('Application', function () {
         beforeEach(function () {
             this.application = new T.Application();
             this.ctx = document.createElement('div');
-            this.id = 1;
-            spyOn(this.application, 'registerModule').and.callFake(function () {
-                return {id: this.id++};
-            }.bind(this));
+            spyOn(this.application, 'registerModule').and.callThrough();
         });
 
         it('should register module on ctx node', function () {

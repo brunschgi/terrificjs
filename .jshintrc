@@ -1,6 +1,7 @@
 {
   "globals": {
-    "T": true
+    "T": true,
+    "console": true
   },
   "esnext": true,
   "bitwise": true,
