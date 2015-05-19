@@ -390,13 +390,19 @@ describe('Application', function () {
             });
         });
 
-        it('should execute then callback if all modules are resolved', function (done) {
+        it('should execute then callback if all modules (also async ones) are resolved', function (done) {
             var module = jasmine.createSpyObj('module', ['start']);
+            var asyncModule = jasmine.createSpyObj('module', ['start']);
             module.start.and.callFake(function (resolve) {
                 resolve();
             });
+            asyncModule.start.and.callFake(function(resolve){
+                setTimeout(function(){
+                    resolve();
+                }, 500);
+            });
 
-            var modules = {1: module, 2: module};
+            var modules = {1: module, 2: asyncModule};
             var promise = this.application.start(modules);
 
             promise.then(function () {
