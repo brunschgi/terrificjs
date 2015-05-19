@@ -176,16 +176,16 @@ Application.prototype.start = function (modules) {
 
 	this._sandbox.dispatch('t.start');
 
-    // start the modules
-    function getPromise(id) {
-        return new Promise(function (resolve, reject) {
-            try {
-                modules[id].start(resolve, reject);
-            } catch (err) {
-                reject(err);
-            }
-        });
-    }
+	// start the modules
+	function getPromise(id) {
+		return new Promise(function (resolve, reject) {
+			try {
+				modules[id].start(resolve, reject);
+			} catch (err) {
+				reject(err);
+			}
+		});
+	}
 
 	for (var id in modules) {
 		if (modules.hasOwnProperty(id)) {
@@ -193,13 +193,13 @@ Application.prototype.start = function (modules) {
 		}
 	}
 
-    // synchronize modules
-    var all = Promise.all(promises);
-    all.then(function () {
-        this._sandbox.dispatch('t.sync');
-    }.bind(this)).catch(function (error) {
-        throw Error('Starting or synchronizing the modules failed: ' + error);
-    });
+	// synchronize modules
+	var all = Promise.all(promises);
+	all.then(function () {
+		this._sandbox.dispatch('t.sync');
+	}.bind(this)).catch(function (error) {
+		throw Error('Starting or synchronizing the modules failed: ' + error);
+	});
 
 	return all;
 };
@@ -245,8 +245,8 @@ Application.prototype.registerModule = function (ctx, mod, skins, namespace) {
 	// validate params
 	mod = Utils.capitalize(Utils.camelize(mod));
 
-	if(Utils.isString(skins)) {
-		if(window[skins]) {
+	if (Utils.isString(skins)) {
+		if (window[skins]) {
 			// skins param is the namespace
 			namespace = window[skins];
 			skins = null;
@@ -256,7 +256,7 @@ Application.prototype.registerModule = function (ctx, mod, skins, namespace) {
 			skins = skins.split(',');
 		}
 	}
-	else if(!Array.isArray(skins) && Utils.isObject(skins)) {
+	else if (!Array.isArray(skins) && Utils.isObject(skins)) {
 		// skins is the namespace object
 		namespace = skins;
 		skins = null;
@@ -278,7 +278,7 @@ Application.prototype.registerModule = function (ctx, mod, skins, namespace) {
 		modules[id] = new namespace[mod](ctx, this._sandbox);
 
 		// decorate it
-		for(var i = 0, len = skins.length; i < len; i++) {
+		for (var i = 0, len = skins.length; i < len; i++) {
 			var skin = skins[i];
 
 			if (namespace[mod][skin]) {
