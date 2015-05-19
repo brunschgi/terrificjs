@@ -130,11 +130,7 @@ Application.prototype.registerModules = function (ctx) {
 		 * Indicates that the module Foo should be decorated by the skin Bar.
 		 * Multiple skins should be comma-separated. Optional.
 		 */
-		var module = this.registerModule(ctx, ctx.getAttribute('data-t-name'), ctx.getAttribute('data-t-skin'), ctx.getAttribute('data-t-namespace'));
-
-		if (module) {
-			modules[module.id] = module;
-		}
+		this.registerModule(ctx, ctx.getAttribute('data-t-name'), ctx.getAttribute('data-t-skin'), ctx.getAttribute('data-t-namespace'));
 	}.bind(this));
 
 	this._sandbox.dispatch('t.register.end');
