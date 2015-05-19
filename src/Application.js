@@ -94,7 +94,7 @@ function Application(ctx, config) {
  *      A collection containing the registered modules
  */
 Application.prototype.registerModules = function (ctx) {
-    var modules = {};
+    var modules = [];
 
     ctx = Utils.getElement(ctx) || this._ctx;
 
