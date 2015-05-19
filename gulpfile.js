@@ -91,7 +91,13 @@ gulp.task('build', ['lint-src', 'clean'], function () {
 		.pipe(gulp.dest('./dist'));
 });
 
-gulp.task('minify', ['build'], function () {
+gulp.task('typescriptDefinition', ['clean'], function(){
+	return gulp.src(['src/*.d.ts'])
+		.pipe(plumber())
+		.pipe(gulp.dest('./dist'));
+});
+
+gulp.task('minify', ['build', 'typescriptDefinition'], function () {
 	return gulp.src(path.join('./dist/', name + '.js'))
 		.pipe(plumber())
 		.pipe(sourcemaps.init({ debug: true }))

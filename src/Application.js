@@ -176,14 +176,16 @@ Application.prototype.start = function (modules) {
 
 	this._sandbox.dispatch('t.start');
 
-	// start the modules
-	function getPromise(id) {
-		return new Promise(function (resolve) {
-			modules[id].start(function() {
-				resolve();
-			});
-		});
-	}
+    // start the modules
+    function getPromise(id) {
+        return new Promise(function (resolve, reject) {
+            try {
+                modules[id].start(resolve, reject);
+            } catch (err) {
+                reject(err);
+            }
+        });
+    }
 
 	for (var id in modules) {
 		if (modules.hasOwnProperty(id)) {
@@ -191,14 +193,13 @@ Application.prototype.start = function (modules) {
 		}
 	}
 
-	// synchronize modules
-	var all = Promise.all(promises);
-	all.then(function () {
-		this._sandbox.dispatch('t.sync');
-	}.bind(this))
-		.catch(function (error) {
-			throw Error('Synchronizing the modules failed: ' + error);
-		});
+    // synchronize modules
+    var all = Promise.all(promises);
+    all.then(function () {
+        this._sandbox.dispatch('t.sync');
+    }.bind(this)).catch(function (error) {
+        throw Error('Starting or synchronizing the modules failed: ' + error);
+    });
 
 	return all;
 };
