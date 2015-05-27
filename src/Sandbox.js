@@ -9,11 +9,9 @@
  * @constructor
  * @param {Application} application
  *      The application reference
- * @param {Object} config
- *      The configuration
  */
 /* global Utils */
-function Sandbox(application, config) {
+function Sandbox(application) {
 	/**
 	 * The application.
 	 *
@@ -21,14 +19,6 @@ function Sandbox(application, config) {
 	 * @type Application
 	 */
 	this._application = application;
-
-	/**
-	 * The configuration.
-	 *
-	 * @property config
-	 * @type Object
-	 */
-	this._config = config;
 
 	/**
 	 * Contains references to all module connectors.
@@ -128,7 +118,7 @@ Sandbox.prototype.getModuleById = function (id) {
  *      The configuration object
  */
 Sandbox.prototype.getConfig = function () {
-	return this._config;
+	return this._application._config;
 };
 
 /**
@@ -141,7 +131,7 @@ Sandbox.prototype.getConfig = function () {
  *      The appropriate configuration param
  */
 Sandbox.prototype.getConfigParam = function (name) {
-	var config = this._config;
+	var config = this._application._config;
 
 	if (config[name] !== undefined) {
 		return config[name];

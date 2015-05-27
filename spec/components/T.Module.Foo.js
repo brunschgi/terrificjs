@@ -1,34 +1,21 @@
 /* Foo */
-Foo = function(ctx, sandbox) {
-	T.Module.call(this, ctx, sandbox);
-};
-
-Foo.prototype = Object.create(T.Module.prototype);
-Foo.prototype.constructor = Foo;
-
-T.Module.Foo = Foo;
+T.Module.Foo = T.createModule({ name: 'Foo' });
 
 
 /* FooStart */
-FooStart = function(ctx, sandbox) {
-	T.Module.call(this, ctx, sandbox);
-};
-
-FooStart.prototype = Object.create(T.Module.prototype);
-FooStart.prototype.constructor = FooStart;
-
-FooStart.prototype.start = function(resolve, reject) {
-	resolve();
-};
-
-T.Module.FooStart = FooStart;
+T.Module.FooStart = T.createModule({
+	name: 'FooStart',
+	start: function(resolve) {
+		resolve();
+	}
+});
 
 
 // Skins
 T.Module.Foo.Bar = function (module) {
-	var start = module.start;
+	var start = module.start.bind(module);
 	module.start = function (resolve, reject) {
-		start.call(module, resolve, reject);
+		start(resolve, reject);
 	};
 
 	module.bar = function () {
@@ -37,9 +24,9 @@ T.Module.Foo.Bar = function (module) {
 };
 
 T.Module.Foo.FooBar = function (module) {
-	var start = module.start;
+	var start = module.start.bind(module);
 	module.start = function (resolve, reject) {
-		start.call(module, resolve, reject);
+		start(resolve, reject);
 	};
 
 	module.foobar = function () {

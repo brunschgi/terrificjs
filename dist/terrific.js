@@ -13,7 +13,7 @@
  *
  * @copyright   Copyright (c) 2015 Remo Brunschwiler
  * @license     Licensed under MIT license
- * @version     3.0.0-beta.3
+ * @version     3.0.0-beta.5
  */
 
 /**
@@ -33,7 +33,7 @@
  * @param {Object} config
  *      The configuration
  */
-/* global Sandbox, Module, Utils */
+/* global Sandbox, Utils, Module */
 function Application(ctx, config) {
 	// validate params
 	if (!ctx && !config) {
@@ -57,6 +57,12 @@ function Application(ctx, config) {
 		config = {};
 	}
 
+	var defaults = {
+		namespace: Module
+	};
+
+	config = Utils.extend(defaults, config);
+
 	/**
 	 * The context node.
 	 *
@@ -66,13 +72,21 @@ function Application(ctx, config) {
 	this._ctx = Utils.getElement(ctx);
 
 	/**
+	 * The configuration.
+	 *
+	 * @property config
+	 * @type Object
+	 */
+	this._config = config;
+
+	/**
 	 * The sandbox to get the resources from.
 	 * The singleton is shared between all modules.
 	 *
 	 * @property _sandbox
 	 * @type Sandbox
 	 */
-	this._sandbox = new Sandbox(this, config);
+	this._sandbox = new Sandbox(this);
 
 	/**
 	 * Contains references to all modules on the page.
@@ -280,7 +294,7 @@ Application.prototype.registerModule = function (ctx, mod, skins, namespace) {
 		return Utils.capitalize(Utils.camelize(skin.trim()));
 	});
 
-	namespace = namespace || Module;
+	namespace = namespace || this._config.namespace;
 
 	if (namespace[mod]) {
 		// assign the module a unique id
@@ -337,11 +351,9 @@ Application.prototype.getModuleById = function (id) {
  * @constructor
  * @param {Application} application
  *      The application reference
- * @param {Object} config
- *      The configuration
  */
 /* global Utils */
-function Sandbox(application, config) {
+function Sandbox(application) {
 	/**
 	 * The application.
 	 *
@@ -349,14 +361,6 @@ function Sandbox(application, config) {
 	 * @type Application
 	 */
 	this._application = application;
-
-	/**
-	 * The configuration.
-	 *
-	 * @property config
-	 * @type Object
-	 */
-	this._config = config;
 
 	/**
 	 * Contains references to all module connectors.
@@ -456,7 +460,7 @@ Sandbox.prototype.getModuleById = function (id) {
  *      The configuration object
  */
 Sandbox.prototype.getConfig = function () {
-	return this._config;
+	return this._application._config;
 };
 
 /**
@@ -469,7 +473,7 @@ Sandbox.prototype.getConfig = function () {
  *      The appropriate configuration param
  */
 Sandbox.prototype.getConfigParam = function (name) {
-	var config = this._config;
+	var config = this._application._config;
 
 	if (config[name] !== undefined) {
 		return config[name];
@@ -808,6 +812,7 @@ Connector.prototype.disconnect = function () {
  * @class Utils
  * @static
  */
+/* global Module */
 /* jshint unused: false */
 var Utils = {
 	/**
@@ -846,7 +851,7 @@ var Utils = {
 	 *      The object to check
 	 * @return {Boolean}
 	 */
-	isString: function(obj) {
+	isString: function (obj) {
 		return Object.prototype.toString.call(obj) === '[object String]';
 	},
 
@@ -858,8 +863,9 @@ var Utils = {
 	 *      The object to check
 	 * @return {Boolean}
 	 */
-	isObject : function (obj) {
-		return obj === Object(obj);
+	isObject: function (obj) {
+		var type = typeof obj;
+		return type === 'function' || type === 'object' && !!obj;
 	},
 
 	/**
@@ -870,8 +876,8 @@ var Utils = {
 	 *      The node to check
 	 * @return {Boolean}
 	 */
-	isNode : function (node) {
-		if(!node || !node.nodeType) {
+	isNode: function (node) {
+		if (!node || !node.nodeType) {
 			return false;
 		}
 
@@ -884,16 +890,42 @@ var Utils = {
 	 * @method matches
 	 * @param {Element} el
 	 *      The element to check
- 	 * @param {String} selector
- 	 * 		The selector to check against
+	 * @param {String} selector
+	 *        The selector to check against
 	 * @return {Boolean}
 	 */
-	matches: function(el, selector) {
+	matches: function (el, selector) {
 		var p = Element.prototype;
-		var f = p.matches || p.webkitMatchesSelector || p.mozMatchesSelector || p.msMatchesSelector || function(s) {
-			return [].slice.call(document.querySelectorAll(s)).indexOf(this) !== -1;
-		};
+		var f = p.matches || p.webkitMatchesSelector || p.mozMatchesSelector || p.msMatchesSelector || function (s) {
+				return [].slice.call(document.querySelectorAll(s)).indexOf(this) !== -1;
+			};
 		return f.call(el, selector);
+	},
+
+	/**
+	 * Extends an object with the given objects.
+	 *
+	 * @method extend
+	 * @param {Object} obj
+	 *      The object to extend
+	 * @param {Object} ...
+	 * @return {Object} the extended object
+	 */
+	extend: function (obj) {
+		if (!Utils.isObject(obj)) {
+			return obj;
+		}
+		var source, prop;
+		for (var i = 1, length = arguments.length; i < length; i++) {
+			source = arguments[i];
+
+			for (prop in source) {
+				if(source.hasOwnProperty(prop)) {
+					obj[prop] = source[prop];
+				}
+			}
+		}
+		return obj;
 	},
 
 	/**
@@ -904,8 +936,8 @@ var Utils = {
 	 *      The node to check
 	 * @return {Element}
 	 */
-	getElement: function(node) {
-		if(!this.isNode(node)) {
+	getElement: function (node) {
+		if (!this.isNode(node)) {
 			return null;
 		}
 
@@ -925,15 +957,62 @@ var Utils = {
 	 *      The ctx to check
 	 * @return {Array}
 	 */
-	getModuleNodes: function(ctx) {
+	getModuleNodes: function (ctx) {
 		var nodes = [].slice.call(ctx.querySelectorAll('[data-t-name]'));
 
 		// check context itself
-		if(this.matches(ctx, '[data-t-name]')) {
+		if (this.matches(ctx, '[data-t-name]')) {
 			nodes.unshift(ctx);
 		}
 
 		return nodes;
+	},
+
+	/**
+	 * Creates a module class given a class specification.
+	 *
+	 * @method createModule
+	 * @param {object} spec Class specification.
+	 * @return {function} Module constructor function
+	 */
+	createModule: function (spec) {
+		// validate params
+		if (!spec || !Utils.isObject(spec)) {
+			throw Error('Your module spec is not an object. Usage: T.createModule({ … })');
+		}
+
+		var Constructor = function (ctx, sandbox) {
+			Module.call(this, ctx, sandbox);
+		};
+
+		var proto = Constructor.prototype = Object.create(Module.prototype);
+		proto.constructor = Constructor;
+
+		// apply statics
+		if (spec.hasOwnProperty('statics')) {
+			Utils.extend(Constructor, spec.statics);
+		}
+
+		var reservedKeys = [
+			'statics'
+		];
+
+		// mixin spec properties to module prototype
+		for (var name in spec) {
+			if (!spec.hasOwnProperty(name)) {
+				continue;
+			}
+
+			// check for reserved keys
+			if (reservedKeys.indexOf(name) !== -1) {
+				continue;
+			}
+
+			var property = spec[name];
+			proto[name] = property;
+		}
+
+		return Constructor;
 	}
 };
 
@@ -944,8 +1023,8 @@ var T = {
 	Sandbox: Sandbox,
 	Module: Module,
 	Connector: Connector,
-	Utils: Utils,
-	version: '3.0.0-beta.3'
+	createModule: Utils.createModule,
+	version: '3.0.0-beta.5'
 };
 return T;
 }));

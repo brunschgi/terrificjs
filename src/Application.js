@@ -24,7 +24,7 @@
  * @param {Object} config
  *      The configuration
  */
-/* global Sandbox, Module, Utils */
+/* global Sandbox, Utils, Module */
 function Application(ctx, config) {
 	// validate params
 	if (!ctx && !config) {
@@ -48,6 +48,12 @@ function Application(ctx, config) {
 		config = {};
 	}
 
+	var defaults = {
+		namespace: Module
+	};
+
+	config = Utils.extend(defaults, config);
+
 	/**
 	 * The context node.
 	 *
@@ -57,13 +63,21 @@ function Application(ctx, config) {
 	this._ctx = Utils.getElement(ctx);
 
 	/**
+	 * The configuration.
+	 *
+	 * @property config
+	 * @type Object
+	 */
+	this._config = config;
+
+	/**
 	 * The sandbox to get the resources from.
 	 * The singleton is shared between all modules.
 	 *
 	 * @property _sandbox
 	 * @type Sandbox
 	 */
-	this._sandbox = new Sandbox(this, config);
+	this._sandbox = new Sandbox(this);
 
 	/**
 	 * Contains references to all modules on the page.
@@ -271,7 +285,7 @@ Application.prototype.registerModule = function (ctx, mod, skins, namespace) {
 		return Utils.capitalize(Utils.camelize(skin.trim()));
 	});
 
-	namespace = namespace || Module;
+	namespace = namespace || this._config.namespace;
 
 	if (namespace[mod]) {
 		// assign the module a unique id

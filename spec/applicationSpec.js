@@ -1,4 +1,4 @@
-/* global App, FooStart */
+/* global App */
 describe('Application', function () {
     'use strict';
 
@@ -241,17 +241,17 @@ describe('Application', function () {
 
         it('should support capitalized camelCase names', function () {
             var module = this.application.registerModule(this.ctx, 'FooStart');
-            expect(module instanceof FooStart).toBeTruthy();
+            expect(module instanceof T.Module.FooStart).toBeTruthy();
         });
 
         it('should support camelCase names', function () {
             var module = this.application.registerModule(this.ctx, 'fooStart');
-            expect(module instanceof FooStart).toBeTruthy();
+            expect(module instanceof T.Module.FooStart).toBeTruthy();
         });
 
         it('should support kebab-case names', function () {
             var module = this.application.registerModule(this.ctx, 'foo-start');
-            expect(module instanceof FooStart).toBeTruthy();
+            expect(module instanceof T.Module.FooStart).toBeTruthy();
         });
 
         it('should support namespace as string', function () {

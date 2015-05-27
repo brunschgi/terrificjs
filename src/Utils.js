@@ -6,6 +6,7 @@
  * @class Utils
  * @static
  */
+/* global Module */
 /* jshint unused: false */
 var Utils = {
 	/**
@@ -44,7 +45,7 @@ var Utils = {
 	 *      The object to check
 	 * @return {Boolean}
 	 */
-	isString: function(obj) {
+	isString: function (obj) {
 		return Object.prototype.toString.call(obj) === '[object String]';
 	},
 
@@ -56,8 +57,9 @@ var Utils = {
 	 *      The object to check
 	 * @return {Boolean}
 	 */
-	isObject : function (obj) {
-		return obj === Object(obj);
+	isObject: function (obj) {
+		var type = typeof obj;
+		return type === 'function' || type === 'object' && !!obj;
 	},
 
 	/**
@@ -68,8 +70,8 @@ var Utils = {
 	 *      The node to check
 	 * @return {Boolean}
 	 */
-	isNode : function (node) {
-		if(!node || !node.nodeType) {
+	isNode: function (node) {
+		if (!node || !node.nodeType) {
 			return false;
 		}
 
@@ -82,16 +84,42 @@ var Utils = {
 	 * @method matches
 	 * @param {Element} el
 	 *      The element to check
- 	 * @param {String} selector
- 	 * 		The selector to check against
+	 * @param {String} selector
+	 *        The selector to check against
 	 * @return {Boolean}
 	 */
-	matches: function(el, selector) {
+	matches: function (el, selector) {
 		var p = Element.prototype;
-		var f = p.matches || p.webkitMatchesSelector || p.mozMatchesSelector || p.msMatchesSelector || function(s) {
-			return [].slice.call(document.querySelectorAll(s)).indexOf(this) !== -1;
-		};
+		var f = p.matches || p.webkitMatchesSelector || p.mozMatchesSelector || p.msMatchesSelector || function (s) {
+				return [].slice.call(document.querySelectorAll(s)).indexOf(this) !== -1;
+			};
 		return f.call(el, selector);
+	},
+
+	/**
+	 * Extends an object with the given objects.
+	 *
+	 * @method extend
+	 * @param {Object} obj
+	 *      The object to extend
+	 * @param {Object} ...
+	 * @return {Object} the extended object
+	 */
+	extend: function (obj) {
+		if (!Utils.isObject(obj)) {
+			return obj;
+		}
+		var source, prop;
+		for (var i = 1, length = arguments.length; i < length; i++) {
+			source = arguments[i];
+
+			for (prop in source) {
+				if(source.hasOwnProperty(prop)) {
+					obj[prop] = source[prop];
+				}
+			}
+		}
+		return obj;
 	},
 
 	/**
@@ -102,8 +130,8 @@ var Utils = {
 	 *      The node to check
 	 * @return {Element}
 	 */
-	getElement: function(node) {
-		if(!this.isNode(node)) {
+	getElement: function (node) {
+		if (!this.isNode(node)) {
 			return null;
 		}
 
@@ -123,14 +151,61 @@ var Utils = {
 	 *      The ctx to check
 	 * @return {Array}
 	 */
-	getModuleNodes: function(ctx) {
+	getModuleNodes: function (ctx) {
 		var nodes = [].slice.call(ctx.querySelectorAll('[data-t-name]'));
 
 		// check context itself
-		if(this.matches(ctx, '[data-t-name]')) {
+		if (this.matches(ctx, '[data-t-name]')) {
 			nodes.unshift(ctx);
 		}
 
 		return nodes;
+	},
+
+	/**
+	 * Creates a module class given a class specification.
+	 *
+	 * @method createModule
+	 * @param {object} spec Class specification.
+	 * @return {function} Module constructor function
+	 */
+	createModule: function (spec) {
+		// validate params
+		if (!spec || !Utils.isObject(spec)) {
+			throw Error('Your module spec is not an object. Usage: T.createModule({ … })');
+		}
+
+		var Constructor = function (ctx, sandbox) {
+			Module.call(this, ctx, sandbox);
+		};
+
+		var proto = Constructor.prototype = Object.create(Module.prototype);
+		proto.constructor = Constructor;
+
+		// apply statics
+		if (spec.hasOwnProperty('statics')) {
+			Utils.extend(Constructor, spec.statics);
+		}
+
+		var reservedKeys = [
+			'statics'
+		];
+
+		// mixin spec properties to module prototype
+		for (var name in spec) {
+			if (!spec.hasOwnProperty(name)) {
+				continue;
+			}
+
+			// check for reserved keys
+			if (reservedKeys.indexOf(name) !== -1) {
+				continue;
+			}
+
+			var property = spec[name];
+			proto[name] = property;
+		}
+
+		return Constructor;
 	}
 };

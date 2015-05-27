@@ -7,8 +7,8 @@ describe('Sandbox', function () {
     });
 
     it('getConfig should return the config object', function () {
-        var initialConfig = { foo : 'bar', bar : 'foo' };
-        var sandbox = new T.Sandbox(null, initialConfig);
+        var initialConfig = { foo : 'bar', bar : 'foo', namespace: 'App.Components' };
+        var sandbox = new T.Application(null, initialConfig)._sandbox;
 
         var config = sandbox.getConfig();
         expect(config).toBeDefined();
@@ -17,7 +17,7 @@ describe('Sandbox', function () {
 
     it('getConfigParam should return the appropriate config param', function () {
         var initialConfig = { foo : 'bar', bar : 'foo' };
-        var sandbox = new T.Sandbox(null, initialConfig);
+        var sandbox = new T.Application(null, initialConfig)._sandbox;
 
         var foo = sandbox.getConfigParam('foo');
         expect(foo).toEqual(initialConfig.foo);
@@ -26,7 +26,14 @@ describe('Sandbox', function () {
         expect(bar).toEqual(initialConfig.bar);
     });
 
-    describe('.addModules(ctx)', function() {
+	it('getConfigParam("namespace") should return a default namespace', function () {
+		var sandbox = new T.Application(null)._sandbox;
+
+		var namespace = sandbox.getConfigParam('namespace');
+		expect(namespace).toEqual(T.Module);
+	});
+
+	describe('.addModules(ctx)', function() {
         beforeEach(function () {
             this.application = jasmine.createSpyObj('application', ['registerModules', 'start']);
             this.sandbox = new T.Sandbox(this.application, {});

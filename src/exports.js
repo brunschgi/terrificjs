@@ -5,6 +5,6 @@ var T = {
 	Sandbox: Sandbox,
 	Module: Module,
 	Connector: Connector,
-	Utils: Utils,
+	createModule: Utils.createModule,
 	version: '<%= version %>'
 };

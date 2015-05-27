@@ -3,6 +3,7 @@ declare module T {
     class Application {
         _ctx: Node;
         _sandbox: Sandbox;
+		_config: any;
         _modules: any;
         _id: number;
 
@@ -45,10 +46,9 @@ declare module T {
 
     class Sandbox {
         _application: Application;
-        _config: any;
         _connectors: Connector[];
 
-        constructor(application: Application, config: any);
+        constructor(application: Application);
 
         addModules(ctx: Node): Module[];
         removeModules(modules: Node|Module[]): Sandbox;
@@ -70,4 +70,6 @@ declare module T {
         start(resolve: (value?: any) => void, reject: (error?: any) => void): void;
         stop(): void;
     }
+
+	export function createModule(spec: any):Function;
 }

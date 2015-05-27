@@ -1,19 +1,11 @@
-Foo = function(ctx, sandbox) {
-	T.Module.call(this, ctx, sandbox);
-};
-
-Foo.prototype = Object.create(T.Module.prototype);
-Foo.prototype.constructor = Foo;
-
-Foo.prototype.bar = function() {
-	return 'bar';
-};
-
-App = {
-	Components : {
-
+window.App = {
+	Components: {
+		Foo: T.createModule({
+			name: 'Foo',
+			bar: function () {
+				return 'bar';
+			}
+		})
 	}
 };
-
-App.Components.Foo = Foo;
 
