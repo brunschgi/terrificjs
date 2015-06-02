@@ -195,19 +195,19 @@ Application.prototype.start = function (modules) {
 	this._sandbox.dispatch('t.start');
 
 	// start the modules
-	function getPromise(id) {
-		return new Promise(function (resolve, reject) {
-			try {
-				modules[id].start(resolve, reject);
-			} catch (err) {
-				reject(err);
-			}
-		});
-	}
-
 	for (var id in modules) {
 		if (modules.hasOwnProperty(id)) {
-			promises.push(getPromise(id));
+			var promise = (function (id) {
+				return new Promise(function (resolve, reject) {
+					try {
+						modules[id].start(resolve, reject);
+					} catch (err) {
+						reject(err);
+					}
+				});
+			}(id));
+
+			promises.push(promise);
 		}
 	}
 

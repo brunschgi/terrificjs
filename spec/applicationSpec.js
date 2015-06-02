@@ -301,6 +301,13 @@ describe('Application', function () {
             expect(module.bar()).toEqual('bar');
         });
 
+		it('should delete temporary _parent property on skin', function () {
+			var module = this.application.registerModule(this.ctx, 'Foo', ['Bar', 'FooBar']);
+
+			expect(module instanceof T.Module.Foo).toBeTruthy();
+			expect(module._parent).not.toBeDefined();
+		});
+
         it('should decorate the module with multiple skins', function () {
             var module = this.application.registerModule(this.ctx, 'Foo', ['Bar', 'FooBar']);
 
@@ -311,7 +318,19 @@ describe('Application', function () {
             expect(module.foobar()).toEqual('foobar');
         });
 
-        it('should not throw an error if the start method does not exist on the decorated module', function () {
+		it('should allow cascading calls with multiple skins', function () {
+			var module = this.application.registerModule(this.ctx, 'Foo', ['Bar', 'FooBar']);
+
+			expect(module.foo()).toEqual('foobar-foo|bar-foo|foo');
+		});
+
+		it('should allow overriding properties', function () {
+			var module = this.application.registerModule(this.ctx, 'Foo', ['Bar', 'FooBar']);
+
+			expect(module.get()).toEqual('foobar|foobar|foobar');
+		});
+
+		it('should not throw an error if the start method does not exist on the decorated module', function () {
             var module = this.application.registerModule(this.ctx, 'Foo', ['Bar']);
 
             expect(module instanceof T.Module.Foo).toBeTruthy();

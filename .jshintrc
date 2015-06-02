@@ -9,6 +9,7 @@
   "eqeqeq": true,
   "forin": true,
   "funcscope": true,
+  "loopfunc": true,
   "maxstatements": 25,
   "maxdepth": 3,
   "noarg": true,

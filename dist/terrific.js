@@ -13,7 +13,7 @@
  *
  * @copyright   Copyright (c) 2015 Remo Brunschwiler
  * @license     Licensed under MIT license
- * @version     3.0.0-beta.5
+ * @version     3.0.0-beta.6
  */
 
 /**
@@ -204,19 +204,19 @@ Application.prototype.start = function (modules) {
 	this._sandbox.dispatch('t.start');
 
 	// start the modules
-	function getPromise(id) {
-		return new Promise(function (resolve, reject) {
-			try {
-				modules[id].start(resolve, reject);
-			} catch (err) {
-				reject(err);
-			}
-		});
-	}
-
 	for (var id in modules) {
 		if (modules.hasOwnProperty(id)) {
-			promises.push(getPromise(id));
+			var promise = (function (id) {
+				return new Promise(function (resolve, reject) {
+					try {
+						modules[id].start(resolve, reject);
+					} catch (err) {
+						reject(err);
+					}
+				});
+			}(id));
+
+			promises.push(promise);
 		}
 	}
 
@@ -865,7 +865,20 @@ var Utils = {
 	 */
 	isObject: function (obj) {
 		var type = typeof obj;
-		return type === 'function' || type === 'object' && !!obj;
+		return !!obj && (type === 'object' || type === 'function');
+	},
+
+	/**
+	 * Check whether the given param is a function.
+	 *
+	 * @method isFunction
+	 * @param {Object} obj
+	 *      The object to check
+	 * @return {Boolean}
+	 */
+	isFunction: function (obj) {
+		var type = typeof obj;
+		return !!obj && type === 'function';
 	},
 
 	/**
@@ -920,7 +933,7 @@ var Utils = {
 			source = arguments[i];
 
 			for (prop in source) {
-				if(source.hasOwnProperty(prop)) {
+				if (source.hasOwnProperty(prop)) {
 					obj[prop] = source[prop];
 				}
 			}
@@ -1013,8 +1026,56 @@ var Utils = {
 		}
 
 		return Constructor;
+	},
+
+	/**
+	 * Creates a skin given a decorator specification.
+	 *
+	 * @method createSkin
+	 * @param {object} spec Skin specification.
+	 * @return {function} Decorator function
+	 */
+	createSkin: function (spec) {
+		// validate params
+		if (!spec || !Utils.isObject(spec)) {
+			throw Error('Your skin spec is not an object. Usage: T.createSkin({ … })');
+		}
+
+		return function (orig) {
+			var parent = {},
+				name;
+
+			// save references to original super properties
+			for (name in orig) {
+				if (Utils.isFunction(orig[name])) {
+					parent[name] = orig[name].bind(orig);
+				}
+			}
+
+			// override original properties and provide _parent property
+			for (name in spec) {
+				if (spec.hasOwnProperty(name)) {
+					if(Utils.isFunction(spec[name])) {
+						orig[name] = (function (name, fn) {
+							return function () {
+								this._parent = parent;
+								var ret = fn.apply(this, arguments);
+								delete this._parent;
+
+								return ret;
+							};
+						}(name, spec[name]));
+					}
+					else {
+						// simple property
+						orig[name] = spec[name];
+					}
+				}
+			}
+		};
 	}
 };
+
 
 /* global Application, Sandbox, Module, Connector, Utils */
 /* jshint unused: false */
@@ -1024,7 +1085,8 @@ var T = {
 	Module: Module,
 	Connector: Connector,
 	createModule: Utils.createModule,
-	version: '3.0.0-beta.5'
+	createSkin: Utils.createSkin,
+	version: '3.0.0-beta.6'
 };
 return T;
 }));

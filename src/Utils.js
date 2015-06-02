@@ -59,7 +59,20 @@ var Utils = {
 	 */
 	isObject: function (obj) {
 		var type = typeof obj;
-		return type === 'function' || type === 'object' && !!obj;
+		return !!obj && (type === 'object' || type === 'function');
+	},
+
+	/**
+	 * Check whether the given param is a function.
+	 *
+	 * @method isFunction
+	 * @param {Object} obj
+	 *      The object to check
+	 * @return {Boolean}
+	 */
+	isFunction: function (obj) {
+		var type = typeof obj;
+		return !!obj && type === 'function';
 	},
 
 	/**
@@ -114,7 +127,7 @@ var Utils = {
 			source = arguments[i];
 
 			for (prop in source) {
-				if(source.hasOwnProperty(prop)) {
+				if (source.hasOwnProperty(prop)) {
 					obj[prop] = source[prop];
 				}
 			}
@@ -207,5 +220,53 @@ var Utils = {
 		}
 
 		return Constructor;
+	},
+
+	/**
+	 * Creates a skin given a decorator specification.
+	 *
+	 * @method createSkin
+	 * @param {object} spec Skin specification.
+	 * @return {function} Decorator function
+	 */
+	createSkin: function (spec) {
+		// validate params
+		if (!spec || !Utils.isObject(spec)) {
+			throw Error('Your skin spec is not an object. Usage: T.createSkin({ … })');
+		}
+
+		return function (orig) {
+			var parent = {},
+				name;
+
+			// save references to original super properties
+			for (name in orig) {
+				if (Utils.isFunction(orig[name])) {
+					parent[name] = orig[name].bind(orig);
+				}
+			}
+
+			// override original properties and provide _parent property
+			for (name in spec) {
+				if (spec.hasOwnProperty(name)) {
+					if(Utils.isFunction(spec[name])) {
+						orig[name] = (function (name, fn) {
+							return function () {
+								this._parent = parent;
+								var ret = fn.apply(this, arguments);
+								delete this._parent;
+
+								return ret;
+							};
+						}(name, spec[name]));
+					}
+					else {
+						// simple property
+						orig[name] = spec[name];
+					}
+				}
+			}
+		};
 	}
 };
+

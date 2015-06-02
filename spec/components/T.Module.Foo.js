@@ -1,10 +1,17 @@
 /* Foo */
-T.Module.Foo = T.createModule({ name: 'Foo' });
+T.Module.Foo = T.createModule({
+	value: 'foo',
+	foo: function() {
+		return 'foo';
+	},
+	get : function () {
+		return this.value;
+	}
+});
 
 
 /* FooStart */
 T.Module.FooStart = T.createModule({
-	name: 'FooStart',
 	start: function(resolve) {
 		resolve();
 	}
@@ -12,24 +19,44 @@ T.Module.FooStart = T.createModule({
 
 
 // Skins
-T.Module.Foo.Bar = function (module) {
-	var start = module.start.bind(module);
-	module.start = function (resolve, reject) {
-		start(resolve, reject);
-	};
+T.Module.Foo.Bar = T.createSkin({
+	value: 'bar',
+	start : function (resolve, reject) {
+		this._parent.start(resolve, reject);
+	},
 
-	module.bar = function () {
+	bar : function () {
 		return "bar";
-	};
-};
+	},
 
-T.Module.Foo.FooBar = function (module) {
-	var start = module.start.bind(module);
-	module.start = function (resolve, reject) {
-		start(resolve, reject);
-	};
+	foo : function () {
+		var value = this._parent.foo();
+		return 'bar-foo|' + value;
+	},
 
-	module.foobar = function () {
+	get : function () {
+		var value = this._parent.get();
+		return this.value + '|' + value;
+	}
+});
+
+T.Module.Foo.FooBar = T.createSkin({
+	value: 'foobar',
+	start : function (resolve, reject) {
+		this._parent.start(resolve, reject);
+	},
+
+	foobar : function () {
 		return "foobar";
-	};
-};
+	},
+
+	foo : function () {
+		var value = this._parent.foo();
+		return 'foobar-foo|' + value;
+	},
+
+	get : function () {
+		var value = this._parent.get();
+		return this.value + '|' + value;
+	}
+});

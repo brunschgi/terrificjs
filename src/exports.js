@@ -6,5 +6,6 @@ var T = {
 	Module: Module,
 	Connector: Connector,
 	createModule: Utils.createModule,
+	createSkin: Utils.createSkin,
 	version: '<%= version %>'
 };
