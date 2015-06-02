@@ -72,4 +72,5 @@ declare module T {
     }
 
 	export function createModule(spec: any):Function;
+	export function createSkin(spec: any):Function;
 }
