@@ -25,7 +25,8 @@
     "node_modules",
     "bower_components",
     "spec",
-    "src"
+    "src",
+    "dist/docs"
   ],
   "repository": {
     "type": "git",
