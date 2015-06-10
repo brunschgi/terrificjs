@@ -6,6 +6,6 @@ var T = {
 	Module: Module,
 	EventEmitter: EventEmitter,
 	createModule: Utils.createModule,
-	createSkin: Utils.createSkin,
+	createDecorator: Utils.createDecorator,
 	version: '<%= version %>'
 };

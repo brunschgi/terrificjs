@@ -142,18 +142,18 @@ Application.prototype.registerModules = function (ctx) {
 		/*
 		 * @config data-t-namespace="{namespace}"
 		 *
-		 * Example: data-t-skin="App.Components"
+		 * Example: data-t-namespace="App.Components"
 		 * The namespace of the module. Optional.
 		 */
 
 		/*
-		 * @config data-t-skin="{skin-name}"
+		 * @config data-t-decorator="{decorator-name}"
 		 *
-		 * Example: data-t-skin="bar"
-		 * Indicates that the module Foo should be decorated by the skin Bar.
-		 * Multiple skins should be comma-separated. Optional.
+		 * Example: data-t-decorator="bar"
+		 * Indicates that the module Foo should be decorated with the Bar decorator.
+		 * Multiple decorators should be comma-separated. Optional.
 		 */
-		var module = this.registerModule(ctx, ctx.getAttribute('data-t-name'), ctx.getAttribute('data-t-skin'), ctx.getAttribute('data-t-namespace'));
+		var module = this.registerModule(ctx, ctx.getAttribute('data-t-name'), ctx.getAttribute('data-t-decorator'), ctx.getAttribute('data-t-namespace'));
 
 		if (module) {
 			modules[module._ctx.getAttribute('data-t-id')] = module;
@@ -259,39 +259,39 @@ Application.prototype.stop = function (modules) {
  *      The context node
  * @param {String} mod
  *      The module name. It must match the class name of the module
- * @param {Array} skins
- *      A list of skin names. Each entry must match a class name of a skin
+ * @param {Array} decorators
+ *      A list of decorator names. Each entry must match a class name of a decorator
  * @param {String} namespace
  *      The module namespace
  * @return {Module}
  *      The reference to the registered module
  */
-Application.prototype.registerModule = function (ctx, mod, skins, namespace) {
+Application.prototype.registerModule = function (ctx, mod, decorators, namespace) {
 	var modules = this._modules;
 
 	// validate params
 	mod = Utils.capitalize(Utils.camelize(mod));
 
-	if (Utils.isString(skins)) {
-		if (window[skins]) {
-			// skins param is the namespace
-			namespace = window[skins];
-			skins = null;
+	if (Utils.isString(decorators)) {
+		if (window[decorators]) {
+			// decorators param is the namespace
+			namespace = window[decorators];
+			decorators = null;
 		}
 		else {
 			// convert string to array
-			skins = skins.split(',');
+			decorators = decorators.split(',');
 		}
 	}
-	else if (!Array.isArray(skins) && Utils.isObject(skins)) {
-		// skins is the namespace object
-		namespace = skins;
-		skins = null;
+	else if (!Array.isArray(decorators) && Utils.isObject(decorators)) {
+		// decorators is the namespace object
+		namespace = decorators;
+		decorators = null;
 	}
 
-	skins = skins || [];
-	skins = skins.map(function (skin) {
-		return Utils.capitalize(Utils.camelize(skin.trim()));
+	decorators = decorators || [];
+	decorators = decorators.map(function (decorator) {
+		return Utils.capitalize(Utils.camelize(decorator.trim()));
 	});
 
 	namespace = namespace || this._config.namespace;
@@ -305,18 +305,18 @@ Application.prototype.registerModule = function (ctx, mod, skins, namespace) {
 		modules[id] = new namespace[mod](ctx, this._sandbox);
 
 		// decorate it
-		for (var i = 0, len = skins.length; i < len; i++) {
-			var skin = skins[i];
+		for (var i = 0, len = decorators.length; i < len; i++) {
+			var decorator = decorators[i];
 
-			if (namespace[mod][skin]) {
-				namespace[mod][skin](modules[id]);
+			if (namespace[mod][decorator]) {
+				namespace[mod][decorator](modules[id]);
 			}
 		}
 
 		return modules[id];
 	}
 
-	this._sandbox.dispatch('t.missing', ctx, mod, skins, namespace);
+	this._sandbox.dispatch('t.missing', ctx, mod, decorators, namespace);
 
 	return null;
 };
@@ -1029,16 +1029,16 @@ var Utils = {
 	},
 
 	/**
-	 * Creates a skin given a decorator specification.
+	 * Creates a decorator given a decorator specification.
 	 *
-	 * @method createSkin
-	 * @param {object} spec Skin specification.
+	 * @method createDecorator
+	 * @param {object} spec Decorator specification.
 	 * @return {function} Decorator function
 	 */
-	createSkin: function (spec) {
+	createDecorator: function (spec) {
 		// validate params
 		if (!spec || !Utils.isObject(spec)) {
-			throw Error('Your skin spec is not an object. Usage: T.createSkin({ … })');
+			throw Error('Your decorator spec is not an object. Usage: T.createDecorator({ … })');
 		}
 
 		return function (orig) {
@@ -1085,7 +1085,7 @@ var T = {
 	Module: Module,
 	EventEmitter: EventEmitter,
 	createModule: Utils.createModule,
-	createSkin: Utils.createSkin,
+	createDecorator: Utils.createDecorator,
 	version: '3.0.0-beta.6'
 };
 return T;

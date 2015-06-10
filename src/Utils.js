@@ -223,16 +223,16 @@ var Utils = {
 	},
 
 	/**
-	 * Creates a skin given a decorator specification.
+	 * Creates a decorator given a decorator specification.
 	 *
-	 * @method createSkin
-	 * @param {object} spec Skin specification.
+	 * @method createDecorator
+	 * @param {object} spec Decorator specification.
 	 * @return {function} Decorator function
 	 */
-	createSkin: function (spec) {
+	createDecorator: function (spec) {
 		// validate params
 		if (!spec || !Utils.isObject(spec)) {
-			throw Error('Your skin spec is not an object. Usage: T.createSkin({ … })');
+			throw Error('Your decorator spec is not an object. Usage: T.createDecorator({ … })');
 		}
 
 		return function (orig) {

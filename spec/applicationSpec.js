@@ -204,7 +204,7 @@ describe('Application', function () {
         });
     });
 
-    describe('.registerModule(ctx, mod, skins, namespace)', function () {
+    describe('.registerModule(ctx, mod, decorators, namespace)', function () {
         beforeEach(function () {
             this.application = new T.Application();
             this.ctx = document.createElement('div');
@@ -224,10 +224,10 @@ describe('Application', function () {
         it('should emit lifecycle event t.missing if the module does not exists', function (done) {
             var eventEmitter = new T.EventEmitter(this.application._sandbox);
 
-            eventEmitter.on('t.missing', function (ctx, mod, skins) {
+            eventEmitter.on('t.missing', function (ctx, mod, decorators) {
                 expect(ctx).toEqual(this.ctx);
                 expect(mod).toEqual('DoesNotExist');
-                expect(skins).toEqual([]);
+                expect(decorators).toEqual([]);
                 done();
             }.bind(this));
 
@@ -283,7 +283,7 @@ describe('Application', function () {
             expect(module.stop).toBeDefined();
         });
 
-        it('should not do anything if skin does not exists', function () {
+        it('should not do anything if decorator does not exists', function () {
             var module;
 
             expect(function () {
@@ -293,7 +293,7 @@ describe('Application', function () {
             expect(module instanceof T.Module.Foo).toBeTruthy();
         });
 
-        it('should decorate the module if skin does exists', function () {
+        it('should decorate the module if decorator does exists', function () {
             var module = this.application.registerModule(this.ctx, 'Foo', ['Bar']);
 
             expect(module instanceof T.Module.Foo).toBeTruthy();
@@ -301,14 +301,14 @@ describe('Application', function () {
             expect(module.bar()).toEqual('bar');
         });
 
-		it('should delete temporary _parent property on skin', function () {
+		it('should delete temporary _parent property on decorator', function () {
 			var module = this.application.registerModule(this.ctx, 'Foo', ['Bar', 'FooBar']);
 
 			expect(module instanceof T.Module.Foo).toBeTruthy();
 			expect(module._parent).not.toBeDefined();
 		});
 
-        it('should decorate the module with multiple skins', function () {
+        it('should decorate the module with multiple decorators', function () {
             var module = this.application.registerModule(this.ctx, 'Foo', ['Bar', 'FooBar']);
 
             expect(module instanceof T.Module.Foo).toBeTruthy();
@@ -318,7 +318,7 @@ describe('Application', function () {
             expect(module.foobar()).toEqual('foobar');
         });
 
-		it('should allow cascading calls with multiple skins', function () {
+		it('should allow cascading calls with multiple decorators', function () {
 			var module = this.application.registerModule(this.ctx, 'Foo', ['Bar', 'FooBar']);
 
 			expect(module.foo()).toEqual('foobar-foo|bar-foo|foo');

@@ -14,8 +14,8 @@ declare module T {
         start(modules?: any): Promise<void>;
         stop(modules?: any): void;
         registerModule(ctx: Node, mod: string, namespace?: any): Module;
-        registerModule(ctx: Node, mod: string, skins?: string|string[]): Module;
-        registerModule(ctx: Node, mod: string, skins?: string|string[], namespace?: any): Module;
+        registerModule(ctx: Node, mod: string, decorators?: string|string[]): Module;
+        registerModule(ctx: Node, mod: string, decorators?: string|string[], namespace?: any): Module;
         getModuleById(id: number): Module;
     }
 
@@ -72,5 +72,5 @@ declare module T {
     }
 
 	export function createModule(spec: any):Function;
-	export function createSkin(spec: any):Function;
+	export function createDecorator(spec: any):Function;
 }

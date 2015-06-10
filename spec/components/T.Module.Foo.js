@@ -18,8 +18,8 @@ T.Module.FooStart = T.createModule({
 });
 
 
-// Skins
-T.Module.Foo.Bar = T.createSkin({
+// Decorators
+T.Module.Foo.Bar = T.createDecorator({
 	value: 'bar',
 	start : function (resolve, reject) {
 		this._parent.start(resolve, reject);
@@ -40,7 +40,7 @@ T.Module.Foo.Bar = T.createSkin({
 	}
 });
 
-T.Module.Foo.FooBar = T.createSkin({
+T.Module.Foo.FooBar = T.createDecorator({
 	value: 'foobar',
 	start : function (resolve, reject) {
 		this._parent.start(resolve, reject);
