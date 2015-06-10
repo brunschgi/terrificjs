@@ -11,7 +11,7 @@
  * @param {Sandbox} sandbox
  *      The sandbox to get the resources from
  */
-/* global Connector */
+/* global EventEmitter */
 function Module(ctx, sandbox) {
 	/**
 	 * Contains the context node.
@@ -33,9 +33,9 @@ function Module(ctx, sandbox) {
 	 * The emitter.
 	 *
 	 * @property _events
-	 * @type Connector
+	 * @type EventEmitter
 	 */
-	this._events = new Connector(sandbox);
+	this._events = new EventEmitter(sandbox);
 }
 
 /**

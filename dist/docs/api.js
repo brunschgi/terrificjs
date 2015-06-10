@@ -2,7 +2,7 @@ YUI.add("yuidoc-meta", function(Y) {
    Y.YUIDoc = { meta: {
     "classes": [
         "T.Application",
-        "T.Connector",
+        "T.EventEmitter",
         "T.Module",
         "T.Sandbox",
         "T.Utils"

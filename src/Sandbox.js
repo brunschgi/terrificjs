@@ -21,12 +21,12 @@ function Sandbox(application) {
 	this._application = application;
 
 	/**
-	 * Contains references to all module connectors.
+	 * Contains references to all module event emitters.
 	 *
-	 * @property _connectors
+	 * @property _eventEmitters
 	 * @type Array
 	 */
-	this._connectors = [];
+	this._eventEmitters = [];
 }
 
 /**
@@ -142,31 +142,31 @@ Sandbox.prototype.getConfigParam = function (name) {
 };
 
 /**
- * Adds a connector instance.
+ * Adds an event emitter instance.
  *
- * @method addConnector
- * @param {Connector} connector
- *      The connector
+ * @method addEventEmitter
+ * @param {EventEmitter} eventEmitter
+ *      The event emitter
  * @return {Sandbox}
  */
-Sandbox.prototype.addConnector = function (connector) {
-	this._connectors.push(connector);
+Sandbox.prototype.addEventEmitter = function (eventEmitter) {
+	this._eventEmitters.push(eventEmitter);
 	return this;
 };
 
 /**
- * Removes a connector instance.
+ * Removes an event emitter instance.
  *
- * @method addConnector
- * @param {Connector} connector
- *      The connector
+ * @method addEventEmitter
+ * @param {EventEmitter} eventEmitter
+ *      The event emitter
  * @return {Sandbox}
  */
-Sandbox.prototype.removeConnector = function (connector) {
-	var connectors = this._connectors;
-	for (var i = 0, len = connectors.length; i < len; i++) {
-		if (connectors[i] === connector) {
-			connectors.splice(i, 1);
+Sandbox.prototype.removeEventEmitter = function (eventEmitter) {
+	var eventEmitters = this._eventEmitters;
+	for (var i = 0, len = eventEmitters.length; i < len; i++) {
+		if (eventEmitters[i] === eventEmitter) {
+			eventEmitters.splice(i, 1);
 			break;
 		}
 	}
@@ -174,18 +174,18 @@ Sandbox.prototype.removeConnector = function (connector) {
 };
 
 /**
- * Dispatches the event with the given arguments to the attached connectors.
+ * Dispatches the event with the given arguments to the attached event emitters.
  *
  * @method dispatch
  * @param {Mixed} ...
  * @return {Sandbox}
  */
 Sandbox.prototype.dispatch = function () {
-	var connectors = this._connectors;
+	var eventEmitters = this._eventEmitters;
 
-	for(var i = 0, len = connectors.length; i < len; i++) {
-		var connector = connectors[i];
-		connector.handle.apply(connector, arguments);
+	for(var i = 0, len = eventEmitters.length; i < len; i++) {
+		var eventEmitter = eventEmitters[i];
+		eventEmitter.handle.apply(eventEmitter, arguments);
 	}
 
 	return this;

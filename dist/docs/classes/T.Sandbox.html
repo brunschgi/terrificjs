@@ -43,7 +43,7 @@
             
                 <li><a href="../classes/T.Application.html">T.Application</a></li>
             
-                <li><a href="../classes/T.Connector.html">T.Connector</a></li>
+                <li><a href="../classes/T.EventEmitter.html">T.EventEmitter</a></li>
             
                 <li><a href="../classes/T.Module.html">T.Module</a></li>
             
@@ -239,14 +239,14 @@ It is shared between all modules.</p>
                     <ul class="index-list methods">
                         
                             <li class="index-item method">
-                                <a href="#method_addConnector">addConnector</a>
+                                <a href="#method_addEventEmitter">addEventEmitter</a>
 
                                 
                                 
                             </li>
                         
                             <li class="index-item method">
-                                <a href="#method_addConnector">addConnector</a>
+                                <a href="#method_addEventEmitter">addEventEmitter</a>
 
                                 
                                 
@@ -312,7 +312,7 @@ It is shared between all modules.</p>
                             </li>
                         
                             <li class="index-item property">
-                                <a href="#property__connectors">_connectors</a>
+                                <a href="#property__eventEmitters">_eventEmitters</a>
 
                                 
                                 
@@ -332,8 +332,8 @@ It is shared between all modules.</p>
                 <h2 class="off-left">Methods</h2>
 
                 
-                    <div id="method_addConnector" class="method item">
-    <h3 class="name"><code>addConnector</code></h3>
+                    <div id="method_addEventEmitter" class="method item">
+    <h3 class="name"><code>addEventEmitter</code></h3>
 
     
         <div class="args">
@@ -341,7 +341,7 @@ It is shared between all modules.</p>
             
                 <li class="arg">
                     
-                        <code>connector</code>
+                        <code>eventEmitter</code>
                     
                 </li>
             
@@ -389,7 +389,7 @@ It is shared between all modules.</p>
     </div>
 
     <div class="description">
-        <p>Adds a connector instance.</p>
+        <p>Adds an event emitter instance.</p>
 
     </div>
 
@@ -401,14 +401,14 @@ It is shared between all modules.</p>
             
                 <li class="param">
                     
-                        <code class="param-name">connector</code>
-                        <span class="type">Connector</span>
+                        <code class="param-name">eventEmitter</code>
+                        <span class="type">EventEmitter</span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>The connector</p>
+                        <p>The event emitter</p>
 
                     </div>
 
@@ -437,8 +437,8 @@ It is shared between all modules.</p>
 </div>
 
                 
-                    <div id="method_addConnector" class="method item">
-    <h3 class="name"><code>addConnector</code></h3>
+                    <div id="method_addEventEmitter" class="method item">
+    <h3 class="name"><code>addEventEmitter</code></h3>
 
     
         <div class="args">
@@ -446,7 +446,7 @@ It is shared between all modules.</p>
             
                 <li class="arg">
                     
-                        <code>connector</code>
+                        <code>eventEmitter</code>
                     
                 </li>
             
@@ -494,7 +494,7 @@ It is shared between all modules.</p>
     </div>
 
     <div class="description">
-        <p>Removes a connector instance.</p>
+        <p>Removes an event emitter instance.</p>
 
     </div>
 
@@ -506,14 +506,14 @@ It is shared between all modules.</p>
             
                 <li class="param">
                     
-                        <code class="param-name">connector</code>
-                        <span class="type">Connector</span>
+                        <code class="param-name">eventEmitter</code>
+                        <span class="type">EventEmitter</span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>The connector</p>
+                        <p>The event emitter</p>
 
                     </div>
 
@@ -706,7 +706,7 @@ It is shared between all modules.</p>
     </div>
 
     <div class="description">
-        <p>Dispatches the event with the given arguments to the attached connectors.</p>
+        <p>Dispatches the event with the given arguments to the attached event emitters.</p>
 
     </div>
 
@@ -1199,8 +1199,8 @@ This stops and unregisters a module through a module instance.</p>
 </div>
 
                 
-                    <div id="property__connectors" class="property item">
-    <h3 class="name"><code>_connectors</code></h3>
+                    <div id="property__eventEmitters" class="property item">
+    <h3 class="name"><code>_eventEmitters</code></h3>
     <span class="type">Array</span>
 
     
@@ -1232,7 +1232,7 @@ This stops and unregisters a module through a module instance.</p>
     </div>
 
     <div class="description">
-        <p>Contains references to all module connectors.</p>
+        <p>Contains references to all module event emitters.</p>
 
     </div>
 

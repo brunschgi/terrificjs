@@ -30,7 +30,7 @@ var gulp = require('gulp'),
 		'./src/Application.js',
 		'./src/Sandbox.js',
 		'./src/Module.js',
-		'./src/Connector.js',
+		'./src/EventEmitter.js',
 		'./src/Utils.js',
 		'./src/exports.js'
 	];

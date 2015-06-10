@@ -19,34 +19,34 @@ declare module T {
         getModuleById(id: number): Module;
     }
 
-    class Connector {
+    class EventEmitter {
         _listeners: any;
         _sandbox: Sandbox;
         _connected: boolean;
 
         constructor(sandbox: Sandbox);
 
-        on(event: string, listener: (...allArguments: any[]) => void): Connector;
-        addListener(event: string, listener: (...allArguments: any[]) => void): Connector;
-        once(event: string, listener: (...allArguments: any[]) => void): Connector;
-        off(): Connector;
-        off(event: string): Connector;
-        off(event: string, listener: Function): Connector;
-        removeListener(): Connector;
-        removeListener(event: string): Connector;
-        removeListener(event: string, listener: Function): Connector;
-        removeAllListeners(event: string): Connector;
-        emit(...allArguments: any[]): Connector;
-        handle(event: string, ...allArguments: any[]): Connector;
+        on(event: string, listener: (...allArguments: any[]) => void): EventEmitter;
+        addListener(event: string, listener: (...allArguments: any[]) => void): EventEmitter;
+        once(event: string, listener: (...allArguments: any[]) => void): EventEmitter;
+        off(): EventEmitter;
+        off(event: string): EventEmitter;
+        off(event: string, listener: Function): EventEmitter;
+        removeListener(): EventEmitter;
+        removeListener(event: string): EventEmitter;
+        removeListener(event: string, listener: Function): EventEmitter;
+        removeAllListeners(event: string): EventEmitter;
+        emit(...allArguments: any[]): EventEmitter;
+        handle(event: string, ...allArguments: any[]): EventEmitter;
         listeners(event: string): ((...allArguments: any[]) => void)[];
         hasListeners(event: string): boolean;
-        connect(): Connector;
-        disconnect(): Connector;
+        connect(): EventEmitter;
+        disconnect(): EventEmitter;
     }
 
     class Sandbox {
         _application: Application;
-        _connectors: Connector[];
+        _eventEmitters: EventEmitter[];
 
         constructor(application: Application);
 
@@ -55,15 +55,15 @@ declare module T {
         getModuleById(id: number): Module;
         getConfig(): any;
         getConfigParam(name: string): any;
-        addConnector(connector: Connector): Sandbox;
-        removeConnector(connector: Connector): Sandbox;
+        addEventEmitter(eventEmitter: EventEmitter): Sandbox;
+        removeEventEmitter(eventEmitter: EventEmitter): Sandbox;
         dispatch(...allArguments: any[]): Sandbox;
     }
 
     class Module {
         _ctx: Node;
         _sandbox: Sandbox;
-        _events: Connector;
+        _events: EventEmitter;
 
         constructor(ctx: Node, sandbox: Sandbox);
 
@@ -72,4 +72,5 @@ declare module T {
     }
 
 	export function createModule(spec: any):Function;
+	export function createSkin(spec: any):Function;
 }

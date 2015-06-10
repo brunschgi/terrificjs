@@ -363,12 +363,12 @@ function Sandbox(application) {
 	this._application = application;
 
 	/**
-	 * Contains references to all module connectors.
+	 * Contains references to all module event emitters.
 	 *
-	 * @property _connectors
+	 * @property _eventEmitters
 	 * @type Array
 	 */
-	this._connectors = [];
+	this._eventEmitters = [];
 }
 
 /**
@@ -484,31 +484,31 @@ Sandbox.prototype.getConfigParam = function (name) {
 };
 
 /**
- * Adds a connector instance.
+ * Adds an event emitter instance.
  *
- * @method addConnector
- * @param {Connector} connector
- *      The connector
+ * @method addEventEmitter
+ * @param {EventEmitter} eventEmitter
+ *      The event emitter
  * @return {Sandbox}
  */
-Sandbox.prototype.addConnector = function (connector) {
-	this._connectors.push(connector);
+Sandbox.prototype.addEventEmitter = function (eventEmitter) {
+	this._eventEmitters.push(eventEmitter);
 	return this;
 };
 
 /**
- * Removes a connector instance.
+ * Removes an event emitter instance.
  *
- * @method addConnector
- * @param {Connector} connector
- *      The connector
+ * @method addEventEmitter
+ * @param {EventEmitter} eventEmitter
+ *      The event emitter
  * @return {Sandbox}
  */
-Sandbox.prototype.removeConnector = function (connector) {
-	var connectors = this._connectors;
-	for (var i = 0, len = connectors.length; i < len; i++) {
-		if (connectors[i] === connector) {
-			connectors.splice(i, 1);
+Sandbox.prototype.removeEventEmitter = function (eventEmitter) {
+	var eventEmitters = this._eventEmitters;
+	for (var i = 0, len = eventEmitters.length; i < len; i++) {
+		if (eventEmitters[i] === eventEmitter) {
+			eventEmitters.splice(i, 1);
 			break;
 		}
 	}
@@ -516,18 +516,18 @@ Sandbox.prototype.removeConnector = function (connector) {
 };
 
 /**
- * Dispatches the event with the given arguments to the attached connectors.
+ * Dispatches the event with the given arguments to the attached event emitters.
  *
  * @method dispatch
  * @param {Mixed} ...
  * @return {Sandbox}
  */
 Sandbox.prototype.dispatch = function () {
-	var connectors = this._connectors;
+	var eventEmitters = this._eventEmitters;
 
-	for(var i = 0, len = connectors.length; i < len; i++) {
-		var connector = connectors[i];
-		connector.handle.apply(connector, arguments);
+	for(var i = 0, len = eventEmitters.length; i < len; i++) {
+		var eventEmitter = eventEmitters[i];
+		eventEmitter.handle.apply(eventEmitter, arguments);
 	}
 
 	return this;
@@ -545,7 +545,7 @@ Sandbox.prototype.dispatch = function () {
  * @param {Sandbox} sandbox
  *      The sandbox to get the resources from
  */
-/* global Connector */
+/* global EventEmitter */
 function Module(ctx, sandbox) {
 	/**
 	 * Contains the context node.
@@ -567,9 +567,9 @@ function Module(ctx, sandbox) {
 	 * The emitter.
 	 *
 	 * @property _events
-	 * @type Connector
+	 * @type EventEmitter
 	 */
-	this._events = new Connector(sandbox);
+	this._events = new EventEmitter(sandbox);
 }
 
 /**
@@ -601,14 +601,14 @@ Module.prototype.stop = function () {
  *
  * @author Remo Brunschwiler
  * @namespace T
- * @class Connector
+ * @class EventEmitter
  *
  * @constructor
  *
  * @param {Sandbox} sandbox
  *      The sandbox instance
  */
-function Connector(sandbox) {
+function EventEmitter(sandbox) {
 	/**
 	 * The listeners.
 	 *
@@ -640,9 +640,9 @@ function Connector(sandbox) {
  * @method on
  * @param {String} event
  * @param {Function} listener
- * @return {Connector}
+ * @return {EventEmitter}
  */
-Connector.prototype.on = Connector.prototype.addListener = function (event, listener) {
+EventEmitter.prototype.on = EventEmitter.prototype.addListener = function (event, listener) {
 	this.connect();
 
 	(this._listeners['$' + event] = this._listeners['$' + event] || []).push(listener);
@@ -656,9 +656,9 @@ Connector.prototype.on = Connector.prototype.addListener = function (event, list
  * @method once
  * @param {String} event
  * @param {Function} listener
- * @return {Connector}
+ * @return {EventEmitter}
  */
-Connector.prototype.once = function (event, listener) {
+EventEmitter.prototype.once = function (event, listener) {
 	this.connect();
 
 	function on() {
@@ -678,9 +678,9 @@ Connector.prototype.once = function (event, listener) {
  * @method off
  * @param {String} event
  * @param {Function} listener
- * @return {Connector}
+ * @return {EventEmitter}
  */
-Connector.prototype.off = Connector.prototype.removeListener = Connector.prototype.removeAllListeners = function (event, listener) {
+EventEmitter.prototype.off = EventEmitter.prototype.removeListener = EventEmitter.prototype.removeAllListeners = function (event, listener) {
 	// all
 	if (arguments.length === 0) {
 		this._listeners = {};
@@ -717,9 +717,9 @@ Connector.prototype.off = Connector.prototype.removeListener = Connector.prototy
  *
  * @method emit
  * @param {Mixed} ...
- * @return {Connector}
+ * @return {EventEmitter}
  */
-Connector.prototype.emit = function () {
+EventEmitter.prototype.emit = function () {
 	this.connect();
 
 	// dispatches event to the sandbox
@@ -734,9 +734,9 @@ Connector.prototype.emit = function () {
  * @method handle
  * @param {String} event
  * @param {Mixed} ...
- * @return {Connector}
+ * @return {EventEmitter}
  */
-Connector.prototype.handle = function (event) {
+EventEmitter.prototype.handle = function (event) {
 	var args = [].slice.call(arguments, 1),
 		listeners = this._listeners['$' + event];
 
@@ -758,18 +758,18 @@ Connector.prototype.handle = function (event) {
  * @param {String} event
  * @return {Array}
  */
-Connector.prototype.listeners = function (event) {
+EventEmitter.prototype.listeners = function (event) {
 	return this._listeners['$' + event] || [];
 };
 
 /**
- * Check if this connector has listeners.
+ * Check if this event emitter has listeners.
  *
  * @method hasListeners
  * @param {String} event
  * @return {Boolean}
  */
-Connector.prototype.hasListeners = function (event) {
+EventEmitter.prototype.hasListeners = function (event) {
 	return !!this.listeners(event).length;
 };
 
@@ -777,11 +777,11 @@ Connector.prototype.hasListeners = function (event) {
  * Connect instance to the sandbox.
  *
  * @method connect
- * @return {Connector}
+ * @return {EventEmitter}
  */
-Connector.prototype.connect = function () {
+EventEmitter.prototype.connect = function () {
 	if (!this._connected) {
-		this._sandbox.addConnector(this);
+		this._sandbox.addEventEmitter(this);
 		this._connected = true;
 	}
 
@@ -792,11 +792,11 @@ Connector.prototype.connect = function () {
  * Disconnect instance from the sandbox.
  *
  * @method disconnect
- * @return {Connector}
+ * @return {EventEmitter}
  */
-Connector.prototype.disconnect = function () {
+EventEmitter.prototype.disconnect = function () {
 	if (this._connected) {
-		this._sandbox.removeConnector(this);
+		this._sandbox.removeEventEmitter(this);
 		this._connected = false;
 	}
 
@@ -1077,13 +1077,13 @@ var Utils = {
 };
 
 
-/* global Application, Sandbox, Module, Connector, Utils */
+/* global Application, Sandbox, Module, EventEmitter, Utils */
 /* jshint unused: false */
 var T = {
 	Application: Application,
 	Sandbox: Sandbox,
 	Module: Module,
-	Connector: Connector,
+	EventEmitter: EventEmitter,
 	createModule: Utils.createModule,
 	createSkin: Utils.createSkin,
 	version: '3.0.0-beta.6'
