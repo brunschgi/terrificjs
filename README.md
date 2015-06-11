@@ -12,7 +12,7 @@ Btw: It's productively being used on many high traffic sites and applications â€
 ## Content
 
 - [Installation](#installation)
-- [Quickstart]
+- [Quickstart](#quickstart)
 - [Usage](#usage)
      - [Modules](#modules)
      - [Decorators](#decorators)
@@ -40,8 +40,6 @@ If you have installed terrific as a bower component, these dependencies are alre
 ## Examples
 
 You can find some examples on Codepen
-
-<iframe height='225' scrolling='no' src='//codepen.io/brunschgi/embed/waGdaM/?height=225&theme-id=0&default-tab=result' frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 100%;'>See the Pen <a href='http://codepen.io/brunschgi/pen/waGdaM/'>Simple Terrific Module</a> by Remo Brunschwiler (<a href='http://codepen.io/brunschgi'>@brunschgi</a>) on <a href='http://codepen.io'>CodePen</a>.</iframe>
 
 - [Simple Search Module](http://codepen.io/brunschgi/pen/waGdaM)
 
@@ -331,7 +329,7 @@ T.Module.Bar = T.createModule({
 
 ### Sandbox
 
-The `Sandbox instance is shared among all modules and allows them to communicate with the application.
+The `Sandbox` instance is shared among all modules and allows them to communicate with the application.
 Every module can access the sandbox over the `this._sandbox` property.
 
 Supported methods
