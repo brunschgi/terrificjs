@@ -39,7 +39,7 @@ function Sandbox(application) {
  *      A collection containing the registered modules
  */
 Sandbox.prototype.addModules = function (ctx) {
-	var modules = [],
+	var modules = {},
 		application = this._application;
 
 	if (Utils.isNode(ctx)) {
@@ -67,7 +67,7 @@ Sandbox.prototype.removeModules = function (modules) {
 
 	if (Utils.isNode(modules)) {
 		// get modules
-		var tmpModules = [];
+		var tmpModules = {};
 
 		var nodes = Utils.getModuleNodes(modules);
 		nodes.forEach(function (ctx) {
@@ -78,7 +78,7 @@ Sandbox.prototype.removeModules = function (modules) {
 				var module = this.getModuleById(id);
 
 				if (module) {
-					tmpModules.push(module);
+					tmpModules[id] = module;
 				}
 			}
 		}.bind(this));
@@ -86,7 +86,7 @@ Sandbox.prototype.removeModules = function (modules) {
 		modules = tmpModules;
 	}
 
-	if (Array.isArray(modules)) {
+	if(Utils.isObject(modules)) {
 		// stop modules – let the module clean itself
 		application.stop(modules);
 

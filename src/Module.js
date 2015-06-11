@@ -58,5 +58,5 @@ Module.prototype.start = function (resolve) {
  * @method stop
  */
 Module.prototype.stop = function () {
-	this._events.disconnect();
+	this._events.off().disconnect();
 };

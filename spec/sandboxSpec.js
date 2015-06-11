@@ -71,15 +71,14 @@ describe('Sandbox', function () {
             expect(this.application.stop).toHaveBeenCalled();
         });
 
-        it('should delegate to the application when called with an array', function () {
-            this.sandbox.removeModules(['1']);
+        it('should delegate to the application when called with a module collection', function () {
+            this.sandbox.removeModules({1 : true});
 
             expect(this.application.unregisterModules).toHaveBeenCalled();
             expect(this.application.stop).toHaveBeenCalled();
         });
 
         it('should not delegate to the application when called with anything else', function () {
-            this.sandbox.removeModules({});
             this.sandbox.removeModules('String');
             this.sandbox.removeModules(1);
 
