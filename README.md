@@ -1,16 +1,13 @@
 [![Build Status](https://travis-ci.org/brunschgi/terrificjs.svg)](https://travis-ci.org/brunschgi/terrificjs)
 
 # Terrific JavaScript Framework
-
 ## What is TerrificJS
-
 TerrificJS is a neat, clever piece of code that allows you to modularize your frontend code by solely relying on naming conventions.
 So simple, so effective! Its your perfect JS buddy if you are working with a «modularization philosophy» like [Atomic Design](http://bradfrost.com/blog/post/atomic-web-design/) in mind.
 
 Btw: It's productively being used on many high traffic sites and applications – e.g. [freitag.com](http://www.freitag.com), [swisscom.ch](http://www.swisscom.com), [sbb.ch](http://www.sbb.ch), [frontify.com](http://frontify.com) & many many more.
 
 ## Content
-
 - [Installation](#installation)
 - [Quickstart](#quickstart)
 - [Usage](#usage)
@@ -23,28 +20,23 @@ Btw: It's productively being used on many high traffic sites and applications �
 - [Advanced Usage](#advanced-usage)
 - [Build your own TerrificJS](#build-your-own-terrificjs)
 
-
 ## Installation
-
 Install the package as a bower component
 
     bower install terrific
 
 ### ES5 & ES6 Promise
-
 Terrific depends on an es5-shim for older browsers. [kriskowal's es5-shim](https://github.com/kriskowal/es5-shim) provides everything required.
 Moreover it uses ES6 Promises. [jakearchibald's  es6-promise](https://github.com/jakearchibald/es6-promise) does the trick.
 
 If you have installed terrific as a bower component, these dependencies are already included.
 
 ## Examples
-
 You can find some examples on Codepen
 
 - [Simple Search Module](http://codepen.io/brunschgi/pen/waGdaM)
 
 ## Quickstart
-
 Making your Terrific application up and running is a simple 3 step process.
 
 1. Create your modules
@@ -52,7 +44,6 @@ Making your Terrific application up and running is a simple 3 step process.
 3. Boostrap your application
 
 ### 1. Create your modules
-
 Create your modules by using `T.createModule({ … })`
 
 ```js
@@ -66,7 +57,6 @@ T.Module.Foo = T.createModule({
 ```
 
 ### 2. Annotate your markup
-
 Drop `terrific.js` to your page and annotate your markup by using the `data-t-name` attribute, eg. for the molecule foo`
 
 ```html
@@ -83,7 +73,6 @@ Drop `terrific.js` to your page and annotate your markup by using the `data-t-na
 ```
 
 ### 3. Bootstrap your application
-
 Bootstrap your application (at the end of the page or when the document is ready)
 
 ```js
@@ -93,9 +82,7 @@ application.start();
 ```
 
 ## Usage
-
 ### Modules
-
 Modules are the real stars of your TerrificJS application. All of your JavaScript code will find its place in one of the modules. In regard to this fact you will find yourself spending most of your time writing modules.
 
 The module API is very easy and consists of 2 lifecycle methods – `start()` and `stop()`
@@ -131,11 +118,9 @@ To get your module instantiated with the correct `this._ctx` you have to annotat
 ```
 
 ### Decorators
-
 Decorators allow you to extend the functionality of your modules.
 
-**Example**
-
+#### Example
 Create Module
 
 ```js
@@ -193,35 +178,33 @@ To get your module decorated by the proper decorator you have to annotate your m
 ```
 
 ### EventEmitter
-
 The `EventEmitter` allows your module to communicate with the outside (e.g. other modules).
 To provide proper module encapsulation, every module comes with an own `EventEmitter` instance – bound on `this._events`. All emitted events are being dispatched over the `Sandbox` to the other `EventEmitter` instances.
 
 The `EventEmitter` API is strongly related to the NodeJS [EventEmitter API](https://nodejs.org/api/events.html#events_class_events_eventemitter).
 The following methods are supported
 
-**emit(event, ...)**
+#### emit(event, ...)
 Emits an `event` with variable option args.
 
-**on(event, fn) / addListener(event, fn)**
+#### on(event, fn) / addListener(event, fn)
 Registers an `event` handler `fn`.
 
-**once(event, fn)**
+#### once(event, fn)
 Registers a single-shot `event` handler `fn`, removed immediately after it is invoked the first time.
 
-**off(event, fn) / removeListener(event, fn) / removeAllListeners(event, fn)**
+#### off(event, fn) / removeListener(event, fn) / removeAllListeners(event, fn)
 - Pass `event` and `fn` to remove a listener.
 - Pass `event` to remove all listeners on that event.
 - Pass nothing to remove all listeners on all events.
 
-**listeners(event)**
+#### listeners(event)
 Returns an array of callbacks, or an empty array.
 
-**hasListeners(event)**
+#### hasListeners(event)
 Checks if this emitter has `event` handlers.
 
-**Example**
-
+#### Example
 ```js
 T.Module.Foo = T.createModule({
 	start: function(resolve) {
@@ -235,7 +218,6 @@ T.Module.Foo = T.createModule({
 ```
 
 ### Bootstrap Application
-
 The bootstrap kickstarts the engine of your Application and saves you from tedious work by wiring up your components automatically.
 Place the bootstrap code at the end of your page (or when the document is ready).
 
@@ -248,8 +230,7 @@ application.start(); // starts the application by calling `start()` on each regi
 This is the most basic form of the application bootstrap. Optionally you can extend the bootstrap and tailor it to your needs.
 
 
-**Specific application context**
-
+#### Specific application context
 Create a new application for a specific part of the page
 
 ```js
@@ -266,16 +247,14 @@ application.registerModules(document.getElementById('my-app')); // only consider
 
 ```
 
-**Global config**
-
+#### Global config
 Pass in a global configuration object (accessible over the shared [`Sandbox`](#sandbox) instance).
 
 ```js
 var application = new T.Application({ foo: 'bar', bar : 'foo' });
 ```
 
-**Register module manually**
-
+#### Register module manually
 Register the module `Foo` – decorated with the decorator `Bar` – on the DOM element with `id="foo"`.
 
 ```js
@@ -284,7 +263,6 @@ application.registerModule(document.getElementById('foo'), 'Foo', ['Bar']);
 ```
 
 ### Lifecycle Events
-
 Lifecycle events offers the possibility to listen and react on some application internals by using `EventEmitter`.
 Supported lifecycle events
 
@@ -300,8 +278,7 @@ Supported lifecycle events
 - `t.unregister.start` => emitted when `application.unregisterModules()` is started
 - `t.unregister.end` => emitted when `application.unregisterModules()` is ended
 
-**Example**
-
+#### Example
 Listen to the `t.sync` lifecycle event to make sure that all modules have added their listeners before emitting an event
 
 ```js
@@ -328,38 +305,35 @@ T.Module.Bar = T.createModule({
 ```
 
 ### Sandbox
-
 The `Sandbox` instance is shared among all modules and allows them to communicate with the application.
 Every module can access the sandbox over the `this._sandbox` property.
 
 Supported methods
 
-**addModules(ctx)**
+#### addModules(ctx)
 Add modules – contained in the `ctx` DOM Element – to the application
 
-**removeModules(ctx)**
+#### removeModules(ctx)
 - ctx == DOM Element: Remove all modules – contained in the `ctx` DOM Element – from the application
 - ctx == Module collection (return value from `addModules`): Remove given modules from the application
 
-**getModuleById(id)**
+#### getModuleById(id)
 Returns the module instance for the given id (id = value of `data-t-id` attribute)
 
-**getConfig()**
+#### getConfig()
 Returns the global config
 
-**getConfigParam(name)**
+#### getConfigParam(name)
 Returns the appropriate config param
 
 
 ## Advanced Usage
-
 ### Change T.Module Namespace
 
 The application bootstrap looks for module and decorator definitions in the `T.Module` namespace, e.g. `T.Module.Foo`.
 The namespace can be changed either for individual or for all modules.
 
-**Individual module**
-
+#### Individual module
 Create module in different namespace, e.g. `App.Component`.
 
 ```js
@@ -380,8 +354,7 @@ Annotate your markup by using the `data-t-namespace` attribute
 </div>
 ```
 
-**All modules**
-
+#### All modules
 Its quite tedious to blow up your markup by adding the `data-t-namespace` attribute to each single module .
 
 Change the default namespace in the global config.
@@ -391,7 +364,6 @@ var application = new T.Application({ namespace: 'App.Component' });
 ```
 
 ### Use EventEmitter outside modules
-
 The `EventEmitter` can also be used to communicate with modules from non-module context, e.g. from the application bootstrap.
 
 ```js
@@ -408,7 +380,6 @@ application.start();
 ```
 
 ### Build your own TerrificJS
-
 - Install [Node.js](http://nodejs.org/)
 - Open a terminal
 - Make sure gulp is available globally `npm install -g gulp`
