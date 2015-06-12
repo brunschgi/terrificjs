@@ -79,7 +79,8 @@ describe('Sandbox', function () {
         });
 
         it('should not delegate to the application when called with anything else', function () {
-            this.sandbox.removeModules('String');
+			this.sandbox.removeModules([]);
+			this.sandbox.removeModules('String');
             this.sandbox.removeModules(1);
 
             expect(this.application.unregisterModules).not.toHaveBeenCalled();

@@ -13,7 +13,7 @@
  *
  * @copyright   Copyright (c) 2015 Remo Brunschwiler
  * @license     Licensed under MIT license
- * @version     3.0.0-beta.6
+ * @version     3.0.0-beta.7
  */
 
 /**
@@ -865,7 +865,7 @@ var Utils = {
 	 */
 	isObject: function (obj) {
 		var type = typeof obj;
-		return !!obj && (type === 'object' || type === 'function');
+		return !!obj && (type === 'object' || type === 'function') && !Array.isArray(obj);
 	},
 
 	/**
@@ -1086,7 +1086,7 @@ var T = {
 	EventEmitter: EventEmitter,
 	createModule: Utils.createModule,
 	createDecorator: Utils.createDecorator,
-	version: '3.0.0-beta.6'
+	version: '3.0.0-beta.7'
 };
 return T;
 }));

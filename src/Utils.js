@@ -59,7 +59,7 @@ var Utils = {
 	 */
 	isObject: function (obj) {
 		var type = typeof obj;
-		return !!obj && (type === 'object' || type === 'function');
+		return !!obj && (type === 'object' || type === 'function') && !Array.isArray(obj);
 	},
 
 	/**
