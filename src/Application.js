@@ -199,11 +199,7 @@ Application.prototype.start = function (modules) {
 		if (modules.hasOwnProperty(id)) {
 			var promise = (function (id) {
 				return new Promise(function (resolve, reject) {
-					try {
-						modules[id].start(resolve, reject);
-					} catch (err) {
-						reject(err);
-					}
+                    modules[id].start(resolve, reject);
 				});
 			}(id));
 

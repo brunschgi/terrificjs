@@ -13,7 +13,7 @@
  *
  * @copyright   Copyright (c) 2015 Remo Brunschwiler
  * @license     Licensed under MIT license
- * @version     3.0.0-beta.7
+ * @version     3.0.0-beta.8
  */
 
 /**
@@ -208,11 +208,7 @@ Application.prototype.start = function (modules) {
 		if (modules.hasOwnProperty(id)) {
 			var promise = (function (id) {
 				return new Promise(function (resolve, reject) {
-					try {
-						modules[id].start(resolve, reject);
-					} catch (err) {
-						reject(err);
-					}
+                    modules[id].start(resolve, reject);
 				});
 			}(id));
 
@@ -1086,7 +1082,7 @@ var T = {
 	EventEmitter: EventEmitter,
 	createModule: Utils.createModule,
 	createDecorator: Utils.createDecorator,
-	version: '3.0.0-beta.7'
+	version: '3.0.0-beta.8'
 };
 return T;
 }));
