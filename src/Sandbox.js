@@ -185,7 +185,9 @@ Sandbox.prototype.dispatch = function () {
 
 	for(var i = 0, len = eventEmitters.length; i < len; i++) {
 		var eventEmitter = eventEmitters[i];
-		eventEmitter.handle.apply(eventEmitter, arguments);
+		if(eventEmitter !== undefined) {
+			eventEmitter.handle.apply(eventEmitter, arguments);
+		}
 	}
 
 	return this;
