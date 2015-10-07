@@ -72,9 +72,8 @@ Sandbox.prototype.removeModules = function (modules) {
 		var nodes = Utils.getModuleNodes(modules);
 		nodes.forEach(function (ctx) {
 			// check for instance
-			var id = ctx.getAttribute('data-t-id');
-
-			if (id !== undefined) {
+			if (ctx.hasAttribute('data-t-id')) {
+				var id = ctx.getAttribute('data-t-id');
 				var module = this.getModuleById(id);
 
 				if (module) {

@@ -170,7 +170,10 @@ Application.prototype.unregisterModules = function (modules) {
 
 	// unregister the given modules
 	for (var id in modules) {
-		if (modules.hasOwnProperty(id)) {
+		if (this._modules.hasOwnProperty(id)) {
+			if(Utils.isNode(this._modules[id]._ctx)) {
+				this._modules[id]._ctx.removeAttribute('data-t-id');
+			}
 			delete this._modules[id];
 		}
 	}
@@ -257,6 +260,10 @@ Application.prototype.registerModule = function (ctx, mod, decorators, namespace
 	var modules = this._modules;
 
 	// validate params
+	if(ctx.hasAttribute('data-t-id')) {
+		return null; // prevent from registering twice
+	}
+
 	mod = Utils.capitalize(Utils.camelize(mod));
 
 	if (Utils.isString(decorators)) {
