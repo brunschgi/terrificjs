@@ -253,10 +253,7 @@ var Utils = {
 						orig[name] = (function (name, fn) {
 							return function () {
 								this._parent = parent;
-								var ret = fn.apply(this, arguments);
-								delete this._parent;
-
-								return ret;
+								return fn.apply(this, arguments);
 							};
 						}(name, spec[name]));
 					}
