@@ -13,7 +13,7 @@
  *
  * @copyright   Copyright (c) 2015 Remo Brunschwiler
  * @license     Licensed under MIT license
- * @version     3.0.0-beta.8
+ * @version     3.0.0-beta.9
  */
 
 /**
@@ -179,7 +179,10 @@ Application.prototype.unregisterModules = function (modules) {
 
 	// unregister the given modules
 	for (var id in modules) {
-		if (modules.hasOwnProperty(id)) {
+		if (this._modules.hasOwnProperty(id)) {
+			if(Utils.isNode(this._modules[id]._ctx)) {
+				this._modules[id]._ctx.removeAttribute('data-t-id');
+			}
 			delete this._modules[id];
 		}
 	}
@@ -220,8 +223,8 @@ Application.prototype.start = function (modules) {
 	var all = Promise.all(promises);
 	all.then(function () {
 		this._sandbox.dispatch('t.sync');
-	}.bind(this)).catch(function (error) {
-		throw Error('Starting or synchronizing the modules failed: ' + error);
+	}.bind(this)).catch(function (err) {
+		throw Error('Starting or synchronizing the modules failed: ' + err);
 	});
 
 	return all;
@@ -266,6 +269,10 @@ Application.prototype.registerModule = function (ctx, mod, decorators, namespace
 	var modules = this._modules;
 
 	// validate params
+	if(ctx.hasAttribute('data-t-id')) {
+		return null; // prevent from registering twice
+	}
+
 	mod = Utils.capitalize(Utils.camelize(mod));
 
 	if (Utils.isString(decorators)) {
@@ -410,9 +417,8 @@ Sandbox.prototype.removeModules = function (modules) {
 		var nodes = Utils.getModuleNodes(modules);
 		nodes.forEach(function (ctx) {
 			// check for instance
-			var id = ctx.getAttribute('data-t-id');
-
-			if (id !== undefined) {
+			if (ctx.hasAttribute('data-t-id')) {
+				var id = ctx.getAttribute('data-t-id');
 				var module = this.getModuleById(id);
 
 				if (module) {
@@ -523,7 +529,9 @@ Sandbox.prototype.dispatch = function () {
 
 	for(var i = 0, len = eventEmitters.length; i < len; i++) {
 		var eventEmitter = eventEmitters[i];
-		eventEmitter.handle.apply(eventEmitter, arguments);
+		if(eventEmitter !== undefined) {
+			eventEmitter.handle.apply(eventEmitter, arguments);
+		}
 	}
 
 	return this;
@@ -1055,10 +1063,7 @@ var Utils = {
 						orig[name] = (function (name, fn) {
 							return function () {
 								this._parent = parent;
-								var ret = fn.apply(this, arguments);
-								delete this._parent;
-
-								return ret;
+								return fn.apply(this, arguments);
 							};
 						}(name, spec[name]));
 					}
@@ -1082,7 +1087,7 @@ var T = {
 	EventEmitter: EventEmitter,
 	createModule: Utils.createModule,
 	createDecorator: Utils.createDecorator,
-	version: '3.0.0-beta.8'
+	version: '3.0.0-beta.9'
 };
 return T;
 }));
