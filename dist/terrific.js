@@ -11,9 +11,9 @@
  * TerrificJS modularizes your frontend code by solely relying on naming conventions.
  * http://terrifically.org
  *
- * @copyright   Copyright (c) 2015 Remo Brunschwiler
+ * @copyright   Copyright (c) 2016 Remo Brunschwiler
  * @license     Licensed under MIT license
- * @version     3.0.0-beta.9
+ * @version     3.0.0
  */
 
 /**
@@ -224,7 +224,7 @@ Application.prototype.start = function (modules) {
 	all.then(function () {
 		this._sandbox.dispatch('t.sync');
 	}.bind(this)).catch(function (err) {
-		throw Error('Starting or synchronizing the modules failed: ' + err);
+		throw err;
 	});
 
 	return all;
@@ -1087,7 +1087,7 @@ var T = {
 	EventEmitter: EventEmitter,
 	createModule: Utils.createModule,
 	createDecorator: Utils.createDecorator,
-	version: '3.0.0-beta.9'
+	version: '3.0.0'
 };
 return T;
 }));
