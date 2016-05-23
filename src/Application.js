@@ -215,7 +215,7 @@ Application.prototype.start = function (modules) {
 	all.then(function () {
 		this._sandbox.dispatch('t.sync');
 	}.bind(this)).catch(function (err) {
-		throw Error('Starting or synchronizing the modules failed: ' + err);
+		throw err;
 	});
 
 	return all;
