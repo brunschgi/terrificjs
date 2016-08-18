@@ -46,6 +46,27 @@ describe('Utils', function () {
 			expect(Module.foo()).toEqual('foo');
 			expect(Module.bar).toEqual('bar');
 		});
+
+		it('should deconstruct the module when calling stop', function () {
+			var Module = T.createModule({
+				name: 'Foo'
+			});
+			var instance = new Module({}, {});
+			spyOn(T.Module.prototype, 'stop');
+			instance.stop();
+			expect(T.Module.prototype.stop).toHaveBeenCalled();
+		});
+
+		it('should always deconstruct the module also if a custom stop function exists', function () {
+			var Module = T.createModule({
+				name: 'Foo',
+				stop: function() {}
+			});
+			var instance = new Module({}, {});
+			spyOn(T.Module.prototype, 'stop');
+			instance.stop();
+			expect(T.Module.prototype.stop).toHaveBeenCalled();
+		});
 	});
 });
 

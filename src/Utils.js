@@ -200,8 +200,19 @@ var Utils = {
 			Utils.extend(Constructor, spec.statics);
 		}
 
+		// Ensure that stop is called even if the spec contains a custom stop function
+		if (spec.hasOwnProperty('stop')) {
+			proto.stop = function() {
+				// Call the spec stop function
+				spec.stop.apply(this, arguments);
+				// Call the original stop function
+				Module.prototype.stop.apply(this, arguments);
+			};
+		}
+
 		var reservedKeys = [
-			'statics'
+			'statics',
+			'stop'
 		];
 
 		// mixin spec properties to module prototype
