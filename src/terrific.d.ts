@@ -1,21 +1,21 @@
 /// <reference path="es6-promise.d.ts" />
 declare module T {
     class Application {
-        _ctx: Node;
+        _ctx: Element;
         _sandbox: Sandbox;
 		_config: any;
         _modules: any;
         _id: number;
 
-        constructor(ctx?: Node, config?: any);
+        constructor(ctx?: Element, config?: any);
 
-        registerModules(ctx?: Node): Module[];
+        registerModules(ctx?: Element): Module[];
         unregisterModules(modules?: any): void;
         start(modules?: any): Promise<void>;
         stop(modules?: any): void;
-        registerModule(ctx: Node, mod: string, namespace?: any): Module;
-        registerModule(ctx: Node, mod: string, decorators?: string|string[]): Module;
-        registerModule(ctx: Node, mod: string, decorators?: string|string[], namespace?: any): Module;
+        registerModule(ctx: Element, mod: string, namespace?: any): Module;
+        registerModule(ctx: Element, mod: string, decorators?: string|string[]): Module;
+        registerModule(ctx: Element, mod: string, decorators?: string|string[], namespace?: any): Module;
         getModuleById(id: number): Module;
     }
 
@@ -50,8 +50,8 @@ declare module T {
 
         constructor(application: Application);
 
-        addModules(ctx: Node): Module[];
-        removeModules(modules: Node|Module[]): Sandbox;
+        addModules(ctx: Element): Module[];
+        removeModules(modules: Element|Module[]): Sandbox;
         getModuleById(id: number): Module;
         getConfig(): any;
         getConfigParam(name: string): any;
@@ -61,11 +61,11 @@ declare module T {
     }
 
     class Module {
-        _ctx: Node;
+        _ctx: Element;
         _sandbox: Sandbox;
         _events: EventEmitter;
 
-        constructor(ctx: Node, sandbox: Sandbox);
+        constructor(ctx: Element, sandbox: Sandbox);
 
         start(resolve: (value?: any) => void, reject: (error?: any) => void): void;
         stop(): void;
